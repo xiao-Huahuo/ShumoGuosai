@@ -7,12 +7,15 @@ import time
 from policy import CAP, E_MIN, E_MAX, ETA_C, ETA_D, Policy
 
 
-def value_gradient(vector, net, prices, weights, initial_soc):
+def value_gradient(vector, net, prices, weights, initial_soc, reserve=None):
     """对原文逐步min/max映射作分段导数；最终策略另由独立回放及LP下界验收。"""
     t = len(prices)
     segments = (len(vector)//t-1)//2
     grid = vector[:t]
     cp, rp = vector[t:].reshape(2, t, segments)
+    reserve = np.zeros(t) if reserve is None else np.asarray(reserve, dtype=float)
+    if reserve.shape != (t,):
+        raise ValueError("动态SOC安全裕度长度不符")
     state = np.full(len(net), initial_soc, dtype=float)
     value = float(prices@grid)
     derivatives = []
@@ -21,7 +24,9 @@ def value_gradient(vector, net, prices, weights, initial_soc):
         band = np.minimum((segments*(state-E_MIN)/(E_MAX-E_MIN)).astype(int), segments-1)
         band = np.maximum(band, 0)
         c_terms = np.array([cp[i, band], np.maximum(-x, 0), np.maximum((E_MAX-state)/ETA_C, 0)])
-        r_terms = np.array([rp[i, band], np.maximum(x, 0), np.maximum(ETA_D*(state-E_MIN), 0)])
+        reserve_active = state > E_MIN+reserve[i]
+        r_terms = np.array([rp[i, band], np.maximum(x, 0),
+                            np.maximum(ETA_D*(state-E_MIN-reserve[i]), 0)])
         c_index, r_index = c_terms.argmin(0), r_terms.argmin(0)
         charge, discharge = c_terms.min(0), r_terms.min(0)
         shortage = x-discharge > 0
@@ -31,7 +36,7 @@ def value_gradient(vector, net, prices, weights, initial_soc):
         ce = -((x < 0)&(c_index == 2)).astype(float)/ETA_C
         rg = -((x > 0)&(r_index == 1)).astype(float)
         rr = (x > 0)&(r_index == 0)
-        re = ((x > 0)&(r_index == 2)).astype(float)*ETA_D
+        re = ((x > 0)&(r_index == 2)&reserve_active).astype(float)*ETA_D
         derivatives.append((cg, cc, ce, rg, rr, re, shortage, band))
         state += ETA_C*charge-discharge/ETA_D
     gg = np.zeros(t); gc, gr = np.zeros((2, t, segments)); adjoint = np.zeros(len(net))
@@ -47,7 +52,7 @@ def value_gradient(vector, net, prices, weights, initial_soc):
 
 def refine(policy, net, prices, weights, initial_soc, *, target_cost=None, seconds=90):
     initial = np.r_[policy.grid, policy.charge_cap.ravel(), policy.discharge_cap.ravel()]
-    best = [value_gradient(initial, net, prices, weights, initial_soc)[0], initial.copy()]
+    best = [value_gradient(initial, net, prices, weights, initial_soc, policy.reserve)[0], initial.copy()]
     started = time.perf_counter()
     evaluations = 0
     class Finished(Exception):
@@ -55,7 +60,7 @@ def refine(policy, net, prices, weights, initial_soc, *, target_cost=None, secon
     def objective(vector):
         nonlocal evaluations
         evaluations += 1
-        value, gradient = value_gradient(vector, net, prices, weights, initial_soc)
+        value, gradient = value_gradient(vector, net, prices, weights, initial_soc, policy.reserve)
         if value < best[0]:
             best[:] = [value, vector.copy()]
         if target_cost is not None and best[0] <= target_cost:
@@ -72,7 +77,7 @@ def refine(policy, net, prices, weights, initial_soc, *, target_cost=None, secon
         iterations, termination = None, str(error)
     grid = best[1][:len(prices)]
     caps = best[1][len(prices):].reshape((2,)+policy.charge_cap.shape)
-    return Policy(grid, *caps), {"method": "piecewise_gradient_incumbent_only", "iterations": iterations,
+    return Policy(grid, *caps, policy.reserve), {"method": "piecewise_gradient_incumbent_only", "iterations": iterations,
                               "evaluations": evaluations, "seconds": time.perf_counter()-started,
                               "termination": termination, "candidate_cost": best[0],
                               "global_optimality_claim": False}

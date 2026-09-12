@@ -80,7 +80,7 @@ def rigid_schedule(net, prices, weights, initial_soc, *, fixed_grid=None):
     return grid, responses, info
 
 
-def deterministic_policy(net, prices, initial_soc):
+def deterministic_policy(net, prices, initial_soc, reserve=None):
     """确定性退化：若LP下界被同一反馈映射达到，即取得可验证的全局最优证书。
 
     LP只是lower-bound计算器；只有原模型回放费用等于该下界才返回可靠策略。
@@ -88,7 +88,7 @@ def deterministic_policy(net, prices, initial_soc):
     """
     net, prices = np.asarray(net), np.asarray(prices)
     grid, responses, info = rigid_schedule(net[None], prices, [1.], initial_soc)
-    policy = Policy(grid, responses[0]["charge"], responses[0]["discharge"])
+    policy = Policy(grid, responses[0]["charge"], responses[0]["discharge"], reserve)
     actual = replay(policy, net, initial_soc)
     value = float(prices@(grid+5*actual["emergency"]))
     closed = bool(np.isclose(value, info["lower_bound"], rtol=1e-9, atol=PHYSICAL_TOL))

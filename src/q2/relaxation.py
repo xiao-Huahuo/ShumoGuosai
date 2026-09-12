@@ -11,7 +11,7 @@ from scenarios import weighted_quantile
 from incumbent import refine
 
 
-def _candidate_costs(net, prices, weights, grid, charges, discharges, initial_soc):
+def _candidate_costs(net, prices, weights, grid, charges, discharges, initial_soc, reserve):
     """同时评价多个合法参数候选；每一步仍仅依赖当前场景值和上一状态。"""
     count, scenarios = len(charges), len(net)
     state = np.full((count, scenarios), initial_soc, dtype=float)
@@ -19,15 +19,20 @@ def _candidate_costs(net, prices, weights, grid, charges, discharges, initial_so
     for i in range(len(prices)):
         x = net[:, i]-grid[i]
         charge = np.minimum(np.minimum(charges[:, i, None], np.maximum(-x, 0)), np.maximum((E_MAX-state)/ETA_C, 0))
-        discharge = np.minimum(np.minimum(discharges[:, i, None], np.maximum(x, 0)), np.maximum(ETA_D*(state-E_MIN), 0))
+        discharge = np.minimum(np.minimum(discharges[:, i, None], np.maximum(x, 0)),
+                               np.maximum(ETA_D*(state-E_MIN-reserve[i]), 0))
         state += ETA_C*charge-discharge/ETA_D
         costs += 5*prices[i]*(np.maximum(x-discharge, 0)@weights)
     return costs
 
 
-def recourse_bound(net, prices, weights, initial_soc, *, target_gap=.01):
+def recourse_bound(net, prices, weights, initial_soc, *, target_gap=.01, reserve=None,
+                   refine_seconds=5.):
     started = time.perf_counter()
     s, t = net.shape
+    reserve = np.zeros(t) if reserve is None else np.asarray(reserve, dtype=float)
+    if reserve.shape != (t,) or not np.isfinite(refine_seconds) or refine_seconds < 0:
+        raise ValueError("动态SOC安全裕度长度不符")
     size = t+5*s*t
     grid = np.arange(t)
     charge, discharge, emergency, unused, soc = [np.arange(t+k*s*t, t+(k+1)*s*t).reshape(s, t) for k in range(5)]
@@ -66,13 +71,14 @@ def recourse_bound(net, prices, weights, initial_soc, *, target_gap=.01):
     pairs = [(c, r) for c in caps[0] for r in caps[1]]
     charges, discharges = np.asarray([c for c, _ in pairs]), np.asarray([r for _, r in pairs])
     planned = np.maximum(solved.x[grid], 0)
-    costs = _candidate_costs(net, prices, weights, planned, charges, discharges, initial_soc)
+    costs = _candidate_costs(net, prices, weights, planned, charges, discharges, initial_soc, reserve)
     best = int(np.argmin(costs))
-    policy = Policy(planned, charges[best], discharges[best])
+    policy = Policy(planned, charges[best], discharges[best], reserve)
     refinement = None
-    if (costs[best]-solved.fun)/max(abs(solved.fun), 1e-8) > target_gap:
+    if (costs[best]-solved.fun)/max(abs(solved.fun), 1e-8) > target_gap and refine_seconds > 0:
         policy, refinement = refine(policy, net, prices, weights, initial_soc,
-                                    target_cost=solved.fun+target_gap*max(abs(solved.fun), 1e-8))
+                                    target_cost=solved.fun+target_gap*max(abs(solved.fun), 1e-8),
+                                    seconds=refine_seconds)
     responses = [replay(policy, path, initial_soc) for path in net]
     value = float(prices@policy.grid + sum(5*p*(prices@r["emergency"]) for p, r in zip(weights, responses)))
     if refinement is None:
@@ -85,4 +91,5 @@ def recourse_bound(net, prices, weights, initial_soc, *, target_gap=.01):
     return policy, responses, {"lower_bound": lower, "incumbent_cost": value, "certified_gap": gap,
                                "seconds": time.perf_counter()-started, "variables": size,
                                "constraints": len(rhs), "refinement": refinement,
+                               "refine_seconds_budget": refine_seconds,
                                "role": "lower_bound_only_never_free_recourse_execution"}

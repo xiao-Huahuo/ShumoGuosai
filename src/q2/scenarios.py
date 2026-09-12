@@ -3,7 +3,7 @@
 import numpy as np
 from scipy.spatial.distance import cdist
 
-from policy import DT
+from policy import DT, E_MIN, E_MAX, ETA_D
 
 
 def eligible_origins(shadows, current, horizon, minimum=14, window=None):
@@ -31,6 +31,38 @@ def joint_blocks(history, shadows, origins, horizon):
     if blocks.shape[1:] != (horizon, 144, 2) or not np.isfinite(blocks).all():
         raise ValueError("联合误差块不完整")
     return blocks
+
+
+def net_error_energy(blocks):
+    """负荷/PV联合误差块转换为母线侧净负荷误差，单位kWh。"""
+    blocks = np.asarray(blocks, dtype=float)
+    if blocks.ndim != 4 or blocks.shape[2:] != (144, 2) or not np.isfinite(blocks).all():
+        raise ValueError("联合误差块维度或数值不合法")
+    return (DT*(blocks[..., 0]-blocks[..., 1])).reshape(len(blocks), -1)
+
+
+def cumulative_pressure(blocks):
+    """S_j=max_k[cumsum(e_net)]_+，保留完整预测窗口的时序压力。"""
+    errors = net_error_energy(blocks)
+    return np.maximum(np.cumsum(errors, axis=1).max(axis=1), 0)
+
+
+def dynamic_reserve(blocks, quantile=.8):
+    """由已完整实现的历史首日误差计算并冻结144段SOC安全裕度。"""
+    if not 0 <= quantile <= 1:
+        raise ValueError("动态SOC安全裕度分位数不合法")
+    errors = net_error_energy(blocks)[:, :144]
+    future_pressure = np.empty_like(errors)
+    running = np.zeros(len(errors))
+    for t in range(143, -1, -1):
+        running = np.maximum(errors[:, t]+running, 0)
+        future_pressure[:, t] = running
+    weights = np.ones(len(errors))/len(errors)
+    bus_reserve = weighted_quantile(future_pressure, weights, quantile)
+    reserve = np.minimum((E_MAX-E_MIN), bus_reserve/ETA_D)
+    return reserve, {"quantile": quantile, "historical_blocks": len(blocks),
+                     "max_reserve_kwh": float(reserve.max()),
+                     "mean_reserve_kwh": float(reserve.mean())}
 
 
 def weighted_quantile(values, weights, quantile):
@@ -88,18 +120,66 @@ def medoids(blocks, prices, count):
                                 "scales_kw": scales.tolist(), "distance_objective": float(distances[np.arange(size), selected[assignment]].sum())}
 
 
-def construct(point, blocks, prices, count=None):
+def _representatives(blocks, prices, count):
+    if count == 0:
+        return np.empty(0, dtype=int), {}
+    if count >= len(blocks):
+        return np.arange(len(blocks)), {"reduced": False}
+    indices, _, meta = medoids(blocks, prices, count)
+    return indices, {**meta, "reduced": True}
+
+
+def construct(point, blocks, prices, count=None, *, origins=None, all_blocks=None,
+              all_origins=None, tail_fraction=.2):
+    """总场景数不变的body/tail分层；长期尾部与近期主体分别保留经验概率质量。"""
+    blocks = np.asarray(blocks, dtype=float)
+    all_blocks = blocks if all_blocks is None else np.asarray(all_blocks, dtype=float)
     size = len(blocks)
-    if size <= 40:
-        indices, weights, meta = np.arange(size), np.ones(size)/size, {"reduced": False}
-    elif count is None or count == size:
-        indices, weights, meta = np.arange(size), np.ones(size)/size, {"reduced": False}
-    else:
-        indices, weights, meta = medoids(blocks, prices, count)
-        meta["reduced"] = True
-    values = np.maximum(np.asarray(point)[None]+blocks[indices], 0)
-    net = DT*(values[..., 0]-values[..., 1]).reshape(len(indices), -1)
-    return net, weights, {**meta, "M": size, "S": len(indices), "indices": indices.tolist(), "weights": weights.tolist()}
+    if not size or not len(all_blocks) or not 0 < tail_fraction < 1:
+        raise ValueError("场景池或尾部分层比例不合法")
+    origins = np.arange(size) if origins is None else np.asarray(origins, dtype=int)
+    all_origins = origins if all_origins is None else np.asarray(all_origins, dtype=int)
+    if len(origins) != size or len(all_origins) != len(all_blocks):
+        raise ValueError("场景误差块与forecast-origin索引不一致")
+    scenario_count = size if size <= 40 or count is None or count == size else min(size, int(count))
+    tail_pool_count = max(1, int(np.floor(tail_fraction*len(all_blocks)+.5)))
+    pressure = cumulative_pressure(all_blocks)
+    tail_pool_positions = np.argsort(pressure, kind="stable")[-tail_pool_count:]
+    tail_origin_set = set(int(v) for v in all_origins[tail_pool_positions])
+    body_pool_positions = np.array([i for i, origin in enumerate(origins)
+                                    if int(origin) not in tail_origin_set], dtype=int)
+    tail_count = max(1, int(np.floor(tail_fraction*scenario_count+.5)))
+    body_count = scenario_count-tail_count
+    if len(body_pool_positions) < body_count:
+        fallback = [i for i in range(size) if i not in set(body_pool_positions.tolist())]
+        body_pool_positions = np.r_[body_pool_positions, fallback]
+    body_choice, body_meta = _representatives(blocks[body_pool_positions], prices, body_count)
+    tail_choice, tail_meta = _representatives(all_blocks[tail_pool_positions], prices, tail_count)
+    selected_body_positions = body_pool_positions[body_choice]
+    selected_tail_positions = tail_pool_positions[tail_choice]
+    selected_blocks = np.concatenate((blocks[selected_body_positions],
+                                      all_blocks[selected_tail_positions]), axis=0)
+    tail_mass = tail_pool_count/len(all_blocks)
+    weights = np.r_[np.full(body_count, (1-tail_mass)/body_count) if body_count else np.empty(0),
+                    np.full(tail_count, tail_mass/tail_count)]
+    weights /= weights.sum()
+    values = np.maximum(np.asarray(point)[None]+selected_blocks, 0)
+    net = DT*(values[..., 0]-values[..., 1]).reshape(scenario_count, -1)
+    selected_origins = np.r_[origins[selected_body_positions], all_origins[selected_tail_positions]]
+    meta = {"reduced": bool(scenario_count < size), "tail_stratification": True,
+            "M": size, "M_all": len(all_blocks), "S": scenario_count,
+            "S_body": body_count, "S_tail": tail_count,
+            "tail_fraction": tail_fraction, "tail_probability_mass": tail_mass,
+            "body_probability_mass": 1-tail_mass,
+            "tail_pool_count": tail_pool_count,
+            "body_origin_indices": origins[selected_body_positions].tolist(),
+            "tail_origin_indices": all_origins[selected_tail_positions].tolist(),
+            "selected_origin_indices": selected_origins.tolist(),
+            "indices": list(range(scenario_count)), "weights": weights.tolist(),
+            "body_selection": body_meta, "tail_selection": tail_meta,
+            "tail_pressure_min_kwh": float(pressure[tail_pool_positions].min()),
+            "tail_pressure_max_kwh": float(pressure[tail_pool_positions].max())}
+    return net, weights, meta
 
 
 def quantile_comparison(full_net, reduced_net, weights):

@@ -2,20 +2,24 @@
 
 import numpy as np
 import pandas as pd
+import hashlib
 import json
+import os
 import time
+import copy
+from contextlib import contextmanager
 from pathlib import Path
 
 from comparators import deterministic_policy, rigid_schedule
 from checkpoint import atomic_json, read_checkpoint, recover_checkpoint, save_checkpoint
 from data import calendar_for_day, sha256, write_csv, write_json
-from forecast import seasonal
 from optimization import certify_policy, solve_policy
 from relaxation import recourse_bound
 from policy import DT, E_INITIAL, Policy, replay, validate_replay
 from protocol import PROTOCOL
-from scenarios import construct, quantile_comparison, weighted_quantile
-from shadows import choose_day
+from scenarios import (construct, dynamic_reserve, eligible_origins, joint_blocks,
+                       quantile_comparison, weighted_quantile)
+from shadows import choose_day, combined
 
 
 class ComputationalLimit(RuntimeError):
@@ -24,47 +28,108 @@ class ComputationalLimit(RuntimeError):
         self.details = details
 
 
-def _solve(net, prices, weights, soc, *, solver_seconds=None, solver_gap=PROTOCOL["solver_gap"], **options):
+def _solve(net, prices, weights, soc, *, reserve=None, solver_seconds=None,
+           solver_gap=PROTOCOL["solver_gap"], refine_seconds=PROTOCOL["refine_seconds"],
+           certificate_fast_path=True, solver_threads=PROTOCOL["solver_threads"],
+           solve_cache=None, cache_key=None, **options):
     if not np.isfinite(solver_gap) or not 0 < solver_gap < 1:
         raise ValueError("求解精度门槛无效")
-    if len(net) == 1:
-        policy, responses, info = deterministic_policy(net[0], prices, soc)
+    reserve = np.zeros(np.asarray(net).shape[1]) if reserve is None else np.asarray(reserve)
+    cache_entry = None
+    signature = hashlib.sha256(
+        np.ascontiguousarray(np.asarray(net)).view(np.uint8).tobytes()
+        +np.ascontiguousarray(np.asarray(prices)).view(np.uint8).tobytes()
+        +np.ascontiguousarray(np.asarray(weights)).view(np.uint8).tobytes()
+        +np.ascontiguousarray(reserve).view(np.uint8).tobytes()
+        +np.asarray([soc], dtype=float).view(np.uint8).tobytes()).hexdigest()
+    if solve_cache is not None and cache_key is not None:
+        cache_entry = solve_cache.setdefault(("solve", cache_key), {"signature": signature})
+        if cache_entry["signature"] != signature:
+            raise ValueError("同日rescue缓存与当前场景、概率、SOC或reserve不一致")
+    if len(net) == 1 and cache_entry is None:
+        policy, responses, info = deterministic_policy(net[0], prices, soc, reserve=reserve)
         if policy is not None:
             return policy, responses, info
-    mean = np.average(net, weights=weights, axis=0)
-    seed, _, _ = deterministic_policy(mean, prices, soc)
-    bound_policy, bound_responses, bound = recourse_bound(net, prices, weights, soc, target_gap=solver_gap)
+    reused_bound = bool(cache_entry and "bound" in cache_entry)
+    if reused_bound:
+        bound_policy, bound_responses, bound = (
+            cache_entry["bound_policy"], cache_entry["bound_responses"], cache_entry["bound"])
+        seed = cache_entry.get("seed_policy", bound_policy)
+    else:
+        mean = np.average(net, weights=weights, axis=0)
+        seed, _, _ = deterministic_policy(mean, prices, soc, reserve=reserve)
+        bound_policy, bound_responses, bound = recourse_bound(
+            net, prices, weights, soc, target_gap=solver_gap, reserve=reserve,
+            refine_seconds=refine_seconds)
+        if cache_entry is not None:
+            cache_entry.update(bound_policy=bound_policy, bound_responses=bound_responses,
+                               bound=bound, seed_policy=bound_policy)
     if bound["certified_gap"] <= solver_gap:
-        return certify_policy(net, prices, weights, soc, bound_policy, bound_responses, bound, solver_gap)
+        policy, responses, info = certify_policy(
+            net, prices, weights, soc, bound_policy, bound_responses, bound, solver_gap,
+            collect_model_statistics=not certificate_fast_path)
+        info.update(reused_recourse_bound=reused_bound, refine_seconds=refine_seconds)
+        return policy, responses, info
     if seed is None or sum(p*(prices@(seed.grid+5*replay(seed, path, soc)["emergency"])) for p, path in zip(weights, net)) > bound["incumbent_cost"]:
         seed = bound_policy
     supplemental = solver_seconds is not None and solver_seconds > PROTOCOL["solver_seconds"]
     if not options and (supplemental or solver_gap > PROTOCOL["solver_gap"]):
         from linear_policy import solve_linear_policy
         policy, responses, info = solve_linear_policy(net, prices, weights, soc, gap=solver_gap,
-                                                      time_limit=solver_seconds or PROTOCOL["solver_seconds"], seed_policy=seed)
+                                                      time_limit=solver_seconds or PROTOCOL["solver_seconds"],
+                                                      seed_policy=seed, reserve=reserve,
+                                                      threads=solver_threads)
         info["execution_role"] = ("supplemental_equivalent_physical_bound_MILP_after_original_budget_failure" if supplemental
                                   else "original_budget_equivalent_MILP_under_authorized_precision_revision")
-        return policy, responses, info
-    return solve_policy(net, prices, weights, soc, gap=solver_gap,
-                        time_limit=solver_seconds or PROTOCOL["solver_seconds"], seed_policy=seed,
-                        known_lower_bound=bound["lower_bound"], **options)
+    else:
+        policy, responses, info = solve_policy(
+            net, prices, weights, soc, gap=solver_gap,
+            time_limit=solver_seconds or PROTOCOL["solver_seconds"], seed_policy=seed,
+            known_lower_bound=bound["lower_bound"], reserve=reserve,
+            threads=solver_threads, **options)
+    if cache_entry is not None and policy is not None:
+        cache_entry["seed_policy"] = policy
+    info.update(reused_recourse_bound=reused_bound,
+                reused_incumbent=bool(reused_bound and seed is not bound_policy),
+                pre_solver_seconds=0. if reused_bound else bound.get("seconds", 0.),
+                refine_seconds=refine_seconds, solver_threads=solver_threads)
+    return policy, responses, info
 
 
 def _pool_cost(policy, net, prices, soc):
     return float(np.mean([5*np.dot(prices[:144], replay(policy.first(), path[:144], soc)["emergency"]) for path in net]))
 
 
-def select_resolution(point, blocks, prices, soc, *, forced_count=None, solver_seconds=None, solver_gap=PROTOCOL["solver_gap"]):
-    full_net, full_weights, _ = construct(point, blocks, prices)
+def select_resolution(point, blocks, prices, soc, *, origins=None, all_blocks=None,
+                      all_origins=None, reserve=None, forced_count=None,
+                      solver_seconds=None, solver_gap=PROTOCOL["solver_gap"],
+                      refine_seconds=PROTOCOL["refine_seconds"],
+                      certificate_fast_path=True, solver_threads=PROTOCOL["solver_threads"],
+                      solve_cache=None, cache_prefix=None):
+    construction = {"origins": origins, "all_blocks": all_blocks, "all_origins": all_origins,
+                    "tail_fraction": PROTOCOL["tail_fraction"]}
+    def scenarios(count):
+        key = ("scenarios", cache_prefix, count)
+        if solve_cache is not None and key in solve_cache:
+            return solve_cache[key]
+        value = construct(point, blocks, prices, count, **construction)
+        if solve_cache is not None:
+            solve_cache[key] = value
+        return value
+    full_net, full_weights, _ = scenarios(None)
     m = len(blocks)
     counts = [m] if m <= 40 else [10, 20, 40]
     if forced_count is not None and m > 40:
         counts = [min(m, forced_count)]
     results, audit = {}, {"M": m, "candidates": {}, "computational_limited": False}
     for count in counts:
-        net, weights, scenario = construct(point, blocks, prices, count)
-        policy, responses, info = _solve(net, prices, weights, soc, solver_seconds=solver_seconds, solver_gap=solver_gap)
+        net, weights, scenario = scenarios(count)
+        policy, responses, info = _solve(net, prices, weights, soc, reserve=reserve,
+                                         solver_seconds=solver_seconds, solver_gap=solver_gap,
+                                         refine_seconds=refine_seconds,
+                                         certificate_fast_path=certificate_fast_path,
+                                         solver_threads=solver_threads, solve_cache=solve_cache,
+                                         cache_key=(cache_prefix, count))
         item = {"scenarios": scenario, "solver": info}
         if policy is not None:
             item["full_pool_first_day_emergency_cost"] = _pool_cost(policy, full_net, prices, soc)
@@ -96,7 +161,12 @@ def select_resolution(point, blocks, prices, soc, *, forced_count=None, solver_s
         if selected == 20 and tail_bad(20) and 40 in results:
             selected = 40
         if selected == 40 and tail_bad(40):
-            policy, responses, info = _solve(full_net, prices, full_weights, soc, solver_seconds=solver_seconds, solver_gap=solver_gap)
+            policy, responses, info = _solve(full_net, prices, full_weights, soc, reserve=reserve,
+                                             solver_seconds=solver_seconds, solver_gap=solver_gap,
+                                             refine_seconds=refine_seconds,
+                                             certificate_fast_path=certificate_fast_path,
+                                             solver_threads=solver_threads, solve_cache=solve_cache,
+                                             cache_key=(cache_prefix, m))
             audit["candidates"][str(m)] = {"solver": info, "scenarios": {"M": m, "S": m, "reduced": False}, "trigger": "tail_check_failed_at_40"}
             if policy is not None and info["reliable"]:
                 results[m] = (policy, responses, full_weights, full_net)
@@ -111,7 +181,11 @@ def select_resolution(point, blocks, prices, soc, *, forced_count=None, solver_s
 
 def make_day(store, frozen, history, d, prices, soc, *, horizon="auto", minimum=14,
              window="auto", forced_count=None, fixed_pair=None, kind="feedback",
-             solver_seconds=None, progress_path=None, solver_gap=PROTOCOL["solver_gap"]):
+             solver_seconds=None, progress_path=None, solver_gap=PROTOCOL["solver_gap"],
+             refine_seconds=PROTOCOL["refine_seconds"], certificate_fast_path=True,
+             solver_threads=PROTOCOL["solver_threads"], solve_cache=None):
+    started = time.perf_counter()
+    solve_cache = {} if solve_cache is None else solve_cache
     candidates = (2, 3, 1) if horizon == "auto" else (int(horizon),)
     results, audits = {}, {}
     for k in candidates:
@@ -123,29 +197,77 @@ def make_day(store, frozen, history, d, prices, soc, *, horizon="auto", minimum=
             atomic_json(progress_path, {"day_index": d, "date": str((pd.Timestamp("2025-01-01")+pd.Timedelta(days=d)).date()),
                                        "K": k, "solver_gap": solver_gap, "solver_seconds": solver_seconds or PROTOCOL["solver_seconds"],
                                        "started_at": time.time(), "phase": "solving"})
-        point, blocks, selection = choose_day(store, frozen, history, d, k, prices, minimum=minimum,
-                                             window=window, fixed_pair=fixed_pair)
-        selection["common_scored_origins"] = [int(j) for j in selection["common_scored_origins"]]
+        asset_key = ("day_assets", k, minimum, str(window), tuple(fixed_pair or ()))
+        if asset_key in solve_cache:
+            point, blocks, selection, origins, all_blocks, all_origins, reserve = solve_cache[asset_key]
+            selection = copy.deepcopy(selection)
+            selection["day_assets_reused"] = True
+        else:
+            point, blocks, selection = choose_day(
+                store, frozen, history, d, k, prices, minimum=minimum,
+                window=window, fixed_pair=fixed_pair)
+            selection["common_scored_origins"] = [int(j) for j in selection["common_scored_origins"]]
+            if blocks is None:
+                origins = all_origins = None
+                all_blocks = None
+                reserve_day = np.zeros(144)
+                reserve_meta = {"quantile": PROTOCOL["reserve_quantile"], "historical_blocks": 0,
+                                "max_reserve_kwh": 0., "mean_reserve_kwh": 0.}
+            else:
+                origins = np.asarray(selection["origin_indices"], dtype=int)
+                forecasts = combined(store, selection["pipeline"])
+                all_origins = eligible_origins(forecasts, d, k, minimum=minimum, window=None)
+                all_blocks = joint_blocks(history, forecasts, all_origins, k)
+                reserve_day, reserve_meta = dynamic_reserve(all_blocks, PROTOCOL["reserve_quantile"])
+                selection["all_origin_indices"] = all_origins.tolist()
+            reserve = np.r_[reserve_day, np.zeros(144*(k-1))]
+            selection["dynamic_soc_reserve"] = reserve_meta
+            selection["day_assets_reused"] = False
+            solve_cache[asset_key] = (point, blocks, copy.deepcopy(selection), origins,
+                                      all_blocks, all_origins, reserve)
         price_horizon = np.tile(prices, k)
         try:
             if kind == "deterministic":
                 net = DT*(point[..., 0]-point[..., 1]).reshape(1, -1)
-                policy, responses, solver = _solve(net, price_horizon, np.array([1.]), soc, solver_seconds=solver_seconds, solver_gap=solver_gap)
+                policy, responses, solver = _solve(net, price_horizon, np.array([1.]), soc,
+                                                   reserve=reserve, solver_seconds=solver_seconds,
+                                                   solver_gap=solver_gap, refine_seconds=refine_seconds,
+                                                   certificate_fast_path=certificate_fast_path,
+                                                   solver_threads=solver_threads, solve_cache=solve_cache,
+                                                   cache_key=(k, "deterministic"))
                 if policy is None or not solver["reliable"]:
                     raise ComputationalLimit(solver)
                 weights = np.array([1.]); audit = {"M": len(blocks), "S": 1, "selected_solver": solver}
             elif kind == "rigid":
                 if forced_count is None:
-                    _, _, weights, net, audit = select_resolution(point, blocks, price_horizon, soc, solver_seconds=solver_seconds, solver_gap=solver_gap)
+                    _, _, weights, net, audit = select_resolution(
+                        point, blocks, price_horizon, soc, origins=origins, all_blocks=all_blocks,
+                        all_origins=all_origins, reserve=reserve, solver_seconds=solver_seconds,
+                        solver_gap=solver_gap, refine_seconds=refine_seconds,
+                        certificate_fast_path=certificate_fast_path,
+                        solver_threads=solver_threads, solve_cache=solve_cache,
+                        cache_prefix=k)
                 else:
-                    net, weights, scenarios = construct(point, blocks, price_horizon, forced_count)
+                    net, weights, scenarios = construct(
+                        point, blocks, price_horizon, forced_count, origins=origins,
+                        all_blocks=all_blocks, all_origins=all_origins,
+                        tail_fraction=PROTOCOL["tail_fraction"])
                     audit = {"M": len(blocks), "S": len(weights), "scenarios": scenarios}
                 grid, responses, solver = rigid_schedule(net, price_horizon, weights, soc)
                 policy = Policy(grid, responses[0]["charge"], responses[0]["discharge"])
                 audit["selected_solver"] = solver
             else:
                 policy, responses, weights, net, audit = select_resolution(point, blocks, price_horizon, soc,
-                                                                          forced_count=forced_count, solver_seconds=solver_seconds, solver_gap=solver_gap)
+                                                                          origins=origins, all_blocks=all_blocks,
+                                                                          all_origins=all_origins, reserve=reserve,
+                                                                          forced_count=forced_count,
+                                                                          solver_seconds=solver_seconds,
+                                                                          solver_gap=solver_gap,
+                                                                          refine_seconds=refine_seconds,
+                                                                          certificate_fast_path=certificate_fast_path,
+                                                                          solver_threads=solver_threads,
+                                                                          solve_cache=solve_cache,
+                                                                          cache_prefix=k)
         except ComputationalLimit as error:
             audits[str(k)] = {"selection": selection, "error": error.details}
             continue
@@ -167,6 +289,7 @@ def make_day(store, frozen, history, d, prices, soc, *, horizon="auto", minimum=
             selected = 2
     audits["selected_K"] = selected
     audits["computational_limited"] = any(str(k) in audits and "error" in audits[str(k)] for k in candidates) or any(v.get("computational_limited", False) for v in audits.values() if isinstance(v, dict))
+    audits["runtime_seconds"] = time.perf_counter()-started
     return *results[selected], audits
 
 
@@ -185,6 +308,7 @@ def dispatch_frame(date, policy, net, soc, prices, *, rigid=False):
     frame["grid"] = first.grid
     frame["charge_cap"] = first.charge_cap
     frame["discharge_cap"] = first.discharge_cap
+    frame["soc_reserve_kwh"] = first.reserve
     frame["net_kwh"] = net
     frame["initial_soc"] = soc
     frame["price"] = prices
@@ -196,36 +320,56 @@ def dispatch_frame(date, policy, net, soc, prices, *, rigid=False):
 
 
 def warm_start(actual, dates, prices, output):
-    """1—7日仅积累观测且储能停机；8—31日固定季节基线+K=2确定性同模型。"""
-    soc = E_INITIAL
-    records, solver_records = [], []
-    for d in range(7, 31):
-        prediction = seasonal(actual[:d].copy(), 2)
-        net = DT*(prediction[..., 0]-prediction[..., 1]).ravel()
-        policy, _, info = _solve(net[None], np.tile(prices, 2), np.array([1.]), soc)
-        if policy is None or not info["reliable"]:
-            raise ComputationalLimit({"warm_date": str(dates[d]), "solver": info})
-        frame = dispatch_frame(dates[d], policy, DT*(actual[d, :, 0]-actual[d, :, 1]), soc, prices)
-        records.append(frame); solver_records.append({"date": str(dates[d]), **info})
-        soc = float(frame.soc.iloc[-1])
-    write_csv(output/"warm_dispatch.csv", pd.concat(records, ignore_index=True))
-    write_json(output/"warm_start.json", {"initial_soc_jan1": E_INITIAL, "jan1_jan7_charge_discharge": 0,
-                                         "warm_horizon": 2, "feb1_baseline_soc": soc,
-                                         "interpretation": "causal_initialization_not_recovered_true_state",
-                                         "solver_records": solver_records})
-    return soc
+    """1月仅积累预测/误差历史，储能不主动调度，2月1日SOC固定为6000kWh。"""
+    if np.asarray(actual).shape[:2] != (365, 144) or len(dates) != 365 or len(prices) != 144:
+        raise ValueError("1月历史预热输入不完整")
+    write_csv(output/"warm_dispatch.csv", pd.DataFrame(columns=[
+        "date", "charge", "discharge", "soc"]))
+    write_json(output/"warm_start.json", {"initial_soc_jan1": E_INITIAL,
+                                         "january_charge_kwh": 0.,
+                                         "january_discharge_kwh": 0.,
+                                         "prediction_history_days": 31,
+                                         "feb1_baseline_soc": E_INITIAL,
+                                         "interpretation": "paper_final_fixed_initialization_january_storage_inactive"})
+    return E_INITIAL
+
+
+@contextmanager
+def _exclusive_run_lock(path):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt":
+        import msvcrt
+        with path.open("a+b") as lock:
+            if lock.seek(0, os.SEEK_END) == 0:
+                lock.write(b"0"); lock.flush()
+            lock.seek(0)
+            try:
+                msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError as error:
+                raise RuntimeError("该实验已有写入进程，拒绝并发覆盖检查点") from error
+            try:
+                yield
+            finally:
+                lock.seek(0)
+                msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+    else:
+        import fcntl
+        with path.open("a", encoding="utf-8") as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as error:
+                raise RuntimeError("该实验已有写入进程，拒绝并发覆盖检查点") from error
+            try:
+                yield
+            finally:
+                fcntl.flock(lock, fcntl.LOCK_UN)
 
 
 def run_rollout(store, frozen, actual, dates, prices, initial_soc, output, **settings):
     """每个实验仅允许一个写入者；不同实验可在独立目录并行。"""
-    import fcntl
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    with (output/"run.lock").open("a", encoding="utf-8") as lock:
-        try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as error:
-            raise RuntimeError("该实验已有写入进程，拒绝并发覆盖检查点") from error
+    with _exclusive_run_lock(output/"run.lock"):
         return _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, **settings)
 
 
@@ -255,7 +399,16 @@ def _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, *, s
             atomic_json(output/f"failed_attempts/previous_status_{time.time_ns()}.json", previous_status)
     execution = {"base_solver_seconds": PROTOCOL["solver_seconds"], "rescue_seconds": rescue_seconds,
                  "rescue_trigger": "all_day_candidates_failed", "gap": solver_gap,
-                 "interpretation": "supplementary_compute_not_retroactive_original_budget_success"}
+                 "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+                 "tail_stratification": PROTOCOL["tail_stratification"],
+                 "tail_fraction": PROTOCOL["tail_fraction"],
+                 "dynamic_soc_reserve": PROTOCOL["dynamic_soc_reserve"],
+                 "reserve_quantile": PROTOCOL["reserve_quantile"],
+                 "refine_seconds": PROTOCOL["refine_seconds"],
+                 "lp_certificate_fast_path": True,
+                 "solver_threads": PROTOCOL["solver_threads"],
+                 "rescue_reuses_day_assets_bound_and_incumbent": True,
+                 "evaluation_initial_soc_kwh": initial_soc}
     if solver_gap != PROTOCOL["solver_gap"] and not execution_revision:
         raise ValueError("非原精度续算必须携带显式执行修订摘要")
     if execution_revision:
@@ -276,6 +429,7 @@ def _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, *, s
     atomic_json(output/"run_status.json", {"complete": False, **status_base})
     for d in range(resume_at, end):
         daily_settings = dict(settings)
+        day_solve_cache = {}
         if reference_audits is not None:
             reference = json.loads((reference_audits/f"{pd.Timestamp(dates[d]).date()}.json").read_text(encoding="utf-8"))
             chosen = reference[str(reference["selected_K"])]
@@ -284,7 +438,9 @@ def _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, *, s
         try:
             try:
                 policy, weights, net_scenarios, point, audit = make_day(
-                    store, frozen, actual[:d], d, prices, soc, progress_path=output/"active_solve.json", solver_gap=solver_gap, **daily_settings)
+                    store, frozen, actual[:d], d, prices, soc,
+                    progress_path=output/"active_solve.json", solver_gap=solver_gap,
+                    solve_cache=day_solve_cache, **daily_settings)
             except ComputationalLimit as original:
                 atomic_json(output/f"failed_attempts/{dates[d].date()}_base_{time.time_ns()}.json",
                             {"date": str(dates[d]), "solver_seconds": PROTOCOL["solver_seconds"], "details": original.details})
@@ -293,7 +449,8 @@ def _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, *, s
                 print(f"{dates[d].date()} 原预算全候选受限，追加{rescue_seconds:g}秒预算，gap为{solver_gap:.0%}", flush=True)
                 policy, weights, net_scenarios, point, audit = make_day(
                     store, frozen, actual[:d], d, prices, soc, solver_seconds=rescue_seconds,
-                    progress_path=output/"active_solve.json", solver_gap=solver_gap, **daily_settings)
+                    progress_path=output/"active_solve.json", solver_gap=solver_gap,
+                    solve_cache=day_solve_cache, **daily_settings)
                 audit.update(original_budget_failure=original.details, supplemental_solver_seconds=rescue_seconds,
                              computational_limited=True)
         except ComputationalLimit as error:
@@ -307,6 +464,7 @@ def _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, *, s
         write_csv(output/f"frozen_plans/{pd.Timestamp(dates[d]).date()}.csv", pd.DataFrame({
             "step": np.arange(len(policy.grid)), "grid": policy.grid,
             "charge_cap": policy.charge_cap, "discharge_cap": policy.discharge_cap,
+            "soc_reserve_kwh": policy.reserve,
             "role": np.where(np.arange(len(policy.grid)) < 144, "first_day_frozen", "open_loop_proxy_only")}))
         # 到此之前当日actual[d]未进入任何选模、场景或求解调用。
         net = DT*(actual[d, :, 0]-actual[d, :, 1])
@@ -315,11 +473,31 @@ def _run_rollout(store, frozen, actual, dates, prices, initial_soc, output, *, s
         frame["predicted_pv_kw"] = point[0, :, 1]
         frames.append(frame)
         selected_k = audit["selected_K"]
+        selected = audit[str(selected_k)]
+        selected_count = selected.get("S", len(weights))
+        scenario_meta = selected.get("candidates", {}).get(
+            str(selected_count), {}).get("scenarios", {})
+        selected_solver = selected["selected_solver"]
         daily.append({"date": str(pd.Timestamp(dates[d]).date()), "K": selected_k,
-                      "M": audit[str(selected_k)]["M"], "S": len(weights),
+                      "M": selected["M"], "S": len(weights),
                       "initial_soc": soc, "final_soc": float(frame.soc.iloc[-1]),
+                      "min_soc": float(frame.soc.min()),
+                      "planned_grid_kwh": float(frame.grid.sum()),
+                      "planned_cost": float(frame.planned_cost.sum()),
+                      "emergency_cost": float(frame.emergency_cost.sum()),
                       "cost": float(frame.planned_cost.sum()+frame.emergency_cost.sum()),
                       "emergency_kwh": float(frame.emergency.sum()),
+                      "unused_kwh": float(frame.unused.sum()),
+                      "charge_kwh": float(frame.charge.sum()),
+                      "discharge_kwh": float(frame.discharge.sum()),
+                      "tail_scenario_count": scenario_meta.get("S_tail", 0),
+                      "body_scenario_count": scenario_meta.get("S_body", len(weights)),
+                      "max_reserve_kwh": float(policy.reserve[:144].max()),
+                      "mean_reserve_kwh": float(policy.reserve[:144].mean()),
+                      "requested_mip_gap": selected_solver.get("requested_gap", solver_gap),
+                      "achieved_mip_gap": selected_solver.get("mip_gap", 0.),
+                      "runtime_seconds": audit.get("runtime_seconds", 0.),
+                      "solver_status": selected_solver.get("status", "test_double"),
                       "computational_limited": audit["computational_limited"]})
         for h in range(min(selected_k, len(dates)-d)):
             realized = DT*(actual[d+h, :, 0]-actual[d+h, :, 1])

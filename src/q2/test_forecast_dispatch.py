@@ -12,17 +12,21 @@ from openpyxl import load_workbook
 
 from comparators import deterministic_policy, oracle_pair, rigid_schedule
 from data import ROOT
-from export_dispatch import emergency_events, export_result, validate_dispatch
+from export_dispatch import (emergency_events, export_result, final_calibration,
+                             final_validation, solver_statistics, validate_dispatch)
 from forecast import economic_metrics, harmonic_forecast, lightgbm_forecast, load_features, seasonal, select_pipeline
 from optimization import solve_policy
 from policy import CAP, E_MIN, Policy, replay
 from protocol import PROTOCOL
 from relaxation import recourse_bound
-from rolling import ComputationalLimit, dispatch_frame, make_day, run_rollout
+from incumbent import refine
+from rolling import (ComputationalLimit, _exclusive_run_lock, dispatch_frame, make_day,
+                     run_rollout, warm_start)
 from shadows import freeze_lightgbm
 from incumbent import value_gradient
 from checkpoint import read_checkpoint, recover_checkpoint, save_checkpoint
-from dispatch import forecast_hashes, load_prepared, prepared_hashes
+from dispatch import (forecast_hashes, load_prepared, prepared_hashes,
+                      validate_prepared_protocol)
 from data import write_json
 from protocol import signature
 from experiments import load_richer_policy, richer_context, save_richer_policy
@@ -141,6 +145,17 @@ class ForecastTests(unittest.TestCase):
         actual[31:] = 1e12
         self.assertEqual(freeze_lightgbm(store, actual)[0], 0)
 
+    def test_january_storage_is_inactive_and_february_soc_is_6000(self):
+        actual = np.zeros((365, 144, 2))
+        dates = pd.date_range("2025-01-01", periods=365)
+        with tempfile.TemporaryDirectory() as directory:
+            initial = warm_start(actual, dates, np.ones(144), Path(directory))
+            record = json.loads((Path(directory)/"warm_start.json").read_text(encoding="utf-8"))
+            self.assertEqual(initial, 6000.)
+            self.assertEqual(record["feb1_baseline_soc"], 6000.)
+            self.assertEqual(record["january_charge_kwh"], 0.)
+            self.assertEqual(record["january_discharge_kwh"], 0.)
+
     def test_four_to_one_loss_and_lexicographic_selection(self):
         actual = np.array([[[6., 0.], [6., 0.]]])
         prediction = np.array([[[0., 0.], [12., 0.]]])
@@ -192,6 +207,18 @@ class ComparatorTests(unittest.TestCase):
         oracle = oracle_pair(net[0], prices, E_MIN, policy.grid, real_cost)
         self.assertGreaterEqual(oracle["Gap_resp"], -1e-8)
 
+    def test_refine_budget_is_explicitly_forwarded(self):
+        rng = np.random.default_rng(314)
+        net = rng.uniform(-900, 1500, (3, 8))
+        prices, weights = np.ones(8), np.ones(3)/3
+        with (patch("relaxation._candidate_costs",
+                    side_effect=lambda *args: np.full(len(args[4]), 1e9)),
+              patch("relaxation.refine", wraps=refine) as improve):
+            recourse_bound(net, prices, weights, 6000, target_gap=0,
+                           refine_seconds=.05)
+        self.assertTrue(improve.called)
+        self.assertEqual(improve.call_args.kwargs["seconds"], .05)
+
     def test_richer_policy_contains_main_policy_at_soc_boundaries(self):
         base = Policy([20, 0, 0], [300]*3, [200]*3)
         expanded = Policy(base.grid, np.repeat(base.charge_cap[:, None], 3, axis=1),
@@ -207,6 +234,27 @@ class ComparatorTests(unittest.TestCase):
 
 
 class ExportTests(unittest.TestCase):
+    def test_final_validation_calibration_and_solver_statistics(self):
+        policy = Policy(np.zeros(144), np.zeros(144), np.zeros(144), np.full(144, 100.))
+        frame = dispatch_frame("2025-02-01", policy, np.zeros(144), 6000, np.ones(144))
+        frame["predicted_load_kw"] = 0.
+        frame["predicted_pv_kw"] = 0.
+        validation = final_validation(frame)
+        self.assertTrue(validation["overall_pass"])
+        self.assertEqual(validation["reserve_discharge_violation_count"], 0)
+        actual = np.zeros((365, 144, 2))
+        coverage = pd.DataFrame([
+            {"horizon": 0, "nominal": .8, "covered_intervals": 120, "n": 144},
+            {"horizon": 0, "nominal": .9, "covered_intervals": 130, "n": 144}])
+        table, payload = final_calibration(frame, actual, coverage)
+        self.assertEqual(len(table), 8)
+        self.assertAlmostEqual(payload["coverage"]["PICP80"]["value"], 120/144)
+        daily = pd.DataFrame({"runtime_seconds": [2., 4.], "achieved_mip_gap": [.01, .02],
+                              "requested_mip_gap": [.03, .03]})
+        stats = solver_statistics(daily)
+        self.assertEqual(stats["total_runtime"], 6.)
+        self.assertEqual(stats["days_completed"], 2)
+
     def test_cross_midnight_events_and_empty_events(self):
         times = pd.date_range("2025-02-01 23:50", periods=4, freq="10min")
         frame = pd.DataFrame({"timestamp": times, "emergency": [0., 1., 2., 0.], "emergency_cost": [0., 5., 10., 0.]})
@@ -316,11 +364,9 @@ class RollingTests(unittest.TestCase):
             self.assertEqual(json.loads((output/"checkpoint.json").read_text(encoding="utf-8"))["days"], 1)
 
     def test_same_experiment_cannot_have_two_writers(self):
-        import fcntl
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
-            with (output/"run.lock").open("a", encoding="utf-8") as lock:
-                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            with _exclusive_run_lock(output/"run.lock"):
                 with self.assertRaisesRegex(RuntimeError, "已有写入进程"):
                     run_rollout({}, 0, None, None, None, None, output)
 
@@ -335,6 +381,21 @@ class RollingTests(unittest.TestCase):
             data.write_text("load_kw,pv_kw\n9,2\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "摘要改变"):
                 load_prepared(output)
+
+    def test_prepared_forecasts_remain_reusable_when_only_dispatch_model_changes(self):
+        old = {"protocol_sha256": "old-model-signature",
+               "forecast_source_sha256": {**forecast_hashes(), "scenarios.py": "old",
+                                           "policy.py": "old", "protocol.py": "old"},
+               **{key: PROTOCOL[key] for key in
+                  ("history_boundary", "forecast_horizons", "shadow_start",
+                   "lightgbm_candidates", "lightgbm_training_window",
+                   "lightgbm_freeze_metric", "dhr_harmonics", "dhr_ar_orders",
+                   "dhr_ma_orders", "dhr_history_days", "dhr_order_rule",
+                   "dhr_max_iterations", "dhr_difference_order")}}
+        validate_prepared_protocol(old)
+        old["dhr_history_days"] += 1
+        with self.assertRaisesRegex(ValueError, "预测冻结参数"):
+            validate_prepared_protocol(old)
 
     def test_real_selection_metadata_serializes_numpy_origin_indices(self):
         actual = np.zeros((34, 144, 2))
@@ -352,7 +413,7 @@ class RollingTests(unittest.TestCase):
         seen = []
         def day_solver(store, frozen, history, d, prices, soc, **settings):
             seen.append((d, len(history)))
-            policy = Policy(np.zeros(144), np.zeros(144), np.zeros(144))
+            policy = Policy(np.zeros(144), np.zeros(144), np.zeros(144), np.full(144, 100.))
             return policy, np.ones(1), np.zeros((1, 144)), np.zeros((1, 144, 2)), {
                 "selected_K": 1, "computational_limited": False,
                 "1": {"M": 14, "selected_solver": {"reliable": True}}}
@@ -364,6 +425,7 @@ class RollingTests(unittest.TestCase):
             with patch("rolling.make_day", side_effect=AssertionError("已完成前缀不得重新优化")):
                 resumed, _ = run_rollout({}, 0, actual, dates, np.ones(144), 6000, output)
             np.testing.assert_array_equal(resumed.grid, first.grid)
+            np.testing.assert_array_equal(resumed.soc_reserve_kwh, first.soc_reserve_kwh)
             changed = pd.read_csv(output/"dispatch.csv")
             changed.loc[144:, "initial_soc"] = 7000
             changed.to_csv(output/"dispatch.csv", index=False, encoding="utf-8")

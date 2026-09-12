@@ -18,7 +18,7 @@ def atomic_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     pending = path.with_name(path.name+".pending")
     write_json(pending, value)
-    with pending.open("rb") as stream:
+    with pending.open("r+b") as stream:
         os.fsync(stream.fileno())
     pending.replace(path)
 
@@ -51,7 +51,7 @@ def recover_checkpoint(output):
         for name in TABLES:
             pending = output/(name+".recovery")
             shutil.copyfile(backup/name, pending)
-            with pending.open("rb") as stream:
+            with pending.open("r+b") as stream:
                 os.fsync(stream.fileno())
             pending.replace(output/name)
         atomic_json(manifest, base)
@@ -73,13 +73,13 @@ def save_checkpoint(output, frame, daily, calibration):
         backup.mkdir(exist_ok=True)
         for name in TABLES:
             shutil.copyfile(output/name, backup/name)
-            with (backup/name).open("rb") as stream:
+            with (backup/name).open("r+b") as stream:
                 os.fsync(stream.fileno())
         atomic_json(backup/"checkpoint.json", base)
     for name, table in zip(TABLES, (frame, pd.DataFrame(daily), pd.DataFrame(calibration))):
         pending = output/(name+".pending")
         write_csv(pending, table)
-        with pending.open("rb") as stream:
+        with pending.open("r+b") as stream:
             os.fsync(stream.fileno())
     target = {"days": len(daily), "sha256": {name: sha256(output/(name+".pending")) for name in TABLES}}
     atomic_json(output/"checkpoint_transaction.json", {"base": base, "target": target})
@@ -121,8 +121,12 @@ def read_checkpoint(output, actual, dates, prices, initial_soc, start, end, sett
             raise ValueError("冻结策略长度或求解验收状态不符")
         for key in ("grid", "charge_cap", "discharge_cap"):
             np.testing.assert_array_equal(frozen[key].iloc[:144], day[key])
+        reserve = (frozen.soc_reserve_kwh.iloc[:144].to_numpy()
+                   if "soc_reserve_kwh" in frozen else np.zeros(144))
+        if "soc_reserve_kwh" in day:
+            np.testing.assert_array_equal(reserve, day.soc_reserve_kwh)
         if not rigid:
-            policy = Policy(day.grid, day.charge_cap, day.discharge_cap)
+            policy = Policy(day.grid, day.charge_cap, day.discharge_cap, reserve)
             response = replay(policy, day.net_kwh.to_numpy(), float(day.initial_soc.iloc[0]))
             for key, values in response.items():
                 np.testing.assert_allclose(day[key], values, atol=PHYSICAL_TOL, rtol=0)

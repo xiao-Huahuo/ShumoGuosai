@@ -26,6 +26,7 @@ class LinearPolicyTests(unittest.TestCase):
                     previous, raw = soc, []
                     for i, n in enumerate(path):
                         x = n-policy.grid[i]
+                        vector[indices["reserve_active"][j, i]] = int(previous >= E_MIN+policy.reserve[i])
                         if x >= 0:
                             terms = [policy.discharge_cap[i], x, ETA_D*(previous-E_MIN)]
                             c, r = 0., min(terms)
@@ -52,6 +53,25 @@ class LinearPolicyTests(unittest.TestCase):
                 self.assertTrue(np.all(vector <= bounds.ub+1e-5))
                 np.testing.assert_array_equal(vector[integer == 1], np.rint(vector[integer == 1]))
         self.assertGreater(difference, 1.)
+
+    def test_dynamic_reserve_linear_native_and_replay_are_equivalent(self):
+        net = np.array([[500., 300., 900., -200.], [700., 100., 600., -300.]])
+        prices, weights = np.array([.4, .9, .7, .3]), np.array([.4, .6])
+        reserve = np.array([300., 200., 100., 0.])
+        initial = E_MIN+250
+        linear_policy, linear_responses, linear = solve_linear_policy(
+            net, prices, weights, initial, reserve=reserve, gap=1e-7, time_limit=15)
+        native_policy, native_responses, native = solve_policy(
+            net, prices, weights, initial, reserve=reserve, gap=1e-7, time_limit=15)
+        self.assertTrue(linear["reliable"] and native["reliable"])
+        np.testing.assert_allclose(linear["objective"], native["objective"], atol=1e-4, rtol=1e-7)
+        np.testing.assert_array_equal(linear_policy.reserve, reserve)
+        np.testing.assert_array_equal(native_policy.reserve, reserve)
+        for policy, responses in ((linear_policy, linear_responses), (native_policy, native_responses)):
+            for path, response in zip(net, responses):
+                expected = replay(policy, path, initial)
+                for key in expected:
+                    np.testing.assert_allclose(response[key], expected[key], atol=1e-5)
 
     def test_monotone_certificate_is_distinct_from_fixed_policy_exact_mapping(self):
         net = np.array([[-600., 900., 400.], [-300., 1100., 200.]])

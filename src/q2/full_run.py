@@ -1,8 +1,7 @@
-"""Mac全量队列：两个独立工作进程、持久收据、依赖调度和逐日断点恢复。"""
+"""全量队列：两个独立工作进程、持久收据、依赖调度和逐日断点恢复。"""
 
 import argparse
 import datetime as dt
-import fcntl
 import html
 import json
 import os
@@ -19,8 +18,21 @@ from data import ROOT
 from protocol import PROTOCOL
 from execution import execution_settings
 from baseline_reuse import main_baselines
+from rolling import _exclusive_run_lock
 
 DEPENDENT = {"deterministic", "rigid", "minimum_14", "minimum_21", "minimum_28", "oracles", "richer_soc"}
+REQUIRED_FOR_PAPER = ("main",)
+OPTIONAL_DIAGNOSTICS = ("forecast",)
+LEGACY_OR_DEVELOPMENT_ONLY = (
+    "structure_separate", "structure_direct_net",
+    "horizon_1", "horizon_2", "horizon_3",
+    "predictor_week_mean7", "predictor_week_dhr",
+    "predictor_lgb_mean7", "predictor_lgb_dhr",
+    "window_28", "window_56", "window_84", "window_expanding",
+    "scenario_10", "scenario_20", "scenario_40",
+    "initial_1200", "initial_6000", "initial_10800",
+    "deterministic", "rigid", "minimum_14", "minimum_21", "minimum_28",
+    "oracles", "richer_soc")
 RESCUE_SECONDS = 900
 WORKERS = 2
 MAX_WORKER_RSS_KIB = 10*1024*1024  # 16GiB Mac为系统和其他应用保留约6GiB。
@@ -34,14 +46,25 @@ def now():
     return dt.datetime.now(dt.timezone.utc).isoformat()
 
 
-def job_names(initial):
-    return ["main", "structure_separate", "structure_direct_net", "forecast",
-            "horizon_1", "horizon_2", "horizon_3",
-            *[f"predictor_{load}_{pv}" for load in ("week", "lgb") for pv in ("mean7", "dhr")],
-            "window_28", "window_56", "window_84", "window_expanding",
-            "scenario_10", "scenario_20", "scenario_40",
-            *[f"initial_{soc:g}" for soc in sorted({1200., 6000., initial, 10800.})],
-            "deterministic", "rigid", "minimum_14", "minimum_21", "minimum_28", "oracles", "richer_soc"]
+def job_names(initial, *, include_optional=False, include_legacy=False):
+    """默认只运行论文必需主结果；旧334日实验必须显式选择且不再作为论文门槛。"""
+    names = list(REQUIRED_FOR_PAPER)
+    if include_optional:
+        names.extend(OPTIONAL_DIAGNOSTICS)
+    if include_legacy:
+        names.extend(LEGACY_OR_DEVELOPMENT_ONLY)
+        legacy_initial = f"initial_{initial:g}"
+        if legacy_initial not in names:
+            names.append(legacy_initial)
+    return list(dict.fromkeys(names))
+
+
+def experiment_category(name):
+    if name in REQUIRED_FOR_PAPER:
+        return "required_for_paper"
+    if name in OPTIONAL_DIAGNOSTICS:
+        return "optional_diagnostics"
+    return "legacy_or_development_only"
 
 
 def output_for(run, name):
@@ -61,6 +84,13 @@ def owned_process(job):
         return False
     result = subprocess.run(["ps", "-p", str(pid), "-o", "command="], capture_output=True, text=True)
     return result.returncode == 0 and "full_run.py" in result.stdout and job["attempt"] in result.stdout
+
+
+def terminate_worker(pid):
+    if hasattr(os, "killpg"):
+        os.killpg(pid, signal.SIGTERM)
+    else:
+        os.kill(pid, signal.SIGTERM)
 
 
 def reconcile(run, jobs):
@@ -97,7 +127,7 @@ def guard_memory(run, jobs):
     if not owned_process(job) or (run/job["receipt"]).exists():
         return
     try:
-        os.killpg(job["pid"], signal.SIGTERM)
+        terminate_worker(job["pid"])
     except ProcessLookupError:
         return  # 正常结束恰好发生在身份核验之后，交给完成收据处理。
     atomic_json(run/job["receipt"], {"job": name, "attempt": job["attempt"], "complete": False,
@@ -127,7 +157,6 @@ def monitor(run, state):
         log = f'<a href="../{html.escape(job["log"])}">日志</a>' if job.get("log") else ""
         rows.append(f'<tr><td>{html.escape(name)}</td><td>{labels[job["status"]]}</td><td>{days}</td>'
                     f'<td>{html.escape(activity)}</td><td>{log}</td></tr>')
-    finished = sum(v["status"] == "complete" for k, v in state["jobs"].items() if k not in ("main", "forecast"))
     main_days = state["jobs"]["main"]["completed_days"]
     gap = state.get("execution", {}).get("gap", PROTOCOL["solver_gap"])
     document = f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -137,8 +166,8 @@ body{{font:16px/1.7 system-ui;background:#f3f5f7;color:#173747;margin:0}}main{{m
 strong{{display:block;font-size:28px;color:#126587}}.table{{overflow:auto;background:white;padding:16px;margin-top:24px;border-radius:12px}}
 table{{border-collapse:collapse;width:100%;white-space:nowrap}}td,th{{padding:9px;text-align:left;border-bottom:1px solid #dce6e9}}
 a{{color:#126587}}small{{color:#526b78}}</style><main><h1>第二问全量计算进度</h1>
-<div class="cards"><div class="card">主回放<strong>{main_days} / 334 日</strong></div><div class="card">论文验证<strong>{finished} / 27</strong></div></div>
-<p>自动前瞻先比较48与72小时，只有两者都未获可靠解才求24小时兜底。27项验证含可复用基准和代表日诊断，并非27次独立全年重算；相同基准须核验后复用。</p>
+<div class="cards"><div class="card">主回放<strong>{main_days} / 334 日</strong></div><div class="card">额外全年实验<strong>不默认运行</strong></div></div>
+<p>论文必需验收由正式主回放及其离线预测覆盖、物理一致性和经济后处理组成。开发阶段的27项实验不再是论文完成门槛；如需诊断，只能显式选择小型代表日任务。</p>
 <p>每个完整日独立存档，两个实验同时计算。任务中断后从最后完整日续算。原120秒预算整日无可靠候选时，追加每次900秒计算，当前gap门槛为{gap:.0%}，已完成的更严格结果保留；历史预算失败保留，不算作原预算通过。</p>
 <p>精度指单次优化费用证书，不是全年费用或预测误差。<a href="../raw/solver_precision_revision.json">精度修订记录（如已启用）</a></p>
 <p><a href="report.html">验收报告（生成时的快照）</a> · <a href="../raw/full_run_state.json">完整运行状态</a></p>
@@ -157,10 +186,10 @@ def worker(run, name, attempt, receipt):
         result["precision_execution"] = precision
         if name == "main":
             from dispatch import run_main
-            run_main(run, rescue_seconds=RESCUE_SECONDS, **precision)
+            run_main(run, rescue_seconds=RESCUE_SECONDS, resume=True, **precision)
         else:
             from experiments import run_experiments
-            statuses = run_experiments(run, only=name, rescue_seconds=RESCUE_SECONDS, **precision)
+            statuses = run_experiments(run, only=name, rescue_seconds=None, **precision)
             if not statuses.get(name, {}).get("complete"):
                 raise RuntimeError(f"实验尚未完成：{statuses}")
         result["complete"] = True
@@ -281,8 +310,7 @@ def main():
         if not args.attempt or not args.receipt:
             parser.error("worker必须提供唯一attempt和receipt")
         return worker(run, args.job, args.attempt, args.receipt)
-    with (run/"raw/full_run.lock").open("a", encoding="utf-8") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    with _exclusive_run_lock(run/"raw/full_run.lock"):
         return supervise(run)
 
 

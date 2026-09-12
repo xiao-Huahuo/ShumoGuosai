@@ -9,9 +9,10 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 
+import optimization
 from execution import execution_settings
 from full_run import worker
-from policy import Policy
+from policy import Policy, replay
 from protocol import PROTOCOL, signature
 from rolling import ComputationalLimit, _solve, run_rollout
 
@@ -70,6 +71,48 @@ class ExecutionTests(unittest.TestCase):
             _solve(net, prices, weights, 6000, solver_gap=.03)
             self.assertEqual(lower.call_args.kwargs["target_gap"], .03)
             self.assertEqual(certificate.call_args.args[-1], .03)
+
+    def test_lp_certificate_fast_path_skips_scip_build_and_keeps_audit(self):
+        net, prices, weights = np.zeros((2, 3)), np.ones(3), np.array([.4, .6])
+        policy = Policy(np.ones(3), np.zeros(3), np.zeros(3))
+        responses = [replay(policy, row, 6000) for row in net]
+        bound = {"certified_gap": .02, "incumbent_cost": 3., "lower_bound": 2.95,
+                 "seconds": .1, "variables": 1, "constraints": 1,
+                 "refinement": None, "refine_seconds_budget": 5.,
+                 "role": "lower_bound_only_never_free_recourse_execution"}
+        with (patch("rolling.deterministic_policy", return_value=(None, None, {})),
+              patch("rolling.recourse_bound", return_value=(policy, responses, bound)),
+              patch.object(optimization, "build_model", side_effect=AssertionError("SCIP不得构建"))):
+            solved, actual, info = _solve(net, prices, weights, 6000, solver_gap=.03)
+        self.assertIs(solved, policy)
+        self.assertEqual(len(actual), 2)
+        self.assertTrue(info["reliable"] and info["scip_build_skipped"])
+        self.assertEqual(info["certificate_source"], "LP_BOUND")
+        self.assertEqual((info["upper_bound"], info["lower_bound"]), (3., 2.95))
+
+    def test_rescue_reuses_base_bound_and_incumbent(self):
+        net, prices, weights = np.ones((2, 3)), np.ones(3), np.array([.4, .6])
+        bound_policy = Policy(np.ones(3), np.zeros(3), np.zeros(3))
+        candidate = Policy(np.ones(3), np.zeros(3), np.zeros(3))
+        bound = {"certified_gap": .5, "incumbent_cost": 3., "lower_bound": 2.,
+                 "seconds": 5., "refinement": None}
+        cache = {}
+        first_info = {"reliable": False, "status": "time limit", "objective": 3.}
+        second_info = {"reliable": True, "status": "gap reached", "objective": 3.}
+        with (patch("rolling.deterministic_policy", return_value=(None, None, {})),
+              patch("rolling.recourse_bound", return_value=(bound_policy, [], bound)) as lower,
+              patch("linear_policy.solve_linear_policy",
+                    side_effect=[(candidate, [], first_info), (candidate, [], second_info)]) as solve):
+            _solve(net, prices, weights, 6000, solver_gap=.03,
+                   solve_cache=cache, cache_key="same-day")
+            _, _, rescued = _solve(net, prices, weights, 6000, solver_gap=.03,
+                                   solver_seconds=900, solve_cache=cache,
+                                   cache_key="same-day")
+        self.assertEqual(lower.call_count, 1)
+        self.assertIs(solve.call_args_list[1].kwargs["seed_policy"], candidate)
+        self.assertTrue(rescued["reused_recourse_bound"])
+        self.assertTrue(rescued["reused_incumbent"])
+        self.assertEqual(rescued["pre_solver_seconds"], 0.)
 
     def test_fixed_and_segmented_policies_retain_native_solver(self):
         policy = Policy(np.ones(3), np.zeros(3), np.zeros(3))

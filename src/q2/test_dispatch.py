@@ -6,8 +6,8 @@ import numpy as np
 
 from optimization import build_model, solve_policy
 from policy import CAP, E_MIN, E_MAX, Policy, replay, respond
-from scenarios import (construct, eligible_origins, history_window, joint_blocks,
-                       medoids, weighted_quantile)
+from scenarios import (construct, cumulative_pressure, dynamic_reserve, eligible_origins,
+                       history_window, joint_blocks, medoids, weighted_quantile)
 
 
 class PolicyTests(unittest.TestCase):
@@ -25,6 +25,28 @@ class PolicyTests(unittest.TestCase):
         changed = replay(policy, [500, -200, -10000, -10000], 6000)
         for key in first:
             np.testing.assert_array_equal(first[key][:2], changed[key][:2])
+
+    def test_dynamic_reserve_only_blocks_discharge_and_never_recharges(self):
+        reserve = 200.
+        actual = respond(500, E_MIN+100, 0, CAP, CAP, reserve)
+        np.testing.assert_allclose(actual, (0, 0, 500, 0, E_MIN+100))
+        policy = Policy([0], [CAP], [CAP], [reserve])
+        replayed = replay(policy, [500], E_MIN+100)
+        self.assertEqual(replayed["charge"][0], 0)
+        self.assertEqual(replayed["discharge"][0], 0)
+        self.assertEqual(replayed["emergency"][0], 500)
+
+    def test_indicator_model_and_replay_share_dynamic_reserve(self):
+        policy = Policy([0., 0.], [0., 0.], [CAP, CAP], [200., 0.])
+        net = np.array([[500., 500.]])
+        _, responses, info = solve_policy(
+            net, np.ones(2), np.ones(1), E_MIN+100,
+            fixed_policy=policy, gap=1e-8, time_limit=15)
+        self.assertTrue(info["reliable"], info)
+        expected = replay(policy, net[0], E_MIN+100)
+        for key in expected:
+            np.testing.assert_allclose(responses[0][key], expected[key], atol=1e-5)
+        np.testing.assert_allclose(responses[0]["emergency"], [500., 410.])
 
     def test_soc_piecewise_execution_boundary(self):
         cp = np.array([[0, 100, 200]])
@@ -68,6 +90,29 @@ class PolicyTests(unittest.TestCase):
 
 
 class ScenarioTests(unittest.TestCase):
+    def test_cumulative_pressure_and_dynamic_reserve_use_kwh_paths(self):
+        blocks = np.zeros((5, 1, 144, 2))
+        blocks[:, 0, 0, 0] = 6*np.arange(5)
+        np.testing.assert_allclose(cumulative_pressure(blocks), np.arange(5))
+        reserve, meta = dynamic_reserve(blocks, .8)
+        self.assertAlmostEqual(reserve[0], 3/.9)
+        np.testing.assert_array_equal(reserve[1:], np.zeros(143))
+        self.assertEqual(meta["historical_blocks"], 5)
+
+    def test_tail_strata_preserve_count_origins_and_probability_mass(self):
+        local = np.zeros((5, 1, 144, 2))
+        all_blocks = np.zeros((10, 1, 144, 2))
+        all_blocks[:, 0, 0, 0] = 6*np.arange(10)
+        net, weights, meta = construct(
+            np.zeros((1, 144, 2)), local, np.ones(144),
+            origins=np.arange(100, 105), all_blocks=all_blocks,
+            all_origins=np.arange(100, 110))
+        self.assertEqual((len(net), meta["S_body"], meta["S_tail"]), (5, 4, 1))
+        self.assertEqual(meta["tail_origin_indices"], [109])
+        self.assertAlmostEqual(weights[-1], .2)
+        self.assertAlmostEqual(weights[:-1].sum(), .8)
+        self.assertAlmostEqual(weights.sum(), 1)
+
     def test_no_bootstrap_below_forty_and_physical_projection(self):
         blocks = np.zeros((14, 2, 144, 2))
         blocks[:, :, :, 0] = np.arange(14)[:, None, None]-20
@@ -90,6 +135,13 @@ class ScenarioTests(unittest.TestCase):
         self.assertEqual(len(set(indices)), 10)
         np.testing.assert_allclose(weights*45, np.bincount(meta["cluster_assignment"]), atol=1e-12, rtol=0)
         self.assertAlmostEqual(weights.sum(), 1)
+
+    def test_tail_stratification_does_not_increase_reduced_scenario_count(self):
+        rng = np.random.default_rng(20260912)
+        blocks = rng.normal(size=(45, 1, 144, 2))
+        net, weights, meta = construct(np.zeros((1, 144, 2)), blocks, np.ones(144), count=10)
+        self.assertEqual((len(net), len(weights), meta["S"]), (10, 10, 10))
+        self.assertEqual((meta["S_body"], meta["S_tail"]), (8, 2))
 
     def test_complete_origin_horizon_and_window_fallback(self):
         shadows = np.full((80, 3, 144, 2), np.nan)

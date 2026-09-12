@@ -274,6 +274,7 @@ class Q2Tests(unittest.TestCase):
         self.assertEqual(pv.status, "条件保留，不预设周效应")
         self.assertTrue(candidates.fitted.eq(False).all())
 
+    @unittest.skipIf(os.name == "nt", "旧2.1发布器依赖目录符号链接；新最终模型使用独立运行目录")
     def test_failed_publish_keeps_current_generation(self):
         import run
         root = Path(self.tmp.name) / "atomic"

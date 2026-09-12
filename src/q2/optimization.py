@@ -16,7 +16,8 @@ def _size(model, transformed=False):
             "variables": len(variables), "constraints": model.getNConss()}
 
 
-def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=None, segments=1):
+def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=None, segments=1,
+                reserve=None):
     net, prices, weights = map(lambda v: np.asarray(v, dtype=float), (net, prices, weights))
     if net.ndim != 2 or prices.shape != (net.shape[1],) or weights.shape != (net.shape[0],):
         raise ValueError("场景/电价/概率维度不符")
@@ -25,6 +26,13 @@ def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=Non
     if not np.isclose(weights.sum(), 1, atol=1e-12) or not E_MIN <= initial_soc <= E_MAX:
         raise ValueError("概率不守恒或初态越界")
     scenarios, periods = net.shape
+    if reserve is None and fixed_policy is not None:
+        reserve = fixed_policy.reserve
+    reserve = np.zeros(periods) if reserve is None else np.asarray(reserve, dtype=float)
+    if reserve.shape != (periods,) or not np.isfinite(reserve).all() or (reserve < 0).any() or (reserve > E_MAX-E_MIN).any():
+        raise ValueError("动态SOC安全裕度长度或数值不符")
+    if fixed_policy is not None and not np.array_equal(fixed_policy.reserve, reserve):
+        raise ValueError("固定策略与MILP动态SOC安全裕度不一致")
     model = Model("q2_precommitted_feedback")
     model.hideOutput()
     grid_upper = np.maximum(net.max(axis=0), 0) + CAP
@@ -52,10 +60,18 @@ def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=Non
             w = model.addVar(name=f"w_{s}_{t}", ub=max(float(grid_upper[t])-n, 0))
             e = model.addVar(name=f"e_{s}_{t}", lb=E_MIN, ub=E_MAX)
             z = model.addVar(name=f"z_{s}_{t}", vtype="B", ub=0 if n < 0 else 1)
+            threshold = E_MIN+float(reserve[t])
+            if t == 0:
+                active = int(initial_soc >= threshold)
+                reserve_active = model.addVar(name=f"reserve_active_{s}_{t}", vtype="B",
+                                              lb=active, ub=active)
+            else:
+                reserve_active = model.addVar(name=f"reserve_active_{s}_{t}", vtype="B")
             lr = [model.addVar(vtype="B", name=f"lr_{s}_{t}_{k}") for k in range(3)]
             lc = [model.addVar(vtype="B", name=f"lc_{s}_{t}_{k}") for k in range(3)]
             x = n - g[t]
-            available, room = ETA_D*(previous-E_MIN), (E_MAX-previous)/ETA_C
+            available = ETA_D*(previous-E_MIN-float(reserve[t]))
+            room = (E_MAX-previous)/ETA_C
             if segments == 1:
                 active_cp, active_rp = cp[t][0], rp[t][0]
             else:
@@ -78,7 +94,14 @@ def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=Non
             model.addCons(e == previous + ETA_C*c-r/ETA_D)
             model.addCons(g[t]+r+q == n+c+w)
             model.addCons(c <= active_cp); model.addCons(c <= room)
-            model.addCons(r <= active_rp); model.addCons(r <= available)
+            model.addCons(r <= active_rp)
+            model.addCons(r <= CAP*reserve_active)
+            if t == 0:
+                model.addCons(r <= max(float(available), 0))
+            else:
+                model.addConsIndicator(-available <= 0, binvar=reserve_active)
+                model.addConsIndicator(available <= 0, binvar=reserve_active, activeone=False)
+                model.addConsIndicator(r-available <= 0, binvar=reserve_active)
             model.addCons(c <= CAP*(1-z)); model.addCons(r <= CAP*z)
             model.addCons(q <= max(n, 0)*z)
             model.addCons(w <= max(float(grid_upper[t])-n, 0)*(1-z))
@@ -91,7 +114,7 @@ def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=Non
                 model.addConsIndicator(bound-r <= 0, binvar=lr[k])
             for k, bound in enumerate((active_cp, -x, room)):
                 model.addConsIndicator(bound-c <= 0, binvar=lc[k])
-            row.append((c, r, q, w, e)); selectors.append((z, lr, lc))
+            row.append((c, r, q, w, e)); selectors.append((z, lr, lc, reserve_active))
             previous = e
         responses.append(row); branches.append(selectors)
     plan_cost = quicksum(float(prices[t])*g[t] for t in range(periods))
@@ -100,7 +123,7 @@ def build_model(net, prices, weights, initial_soc=E_INITIAL, *, fixed_policy=Non
     model.setObjective(objective, "minimize")
     return model, {"g": g, "cp": cp if segments == 3 else [v[0] for v in cp],
                    "rp": rp if segments == 3 else [v[0] for v in rp], "response": responses, "branches": branches,
-                   "objective": objective, "scenario_costs": scenario_costs}
+                   "objective": objective, "scenario_costs": scenario_costs, "reserve": reserve}
 
 
 def _seed(model, variables, net, initial_soc, policy):
@@ -115,32 +138,36 @@ def _seed(model, variables, net, initial_soc, policy):
         for t in range(len(path)):
             for variable, key in zip(variables["response"][s][t], ("charge", "discharge", "emergency", "unused", "soc")):
                 model.setSolVal(solution, variable, float(response[key][t]))
-            z, lr, lc = variables["branches"][s][t]
+            z, lr, lc, reserve_active = variables["branches"][s][t]
             x = path[t]-policy.grid[t]
             deficit = x >= 0
             model.setSolVal(solution, z, int(deficit))
             band = min(max(int(3*(previous-E_MIN)/(E_MAX-E_MIN)), 0), 2)
             cp = policy.charge_cap[t] if policy.charge_cap.ndim == 1 else policy.charge_cap[t, band]
             rp = policy.discharge_cap[t] if policy.discharge_cap.ndim == 1 else policy.discharge_cap[t, band]
-            rmin = int(np.argmin([rp, max(x, 0), ETA_D*(previous-E_MIN)]))
+            available = max(ETA_D*(previous-E_MIN-policy.reserve[t]), 0)
+            rmin = int(np.argmin([rp, max(x, 0), available]))
             cmin = int(np.argmin([cp, max(-x, 0), (E_MAX-previous)/ETA_C]))
             for k in range(3):
                 model.setSolVal(solution, lr[k], int(deficit and k == rmin))
                 model.setSolVal(solution, lc[k], int(not deficit and k == cmin))
+            model.setSolVal(solution, reserve_active, int(previous >= E_MIN+policy.reserve[t]))
             previous = response["soc"][t]
     model.addSol(solution)
 
 
 def solve_policy(net, prices, weights, initial_soc=E_INITIAL, *, gap=0.01, time_limit=120,
                  fixed_policy=None, seed_policy=None, log_path=None, cvar=None, segments=1,
-                 known_lower_bound=None):
+                 known_lower_bound=None, reserve=None, threads=1):
     started = time.perf_counter()
-    model, variables = build_model(net, prices, weights, initial_soc, fixed_policy=fixed_policy, segments=segments)
+    model, variables = build_model(net, prices, weights, initial_soc, fixed_policy=fixed_policy,
+                                   segments=segments, reserve=reserve)
     model.setPresolve(SCIP_PARAMSETTING.FAST)
     model.setIntParam("presolving/maxrounds", 1)
     model.setIntParam("misc/usesymmetry", 0)
     model.setRealParam("limits/gap", gap)
     model.setRealParam("limits/time", time_limit)
+    model.setIntParam("parallel/maxnthreads", int(threads))
     model.setRealParam("numerics/feastol", 1e-8)
     model.setIntParam("randomization/randomseedshift", 0)
     if log_path:
@@ -176,7 +203,7 @@ def solve_policy(net, prices, weights, initial_soc=E_INITIAL, *, gap=0.01, time_
     def values(key):
         array = np.array(variables[key], dtype=object)
         return np.maximum([model.getSolVal(sol, v) for v in array.ravel()], 0).reshape(array.shape)
-    policy = Policy(values("g"), values("cp"), values("rp"))
+    policy = Policy(values("g"), values("cp"), values("rp"), variables["reserve"])
     responses = [replay(policy, path, initial_soc) for path in net]
     raw = np.array([[[model.getSolVal(sol, v) for v in entry] for entry in row] for row in variables["response"]])
     exact = np.array([np.array([r[k] for k in ("charge", "discharge", "emergency", "unused", "soc")]).T for r in responses])
@@ -203,33 +230,43 @@ def solve_policy(net, prices, weights, initial_soc=E_INITIAL, *, gap=0.01, time_
     return policy, responses, info
 
 
-def certify_policy(net, prices, weights, initial_soc, policy, responses, bound, gap):
-    """仍构建并presolve原生MILP以报告实际规模；可行策略+全局下界提供gap证书。"""
+def certify_policy(net, prices, weights, initial_soc, policy, responses, bound, gap,
+                   *, collect_model_statistics=False):
+    """可行策略+全局LP下界直接给出gap证书；默认不再构建无需求解的SCIP模型。"""
     started = time.perf_counter()
     segments = 1 if policy.charge_cap.ndim == 1 else policy.charge_cap.shape[1]
-    model, variables = build_model(net, prices, weights, initial_soc, segments=segments)
-    before = _size(model)
-    # 不固定策略参数做presolve，报告原问题规模而不是固定策略后的退化规模。
-    model.setPresolve(SCIP_PARAMSETTING.FAST)
-    model.setRealParam("numerics/feastol", 1e-8)
-    model.setIntParam("presolving/maxrounds", 1)
-    model.setIntParam("misc/usesymmetry", 0)
-    model.setRealParam("limits/time", 120)
-    model.presolve()
-    after = _size(model, transformed=True)
+    model = None
+    before = after = None
+    solver_version = None
+    if collect_model_statistics:
+        model, _ = build_model(net, prices, weights, initial_soc, segments=segments,
+                               reserve=policy.reserve)
+        before = _size(model)
+        model.setPresolve(SCIP_PARAMSETTING.FAST)
+        model.setRealParam("numerics/feastol", 1e-8)
+        model.setIntParam("presolving/maxrounds", 1)
+        model.setIntParam("misc/usesymmetry", 0)
+        model.setRealParam("limits/time", 120)
+        model.presolve()
+        after = _size(model, transformed=True)
+        solver_version = ".".join(map(str, (
+            model.getMajorVersion(), model.getMinorVersion(), model.getTechVersion())))
     actual = [replay(policy, path, initial_soc) for path in net]
     cost = float(np.dot(prices, policy.grid)+sum(5*p*np.dot(prices, r["emergency"]) for p, r in zip(weights, actual)))
     lower = bound["lower_bound"]
     certified_gap = max(cost-lower, 0)/max(abs(lower), 1e-8)
     info = {"status": "certified_by_feasible_policy_and_global_lp_lower_bound",
-            "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound", "solver_version": ".".join(map(str, (
-                model.getMajorVersion(), model.getMinorVersion(), model.getTechVersion()))),
+            "solver": "LP_bound_and_exact_policy_replay", "solver_version": solver_version,
             "before_presolve": before, "after_presolve": after,
             "mip_gap": certified_gap, "requested_gap": gap, "objective": cost, "dual_bound": lower,
             "solve_seconds": time.perf_counter()-started+bound["seconds"],
             "mapping_error_kwh": 0.0, "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
             "reliable": bool(certified_gap <= gap and lower <= cost+PHYSICAL_TOL),
-            "certificate": bound, "branch_and_bound_required": False}
-    info["presolve_scope"] = "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
-    model.freeProb()
+            "certificate": bound, "branch_and_bound_required": False,
+            "certificate_source": "LP_BOUND", "upper_bound": cost, "lower_bound": lower,
+            "scip_build_skipped": not collect_model_statistics}
+    info["presolve_scope"] = ("SCIP_FAST_one_round_statistics_only" if collect_model_statistics
+                              else "skipped_after_LP_certificate")
+    if model is not None:
+        model.freeProb()
     return policy, actual, info

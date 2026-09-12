@@ -22,7 +22,9 @@ def setup():
     import matplotlib.pyplot as plt
     from matplotlib import font_manager
     fonts = {f.name for f in font_manager.fontManager.ttflist}
-    selected = next((f for f in ('PingFang SC', 'Heiti TC', 'Arial Unicode MS', 'Noto Sans CJK SC', 'Songti SC') if f in fonts), None)
+    selected = next((f for f in ('PingFang SC', 'Heiti TC', 'Microsoft YaHei', 'SimHei',
+                                  'SimSun', 'Arial Unicode MS', 'Noto Sans CJK SC',
+                                  'Songti SC') if f in fonts), None)
     if selected is None:
         raise RuntimeError('缺少中文字体，拒绝输出乱码图')
     plt.rcParams.update({'font.family': selected, 'font.size': 10, 'axes.titlesize': 12,

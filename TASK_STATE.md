@@ -1,3 +1,15 @@
+# 最新最高优先级：第二问尾部分层与动态SOC reserve正式结果完成（2026-09-12）
+
+用户要求立即采用新加速文档继续正式计算、取消额外对比。三份新文档已逐字节放入docs/2/final；修改前78源码+11977结果已完整复制到outputs/history/q2_baselines/pre_tail_reserve_20260912，逐文件SHA不匹配0。当前论文正式运行目录为outputs/q2/dispatch_runs/20260912_tail_reserve_final，旧20260911_224501完整运行使用8482.766385初态，仅作baseline。
+
+当前模型：2月1日SOC=6000；20%历史压力tail+近期body分层且总S不增加；层概率质量守恒；历史未来累计误差80%分位动态reserve仅作用首144段；SCIP/HiGHS/replay公式一致，不主动紧急购电补reserve。预测器未改，714输入/影子缓存逐摘要复用。3%gap不变。加速仅改变求解流水线：refine 5秒、LP证书后跳过SCIP统计build/presolve、base/rescue复用nubound/incumbent/同日资产、solver thread=1。前286日为加速前等价流水线，后48日从Nov14续算；两个源码版本边界已记录，数学模型未变。用户取消benchmark，新增未完成benchmark脚本及空目录已移除。
+
+正式334/334日及48096时段完成；result2.xlsx已生成。总费用14196337.662418788元，计划购电21654307.821422793kWh，紧急购电130262.4270849516kWh，紧急事件955，末SOC8630.38368811016kWh。SOC范围1276.7729447655363—10800；物理、互斥、功率、reserve放电及紧急购电同时充电违规均0；最大能量残差2.2737367544323206e-13。最大gap0.02999993837271141，只有Nov14补算1日。
+
+Load/PV/net-load MAE 142.47659459726626/158.4636194006929/248.5530105140439kW；RMSE 197.61172113918016/306.35950670350275/363.5413065591671kW；PICP80=0.7886102794411177，PICP90=0.8582626413838988。PICP90低于名义值，按任务书不重新调参，论文必须如实说明。
+
+最终96测试通过、1个旧2.1 Windows符号链接测试条件跳过；334份逐日独立审计0违规；1261条追溯覆盖1125非空原文行；三图实际目视和HTML 3图/12链接/响应式检查通过，processed/acceptance.json all_accepted=true。当前没有在跑正式或benchmark进程。最终验收docs/2/tail_reserve_work/acceptance.md，运行说明同目录run_guide.md，逐项CSV requirements_acceptance.csv；raw/final_independent_audit.json及raw/final_ui_smoke.json为机器证据。取消的27项开发型全年实验不再是论文门槛，无待运行MILP。
+
 # 最新最高优先级：用户已关闭定时跟进（2026-09-12T16:21:52）
 
 用户最新明确“把定时化任务关了”。已经通过Codex automation_update将automation（第二问全量计算自主验收）设为PAUSED，并读回automation.toml确认。不得依据下面历史日志或已排队的旧心跳重新启用、另建定时跟进。此次没有停止计算进程，现有后台队列继续。

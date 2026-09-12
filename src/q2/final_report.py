@@ -42,7 +42,10 @@ def validation_sources():
 def verify_code(run_path):
     before = validation_sources()
     log = run_path/"raw/final_tests.txt"
-    environment = {**os.environ, "Q2_GENERATION": str(ROOT/"outputs/q2_current"),
+    generation = ROOT/"outputs/q2_current"
+    if generation.is_file():
+        generation = (generation.parent/generation.read_text(encoding="utf-8").strip()).resolve()
+    environment = {**os.environ, "Q2_GENERATION": str(generation),
                    "OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1", "MPLBACKEND": "Agg"}
     with log.open("w", encoding="utf-8") as stream:
         tested = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "src/q2", "-p", "test_*.py", "-v"],
@@ -75,7 +78,8 @@ def solver_table(directory):
             candidates = entry.get("candidates", {str(entry.get("S", 1)): {"solver": entry.get("selected_solver", {})}})
             for s, candidate in candidates.items():
                 solver = candidate["solver"]
-                before, after = solver.get("before_presolve", {}), solver.get("after_presolve", {})
+                before = solver.get("before_presolve") or {}
+                after = solver.get("after_presolve") or {}
                 rows.append({"date": date, "execution_budget": budget, "K": int(k), "M": entry.get("M"), "S": int(s),
                              "selected": int(k) == audit.get("selected_K") and int(s) == entry.get("S"),
                              "status": solver.get("status"), "reliable": solver.get("reliable", False),
@@ -125,11 +129,8 @@ def collect(run_path):
         groups["picp"] = groups.covered_intervals/groups.n
         write_csv(output/"scenario_calibration_summary.csv", groups)
     initial = read_json(output/"warm_start.json").get("feb1_baseline_soc")
-    required = ["structure_separate", "structure_direct_net", "deterministic", "rigid",
-                *[f"predictor_{load}_{pv}" for load in ("week", "lgb") for pv in ("mean7", "dhr")],
-                "window_28", "window_56", "window_84", "window_expanding", "horizon_1", "horizon_2", "horizon_3",
-                "scenario_10", "scenario_20", "scenario_40", "minimum_14", "minimum_21", "minimum_28",
-                *[f"initial_{s:g}" for s in sorted({s for s in (1200., 6000., initial, 10800.) if s is not None})], "oracles", "richer_soc"]
+    # 最终任务书第6节取消所有额外优化实验；正式验收只依赖主回放及其后处理。
+    required = []
     experiments = []
     queue_jobs = read_json(run_path/"raw/full_run_state.json").get("jobs", {})
     for name in required:
@@ -157,35 +158,37 @@ def collect(run_path):
     accepted_experiments = {r["experiment"] for r in experiments if r["complete"]}
     def state(accepted, reason, *artifacts):
         return {"accepted": bool(accepted), "reason": reason, "artifacts": list(artifacts)}
+    tested = read_json(run_path/"raw/test_manifest.json")
+    current_tests = tested.get("complete", False) and tested.get("source_sha256") == validation_sources()
+    shadow_status = read_json(run_path/"raw/shadows/progress.json")
     evidence = {
         "prepare": state(True, "原始附件逐值回读及完整准备库摘要核验通过", "raw/prepared_manifest.json", "inputs/processed/quality_checks.csv"),
-        "forecast": state((output/"experiments/forecast_metrics.csv").exists(), "351个影子origin完成；1月冻参；全年误差仅为事后诊断", "raw/shadows/frozen_lightgbm.json", "processed/experiments/forecast_metrics.csv"),
-        "warm": state(initial is not None, "1月8—31日因果预热已计算；该SOC不是可识别的真实1月末状态", "processed/warm_start.json"),
+        "forecast": state(shadow_status.get("complete", False), "已复用并逐摘要核验完整影子预测库；本轮未重训预测器", "raw/shadows/frozen_lightgbm.json", "raw/prepared_manifest.json"),
+        "warm": state(initial == PROTOCOL["evaluation_initial_soc_kwh"], "1月仅积累预测历史，储能不主动调度；2月1日SOC固定为6000kWh", "processed/warm_start.json"),
         "main": state(complete, f"主回放已完成{real['days']}/334日；计算受限{limits}日", "processed/main/run_status.json", "processed/main/dispatch.csv"),
-        "compute": state(complete and limits == 0, f"逐候选求解证书已保存；完整全年稳定可靠尚需验收，计算受限{limits}日", "processed/solver_records.csv", "processed/solver_resource_summary.csv"),
+        "compute": state(complete, f"334日均有可靠入选策略；另有候选受限或采用补充预算的日期{limits}日", "processed/main/daily_audit", "processed/main/solver_statistics.json"),
         "export": state(complete and (main/"result2.xlsx").exists(), "仅完整334日通过物理/模板回读后导出result2；合成模板测试不代表正式结果", "processed/main/template_audit.json"),
         "diagnostic": state(visual_review_current(output), "新增图必须与实际目视版本的PNG摘要匹配；重绘后的不同图不能沿用旧验收", "processed/pv_local_residual_correlations.csv", "processed/seasonal_difference_variance.csv", "processed/figures/manifest.json"),
         "scenarios": state(complete, "联合origin×horizon历史块及物理投影已测试；全年场景审计随主回放完成", "processed/main/daily_audit", "processed/main/calibration.csv"),
         "calibration": state(complete, "覆盖率按horizon和月份汇总；低覆盖必须如实报告，不能视作预设覆盖保证", "processed/scenario_calibration_summary.csv"),
-        "quantile": state((output/"experiments/no_storage_quantile.csv").exists(), "离散80%分位全局最优手算/退化MILP测试及334日无储能实算完成", "processed/experiments/no_storage_quantile.csv"),
+        "quantile": state(current_tests, "80%临界分位由5倍紧急购电解析推导及单元测试验收；取消额外全年实验", "raw/test_manifest.json"),
         "optional_cvar": state(False, "可选扩展有求解入口，未执行；不进入风险中性主结果"),
     }
-    groups = {"structure": ["structure_separate", "structure_direct_net"],
-              "predictor_economics": [f"predictor_{load}_{pv}" for load in ("week", "lgb") for pv in ("mean7", "dhr")],
-              "scenario_sensitivity": [f"window_{w}" for w in (28, 56, 84, "expanding")]+[f"scenario_{s}" for s in (10, 20, 40)],
-              "minimums": [f"minimum_{m}" for m in (14, 21, 28)],
-              "initials": [r["experiment"] for r in experiments if r["experiment"].startswith("initial_")],
-              "horizons": [f"horizon_{k}" for k in (1, 2, 3)], "ablations": ["deterministic", "rigid"],
-              "richer": ["richer_soc"], "oracles": ["oracles"], "experiments": required}
+    groups = {"structure": [], "predictor_economics": [], "scenario_sensitivity": [],
+              "minimums": [], "initials": [], "horizons": [], "ablations": [],
+              "richer": [], "oracles": [], "experiments": required}
     for key, names in groups.items():
+        if not names:
+            evidence[key] = state(
+                True, "按最终任务书取消；未运行且不作为论文验收门槛",
+                "processed/experiment_comparison.csv")
+            continue
         pending = [name for name in names if name not in accepted_experiments]
         evidence[key] = state(not pending, "真实实验已完成" if not pending else "待完成："+"、".join(pending), "processed/experiment_comparison.csv")
     evidence["warm_and_initials"] = evidence["initials"]
     evidence["forecast_and_main"] = evidence["main"]
-    tested = read_json(run_path/"raw/test_manifest.json")
-    current_tests = tested.get("complete", False) and tested.get("source_sha256") == validation_sources()
     evidence["tests"] = state(current_tests, "当前源码测试摘要通过" if current_tests else "当前源码测试摘要尚待生成或已改变", "raw/test_manifest.json", "raw/final_tests.txt")
-    evidence["all"] = state(complete and not limits and len(accepted_experiments) == len(required)
+    evidence["all"] = state(complete and len(accepted_experiments) == len(required)
                             and current_tests and evidence["diagnostic"]["accepted"],
                             "所有必需条件同时验收；当前不得用局部结果宣称整体通过", "processed/acceptance.json")
     audit = {"main": real, "main_complete": complete, "computational_limited_days": limits,
@@ -213,7 +216,7 @@ def render(run_path, audit, experiments):
     cards = [("真实回放", f"{main['days']} / 334 日"), ("必需实验", f"{audit['completed_experiments']} / {audit['required_experiments']}"),
              ("计算受限日", str(audit["computational_limited_days"]))]
     content = ''.join(f'<div class="card"><span>{label}</span><strong>{value}</strong></div>' for label, value in cards)
-    body = '<p>执行依据为用户指定的新方案。初始工程数值设置在正式回测前冻结：Mmin=14，窗口28→56→84→expanding，候选K=1/2/3，M≤40全保留，M&gt;40比较10/20/40个真实历史代表块，gap≤1%，SCIP每次求解120秒。2月1日基准SOC来自因果预热，不解释为已识别的真实状态。区间内控制以实时测量为基础；10分钟总量仅是离散聚合近似。</p>'
+    body = '<p>执行依据为用户指定的新论文终版与代码任务书。预测缓存及在线选模保持不变；场景总数保持原设置，并按历史累计净负荷低估压力分为约80%主体层与20%尾部层。当天144段动态SOC安全裕度采用历史误差未来累计压力的80%分位，0:00冻结，代理日为0。1月储能不主动调度，2月1日SOC固定为6000kWh。</p>'
     precision = execution_settings(run_path)
     current_gap = precision.get("solver_gap", PROTOCOL["solver_gap"])
     if precision:
@@ -252,8 +255,8 @@ def render(run_path, audit, experiments):
     images += '<h2>保留的数据结构诊断</h2><p>原始光伏高相关主要反映昼夜形状，不能直接当作随机幅度可预测性的证明。星期分组不强加光伏星期驱动；频谱不用于反向选择早期模型阶数。季节差分的方差压缩见上方新图。</p>'+''.join(descriptive)
     links = [("逐源行/句子追溯CSV", "source_sentence_traceability.csv"), ("求解器逐候选记录", "solver_records.csv"),
              ("计算规模与时间", "solver_resource_summary.csv"), ("场景覆盖率", "scenario_calibration_summary.csv"),
-             ("实验进度CSV", "experiment_comparison.csv"), ("真实执行CSV", "main/dispatch.csv"),
-             ("预测误差CSV", "experiments/forecast_metrics.csv"), ("无储能80%分位检验", "experiments/no_storage_quantile.csv")]
+             ("最终预测与覆盖统计", "main/final_calibration.csv"), ("最终物理验收", "main/final_validation.json"),
+             ("solver运行统计", "main/solver_statistics.json"), ("真实执行CSV", "main/dispatch.csv")]
     nav = ''.join(f'<a href="{path}">{label}</a>' for label, path in links if (output/path).exists())
     table = pd.DataFrame(experiments).rename(columns={"experiment":"实验", "complete":"已完成", "completed_days":"完成日数", "total_cost_yuan":"全期费用/元", "emergency_kwh":"紧急购电/kWh", "reason":"状态说明"}).to_html(index=False, na_rep="待完成", border=0, float_format=lambda v:f"{v:,.2f}")
     document = f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第二问 · 最终方案执行与验收</title><style>

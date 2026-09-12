@@ -1,0 +1,29 @@
+id,requirement,implementation,evidence,status
+U01,两份初始新文档放入docs/2合适位置,docs/2/final保留原名及原字节,SHA256分别为59CBE601...和37F8DD6...,pass
+U02,加速文档放入docs/2合适位置,docs/2/final/Codex_问题二求解加速任务书.md,SHA256=613F7F1...,pass
+U03,旧代码和结果不得覆盖,outputs/history/q2_baselines/pre_tail_reserve_20260912,12055文件逐SHA不匹配0,pass
+U04,测试后进行全量计算,tests+P1 smoke+334日rollout,96 tests且334/334日,pass
+M01,净负荷误差统一为kWh,src/q2/scenarios.py:36#net_error_energy,test_cumulative_pressure_and_dynamic_reserve_use_kwh_paths,pass
+M02,累计压力Sj,src/q2/scenarios.py:44#cumulative_pressure,逐日场景审计334份,pass
+M03,最高20%历史压力块为tail,src/q2/scenarios.py:132#construct,test_tail_strata_preserve_count_origins_and_probability_mass,pass
+M04,总场景数不增加,src/q2/scenarios.py:142-171,test_tail_stratification_does_not_increase_reduced_scenario_count,pass
+M05,body和tail保留经验概率质量,src/q2/scenarios.py:157-173,权重和及层质量334日违规0,pass
+M06,未来累计压力B与80% reserve,src/q2/scenarios.py:50#dynamic_reserve,手算测试及334日冻结计划,pass
+M07,只对首144段启用reserve,src/q2/rolling.py:223-226,所有代理日reserve为0,pass
+M08,放电可用量扣除reserve,src/q2/policy.py:48-61,test_dynamic_reserve_only_blocks_discharge_and_never_recharges,pass
+M09,scenario MILP与replay一致,src/q2/optimization.py:66-117;src/q2/linear_policy.py:31-129,SCIP/HiGHS/replay等价测试,pass
+M10,reserve不得触发紧急购电补库存,src/q2/policy.py:58-65,emergency_and_charge_count=0,pass
+C01,复用forecast和shadow缓存,src/q2/dispatch.py:60-145,714文件摘要相同且未重训,pass
+C02,支持显式resume,src/q2/dispatch.py:196-249,实际从286日checkpoint续算,pass
+C03,缩短refine,src/q2/protocol.py:25;src/q2/relaxation.py:29-88,refine_seconds=5且参数测试通过,pass
+C04,LP证书后跳过SCIP构建,src/q2/optimization.py:233-270,test_lp_certificate_fast_path_skips_scip_build_and_keeps_audit,pass
+C05,rescue继承同日资产bound和incumbent,src/q2/rolling.py:31-97;431-452,test_rescue_reuses_base_bound_and_incumbent,pass
+C06,3% gap与核心模型不变,raw/acceleration_execution_revision.json,achieved_gap_max=0.0299999384,pass
+C07,取消27项额外全年实验,src/q2/full_run.py:24-67,required_for_paper仅main,pass
+R01,正式334日结果,processed/main/dispatch.csv,2025-02-01至2025-12-31共48096行,pass
+R02,result2原模板结构,processed/main/result2.xlsx,3工作表且数值回读通过,pass
+R03,最终物理一致性,processed/main/final_validation.json,overall_pass=true,pass
+R04,最终预测与覆盖统计,processed/main/final_calibration.csv/json,6项误差指标及PICP80/PICP90,pass
+R05,四个指定日期论文表,processed/main/paper_table1.csv;paper_table2.csv;paper_table3.csv,四日完整,pass
+R06,solver运行统计,processed/main/solver_statistics.json,334日runtime和gap字段完整,pass
+R07,界面冒烟,raw/final_ui_smoke.json,3图12链接且all_accepted=true,pass

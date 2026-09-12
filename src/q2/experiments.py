@@ -100,11 +100,21 @@ def scenario_audit(store, actual, dates, prices, directory):
         forecasts = combined(store, selection["pipeline"])
         point = forecasts[d, :k]
         blocks = np.stack([actual[j:j+k]-forecasts[j, :k] for j in origins])
-        full, full_weights, _ = construct(point, blocks, np.tile(prices, k))
+        all_origins = selection.get("all_origin_indices", origins)
+        all_blocks = np.stack([actual[j:j+k]-forecasts[j, :k] for j in all_origins])
+        full, full_weights, _ = construct(
+            point, blocks, np.tile(prices, k), origins=origins,
+            all_blocks=all_blocks, all_origins=all_origins,
+            tail_fraction=PROTOCOL["tail_fraction"])
         scenario = entry.get("scenarios", entry.get("candidates", {}).get(str(entry["S"]), {}).get("scenarios", {}))
-        indices = scenario.get("indices", list(range(len(full))))
         weights = np.asarray(scenario.get("weights", full_weights))
-        net = full[indices]
+        selected_origins = scenario.get("selected_origin_indices")
+        if selected_origins is None:
+            net = full[scenario.get("indices", list(range(len(full))))]
+        else:
+            selected_blocks = np.stack([actual[j:j+k]-forecasts[j, :k] for j in selected_origins])
+            values = np.maximum(point[None]+selected_blocks, 0)
+            net = DT*(values[..., 0]-values[..., 1]).reshape(len(selected_origins), -1)
         if entry["S"] == 1 and len(full) > 1:
             net = DT*(point[..., 0]-point[..., 1]).reshape(1, -1); weights = np.ones(1)
         mean = np.average(net, weights=weights, axis=0)
@@ -124,7 +134,8 @@ def scenario_audit(store, actual, dates, prices, directory):
                                       "reduced_Q80_kwh": q80, "full_Q90_kwh": full90, "reduced_Q90_kwh": q90}))
         if date in representative:
             frozen = pd.read_csv(directory/f"frozen_plans/{date.date()}.csv", float_precision="round_trip")
-            policy = Policy(frozen.grid, frozen.charge_cap, frozen.discharge_cap)
+            reserve = frozen.soc_reserve_kwh if "soc_reserve_kwh" in frozen else None
+            policy = Policy(frozen.grid, frozen.charge_cap, frozen.discharge_cap, reserve)
             initial = float(executed[executed.date == date].initial_soc.iloc[0])
             if rigid:
                 fixed_soc = initial+np.cumsum(ETA_C*policy.charge_cap-policy.discharge_cap/ETA_D)

@@ -2,6 +2,8 @@
 
 本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问新最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断；第三问主计算已从独立冻结runtime启动（3%间隙、切片与断点保存），[主运行说明](docs/3/full_run/execution_protocol.md)；[实时进度](http://127.0.0.1:8764/)；[主求解多核修复与验收](docs/3/compute_rescue/parallel_solver_report.md)；[最终检验方案与独立队列](docs/3/validation/report.md)；`python -m src.q3.run`保留小样本并行计时入口，[第三问运行与验收说明](docs/3/implementation_report.md)。常规结果表格使用CSV，result2/result3模板仅在完整真实回放验收后导出。
 
+当前第二问论文正式结果位于 `outputs/q2/dispatch_runs/20260912_tail_reserve_final/`：尾部场景分层、动态 SOC 安全裕度、2 月 1 日初始 SOC 6000 kWh、3% gap，334/334 日已完成并生成 `result2.xlsx`；物理/数值与界面验收通过。旧运行只作为 baseline，不代表当前论文结果。
+
 ### 项目目录树（持续维护）
 
 下列目录树逐文件覆盖题目资料、模型、输入、结果、源码和论文模板。技能包、技能来源说明、本机IDE配置和不可变运行历史按目录汇总；逐日期影子预测/求解审计与运行代按目录汇总，完整明细见第二问revision_work/file_inventory.csv；Git内部对象、Python缓存与系统缓存不属于核心文件。所有列出的文件和文件夹均附用途说明。
@@ -96,7 +98,10 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   ├── 数学建模技能清单.md  # 本地技能分类、用途与选用参考
 │   ├── 2/  # 第二问最终修订方案、新实现记录与旧诊断阶段追溯
 │   │   ├── README.md  # 唯一最终方案导航及新旧验收边界
-│   │   ├── final/  # 用户原方案及其后授权的精度与等价执行提速修订
+│   │   ├── final/  # 用户提供的正式模型、代码修改与计算加速任务书
+│   │   │   ├── 第二问_最终建模思路_论文精简终版.md  # 当前论文正式模型原文；逐字节归档
+│   │   │   ├── Q2_Codex_最终模型修改任务书.md  # 尾部分层、动态reserve、输出及验收要求
+│   │   │   ├── Codex_问题二求解加速任务书.md  # 6000初态核验、取消开发实验及等价流水线加速
 │   │   │   ├── 计算执行提速修订_延迟K1与基准复用.md  # 固定K2未通过；延迟K1与共享基准的依据和验收
 │   │   │   ├── 求解精度执行修订_3pct.md  # 当前后续3%门槛；旧1%/2%前缀保留与正式续算验收
 │   │   │   ├── 求解精度执行修订_2pct.md  # 后续2%求解门槛、旧结果保留及选择和验收证据
@@ -118,6 +123,10 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   │   ├── file_inventory.csv  # 新源码、文档与运行目录逐文件清单快照
 │   │   │   ├── pre_full_run_sources.tar.gz  # 本轮存档恢复和追加预算入口修改前源码备份
 │   │   │   └── pre_revision_sources.tar.gz  # 新建模开发前原实现与文档备份
+│   │   ├── tail_reserve_work/  # 当前论文正式模型的实现、结果与最终验收
+│   │   │   ├── acceptance.md  # 334日结果、P0—P3、假设、限制与视觉验收
+│   │   │   ├── requirements_acceptance.csv  # 用户/任务书逐项到代码、测试和证据的对应
+│   │   │   └── run_guide.md  # 缓存复用、首次运行、resume和最终报告命令
 │   │   ├── dierwen1.md  # 第二问2.1数据预处理与时间序列诊断的指定执行方案
 │   │   ├── notes.md  # 实施决策、算法依据、实算发现与限制
 │   │   ├── task_plan.md  # 逐项实施与验收计划、修复记录
@@ -405,6 +414,7 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   │       ├── raw/  # 6组输入NPZ、24份策略NPZ、8日回放CSV、JSON实验/复核及逐句/界面验收
 │   │   │       └── processed/  # report.html、comparison/summary/candidates.csv及tail_groups/tail_days.csv长尾统计
 │   │   ├── dispatch_runs/  # 新模型运行代、逐日存档与求解界证据；未验收不替换q2_current
+│   │   │   ├── 20260912_tail_reserve_final/  # 当前正式尾部分层+动态reserve运行；334日与最终产物均通过
 │   │   │   └── 20260911_224501/  # 本次真实输入、351个影子origin及正在自主续算的全量队列
 │   │   │       ├── inputs/  # 原始附件逐值核验后的CSV、电价与来源
 │   │   │       ├── deliverables/  # 用户要求的94天阶段快照：Excel、原始CSV、ZIP与验收清单
@@ -467,6 +477,7 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │           └── prepared/  # 检验专属预处理副本，避免写主任务输入
 │   ├── q2_current/  # 第二问当前完整运行代原子指针；正式路径下逐文件列出
 │   └── history/  # 已清理运行代的轻量追溯记录和逐文件清理验收
+│       ├── q2_baselines/pre_tail_reserve_20260912/  # 本轮修改前78源码+11977结果的逐哈希完整baseline
 │       ├── run_records_20260911.tar.gz  # 59份旧运行清单、配置、验收及日志的压缩归档
 │       ├── cleanup_20260911.csv  # 429个清理文件的原路径、处理方式、大小与SHA-256
 │       └── cleanup_20260911.json  # 保留范围、清理前后体积及完整性检查结果
@@ -625,8 +636,8 @@ uv run --with-requirements src/q2/requirements.txt python src/q2/run.py
 
 绘图输出格式：所有项目绘图脚本统一只生成PNG和SVG；已取消旧Q1脚本的PDF导出。目录树中的绘图PDF是旧运行代遗留文件。
 
-第二问新最终方案：[原文](docs/2/final/第二问_最终建模思路_最高优先级修订版_修订后.md) · [新运行说明](docs/2/revision_work/run_guide.md) · [审查与未完成项](docs/2/revision_work/acceptance.md) · [真实执行报告快照](outputs/q2/dispatch_runs/20260911_224501/processed/report.html)。主程序：`python src/q2/dispatch.py run --run-dir outputs/q2/dispatch_runs/20260911_224501`（使用uv固定环境，详见运行说明）。新报告的计算限制停止标识与未完成实验必须保留，完整验收前不能当作最终全年结果。
+第二问当前论文正式方案：[模型原文](docs/2/final/第二问_最终建模思路_论文精简终版.md) · [代码任务书](docs/2/final/Q2_Codex_最终模型修改任务书.md) · [最终验收](docs/2/tail_reserve_work/acceptance.md) · [运行说明](docs/2/tail_reserve_work/run_guide.md) · [真实执行报告](outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/report.html)。主程序支持显式 `--resume`；预测缓存逐摘要复用，旧主结果未覆盖。
 
-当前启动状态：用户已明确授权并启动Mac全量计算。84项检查通过，两个独立工作进程按日存档并继续已有进度；每15分钟自动跟进排查。实时页面：[全量计算进度](outputs/q2/dispatch_runs/20260911_224501/processed/progress.html)。补算预算另行记录，正式后续采用3%精度，已有1%及2%结果保留；主334天已计算提交，Excel后处理与其余论文验证单独验收；当前状态见TASK_STATE.md。
+当前状态：尾部分层与动态 SOC reserve 正式回放 334/334 日完成，`result2.xlsx`、summary、物理验证、校准、四日论文表和 solver 统计均已生成。96 项当前源码测试、334 份逐日审计、三图目视与 HTML 链接检查通过。最终任务书取消的 27 项开发型全年实验不再运行或作为论文门槛。
 
 第二问1%/3%小量对比：[HTML表格](outputs/q2/precision_comparison/20260912_122315/processed/report.html) · [对照CSV](outputs/q2/precision_comparison/20260912_122315/processed/comparison.csv) · [验收](docs/2/revision_work/precision_pair_acceptance.md)。2个普通日期各档重复2次，全部24候选合格；新增历史48日长尾核查：7个补算日占68%推进时间，当前样本不足以估计全任务提速。正式仍为2%。

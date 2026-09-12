@@ -9,7 +9,7 @@ from openpyxl import load_workbook
 from openpyxl.comments import Comment
 
 from data import calendar_for_day, write_csv, write_json
-from policy import PHYSICAL_TOL, validate_replay
+from policy import CAP, E_MIN, E_MAX, ETA_D, PHYSICAL_TOL, validate_replay
 from protocol import PROTOCOL
 
 
@@ -33,8 +33,10 @@ def validate_dispatch(frame, *, full_period=False, rigid=False):
             raise ValueError("跨日SOC不连续")
         if not np.allclose(day.initial_soc, day.initial_soc.iloc[0], atol=PHYSICAL_TOL, rtol=0):
             raise ValueError("同一天的0:00初态不一致")
+        reserve = day.soc_reserve_kwh.to_numpy() if "soc_reserve_kwh" in day else np.zeros(len(day))
         validate_replay(day.grid.to_numpy(), day.net_kwh.to_numpy(), float(day.initial_soc.iloc[0]),
-                        {k: day[k].to_numpy() for k in ("charge", "discharge", "emergency", "unused", "soc")}, rigid=rigid)
+                        {k: day[k].to_numpy() for k in ("charge", "discharge", "emergency", "unused", "soc")},
+                        rigid=rigid, reserve=reserve)
         np.testing.assert_allclose(day.planned_cost, day.price*day.grid, atol=PHYSICAL_TOL, rtol=0)
         np.testing.assert_allclose(day.emergency_cost, 5*day.price*day.emergency, atol=PHYSICAL_TOL, rtol=0)
         previous = float(day.soc.iloc[-1])
@@ -111,9 +113,114 @@ def write_tables(frame, output):
     write_csv(output/"paper_table1.csv", pd.DataFrame(rows, columns=["date", "interval", "planned_kwh", "daily_planned_kwh", "daily_planned_cost_yuan", "daily_actual_cost_yuan"]))
     write_csv(output/"paper_table2.csv", storage[storage.date.isin(PROTOCOL["specified_dates"])])
     # 指定日期表按日截取区间；全局事件表另外保留跨日连续事件定义。
-    events = [emergency_events(day) for _, day in specified.groupby("date")]
+    events = [table for _, day in specified.groupby("date")
+              if not (table := emergency_events(day)).empty]
     write_csv(output/"paper_table3.csv", pd.concat(events, ignore_index=True) if events else emergency_events(specified))
     write_json(output/"summary.json", summary(frame))
+
+
+def final_validation(frame):
+    previous = np.r_[frame.initial_soc.iloc[0], frame.soc.to_numpy()[:-1]]
+    balance = (frame.grid+frame.discharge+frame.emergency
+               -frame.net_kwh-frame.charge-frame.unused)
+    soc_violation = (frame.soc < E_MIN-PHYSICAL_TOL) | (frame.soc > E_MAX+PHYSICAL_TOL)
+    simultaneous = (frame.charge > PHYSICAL_TOL) & (frame.discharge > PHYSICAL_TOL)
+    power = (frame.charge > CAP+PHYSICAL_TOL) | (frame.discharge > CAP+PHYSICAL_TOL)
+    emergency_charge = (frame.emergency > PHYSICAL_TOL) & (frame.charge > PHYSICAL_TOL)
+    reserve = frame.soc_reserve_kwh.to_numpy() if "soc_reserve_kwh" in frame else np.zeros(len(frame))
+    reserve_discharge = frame.discharge.to_numpy() > (
+        ETA_D*np.maximum(previous-E_MIN-reserve, 0)+PHYSICAL_TOL)
+    result = {
+        "soc_min": float(frame.soc.min()), "soc_max": float(frame.soc.max()),
+        "soc_violation_count": int(soc_violation.sum()),
+        "simultaneous_charge_discharge_count": int(simultaneous.sum()),
+        "power_violation_count": int(power.sum()),
+        "max_energy_balance_residual": float(np.abs(balance).max()),
+        "emergency_and_charge_count": int(emergency_charge.sum()),
+        "reserve_discharge_violation_count": int(reserve_discharge.sum()),
+        "intervals_checked": len(frame)}
+    result["overall_pass"] = bool(
+        result["soc_violation_count"] == 0
+        and result["simultaneous_charge_discharge_count"] == 0
+        and result["power_violation_count"] == 0
+        and result["max_energy_balance_residual"] <= PHYSICAL_TOL
+        and result["emergency_and_charge_count"] == 0
+        and result["reserve_discharge_violation_count"] == 0)
+    return result
+
+
+def final_calibration(frame, actual, calibration):
+    day_indices = pd.DatetimeIndex(pd.to_datetime(frame.date).unique()).dayofyear.to_numpy()-1
+    realized = np.asarray(actual)[day_indices]
+    predicted_load = frame.predicted_load_kw.to_numpy()
+    predicted_pv = frame.predicted_pv_kw.to_numpy()
+    actual_load, actual_pv = realized[..., 0].ravel(), realized[..., 1].ravel()
+    series = {
+        "load": (actual_load, predicted_load),
+        "pv": (actual_pv, predicted_pv),
+        "net_load": (actual_load-actual_pv, predicted_load-predicted_pv)}
+    rows, payload = [], {}
+    for name, (observed, predicted) in series.items():
+        error = observed-predicted
+        values = {"mae_kw": float(np.abs(error).mean()),
+                  "rmse_kw": float(np.sqrt(np.mean(error**2))), "n": len(error)}
+        payload[name] = values
+        rows.extend([
+            {"metric": f"{name}_MAE", "value": values["mae_kw"], "unit": "kW", "n": len(error)},
+            {"metric": f"{name}_RMSE", "value": values["rmse_kw"], "unit": "kW", "n": len(error)}])
+    calibration = calibration[calibration.horizon == 0]
+    coverage = {}
+    for nominal, label in ((.8, "PICP80"), (.9, "PICP90")):
+        selected = calibration[np.isclose(calibration.nominal, nominal)]
+        covered, n = int(selected.covered_intervals.sum()), int(selected.n.sum())
+        value = covered/n
+        coverage[label] = {"value": value, "covered_intervals": covered, "n": n,
+                           "scope": "executed_first_day_scenarios"}
+        rows.append({"metric": label, "value": value, "unit": "fraction", "n": n})
+    payload["coverage"] = coverage
+    return pd.DataFrame(rows), payload
+
+
+def solver_statistics(daily):
+    runtime = daily.runtime_seconds.to_numpy(dtype=float)
+    achieved = daily.achieved_mip_gap.to_numpy(dtype=float)
+    requested = daily.requested_mip_gap.to_numpy(dtype=float)
+    if not (np.isfinite(runtime).all() and np.isfinite(achieved).all()
+            and np.isfinite(requested).all()):
+        raise ValueError("solver逐日统计包含非有限数值")
+    return {"total_runtime": float(runtime.sum()),
+            "mean_daily_runtime": float(runtime.mean()),
+            "median_daily_runtime": float(np.median(runtime)),
+            "max_daily_runtime": float(runtime.max()),
+            "requested_mip_gap": float(requested.max()),
+            "achieved_mip_gap_mean": float(achieved.mean()),
+            "achieved_mip_gap_max": float(achieved.max()),
+            "days_completed": len(daily)}
+
+
+def write_final_artifacts(frame, actual, output):
+    output = Path(output)
+    validate_dispatch(frame, full_period=True)
+    validation = final_validation(frame)
+    write_json(output/"final_validation.json", validation)
+    if not validation["overall_pass"]:
+        raise ValueError("最终物理一致性验收失败")
+    calibration = pd.read_csv(output/"calibration.csv", float_precision="round_trip")
+    calibration_table, calibration_payload = final_calibration(frame, actual, calibration)
+    write_csv(output/"final_calibration.csv", calibration_table)
+    write_json(output/"final_calibration.json", calibration_payload)
+    daily = pd.read_csv(output/"daily.csv", float_precision="round_trip")
+    solver = solver_statistics(daily)
+    write_json(output/"solver_statistics.json", solver)
+    write_json(output/"summary.json", {
+        **summary(frame),
+        "model_configuration": {
+            "tail_stratification": PROTOCOL["tail_stratification"],
+            "tail_fraction": PROTOCOL["tail_fraction"],
+            "dynamic_soc_reserve": PROTOCOL["dynamic_soc_reserve"],
+            "reserve_quantile": PROTOCOL["reserve_quantile"],
+            "evaluation_initial_soc_kwh": PROTOCOL["evaluation_initial_soc_kwh"]},
+        "solver_statistics": solver})
 
 
 def export_result(frame, template, output):

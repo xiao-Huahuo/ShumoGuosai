@@ -10,7 +10,7 @@ from scipy.sparse import coo_matrix
 from policy import CAP, E_MIN, E_MAX, ETA_C, ETA_D, PHYSICAL_TOL, Policy, replay
 
 
-def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None):
+def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None, reserve=None):
     net, prices, weights = [np.asarray(v, dtype=float) for v in (net, prices, weights)]
     if net.ndim != 2 or prices.shape != (net.shape[1],) or weights.shape != (net.shape[0],):
         raise ValueError("场景/电价/概率维度不符")
@@ -19,18 +19,25 @@ def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None)
     if not np.isclose(weights.sum(), 1, atol=1e-12) or not E_MIN <= initial_soc <= E_MAX:
         raise ValueError("概率或初态不符")
     s, t = net.shape
+    if reserve is None and fixed_policy is not None:
+        reserve = fixed_policy.reserve
+    reserve = np.zeros(t) if reserve is None else np.asarray(reserve, dtype=float)
+    if reserve.shape != (t,) or not np.isfinite(reserve).all() or (reserve < 0).any() or (reserve > E_MAX-E_MIN).any():
+        raise ValueError("动态SOC安全裕度长度或数值不符")
+    if fixed_policy is not None and not np.array_equal(fixed_policy.reserve, reserve):
+        raise ValueError("固定策略与线性MILP动态SOC安全裕度不一致")
     g, cp, rp = [np.arange(k*t, (k+1)*t) for k in range(3)]
-    blocks = [np.arange(3*t+k*s*t, 3*t+(k+1)*s*t).reshape(s, t) for k in range(12)]
-    c, r, q, w, e, z, *selectors = blocks
+    blocks = [np.arange(3*t+k*s*t, 3*t+(k+1)*s*t).reshape(s, t) for k in range(13)]
+    c, r, q, w, e, z, reserve_active, *selectors = blocks
     lr, lc = selectors[:3], selectors[3:]
-    size = 3*t+12*s*t
+    size = 3*t+13*s*t
     objective, lo, hi, integer = np.zeros(size), np.zeros(size), np.full(size, np.inf), np.zeros(size)
     grid_upper = np.maximum(net.max(0), 0)+CAP
     objective[g] = prices; objective[q] = 5*weights[:, None]*prices
     hi[g], hi[cp], hi[rp] = grid_upper, CAP, CAP
     hi[c], hi[r], hi[q], hi[w] = CAP, CAP, np.maximum(net, 0), np.maximum(grid_upper-net, 0)
     lo[e], hi[e] = E_MIN, E_MAX
-    for block in (z, *lr, *lc):
+    for block in (z, reserve_active, *lr, *lc):
         hi[block] = 1; integer[block] = 1
     hi[z[net < 0]] = 0
     free_charge = fixed_policy is None
@@ -61,13 +68,26 @@ def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None)
         for i in range(t):
             n = float(net[j, i]); ci, ri, qi, wi, ei, zi = [int(v[j, i]) for v in (c, r, q, w, e, z)]
             previous = int(e[j, i-1]) if i else None
+            threshold = E_MIN+float(reserve[i])
+            positive_available_max = ETA_D*(E_MAX-threshold)
+            negative_available_max = ETA_D*float(reserve[i])
+            reserve_binary = int(reserve_active[j, i])
+            if i == 0:
+                active = int(initial_soc >= threshold)
+                lo[reserve_binary] = active
+                hi[reserve_binary] = active
             add([(g[i], 1), (ri, 1), (qi, 1), (ci, -1), (wi, -1)], n, True)
             add([(ei, 1), (ci, -ETA_C), (ri, 1/ETA_D)]+([(previous, -1)] if i else []), 0 if i else initial_soc, True)
             add([(ci, 1), (cp[i], -1)], 0); add([(ri, 1), (rp[i], -1)], 0)
             room_max = (E_MAX-E_MIN)/ETA_C if i else (E_MAX-initial_soc)/ETA_C
-            available_max = ETA_D*(E_MAX-E_MIN) if i else ETA_D*(initial_soc-E_MIN)
             add([(ci, 1)]+([(previous, 1/ETA_C)] if i else []), E_MAX/ETA_C if i else room_max)
-            add([(ri, 1)]+([(previous, -ETA_D)] if i else []), -ETA_D*E_MIN if i else available_max)
+            add([(ri, 1), (reserve_binary, -CAP)], 0)
+            if i:
+                add([(previous, ETA_D), (reserve_binary, -positive_available_max)], ETA_D*threshold)
+                add([(previous, -ETA_D), (reserve_binary, negative_available_max)], -ETA_D*E_MIN)
+                add([(ri, 1), (previous, -ETA_D), (reserve_binary, negative_available_max)], -ETA_D*E_MIN)
+            else:
+                add([(ri, 1), (reserve_binary, negative_available_max)], ETA_D*(initial_soc-E_MIN))
             add([(ci, 1), (zi, CAP)], CAP); add([(ri, 1), (zi, -CAP)], 0)
             add([(qi, 1), (zi, -max(n, 0))], 0)
             surplus_max = max(float(grid_upper[i])-n, 0)
@@ -79,8 +99,10 @@ def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None)
             add([(rp[i], 1), (ri, -1), (lr[0][j, i], CAP)], CAP)
             deficit_max = max(n, 0)
             add([(g[i], -1), (ri, -1), (lr[1][j, i], deficit_max)], deficit_max-n)
-            add([(ri, -1), (lr[2][j, i], available_max)]+([(previous, ETA_D)] if i else []),
-                available_max+ETA_D*E_MIN if i else 0)
+            add([(ri, -1), (lr[2][j, i], positive_available_max)]+
+                ([(previous, ETA_D)] if i else []),
+                positive_available_max+ETA_D*threshold if i
+                else positive_available_max-ETA_D*(initial_soc-threshold))
             if not free_charge:
                 add([(cp[i], 1), (ci, -1), (lc[0][j, i], CAP)], CAP)
                 add([(g[i], 1), (ci, -1), (lc[1][j, i], surplus_max)], surplus_max+n)
@@ -90,7 +112,7 @@ def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None)
             add([(qi, 1), (lr[0][j, i], -deficit_max), (lr[2][j, i], -deficit_max)], 0)
             if not free_charge:
                 add([(wi, 1), (lc[0][j, i], -surplus_max), (lc[2][j, i], -surplus_max)], 0)
-            add([(ei, 1), (lr[2][j, i], E_MAX-E_MIN)], E_MAX)
+            add([(ei, 1), (lr[2][j, i], E_MAX-threshold)], E_MAX)
             if not free_charge:
                 add([(ei, -1), (lc[2][j, i], E_MAX-E_MIN)], -E_MIN)
             # 同一方向的响应总量受净缺口/剩余上界约束，不能将分量上界重复相加。
@@ -98,12 +120,15 @@ def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None)
             add([(ci, 1), (wi, 1), (zi, surplus_max)], surplus_max)
             if i:
                 # 当储能边界项为最小项，上一SOC必须在一时段功率可达的边界邻域。
-                add([(previous, 1), (lr[2][j, i], E_MAX-E_MIN-CAP/ETA_D)], E_MAX)
+                add([(previous, 1), (lr[2][j, i], E_MAX-threshold-CAP/ETA_D)], E_MAX)
                 if not free_charge:
                     add([(previous, -1), (lc[2][j, i], E_MAX-E_MIN-ETA_C*CAP)], -E_MIN)
     matrix = coo_matrix((coefficients, (rows, cols)), shape=(len(upper), size)).tocsc()
     return objective, Bounds(lo, hi), integer, LinearConstraint(matrix, lower, upper), {"g": g, "cp": cp, "rp": rp,
-                                                                                   "responses": (c, r, q, w, e), "z": z, "lr": lr, "lc": lc, "free_charge": free_charge}
+                                                                                   "responses": (c, r, q, w, e), "z": z,
+                                                                                   "reserve_active": reserve_active, "lr": lr,
+                                                                                   "lc": lc, "free_charge": free_charge,
+                                                                                   "reserve": reserve}
 
 
 def linear_seed(policy, net, initial_soc, indices, size):
@@ -118,7 +143,9 @@ def linear_seed(policy, net, initial_soc, indices, size):
         for i, n in enumerate(path):
             x = n-policy.grid[i]; deficit = x >= 0
             vector[indices["z"][j, i]] = int(deficit)
-            rmin = np.argmin([policy.discharge_cap[i], max(x, 0), ETA_D*(previous-E_MIN)])
+            available = max(ETA_D*(previous-E_MIN-policy.reserve[i]), 0)
+            vector[indices["reserve_active"][j, i]] = int(previous >= E_MIN+policy.reserve[i])
+            rmin = np.argmin([policy.discharge_cap[i], max(x, 0), available])
             cmin = np.argmin([policy.charge_cap[i], max(-x, 0), (E_MAX-previous)/ETA_C])
             if deficit:
                 vector[indices["lr"][rmin][j, i]] = 1
@@ -147,7 +174,8 @@ def polish_linear_seed(policy, net, initial_soc, objective, bounds, integer, con
                                                   "dual_feasibility_tolerance": 1e-8})
         if not solved.success:
             break
-        candidate = Policy(*[np.maximum(solved.x[indices[key]], 0) for key in ("g", "cp", "rp")])
+        candidate = Policy(*[np.maximum(solved.x[indices[key]], 0) for key in ("g", "cp", "rp")],
+                           indices["reserve"])
         updated = linear_seed(candidate, net, initial_soc, indices, len(objective))
         if float(objective@updated) >= float(objective@vector)-1e-5:
             break
@@ -158,22 +186,26 @@ def polish_linear_seed(policy, net, initial_soc, objective, bounds, integer, con
 
 
 def solve_linear_policy(net, prices, weights, initial_soc, *, gap=.01, time_limit=900,
-                        fixed_policy=None, seed_policy=None, log=False):
+                        fixed_policy=None, seed_policy=None, log=False, reserve=None,
+                        threads=1):
     started = time.perf_counter()
-    objective, bounds, integer, constraints, indices = build_linear_policy(net, prices, weights, initial_soc, fixed_policy=fixed_policy)
+    objective, bounds, integer, constraints, indices = build_linear_policy(
+        net, prices, weights, initial_soc, fixed_policy=fixed_policy, reserve=reserve)
     refinement = None
     if seed_policy is not None:
         polish_started = time.perf_counter()
         before_dominance = None
         if fixed_policy is None:
-            seed_policy = Policy(seed_policy.grid, np.full(len(prices), CAP), seed_policy.discharge_cap)
+            seed_policy = Policy(seed_policy.grid, np.full(len(prices), CAP),
+                                 seed_policy.discharge_cap, indices["reserve"])
             # 先在原策略类改善初值，避免过早固定cp使局部分支LP停在较差初值。
             seed_lower = bounds.lb.copy()
             seed_lower[indices["cp"]] = 0
             vector, before_dominance = polish_linear_seed(
                 seed_policy, net, initial_soc, objective, Bounds(seed_lower, bounds.ub.copy()),
                 integer, constraints, indices)
-            seed_policy = Policy(vector[indices["g"]], np.full(len(prices), CAP), vector[indices["rp"]])
+            seed_policy = Policy(vector[indices["g"]], np.full(len(prices), CAP),
+                                 vector[indices["rp"]], indices["reserve"])
         vector, refinement = polish_linear_seed(
             seed_policy, net, initial_soc, objective, bounds, integer, constraints, indices,
             seconds=max(30-(time.perf_counter()-polish_started), 0))
@@ -188,7 +220,7 @@ def solve_linear_policy(net, prices, weights, initial_soc, *, gap=.01, time_limi
     solver = highs_core._Highs()
     # HiGHS以可行上界U归一化gap，本项目以全局下界L归一化；换算保证(U-L)/L仍不超过gap。
     internal_gap = gap/(1+gap)
-    for key, value in {"mip_rel_gap": internal_gap, "time_limit": max(time_limit-(time.perf_counter()-started), .01), "output_flag": log, "threads": 1,
+    for key, value in {"mip_rel_gap": internal_gap, "time_limit": max(time_limit-(time.perf_counter()-started), .01), "output_flag": log, "threads": int(threads),
                        "mip_feasibility_tolerance": 1e-8, "primal_feasibility_tolerance": 1e-8}.items():
         if solver.setOptionValue(key, value) == highs_core.HighsStatus.kError:
             raise ValueError(f"HiGHS参数不受当前锁定版本支持：{key}")
@@ -226,7 +258,8 @@ def solve_linear_policy(net, prices, weights, initial_soc, *, gap=.01, time_limi
     if solved.primal_solution_status != highs_core.kSolutionStatusFeasible:
         return None, None, info
     vector = np.asarray(solver.getSolution().col_value)
-    policy = Policy(*[np.maximum(vector[indices[key]], 0) for key in ("g", "cp", "rp")])
+    policy = Policy(*[np.maximum(vector[indices[key]], 0) for key in ("g", "cp", "rp")],
+                    indices["reserve"])
     responses = [replay(policy, row, initial_soc) for row in net]
     raw = np.stack([vector[v] for v in indices["responses"]], axis=-1)
     exact = np.array([np.array([row[key] for key in ("charge", "discharge", "emergency", "unused", "soc")]).T for row in responses])

@@ -6,7 +6,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 from checkpoint import atomic_json
-from full_run import DEPENDENT, eligible, guard_memory, job_names, read, reconcile, worker
+from full_run import (DEPENDENT, LEGACY_OR_DEVELOPMENT_ONLY, eligible,
+                      experiment_category, guard_memory, job_names, read, reconcile, worker)
 
 
 class FullRunTests(unittest.TestCase):
@@ -27,7 +28,7 @@ class FullRunTests(unittest.TestCase):
             with patch("full_run.owned_process", side_effect=lambda job: job["attempt"] != "unrelated"), \
                     patch("full_run.subprocess.run", side_effect=[subprocess.CompletedProcess([], 0, "5000000"),
                                                                   subprocess.CompletedProcess([], 0, "6000000")]), \
-                    patch("full_run.os.killpg") as kill:
+                    patch("full_run.terminate_worker") as kill:
                 guard_memory(Path(tmp), jobs)
             self.assertEqual(kill.call_args.args[0], 101)
             self.assertEqual(kill.call_count, 1)
@@ -35,15 +36,20 @@ class FullRunTests(unittest.TestCase):
             self.assertFalse(read(Path(tmp)/"large.json")["complete"])
 
     def test_failed_main_keeps_independent_jobs_and_blocks_dependencies(self):
-        jobs = {name: {"status": "pending"} for name in job_names(8482.766385)}
-        self.assertEqual(len(jobs), 29)  # 主模型、27必需实验、预测诊断。
+        self.assertEqual(job_names(6000.), ["main"])
+        self.assertEqual(experiment_category("main"), "required_for_paper")
+        self.assertEqual(experiment_category("forecast"), "optional_diagnostics")
+        self.assertEqual(experiment_category("horizon_1"), "legacy_or_development_only")
+        jobs = {name: {"status": "pending"} for name in job_names(
+            6000., include_optional=True, include_legacy=True)}
+        self.assertTrue(set(LEGACY_OR_DEVELOPMENT_ONLY).issubset(jobs))
         jobs["main"]["status"] = "failed"
         jobs["window_28"]["requires_main"] = True
-        jobs["initial_8482.77"]["requires_main"] = True
+        jobs["initial_6000"]["requires_main"] = True
         self.assertTrue(eligible(jobs))
         self.assertFalse(DEPENDENT.intersection(eligible(jobs)))
         self.assertNotIn("window_28", eligible(jobs))
-        self.assertNotIn("initial_8482.77", eligible(jobs))
+        self.assertNotIn("initial_6000", eligible(jobs))
         self.assertIn("initial_1200", eligible(jobs))
         jobs["main"]["status"] = "complete"
         self.assertTrue(DEPENDENT.issubset(eligible(jobs)))
@@ -66,8 +72,9 @@ class FullRunTests(unittest.TestCase):
             with patch("experiments.run_experiments", return_value={"horizon_1": {"complete": False}}):
                 self.assertEqual(worker(path, "horizon_1", "a", "receipt/a.json"), 2)
             self.assertFalse(read(path/"receipt/a.json")["complete"])
-            with patch("experiments.run_experiments", return_value={"horizon_2": {"complete": True}}):
+            with patch("experiments.run_experiments", return_value={"horizon_2": {"complete": True}}) as run:
                 self.assertEqual(worker(path, "horizon_2", "b", "receipt/b.json"), 0)
+                self.assertIsNone(run.call_args.kwargs["rescue_seconds"])
             self.assertTrue(read(path/"receipt/b.json")["complete"])
 
 
