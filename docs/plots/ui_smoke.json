@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "method": "CUA actual browser and local image inspection",
+  "q1_gallery": {
+    "figures": 8,
+    "all_images_loaded": true,
+    "csv_links": 13,
+    "office_links": 0,
+    "horizontal_overflow": false,
+    "default_width_px": 319,
+    "core_result_fragment_navigation": true,
+    "dispatch_csv_download_event": true,
+    "final_order": [
+      "02_optimal_dispatch",
+      "03_cost_waterfall",
+      "01_data_features",
+      "04_device_sensitivity",
+      "05_joint_contour",
+      "06_efficiency",
+      "07_input_sensitivity",
+      "08_fixed_mode_diagnostic"
+    ]
+  },
+  "project_gallery": {
+    "figures": 23,
+    "all_images_loaded": true,
+    "script_links": 23,
+    "horizontal_overflow": false
+  },
+  "visual_inspection": "8张新图逐张读取检查；等值线和热力图改善配色后再检查；核心图浏览器截图检查。",
+  "viewport_override_used": false
+}

@@ -1,0 +1,9 @@
+{
+  "mapped_source_lines": 254,
+  "mapped_sentence_rows": 265,
+  "sections": 15,
+  "central_plot_references": [
+    "src/plots/q2.py:18-160"
+  ],
+  "passed": true
+}

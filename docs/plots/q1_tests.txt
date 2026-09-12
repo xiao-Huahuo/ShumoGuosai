@@ -1,0 +1,116 @@
+test_actual_rhs_slopes_and_local_thresholds (test_analysis.MarginalAcceptance.test_actual_rhs_slopes_and_local_thresholds) ... ok
+test_all_36_scenarios_and_432_relaxations (test_analysis.MarginalAcceptance.test_all_36_scenarios_and_432_relaxations) ... ok
+test_analytic_shadow_sign_and_price_threshold (test_analysis.MarginalAcceptance.test_analytic_shadow_sign_and_price_threshold) ... ok
+test_full_input_output_csv_and_normalized_sensitivity (test_analysis.MarginalAcceptance.test_full_input_output_csv_and_normalized_sensitivity) ... ok
+test_independent_power_limits_and_csv_nonfinite_rejected (test_analysis.MarginalAcceptance.test_independent_power_limits_and_csv_nonfinite_rejected) ... ok
+test_lp_relaxation_keeps_big_m_coupling (test_analysis.MarginalAcceptance.test_lp_relaxation_keeps_big_m_coupling) ... ok
+test_nested_baselines_and_analytic_no_ess (test_analysis.MarginalAcceptance.test_nested_baselines_and_analytic_no_ess) ... ok
+test_all_actual_scenarios (test_q1.Q1Acceptance.test_all_actual_scenarios) ... ok
+test_analytical_arbitrage_case (test_q1.Q1Acceptance.test_analytical_arbitrage_case) ... ok
+test_corrupted_inputs_rejected (test_q1.Q1Acceptance.test_corrupted_inputs_rejected) ... ok
+test_corrupted_schedules_rejected (test_q1.Q1Acceptance.test_corrupted_schedules_rejected) ... ok
+test_csv_roundtrip_and_tamper_rejection (test_q1.Q1Acceptance.test_csv_roundtrip_and_tamper_rejection) ... ok
+test_curtailment_is_available_when_absorption_is_limited (test_q1.Q1Acceptance.test_curtailment_is_available_when_absorption_is_limited) ... ok
+test_export_csv_matches_all_variables_and_inputs (test_q1.Q1Acceptance.test_export_csv_matches_all_variables_and_inputs) ... ok
+test_time_and_unit_examples (test_q1.Q1Acceptance.test_time_and_unit_examples) ... ok
+test_atomic_pointer_and_failed_commit_preserve_old_generation (test_review.PipelineAcceptance.test_atomic_pointer_and_failed_commit_preserve_old_generation) ... ok
+test_font_failure_still_publishes_valid_csv_and_visible_status (test_review.PipelineAcceptance.test_font_failure_still_publishes_valid_csv_and_visible_status) ... main: 费用=35126.948589290元；MIP gap=0.0；物理检查通过
+eta085: 费用=36603.406480027元；MIP gap=0.0；物理检查通过
+eta095: 费用=33767.032620753元；MIP gap=0.0；物理检查通过
+roundtrip090: 费用=33801.495542222元；MIP gap=0.0；物理检查通过
+分析 1/36 main_l95_pv95: 33042.515273 元；原MILP与固定模式LP检查通过
+分析 2/36 main_l95_pv100: 31552.184281 元；原MILP与固定模式LP检查通过
+分析 3/36 main_l95_pv105: 30142.461986 元；原MILP与固定模式LP检查通过
+分析 4/36 main_l100_pv95: 36697.187486 元；原MILP与固定模式LP检查通过
+分析 5/36 main_l100_pv100: 35126.948589 元；原MILP与固定模式LP检查通过
+分析 6/36 main_l100_pv105: 33630.579966 元；原MILP与固定模式LP检查通过
+分析 7/36 main_l105_pv95: 40580.225254 元；原MILP与固定模式LP检查通过
+分析 8/36 main_l105_pv100: 38834.167696 元；原MILP与固定模式LP检查通过
+分析 9/36 main_l105_pv105: 37223.027172 元；原MILP与固定模式LP检查通过
+分析 10/36 eta085_l95_pv95: 34470.117397 元；原MILP与固定模式LP检查通过
+分析 11/36 eta085_l95_pv100: 32916.489254 元；原MILP与固定模式LP检查通过
+分析 12/36 eta085_l95_pv105: 31464.888478 元；原MILP与固定模式LP检查通过
+分析 13/36 eta085_l100_pv95: 38271.911609 元；原MILP与固定模式LP检查通过
+分析 14/36 eta085_l100_pv100: 36603.406480 元；原MILP与固定模式LP检查通过
+分析 15/36 eta085_l100_pv105: 35038.047734 元；原MILP与固定模式LP检查通过
+分析 16/36 eta085_l105_pv95: 42257.956885 元；原MILP与固定模式LP检查通过
+分析 17/36 eta085_l105_pv100: 40439.487303 元；原MILP与固定模式LP检查通过
+分析 18/36 eta085_l105_pv105: 38744.649011 元；原MILP与固定模式LP检查通过
+分析 19/36 eta095_l95_pv95: 31711.237786 元；原MILP与固定模式LP检查通过
+分析 20/36 eta095_l95_pv100: 30274.714640 元；原MILP与固定模式LP检查通过
+分析 21/36 eta095_l95_pv105: 28908.851355 元；原MILP与固定模式LP检查通过
+分析 22/36 eta095_l100_pv95: 35282.029959 元；原MILP与固定模式LP检查通过
+分析 23/36 eta095_l100_pv100: 33767.032621 元；原MILP与固定模式LP检查通过
+分析 24/36 eta095_l100_pv105: 32324.392647 元；原MILP与固定模式LP检查通过
+分析 25/36 eta095_l105_pv95: 39013.597983 元；原MILP与固定模式LP检查通过
+分析 26/36 eta095_l105_pv100: 37355.475804 元；原MILP与固定模式LP检查通过
+分析 27/36 eta095_l105_pv105: 35824.654349 元；原MILP与固定模式LP检查通过
+分析 28/36 roundtrip090_l95_pv95: 31745.049919 元；原MILP与固定模式LP检查通过
+分析 29/36 roundtrip090_l95_pv100: 30307.065513 元；原MILP与固定模式LP检查通过
+分析 30/36 roundtrip090_l95_pv105: 28940.217957 元；原MILP与固定模式LP检查通过
+分析 31/36 roundtrip090_l100_pv95: 35318.551517 元；原MILP与固定模式LP检查通过
+分析 32/36 roundtrip090_l100_pv100: 33801.495542 元；原MILP与固定模式LP检查通过
+分析 33/36 roundtrip090_l100_pv105: 32357.409590 元；原MILP与固定模式LP检查通过
+分析 34/36 roundtrip090_l105_pv95: 39052.991708 元；原MILP与固定模式LP检查通过
+分析 35/36 roundtrip090_l105_pv100: 37392.004964 元；原MILP与固定模式LP检查通过
+分析 36/36 roundtrip090_l105_pv105: 35860.092075 元；原MILP与固定模式LP检查通过
+CSV回读和当前代码测试通过，已发布：/private/var/folders/jd/2nlx362j3p3cxy4t7kj7b3500000gn/T/tmp6po2m4mu/outputs/processed/q1/result1.csv
+绘图状态：failed；RuntimeError: 没有可用中文字体
+ok
+test_missing_font_does_not_leave_partial_figures (test_review.PipelineAcceptance.test_missing_font_does_not_leave_partial_figures) ... ok
+test_pipeline_analysis_and_test_failure_do_not_publish (test_review.PipelineAcceptance.test_pipeline_analysis_and_test_failure_do_not_publish) ... main: 费用=35126.948589290元；MIP gap=0.0；物理检查通过
+eta085: 费用=36603.406480027元；MIP gap=0.0；物理检查通过
+eta095: 费用=33767.032620753元；MIP gap=0.0；物理检查通过
+roundtrip090: 费用=33801.495542222元；MIP gap=0.0；物理检查通过
+main: 费用=35126.948589290元；MIP gap=0.0；物理检查通过
+eta085: 费用=36603.406480027元；MIP gap=0.0；物理检查通过
+eta095: 费用=33767.032620753元；MIP gap=0.0；物理检查通过
+roundtrip090: 费用=33801.495542222元；MIP gap=0.0；物理检查通过
+分析 1/36 main_l95_pv95: 33042.515273 元；原MILP与固定模式LP检查通过
+分析 2/36 main_l95_pv100: 31552.184281 元；原MILP与固定模式LP检查通过
+分析 3/36 main_l95_pv105: 30142.461986 元；原MILP与固定模式LP检查通过
+分析 4/36 main_l100_pv95: 36697.187486 元；原MILP与固定模式LP检查通过
+分析 5/36 main_l100_pv100: 35126.948589 元；原MILP与固定模式LP检查通过
+分析 6/36 main_l100_pv105: 33630.579966 元；原MILP与固定模式LP检查通过
+分析 7/36 main_l105_pv95: 40580.225254 元；原MILP与固定模式LP检查通过
+分析 8/36 main_l105_pv100: 38834.167696 元；原MILP与固定模式LP检查通过
+分析 9/36 main_l105_pv105: 37223.027172 元；原MILP与固定模式LP检查通过
+分析 10/36 eta085_l95_pv95: 34470.117397 元；原MILP与固定模式LP检查通过
+分析 11/36 eta085_l95_pv100: 32916.489254 元；原MILP与固定模式LP检查通过
+分析 12/36 eta085_l95_pv105: 31464.888478 元；原MILP与固定模式LP检查通过
+分析 13/36 eta085_l100_pv95: 38271.911609 元；原MILP与固定模式LP检查通过
+分析 14/36 eta085_l100_pv100: 36603.406480 元；原MILP与固定模式LP检查通过
+分析 15/36 eta085_l100_pv105: 35038.047734 元；原MILP与固定模式LP检查通过
+分析 16/36 eta085_l105_pv95: 42257.956885 元；原MILP与固定模式LP检查通过
+分析 17/36 eta085_l105_pv100: 40439.487303 元；原MILP与固定模式LP检查通过
+分析 18/36 eta085_l105_pv105: 38744.649011 元；原MILP与固定模式LP检查通过
+分析 19/36 eta095_l95_pv95: 31711.237786 元；原MILP与固定模式LP检查通过
+分析 20/36 eta095_l95_pv100: 30274.714640 元；原MILP与固定模式LP检查通过
+分析 21/36 eta095_l95_pv105: 28908.851355 元；原MILP与固定模式LP检查通过
+分析 22/36 eta095_l100_pv95: 35282.029959 元；原MILP与固定模式LP检查通过
+分析 23/36 eta095_l100_pv100: 33767.032621 元；原MILP与固定模式LP检查通过
+分析 24/36 eta095_l100_pv105: 32324.392647 元；原MILP与固定模式LP检查通过
+分析 25/36 eta095_l105_pv95: 39013.597983 元；原MILP与固定模式LP检查通过
+分析 26/36 eta095_l105_pv100: 37355.475804 元；原MILP与固定模式LP检查通过
+分析 27/36 eta095_l105_pv105: 35824.654349 元；原MILP与固定模式LP检查通过
+分析 28/36 roundtrip090_l95_pv95: 31745.049919 元；原MILP与固定模式LP检查通过
+分析 29/36 roundtrip090_l95_pv100: 30307.065513 元；原MILP与固定模式LP检查通过
+分析 30/36 roundtrip090_l95_pv105: 28940.217957 元；原MILP与固定模式LP检查通过
+分析 31/36 roundtrip090_l100_pv95: 35318.551517 元；原MILP与固定模式LP检查通过
+分析 32/36 roundtrip090_l100_pv100: 33801.495542 元；原MILP与固定模式LP检查通过
+分析 33/36 roundtrip090_l100_pv105: 32357.409590 元；原MILP与固定模式LP检查通过
+分析 34/36 roundtrip090_l105_pv95: 39052.991708 元；原MILP与固定模式LP检查通过
+分析 35/36 roundtrip090_l105_pv100: 37392.004964 元；原MILP与固定模式LP检查通过
+分析 36/36 roundtrip090_l105_pv105: 35860.092075 元；原MILP与固定模式LP检查通过
+ok
+test_active_sets_use_current_limits_and_lower_space (test_review.ReviewAcceptance.test_active_sets_use_current_limits_and_lower_space) ... ok
+test_binary_tolerance_is_independent_of_physical (test_review.ReviewAcceptance.test_binary_tolerance_is_independent_of_physical) ... ok
+test_independent_efficiencies_analytical_case (test_review.ReviewAcceptance.test_independent_efficiencies_analytical_case) ... ok
+test_official_attachment_fresh_solve_golden_and_csv (test_review.ReviewAcceptance.test_official_attachment_fresh_solve_golden_and_csv) ... ok
+test_original_milp_rhs_all_576_results (test_review.ReviewAcceptance.test_original_milp_rhs_all_576_results) ... ok
+test_pv_only_source_with_zero_price_and_surplus (test_review.ReviewAcceptance.test_pv_only_source_with_zero_price_and_surplus) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 92.364s
+
+OK

@@ -1,0 +1,25 @@
+﻿编号,优先级,审查问题,当前代码现状,与论文/题目是否对齐,风险,建议修改
+CR-01,P0,最终交付文件不是 result1.xlsx,当前主要输出 result1.csv、table1_purchase.csv、table2_storage.csv 等 CSV,不对齐。论文明确写 result1.xlsx 写入并回读，题目也要求按模板提交 XLSX,极高：可能直接影响最终提交文件正确性,按官方 result1.xlsx 模板写入两个工作表；关闭文件后重新读取；核验 144 个购电时段、6 个充放电汇总区间、首尾 SOC 和总费用
+CR-02,P1,固定 u_t* 后计算 μ_t、λ_t 存在 idle 状态退化,当 C_t=D_t=0 时，u_t=0/1 都合法，但求解器返回的 u_t 被直接固定,形式对齐，但经济解释不完全严格,高：影响论文最核心的“边际价值→充停放阈值”解释,最优方案：直接对原 MILP 做 ±δ 扰动重新求解，验证 μ_t、λ_t；至少对 idle 时段分别检查两种模式
+CR-03,P1,run.py 不是完整可复现流水线,数值 MILP 能求解，但绘图阶段因缺少中文字体直接异常退出,完整流程未对齐,高：无法声称“一键完整复现”,将数值计算与绘图解耦；图表失败不能影响正式计算和提交文件
+CR-04,P1,流水线不是 atomic,在全部分析结束前就写入部分输出；后续失败可能留下新旧结果混合,论文未显式描述，但影响可复现性,高：可能产生 stale artifacts,使用临时 staging 目录，全部 solve→analysis→xlsx→check→test 成功后再一次性替换正式输出目录
+CR-05,P1,测试套件没有全部通过,15 个测试中 14 pass、1 fail,不能宣称全部验收通过,中高,将浮点数 assertEqual 改为 assertAlmostEqual 或 np.testing.assert_allclose
+CR-06,P1/P2,测试大量验证已有 artifact，而非当前代码重新求解结果,部分测试读取 solution_main.json 后检查,部分对齐,中高：代码若被改坏，旧输出可能仍让部分测试通过,增加 end-to-end integration test：当前代码重新读取附件→solve→与 golden objective / schedule 对比
+CR-07,P2,单一 EPS=1e-6 被用于多种不同物理量,同一个 EPS 同时用于 kWh、成本、binary、边际价值判断,粒度不够严谨,中,分成 PHYS_TOL_KWH、COST_TOL_YUAN、BINARY_TOL、MIP_GAP_TOL、ECONOMIC_VALUE_TOL
+CR-08,P2,“边际价值显著大于 0”在代码里只是 saving > 1e-6,经济瓶颈判定使用数值容差,论文措辞强于代码判据,中,"使用多个扰动步长 Δ=1,10,100，判断边际价值是否稳定且经济意义明显，再认定瓶颈"
+CR-09,P2,只分析 E_max 边际价值，未分析 E_min,当前对容量只做上限放宽,部分对齐,中：若论文写“完整储能容量瓶颈”，解释不充分,增加降低 E_min 的扰动，计算“更深放电空间”的边际价值；或者论文明确只讨论“储能安全上限边际价值”
+CR-10,P2,active_sets() 使用硬编码基准参数,直接使用 E_MAX、Q_MAX，而非当前 solution settings,当前主场景能用，但泛化差,中,从 solution['settings'] 获取 e_max、charge/discharge power limits
+CR-11,P2,PV-only baseline 约束的是“充多少”，不是严格的“电从哪里来”,"使用 C_t≤max(S_t-L_t,0)",当前数据下基本无影响，但数学语义不完全严格,中,当 S_t>L_t 时进一步限制对应外网充电来源，例如合理设置 G_t=0 或显式做 source-flow decomposition
+CR-12,P2,论文区分 η_c、η_d，代码只有一个 efficiency,代码强制 η_c=η_d,当前数值场景对齐，但代码颗粒度低于论文,中低,"build_problem(data, eta_c, eta_d, ...)，分别参数化充电和放电效率"
+CR-13,P2,论文—代码 traceability 粒度过粗,一个 section 只映射到某个函数入口,不是真正逐公式对齐,中低,建立“论文公式 → 精确代码行 → unit test → runtime evidence”的 traceability 表
+CR-14,OK,时间右端点映射,"已实现标准化 t=1,...,144",对齐,低,保留
+CR-15,OK,ZOH 与 kW→kWh,已按 Δt=1/6 转换,对齐,低,保留
+CR-16,OK,母线能量平衡,代码严格实现 G+S-W+D=L+C,对齐,低,保留
+CR-17,OK,SOC 状态转移,实现 E_t=E_{t-1}+η_c C_t-D_t/η_d,数值对齐,低,只需做效率参数化
+CR-18,OK,Tight Big-M,M=Q_max=5000/6，没有随意取大数,对齐且实现较好,低,保留
+CR-19,OK,首尾 SOC,E_0=E_144=6000,对齐,低,保留
+CR-20,OK,MIP Gap / 全局最优检验,主模型求解得到 MIP gap = 0,对齐,低,保留
+CR-21,OK,LP relaxation,正确区分 LP relaxation 与 MILP，不声称理论等价,对齐,低,保留
+CR-22,OK,No-ESS / PV-only / Full baseline,三层 baseline 已实现,基本对齐,低-中,只需强化 PV-only 来源语义
+CR-23,OK,容量/功率边际价值,已对 E_max、P_C^max、P_D^max 做重新求解,对齐,低,建议增加 E_min
+CR-24,OK,敏感性分析,已覆盖效率、负荷、光伏扰动,对齐,低,保留

@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "checks": [
+    "source_and_output_hashes",
+    "144_power_intervals",
+    "145_energy_boundaries",
+    "kWh_to_kW",
+    "actual_action_states",
+    "surplus_shading",
+    "waterfall_identity",
+    "efficiency_and_input_scenarios",
+    "all_133_device_solutions",
+    "png_300dpi",
+    "svg_paths",
+    "all_project_plot_imports_centralized",
+    "utf8_no_bom"
+  ],
+  "devices": {
+    "unique_solves": 133,
+    "joint_points": 110,
+    "one_dimensional_points": 36,
+    "all_saved_solutions_rechecked": true,
+    "monotonicity_passed": true,
+    "max_mip_gap": 1.334834566262507e-16
+  },
+  "images": [
+    {
+      "figure": "01_data_features",
+      "pixels": [
+        3450,
+        1920
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "02_optimal_dispatch",
+      "pixels": [
+        3450,
+        2940
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "03_cost_waterfall",
+      "pixels": [
+        3450,
+        2040
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "04_device_sensitivity",
+      "pixels": [
+        3600,
+        1380
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "05_joint_contour",
+      "pixels": [
+        3450,
+        1950
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "06_efficiency",
+      "pixels": [
+        3450,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "07_input_sensitivity",
+      "pixels": [
+        2460,
+        1680
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "08_fixed_mode_diagnostic",
+      "pixels": [
+        3450,
+        1860
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    }
+  ],
+  "plot_modules": [
+    "src/plots/common.py",
+    "src/plots/q1_legacy.py",
+    "src/plots/q2.py"
+  ]
+}

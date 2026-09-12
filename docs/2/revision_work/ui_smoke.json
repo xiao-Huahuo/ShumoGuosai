@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/report.html",
+  "actual_browser": "Codex IAB",
+  "title_visible": true,
+  "displayed_main_days": 37,
+  "uncompleted_metrics_marked_pending": true,
+  "loaded_images": 13,
+  "csv_links": 8,
+  "traceability_csv_download_event": true,
+  "viewport_width": 319,
+  "document_width": 319,
+  "page_overflow": false,
+  "scope": "partial_run_report_ui_only_not_334day_acceptance",
+  "completed_experiments": 2,
+  "required_experiments": 27,
+  "failure_banner": "主回放在2025-03-10因计算限制停止 · 不构成完整正式结果",
+  "visual_snapshot": "37日已停止状态；2026-09-12重新打开报告并核对标题、状态、完整实验表和图形",
+  "traceability_csv_download_snapshot_days": 32
+}

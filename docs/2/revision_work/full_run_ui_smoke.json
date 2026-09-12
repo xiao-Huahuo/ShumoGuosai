@@ -1,0 +1,377 @@
+{
+  "at": "2026-09-12T00:48:55.897795+00:00",
+  "browser": "Codex In-app Browser",
+  "tab_id": "14",
+  "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=monotone-horizon3-requeue",
+  "observed_main_days": 81,
+  "main_status": "running",
+  "observed_horizon1_days": 85,
+  "horizon1_status": "failed_pending_autonomous_diagnosis",
+  "observed_horizon2_days": 77,
+  "horizon2_status": "running_after_official_apr15_pass",
+  "observed_horizon3_days": 77,
+  "running_jobs": [
+    "main",
+    "horizon_2"
+  ],
+  "queue_task_count": 29,
+  "original_budget_failure_and_supplemental_budget_visible": true,
+  "dependent_jobs_wait_for_main": true,
+  "checks": [
+    "actual_accessibility_tree",
+    "main_Apr23_K2_supplemental900",
+    "horizon2_Apr19_K2_original120",
+    "horizon3_requeued77_days",
+    "horizon1_isolated85_days",
+    "29_jobs_2_of27_complete",
+    "dependencies_wait_for_main",
+    "81_days_not_result2"
+  ],
+  "report_tab_id": "15",
+  "report_checks": [
+    "actual_accessibility_tree_73_day_snapshot_2_of27",
+    "new_monotone_proof_and_production_evidence_link",
+    "separate_exact_four_cuts_and_free_charge_projection",
+    "original_min_max_feedback_executed",
+    "original_failure_and_1_percent_kept",
+    "13_image_elements_8_CSV_links",
+    "four_PNGs_unchanged_from_actual_review"
+  ],
+  "horizon3_status": "pending_after_validated_monotone_repair",
+  "history": [
+    {
+      "page": "processed/progress.html",
+      "browser": "Codex In-app Browser",
+      "tab_id": "2",
+      "main_days": 39,
+      "jobs": 29,
+      "verified": [
+        "actual_browser_accessibility_tree",
+        "main_active_date_K_budget",
+        "all_dependencies_waiting_for_main",
+        "two_actual_working_processes",
+        "independent_logs_and_receipts"
+      ],
+      "at": "2026-09-11T17:15:39.752475+00:00",
+      "completed_experiments": 2,
+      "horizon_1_days": 71,
+      "rescue_date": "2025-04-13",
+      "rescue_seconds": 900,
+      "report_tab": "3",
+      "report_snapshot_days": 51,
+      "report_checks": [
+        "actual_browser_shows_partial_not_formal",
+        "supplemental_HiGHS_equivalence_text_and_record_link",
+        "original_failed_attempts_not_marked_passed",
+        "13_figure_elements",
+        "51_day_plot_visually_reviewed_3_unchanged_hashes"
+      ],
+      "checked_at": "2026-09-11T18:06:51.569854+00:00"
+    },
+    {
+      "at": "2026-09-11T20:09:24.918548+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "4",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html",
+      "observed_main_days": 71,
+      "main_status": "pending",
+      "observed_horizon1_days": 73,
+      "observed_horizon3_days": 58,
+      "running_jobs": [
+        "horizon_1",
+        "horizon_3"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "native_ui_locked_but_hidden_browser_successful": true
+    },
+    {
+      "at": "2026-09-11T21:24:09.259273+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "7",
+      "report_tab_id": "6",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html",
+      "observed_main_days": 72,
+      "main_status": "running",
+      "observed_horizon1_days": 74,
+      "horizon1_status": "pending",
+      "observed_horizon3_days": 71,
+      "running_jobs": [
+        "main",
+        "horizon_3"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "report_checks": [
+        "actual_accessibility_tree_72_of_334_days_2_of_27_experiments",
+        "33_original_budget_limited_days_1_main_supplemental_day",
+        "charge_dominance_proof_and_revision_link",
+        "horizon1_pending_74_days_history_separate",
+        "horizon3_running_71_days_history_separate",
+        "13_figure_elements_and_8_CSV_links",
+        "72_day_real_rollout_PNG_actually_viewed"
+      ]
+    },
+    {
+      "at": "2026-09-11T21:45:20.822380+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "8",
+      "report_tab_id": "6",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=horizon3-requeue",
+      "observed_main_days": 73,
+      "main_status": "running",
+      "observed_horizon1_days": 82,
+      "horizon1_status": "running",
+      "observed_horizon3_days": 71,
+      "running_jobs": [
+        "main",
+        "horizon_1"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "report_checks": [
+        "actual_accessibility_tree_72_of_334_days_2_of_27_experiments",
+        "33_original_budget_limited_days_1_main_supplemental_day",
+        "charge_dominance_proof_and_revision_link",
+        "horizon1_pending_74_days_history_separate",
+        "horizon3_running_71_days_history_separate",
+        "13_figure_elements_and_8_CSV_links",
+        "72_day_real_rollout_PNG_actually_viewed"
+      ],
+      "horizon3_status": "pending",
+      "latest_checks": [
+        "actual_accessibility_tree_29_jobs",
+        "main_73_days_K1_900_seconds",
+        "horizon1_82_days_K1_900_seconds",
+        "horizon3_pending_71_days",
+        "main_dependencies_pending",
+        "report_remains_previous_72_day_snapshot"
+      ]
+    },
+    {
+      "at": "2026-09-11T22:10:23.061846+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "8",
+      "report_tab_id": "9",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=horizon3-requeue",
+      "observed_main_days": 73,
+      "main_status": "running",
+      "observed_horizon1_days": 82,
+      "horizon1_status": "running",
+      "observed_horizon3_days": 71,
+      "running_jobs": [
+        "main",
+        "horizon_1"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "report_checks": [
+        "actual_accessibility_tree_73_days_2_of_27",
+        "34_original_limited_days_2_main_supplemental_days",
+        "four_valid_branch_constraints_text_and_real_record_link",
+        "horizon1_pending82_horizon2_running35_horizon3_pending71",
+        "13_images_8_CSV_links",
+        "73_day_rollout_PNG_actually_reviewed"
+      ],
+      "horizon3_status": "pending",
+      "latest_checks": [
+        "actual_accessibility_tree_29_jobs",
+        "main_73_days_K1_900_seconds",
+        "horizon1_82_days_K1_900_seconds",
+        "horizon3_pending_71_days",
+        "main_dependencies_pending",
+        "report_remains_previous_72_day_snapshot"
+      ],
+      "report_snapshot_days": 73
+    },
+    {
+      "at": "2026-09-11T22:33:06.823060+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "10",
+      "report_tab_id": "9",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=main-apr15-requeue",
+      "observed_main_days": 73,
+      "main_status": "pending",
+      "observed_horizon1_days": 85,
+      "horizon1_status": "running",
+      "observed_horizon3_days": 71,
+      "running_jobs": [
+        "horizon_1",
+        "horizon_2"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "report_checks": [
+        "actual_accessibility_tree_73_days_2_of_27",
+        "34_original_limited_days_2_main_supplemental_days",
+        "four_valid_branch_constraints_text_and_real_record_link",
+        "horizon1_pending82_horizon2_running35_horizon3_pending71",
+        "13_images_8_CSV_links",
+        "73_day_rollout_PNG_actually_reviewed"
+      ],
+      "horizon3_status": "pending",
+      "latest_checks": [
+        "actual_browser_29_jobs",
+        "main73_pending_horizon1_85_running_horizon2_45_running",
+        "horizon3_71_pending",
+        "main_dependencies_pending",
+        "prior_report_snapshot73_unchanged"
+      ],
+      "report_snapshot_days": 73,
+      "observed_horizon2_days": 45,
+      "horizon2_status": "running"
+    },
+    {
+      "at": "2026-09-11T23:10:45.601144+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "11",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=main-apr15-completed",
+      "observed_main_days": 74,
+      "main_status": "running",
+      "observed_horizon1_days": 85,
+      "horizon1_status": "failed_pending_autonomous_diagnosis",
+      "observed_horizon2_days": 66,
+      "horizon2_status": "running",
+      "observed_horizon3_days": 71,
+      "running_jobs": [
+        "main",
+        "horizon_2"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "checks": [
+        "actual_accessibility_tree",
+        "main_Apr16_K1_supplemental900",
+        "horizon2_Apr08_K2_supplemental900",
+        "horizon1_isolated85_days",
+        "29_jobs_2_of27_complete",
+        "74_days_not_result2"
+      ],
+      "report_tab_id": "9",
+      "report_checks": [
+        "actual_accessibility_tree_73_days_2_of_27",
+        "34_original_limited_days_2_main_supplemental_days",
+        "four_valid_branch_constraints_text_and_real_record_link",
+        "horizon1_pending82_horizon2_running35_horizon3_pending71",
+        "13_images_8_CSV_links",
+        "73_day_rollout_PNG_actually_reviewed"
+      ]
+    },
+    {
+      "at": "2026-09-11T23:56:13.253898+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "12",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=horizon2-apr15-requeue",
+      "observed_main_days": 78,
+      "main_status": "running",
+      "observed_horizon1_days": 85,
+      "horizon1_status": "failed_pending_autonomous_diagnosis",
+      "observed_horizon2_days": 73,
+      "horizon2_status": "pending_after_validated_repair",
+      "observed_horizon3_days": 72,
+      "running_jobs": [
+        "main",
+        "horizon_3"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "checks": [
+        "actual_accessibility_tree",
+        "main_Apr20_K2_original120",
+        "horizon3_Apr14_K3_original120",
+        "horizon2_requeued73",
+        "horizon1_isolated85_days",
+        "29_jobs_2_of27_complete",
+        "78_days_not_result2"
+      ],
+      "report_tab_id": "9",
+      "report_checks": [
+        "actual_accessibility_tree_73_days_2_of_27",
+        "34_original_limited_days_2_main_supplemental_days",
+        "four_valid_branch_constraints_text_and_real_record_link",
+        "horizon1_pending82_horizon2_running35_horizon3_pending71",
+        "13_images_8_CSV_links",
+        "73_day_rollout_PNG_actually_reviewed"
+      ]
+    },
+    {
+      "at": "2026-09-12T00:37:46.982134+00:00",
+      "browser": "Codex In-app Browser",
+      "tab_id": "13",
+      "url": "http://127.0.0.1:8766/outputs/q2/dispatch_runs/20260911_224501/processed/progress.html?review=horizon2-apr15-official",
+      "observed_main_days": 80,
+      "main_status": "running",
+      "observed_horizon1_days": 85,
+      "horizon1_status": "failed_pending_autonomous_diagnosis",
+      "observed_horizon2_days": 74,
+      "horizon2_status": "running_after_official_apr15_pass",
+      "observed_horizon3_days": 77,
+      "running_jobs": [
+        "main",
+        "horizon_2"
+      ],
+      "queue_task_count": 29,
+      "original_budget_failure_and_supplemental_budget_visible": true,
+      "dependent_jobs_wait_for_main": true,
+      "checks": [
+        "actual_accessibility_tree",
+        "main_Apr22_K2_original120",
+        "horizon2_Apr16_K2_supplemental900",
+        "horizon1_isolated85_days",
+        "horizon3_isolated77_days",
+        "29_jobs_2_of27_complete",
+        "dependencies_wait_for_main",
+        "80_days_not_result2"
+      ],
+      "report_tab_id": "9",
+      "report_checks": [
+        "actual_accessibility_tree_73_days_2_of_27",
+        "34_original_limited_days_2_main_supplemental_days",
+        "four_valid_branch_constraints_text_and_real_record_link",
+        "horizon1_pending82_horizon2_running35_horizon3_pending71",
+        "13_images_8_CSV_links",
+        "73_day_rollout_PNG_actually_reviewed"
+      ],
+      "horizon3_status": "failed_pending_autonomous_diagnosis"
+    }
+  ],
+  "precision_revision_20260912": {
+    "at": "2026-09-12T02:13:20.344124+00:00",
+    "progress_tab": "18",
+    "report_tab": "19",
+    "observed_gap": 0.02,
+    "progress_main_days": 86,
+    "progress_horizon1_days": 88,
+    "report_snapshot_days": 73,
+    "links_checked_in_actual_UI": true,
+    "prior_results_and_failure_retention_visible": true
+  },
+  "base_solver_revision_20260912": {
+    "at": "2026-09-12T02:49:34.609896+00:00",
+    "report_tab": "21",
+    "progress_tab": "20",
+    "report_data_days": 73,
+    "initial_120_second_equivalent_route_visible": true,
+    "base_solver_revision_link_visible": true,
+    "progress_observed_before_reload": {
+      "main_days": 89,
+      "horizon1_days": 99,
+      "gap": 0.02
+    }
+  },
+  "precision_5pct_consultation_20260912": {
+    "tab": 23,
+    "official_gap": 0.02,
+    "main_days": 94,
+    "horizon_1_days": 132,
+    "two_workers_running": true,
+    "isolated_probe_not_official_gap_change": true
+  }
+}

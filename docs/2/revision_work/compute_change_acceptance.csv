@@ -1,0 +1,5 @@
+id,user_sentence,implementation,actual_validation,status,evidence
+C1,就这么干，试试,rolling.make_day；test_horizon_execution；冻结171日审计,118对照49不稳定，固定K2拒绝；三日期新旧策略及费用一致,已验收,raw/solver_diagnostics/horizon_validation_20260912/review.json;runtime_probe.json
+C2,如果确实很好，那就直接应用到正式计算,rolling.make_day/_run_rollout；baseline_reuse；experiments；full_run,84测试；995日存档；主246/H2 327独立验证；共享基准必须完整核验,延迟K1已正式验收；实际基准复用待收据,raw/horizon_compute_revision.json;raw/horizon_compute_official_validation.json
+C3,我去吃饭，别打扰我,既有双worker队列；automation自动跟进,正常推进保持后台；无新增权限询问；通知设置failed_runs_only,已配置，持续执行,raw/full_run_state.json
+C4,现在如何了,实时队列、主摘要、完成收据,334日已算完；临时解释器导致导出失败；原结果完整；9/27论文验证完成,正在修复导出,raw/export_runtime_repair_20260912/

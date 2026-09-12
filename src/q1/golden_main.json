@@ -1,0 +1,6 @@
+{
+  "source_sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+  "objective_yuan": 35126.94858928963,
+  "provenance": "修订前主MILP既有验收解；与独立物理/全局下界检查共同使用",
+  "schedule_policy": "最优调度不唯一；golden比较目标值，逐时调度检查物理可行性和本轮导出一致性，不固定idle u。"
+}

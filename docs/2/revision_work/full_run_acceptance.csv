@@ -1,0 +1,7 @@
+user_requirement,implementation,verification_evidence,actual_status
+改完必要的脚本,src/q2/checkpoint.py;src/q2/rolling.py;src/q2/full_run.py,src/q2/test_forecast_dispatch.py;src/q2/test_full_run.py,已完成：事务恢复、锁、独立队列、预算标识、资源保护
+就开始跑全量吧，自己开始,src/q2/full_run.py:supervise,raw/full_run_launcher.json;raw/full_run_state.json;raw/full_run_preflight.json,已实际启动：主回放+27实验+预测诊断，保留已有169日检查点
+自己验收,src/q2/checkpoint.py:read_checkpoint;src/q2/export_dispatch.py:validate_dispatch;src/q2/final_report.py:generate,raw/final_tests.txt;processed/main/checkpoint.json;processed/acceptance.json,逐日存档已验收；全期验收待计算完成，不能提前标为通过
+如果结果有问题就自己改,src/q2/full_run.py:reconcile;src/q2/full_run.py:guard_memory;src/q2/linear_policy.py:solve_linear_policy,每15分钟自主跟进automation；raw/full_run_receipts;raw/charge_dominance_revision.json;raw/full_run_charge_dominance_reload.json;raw/branch_cuts_revision.json;raw/full_run_branch_cuts_reload.json,K1的4月16日及24日已实际修复验收；主4月15日同实例当前正式场景求解通过后保留73日重排，实际回放待完成；H1/H2健康进程未中断
+我要睡觉了，你别随便中断就行,src/q2/full_run.py:eligible;src/q2/full_run.py:supervise,raw/full_run_launcher.json;raw/full_run_state.json,独立后台进程和caffeinate；单任务失败继续其他任务，主依赖后置；正常计算不因聊天结束停止
+我只想看到结果或致命bug,自动跟进任务：第二问全量计算自主验收,automation已启用且明确正常推进保持安静,后续仅最终结果或无法自主解决的致命问题通知

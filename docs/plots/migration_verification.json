@@ -1,0 +1,92 @@
+{
+  "figures": [
+    {
+      "question": "q1",
+      "figure": "bottleneck_analysis.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q1",
+      "figure": "dispatch.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q1",
+      "figure": "efficiency.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q1",
+      "figure": "marginal_analysis.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "acf_pacf.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "annual_heatmaps.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "daily_peaks.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "monthly_profiles.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "monthly_stability.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "seasonal_moments.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "spectra.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "timeseries_30d.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "timeseries_7d.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "weekday_profiles.png",
+      "png_byte_identical": true
+    },
+    {
+      "question": "q2",
+      "figure": "weekday_weekend.png",
+      "png_byte_identical": true
+    }
+  ],
+  "all_png_identical": true,
+  "unchanged_original_files": 128,
+  "original_files_all_unchanged": true,
+  "q1_tests": {
+    "run": 25,
+    "passed": 25,
+    "skipped": 0
+  },
+  "q2_tests": {
+    "run": 24,
+    "passed": 24,
+    "skipped": 0
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "verified_utc": "2026-09-11T06:36:15.397920+00:00",
+  "generation": "outputs/.q2-runs/run-ndjkd2zx",
+  "input_plan_code_output_hashes_valid": true,
+  "hashed_outputs": 63,
+  "utf8_no_bom_no_replacement_characters": 70,
+  "local_links_valid": 111,
+  "mapped_nonempty_source_lines": 254,
+  "mapped_sentence_rows": 265,
+  "all_function_anchors_valid": true,
+  "readme_entries": 311,
+  "readme_complete": true,
+  "tests_passed": 24,
+  "tests_skipped": 0,
+  "figures": [
+    {
+      "name": "timeseries_7d.png",
+      "width": 2860,
+      "height": 1870
+    },
+    {
+      "name": "weekday_profiles.png",
+      "width": 2860,
+      "height": 1672
+    },
+    {
+      "name": "spectra.png",
+      "width": 2860,
+      "height": 1760
+    },
+    {
+      "name": "timeseries_30d.png",
+      "width": 2860,
+      "height": 1870
+    },
+    {
+      "name": "monthly_profiles.png",
+      "width": 2860,
+      "height": 2507
+    },
+    {
+      "name": "annual_heatmaps.png",
+      "width": 2860,
+      "height": 1760
+    },
+    {
+      "name": "weekday_weekend.png",
+      "width": 2860,
+      "height": 1672
+    },
+    {
+      "name": "seasonal_moments.png",
+      "width": 2860,
+      "height": 2640
+    },
+    {
+      "name": "daily_peaks.png",
+      "width": 2860,
+      "height": 1760
+    },
+    {
+      "name": "monthly_stability.png",
+      "width": 2860,
+      "height": 1760
+    },
+    {
+      "name": "acf_pacf.png",
+      "width": 3080,
+      "height": 2640
+    }
+  ],
+  "actual_browser_smoke": {
+    "url": "http://127.0.0.1:8765/outputs/processed/q2/report.html",
+    "loaded_images": 11,
+    "all_ten_diagnostic_tables_expanded": true,
+    "forecast_fold_rows": 334,
+    "candidate_rows": 8,
+    "metric_status_rows": 9,
+    "csv_download_event_observed": true,
+    "desktop_viewport_width": 1280,
+    "desktop_scroll_width": 1280,
+    "narrow_viewport_width": 390,
+    "narrow_scroll_width": 390,
+    "table_horizontal_scroll": true,
+    "viewport_restored": true,
+    "visual_inspection": "全部11张PNG已实际查看；图例移出数据区，单位无缺字，24:00峰值完整显示。"
+  },
+  "limitations": [
+    "方案止于2.1预测前诊断；真实预测与调度指标未计算，未冒充零值。",
+    "星期五/六低负荷为原始数据特征，未擅自移位或推定原因。",
+    "统计检验与局部峰不能替代后续历史内层选型验证。"
+  ]
+}
