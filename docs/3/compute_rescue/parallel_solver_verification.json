@@ -1,0 +1,65 @@
+{
+  "observed_at": "2026-09-12 20:55:24 +0800",
+  "model_matrix_functions_unchanged": {
+    "build_base": true,
+    "build_matrix": true,
+    "linear_seed": true,
+    "seed_vector": true
+  },
+  "physics_scenarios_FD_data_rollout_source_byte_identical": true,
+  "frozen_source_files_verified": 24,
+  "frozen_requirements_verified": true,
+  "migration_days": 22,
+  "migration_nodes": 62,
+  "tests_passed": 54,
+  "snapshot": {
+    "status": "running",
+    "worker_alive": true,
+    "worker_pid": 85000,
+    "run_name": "full_priority_parallel_20260912",
+    "formal_days": 0,
+    "formal_total": 334,
+    "warm_days": 22,
+    "warm_total": 31,
+    "active_date": "2025-01-23",
+    "active_hour": "06",
+    "gap": 0.0805704848645974,
+    "target_gap": 0.03,
+    "node_reliable": false,
+    "slices": 3,
+    "node_seconds": 459.21986345799814,
+    "saved_ago_seconds": 1.4818165302276611,
+    "soc": 9603.971567940102,
+    "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+    "solver_threads": 4,
+    "solver_version": "1.15.1",
+    "cpu_percent": 391.6,
+    "lower_bound": 1402.592970722884,
+    "objective": 1525.5035297799059,
+    "validation_phase": "waiting_scope",
+    "validation_scope": "pending",
+    "rescue_certificate": {
+      "seconds": 128.36690379100037,
+      "gap": 0.029999874475129022,
+      "passed": true
+    },
+    "main_result_ready": false,
+    "log_lines": [],
+    "observed_at": 1789217724.655434
+  },
+  "actual_UI": {
+    "tab": "6",
+    "AX_and_screenshot_checked": true,
+    "native_threads": 4,
+    "observed_CPU_percent": 391,
+    "automatic_refresh": true,
+    "progress_since_migration": "gap from10.746% to8.057% observed; current node not yet3%",
+    "no_horizontal_overflow": true
+  },
+  "limits": [
+    "current node remains pending",
+    "full formal result not completed",
+    "timing samples do not establish annual speedup factor"
+  ],
+  "README_paths_existing": 574
+}

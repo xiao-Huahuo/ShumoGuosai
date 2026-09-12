@@ -1,6 +1,6 @@
 # README
 
-本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问新最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断。常规结果表格使用CSV，新方案规定的result2模板仅在完整真实回放验收后导出。
+本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问新最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断；第三问主计算已从独立冻结runtime启动（3%间隙、切片与断点保存），[主运行说明](docs/3/full_run/execution_protocol.md)；[实时进度](http://127.0.0.1:8764/)；[主求解多核修复与验收](docs/3/compute_rescue/parallel_solver_report.md)；[最终检验方案与独立队列](docs/3/validation/report.md)；`python -m src.q3.run`保留小样本并行计时入口，[第三问运行与验收说明](docs/3/implementation_report.md)。常规结果表格使用CSV，result2/result3模板仅在完整真实回放验收后导出。
 
 ### 项目目录树（持续维护）
 
@@ -124,6 +124,58 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   ├── implementation_acceptance.md  # 逐句验收、P0–P3、假设与实际界面检查
 │   │   ├── run_guide.md  # 完整运行命令、CSV字段、模型接入与严格信息边界
 │   │   └── verification.json  # 最终文件、哈希、链接、目录与实际浏览器验收记录
+│   ├── 3/  # 第三问v4实现、主计算恢复与独立检验
+│   │   ├── Q3_第三问_最终建模_严格修订终稿_v4.md  # 唯一建模依据，原文保留
+│   │   ├── task_plan.md  # 实现阶段、约束和错误修复记录
+│   │   ├── notes.md  # Q2继承、用户确认标定、数据边界与计时发现
+│   │   ├── implementation_report.md  # 执行口径、验收、P0—P3和运行命令
+│   │   ├── source_line_acceptance.csv  # 模型全部非空行到实现及验收对应
+│   │   ├── traceability_audit.json  # 模型/源码SHA及映射完整性
+│   │   ├── tests.txt  # 数学性质、因果、真实组件、模板和续算测试
+│   │   ├── ui_smoke.json  # 真实本地报告页面与图像验收
+│   │   ├── full_run/  # 主计算优先、3%精度与全量启动验收
+│   │   │   ├── task_plan.md  # 用户授权、检查点与启动验收计划
+│   │   │   ├── notes.md  # 本轮运行约束和保存机制发现
+│   │   │   ├── execution_protocol.md  # 当前3%规则、冻结运行、恢复命令与检验移交
+│   │   │   ├── tests.txt  # 42项基础/并行/恢复的完整测试日志
+│   │   │   ├── tests_base.txt  # 新恢复实现的基础32测试日志
+│   │   │   ├── tests_recovery.txt  # 最初8项恢复核验日志
+│   │   │   ├── tests_recovery_final.txt  # 含事件快照和监督强杀恢复的10测试
+│   │   │   └── ui_smoke.json  # 正式主进度实际页面验证
+│   │   ├── validation/  # 用户最终检验文档与独立检验队列
+│   │   │   ├── Q3_第三问_模型检验与实验方案_最终版.md  # 用户原文，复制后逐字节验证
+│   │   │   ├── source_manifest.json  # 原文件SHA与原样归档记录
+│   │   │   ├── task_plan.md  # 模块接入、范围选择和主任务隔离
+│   │   │   ├── notes.md  # 检验需求及解释边界
+│   │   │   ├── report.md  # 模块、队列状态、抽样/全年口径说明
+│   │   │   ├── source_acceptance.csv  # 383条非空源行到实现定位
+│   │   │   ├── acceptance.json  # 归档/模块/范围与主隔离验收
+│   │   │   ├── tests.txt  # 新检验4项有界测试日志
+│   │   │   └── ui_smoke.json  # 主进度、待正式审计和预报图实际UI验收
+│   │   ├── compute_rescue/  # 卡点等价编码优化、迁移恢复及实时看板
+│   │   │   ├── task_plan.md  # 逐项实施与恢复验收
+│   │   │   ├── notes.md  # 原卡点及等价编码依据
+│   │   │   ├── report.md  # 等价证明、需求映射、实测与未完成项
+│   │   │   ├── bottleneck_audit.json  # 旧卡点82.6分钟、主链06节点与FD耗时归因
+│   │   │   ├── parallel_solver_report.md  # HiGHS1.15.1实际四线程、迁移与54项验收
+│   │   │   ├── solver_comparison.csv  # 固定节点、方法、耗时、gap与真实证书对比
+│   │   │   ├── tests_highs115.txt  # 新版数学与多核回调7测试
+│   │   │   ├── tests_highs115_base.txt  # 新版环境基础23测试
+│   │   │   ├── tests_highs115_recovery.txt  # 原恢复/并行/检验23测试
+│   │   │   ├── tests_highs115_sigkill.txt  # 新版4线程强杀与恢复实测
+│   │   │   ├── migration_smoke.txt  # 13日26节点完整迁移冒烟
+│   │   │   ├── migration_smoke_initial_error.txt  # 初次缺包入口错误，修正后通过
+│   │   │   ├── parallel_solver_verification.json  # 冻结源码、矩阵一致、运行与UI证据
+│   │   │   ├── tests_fast.txt  # 5项数学/编码核验
+│   │   │   ├── tests_integration.txt  # 快模型/恢复/检验19项测试
+│   │   │   └── verification.json  # 当前源码、冻结摘要与实际界面验收
+│   │   ├── parallel/  # 本轮4进程与SCIP线程改造、3.71倍实测及32测试
+│   │   │   ├── task_plan.md  # 并行实现、测量与验收计划
+│   │   │   ├── notes.md  # 资源/SCIP能力和默认配置依据
+│   │   │   ├── report.md  # 并行范围、实测性能、限制和命令
+│   │   │   ├── tests.txt  # 23原测试+9并行测试的完整日志
+│   │   │   └── ui_smoke.json  # 实际并行报告AX/截图检查
+│   │   └── file_inventory.csv  # 第三问逐文件清单与用途
 │   └── plots/  # 论文图与集中管理的逐项验收记录
 │       ├── acceptance.md  # 18项需求、P0—P3、假设、数值与视觉验收
 │       ├── migration_verification.json  # 原15图PNG字节一致、128个原文件不变和49项测试结果
@@ -143,6 +195,14 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │       ├── attachment1.csv  # 原附件时间、电价、负荷功率、光伏功率的CSV副本
 │   │       ├── attachment1.xlsx  # C题附件1原始工作簿副本；仅用于读取输入
 │   │       └── manifest.json  # 原始附件路径、副本路径和SHA-256
+│   ├── q3/  # 第三问按原始附件读取，不改写第二问预测
+│   │   ├── raw/README.md  # 原始附件与Q2预测只读来源说明
+│   │   └── processed/  # 因果输入及来源追溯
+│   │       ├── actual_quality.csv  # 附件2结构、非负、连续时段核验
+│   │       ├── prices.csv  # 附件1的144个时段电价
+│   │       ├── pv_forecasts.csv  # issue+h重构的35040条整点预报
+│   │       ├── q2_load_selection.csv  # 逐日继承Q2的负荷预测器
+│   │       └── source_manifest.json  # 原始输入/影子预测/每日决策的SHA
 │   └── q2/  # 第二问当前输入别名；随q2_current统一切换
 │       ├── processed/  # 规范化功率长表与诊断方法设置
 │       │   ├── settings.json  # 算法、单位、截止时点及用户确认的信息边界
@@ -152,6 +212,9 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │           └── manifest.json  # 附件来源与SHA-256
 ├── outputs/  # 本机原始结果和整理后的交付结果；整体不纳入Git，跨设备另行同步
 │   ├── processed/  # 面向阅读、论文及交付的整理结果
+│   │   ├── q3_monitor/  # 第三问实时进度服务静态资源
+│   │   │   ├── index.html  # 2秒刷新、PID存活、预热/正式与检查点
+│   │   │   └── server.log  # 看板服务错误记录
 │   │   ├── q1/  # 第一问当前正式CSV、HTML与图表别名；无XLSX交付
 │   │   │   ├── daily_summary.csv  # 全日购电费、电量、损耗和首尾储电量
 │   │   │   ├── dispatch.pdf  # 调度图的PDF矢量版本；旧运行产物，后续不再生成
@@ -354,6 +417,54 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │       ├── run_manifest.json  # 原始附件、方案、源码、软件版本与全部产物哈希
 │   │       ├── test_results.txt  # 24项当前源码测试与真实产物回读的完整日志
 │   │       └── validation.json  # CSV回读、数值恒等式和逐句覆盖机器验收
+│   ├── q3/  # 第三问全量进行中；正式result3待完成后验收导出
+│   │   ├── active_run.json  # 当前主运行指针与切换状态
+│   │   └── raw/  # 按独立测试运行保存，详细文件见docs/3/file_inventory.csv
+│   │       ├── timing_20260912/  # 首次2个计时样本及历史零FD检查中断记录
+│   │       ├── timing_verified_20260912/  # 精确反馈原初值12节点计时及诊断图
+│   │       ├── timing_final_20260912/  # 改进可行初值后的12节点计时CSV/JSON/HTML与图
+│   │       ├── extended_timing_20260912/  # 两个60秒实例、完整输入/策略和上下界
+│   │       ├── component_smoke_20260912/  # 真实M0/M2组件、测试Excel和年末FIV边界
+│   │       ├── parallel_20260912/  # 线程/进程计时CSV、策略JSON、吞吐与FD比较和HTML报告
+│   │       ├── compute_rescue_20260912/  # 同卡点原/快策略、原始证书及计时
+│   │       ├── solver_fix_20260912/  # 本次固定输入、逐方法短测、策略与迁移冒烟
+│   │       ├── full_priority_parallel_20260912/  # 用户已停止的主运行；25日预热及检查点完整保留
+│   │       │   ├── runtime/  # 24份冻结源码及完整requirements.txt
+│   │       │   ├── runtime_sources.json  # 源码与依赖摘要
+│   │       │   ├── migration.json  # 原22日与62节点逐项核验
+│   │       │   ├── resume.sh  # 固定依赖和代码的当前恢复命令
+│   │       │   ├── launch.json  # 2标定进程/4主求解线程启动参数
+│   │       │   ├── progress.json  # 当前日期、gap、切片与完成日数
+│   │       │   ├── supervisor.json  # 当前PID与重启记录
+│   │       │   ├── stopped_by_user.json  # 停止时间、最后节点及恢复入口
+│   │       │   └── main/  # 保留历史与新的原子快照、日收据、FD缓存
+│   │       ├── full_priority_fast_20260912/  # 已迁移并完整保留的旧单线程紧凑运行
+│   │       │   ├── runtime/  # 已冻结22文件主源码
+│   │       │   ├── runtime_sources.json  # 冻结源码SHA
+│   │       │   ├── migration.json  # 26旧节点精确签名与13日原样迁移
+│   │       │   ├── migration_validation.json  # 迁移后15日物理费用回读
+│   │       │   ├── resume.sh  # 当前正确的冻结运行恢复入口
+│   │       │   ├── progress.json  # 活动日期、gap、切片与正式日数
+│   │       │   ├── supervisor.json  # 活动worker及重启记录
+│   │       │   └── main/  # 原子日收据、节点快照、执行块及FD缓存
+│   │       ├── full_priority_20260912/  # 已停止并完整保留的旧主运行
+│   │       │   ├── runtime/  # 不随工作区检验编辑改变的冻结主代码
+│   │       │   ├── runtime_sources.json  # 19个冻结源文件SHA
+│   │       │   ├── resume.sh  # 同一冻结环境的启动/故障后恢复命令
+│   │       │   ├── execution.json  # 已批准参数、日期范围和来源
+│   │       │   ├── supervisor.json  # 进程与重启记录
+│   │       │   ├── progress.html  # 自动更新主进度页面
+│   │       │   ├── progress.json  # 活动日期/节点、gap及切片
+│   │       │   ├── worker.log  # 计算日志
+│   │       │   └── main/  # 节点/切片、6小时块、逐日收据和FD缓存
+│   │       └── validation_20260912/  # nice=10独立检验；先只读诊断，重型任务等主结果和范围确认
+│   │           ├── runtime/  # 独立冻结的检验源码与绘图模块
+│   │           ├── resume.sh  # 独立检验恢复命令
+│   │           ├── request.json  # 抽样/全年范围与worker额度
+│   │           ├── status.json  # 当前队列阶段
+│   │           ├── report.html  # 检验状态及只读审计
+│   │           ├── forecast/  # 已计算的误差CSV、PNG/SVG和相关性
+│   │           └── prepared/  # 检验专属预处理副本，避免写主任务输入
 │   ├── q2_current/  # 第二问当前完整运行代原子指针；正式路径下逐文件列出
 │   └── history/  # 已清理运行代的轻量追溯记录和逐文件清理验收
 │       ├── run_records_20260911.tar.gz  # 59份旧运行清单、配置、验收及日志的压缩归档
@@ -423,7 +534,38 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   ├── test_full_run.py  # 全量任务依赖、故障隔离、重启进程识别和完成收据验收
 │   │   ├── test_forecast_dispatch.py  # 预测冻结、证书、SOC分段、模板、篡改与续算回归
 │   │   └── traceability.py  # 原方案逐行逐句到源码、测试和运行证据的映射
-│   └── plots/  # 全部项目自写绘图代码的唯一维护目录；两问原入口保持兼容
+│   ├── q3/  # 第三问v4的因果随机滚动优化、全部实验及验收
+│   │   ├── __init__.py  # Python模块入口
+│   │   ├── config.py  # 题设参数、冻结配置、用户确认标定与源码签名
+│   │   ├── data.py  # 原始附件、预报插值、Q2预测继承和完整历史边界
+│   │   ├── checkpoint.py  # 文件锁、输入摘要和可行策略/下界快照
+│   │   ├── full_run.py  # 主优先监督、120秒切片续算、异常重启与进度
+│   │   ├── status_server.py  # 本机实时看板后端；核对PID与真实快照
+│   │   ├── sampled.py  # 先前授权的小表入口；当前主以main-only运行
+│   │   ├── validation.py  # 最终检验独立队列、审计、经济表、敏感性、M2与假设对照
+│   │   ├── scenarios.py  # 条件历史池、尾部保持、PAM medoids及配对场景
+│   │   ├── physics.py  # 聚合/lag反馈、能量守恒及净调整费用
+│   │   ├── optimization.py  # 原精确编码/快编码、LP下界与原反馈证书
+│   │   ├── fast_solver.py  # 单调等价矩阵、新版HiGHS原生多线程与快照
+│   │   ├── solver_probe.py  # 固定困难输入的独立求解器对比与未采用试验
+│   │   ├── migrate_solver.py  # 逐节点验旧签名、保留日期与FD的求解器迁移
+│   │   ├── parallel.py  # 有界spawn池、CPU额度、跨进程异常和40条独立SOC链调度
+│   │   ├── parallel_benchmark.py  # 同输入串行/4进程/1—4线程的实测比较
+│   │   ├── incumbent.py  # 原反馈的分段梯度可行初值改进，不替代全局求解
+│   │   ├── terminal.py  # 历史有限差分、28日中位数和扰动检查
+│   │   ├── rolling.py  # 四节点/OUV状态执行、18h FIV和原子续算
+│   │   ├── multistage.py  # 条件四阶段树、共享决策MILP与真实分支回放
+│   │   ├── analysis.py  # 预测误差、FIV/OUV、M0/M2和全套敏感性
+│   │   ├── export.py  # 题目表1—3、真实CSV、完整模板导出和逐值回读
+│   │   ├── run.py  # 默认parallel-benchmark；显式full才执行全年，支持workers/solver-threads
+│   │   ├── requirements.txt  # Q2固定依赖及Q3专用highspy1.15.1
+│   │   ├── test_q3.py  # 数学、信息边界、树、结算、模板与续算核验
+│   │   ├── test_parallel.py  # 并行数值、状态隔离、FIV/FD、异常与并发额度核验
+│   │   ├── test_full_run.py  # SIGKILL、节点恢复、原子保存和监督重启核验
+│   │   ├── test_fast_solver.py  # 正残值/调整费、原最优值、固定策略和有效约束
+│   │   ├── test_validation.py  # 检验模块/优先级、真实单日经济表和只读审计
+│   │   └── traceability.py  # 模型逐行映射和源码/模型摘要
+│   └── plots/  # 全部项目自写绘图代码的唯一维护目录；既有入口保持兼容
 │       ├── README.md  # 科研配色、必要性分类、统一命令和脚本职责说明
 │       ├── catalog.py  # 生成全项目23组图清单与总图集
 │       ├── common.py  # 中文字体、语义配色、费用色阶及300dpi PNG和SVG导出
@@ -432,24 +574,10 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │       ├── q1_paper.py  # 第一问8张论文图、配套CSV和按必要性排序的图集
 │       ├── q2.py  # 第二问原11张数据诊断图的集中实现
 │       ├── q2_dispatch.py  # 新最终方案预测步长、残差、方差及真实回放图
+│       ├── q3.py  # 第三问预报误差热图及运行级图目清单
 │       ├── replot_existing.py  # 从已验收CSV和JSON重绘Q1或Q2原有图
 │       ├── run.py  # 统一命令，分别使用两问固定依赖环境
 │       └── verify.py  # 144/145时序、单位、收益、设备解、图形格式和集中化验收
-├── CUMCMThesis/  # 全国大学生数学建模竞赛LaTeX模板及示例
-│   ├── figures/  # 模板示例与说明使用的配套图片资源
-│   │   ├── cat.pdf  # 模板附带的插图/说明资源
-│   │   ├── f1.png  # 模板附带的插图/说明资源
-│   │   ├── gongzhonghao.jpg  # 模板附带的插图/说明资源
-│   │   ├── gongzhonghao2.png  # 模板附带的插图/说明资源
-│   │   ├── smokeblk.pdf  # 模板附带的插图/说明资源
-│   │   └── upload.png  # 模板附带的插图/说明资源
-│   ├── .gitignore  # 模板项目的版本控制忽略规则
-│   ├── README.md  # 论文模板的用法、示例和更新说明
-│   ├── cumcm2026.sty  # 2026样式补充；标题、表格、代码及AI声明等排版
-│   ├── cumcmthesis.cls  # 竞赛论文LaTeX文档类
-│   ├── example-1.png  # 模板说明附带的示例预览图片
-│   ├── example.pdf  # 模板示例编译出的PDF
-│   └── example.tex  # 模板示例源文件；当前不是本题最终论文
 ├── .agents/  # 项目实际技能所在目录
 │   └── skills/  # 360个技能包及各自SKILL.md、脚本和参考资料；按目录汇总
 ├── SKILLS/  # 28份技能来源与用途说明TXT；辅助资料按目录汇总

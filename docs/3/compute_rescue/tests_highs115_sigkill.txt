@@ -1,0 +1,6 @@
+test_parallel_highs_sigkill_preserves_valid_bound (src.q3.test_full_run.CheckpointTests.test_parallel_highs_sigkill_preserves_valid_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.081s
+
+OK

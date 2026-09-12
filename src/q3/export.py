@@ -1,11 +1,12 @@
 """3.21/3.27：真实费用表、原模板回填与逐值回读；禁止部分结果冒充完整结果。"""
 from copy import copy
 from pathlib import Path
+import os
 import numpy as np
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.comments import Comment
-from .config import ATTACHMENTS, Config, write_csv, write_json
+from .config import ATTACHMENTS, Config, write_csv, write_json, sync_directory
 from .rolling import validate_frame
 
 
@@ -131,10 +132,13 @@ def export_workbook(frame: pd.DataFrame, output: Path, config: Config, *, smoke:
             if i%6 in (0, 1):
                 np.testing.assert_allclose(row[5], blocks.iloc[i]['soc_start' if i%6 == 0 else 'soc_end'], atol=1e-8)
         saved_events = list(check['紧急购电量'].values)[1:]
-        np.testing.assert_allclose([r[2] for r in saved_events], events.energy_kwh, atol=1e-8)
+        np.testing.assert_allclose(np.asarray([r[2] for r in saved_events], dtype=float), events.energy_kwh.to_numpy(dtype=float), atol=1e-8)
     finally:
         check.close()
+    with temporary.open('rb') as stream:
+        os.fsync(stream.fileno())
     temporary.replace(output/filename)
+    sync_directory(output)
     audit = {'smoke_only': smoke, 'days': int(frame.date.nunique()), 'roundtrip_all_sheets': True,
              'original_headers': originals, 'intervals': intervals(), 'adjusted_quantity': 'final_effective_absolute',
              'storage_from': 'actual_replay', 'full_period': not smoke}

@@ -496,3 +496,70 @@ outputs/q1_current指向完整运行代；inputs/q1、outputs/q1/raw、outputs/p
 材料目录outputs/processed/q1_paper/run-ie6fkatf-d9b1d24a及同名ZIP：10份CSV、4组PNG/SVG、README、index.html、provenance.json，共21文件。中文144表为144行14列；题目表1/表2含全部指定时段及全天/首尾指标。docs/1/deliverables/q1_paper_materials.md为用户导航与验收。
 已核验62项原产物哈希、12个原规划字段逐字一致、逐时能量/SOC/费用/功率及全日求和、题目六区间、ZIP21文件字节相等、31个包内链接与UTF-8无BOM；脚本重复运行相同。实际CUA浏览器tab3打开材料index并展开144表，14列/首末区间/SOC/10个CSV链接/4图加载通过，无Office操作。
 根README树已同步311条，另任务Q2的新文件只列目录未修改。开发规范要求的逐项/P0–P3/假设/结果审查及CHANGE_HISTORY均已完成。用户CSV要求继续有效。
+
+
+## 第三问v4编码与计时完成（2026-09-12，本任务）
+用户要求全面实现docs/3方案但明确不跑全量。新增src/q3全套实现及src/plots/q3.py；23测试通过，2118源行映射覆盖29节，真实M0/M2/FIV与Excel/界面冒烟完成。用户确认FD：历史24h确定性，6000/6100，最近28可用日中位数。所有限时计算均已结束，未启动full或正式result3。15秒12节点均可行未证最优，60秒两例gap13.53%和4.58%；主预算外推6.1h，全套约10天单进程但不是严格最优时长。最终证据docs/3/implementation_report.md。不得把Q2旧授权自动扩展到Q3精度，也不得从本条推断启动全量授权。
+
+
+## 第三问并行计算改造完成（2026-09-12）
+用户要求把计算并行化，仍未授权全量。默认CLI4进程×1SCIP线程；FIV/因果FD、40条年度独立链、M2和结算stress日期已并行，跨日SOC按序且不嵌套进程池。实际4相同限时负载33.655→9.064秒，3.713倍；FD1.878→0.553秒，系数一致。原生SCIP2/4线程已接入但短测更慢，作为可选。32测试通过，实际界面验收完成。数学模型/场景/结算/gap0不变，严格最优仍未取证；不得把吞吐加速等同全年完成倍率。当前未运行全量或新正式result3。详见docs/3/parallel/report.md。
+
+
+## 当前最高优先：Q3全量已启动，检验文档新接入（2026-09-12）
+用户接受主计算gap≤3%，明确允许准备完成后自主启动；实验之前要求小样本。主运行已实际启动：outputs/q3/raw/full_priority_20260912；启动器74699、监督74700、主worker74704（以后看supervisor.json）。主程序采用冻结runtime/src/q3，环境Q3_WORKSPACE_ROOT指原项目，Config.CODE_ROOT用于冻结源码签名；不要改runtime代码。42项测试与SIGKILL/节点恢复/监督重启通过，120秒切片+节点/6h块/日/FD保存。主以--main-only运行，独立于后续检验；异常恢复用该目录resume.sh。
+最新用户又提供Q3检验最终md，已原字节归档docs/3/validation/Q3_第三问_模型检验与实验方案_最终版.md及source_manifest.json。要求按它做、不得阻塞主计算。文档有全年FIV/OUV/M0/6组核心敏感性，与刚才抽样要求冲突，已异步询问“沿用抽样补齐模块/按新文档全年”，目前待回复；主不等待。正在实现独立检验队列及审计，要求4—8日M2、PCHIP/lag/sequential（必须重求）。用户文件中“全通过、M1更好”等只是待检验结果，不得捏造。主代码已冻结，可继续改工作区检验源码不影响其续算。最新进度读取progress.json，曾提交11日预热并在Jan12/06继续切片。
+
+
+## Q3接续重点：全量主任务与独立最终检验（2026-09-12）
+主running：full_priority_20260912，UV74699/监督74700/worker74704。gap3%、120秒切片，13日预热已提交，Jan14/06长节点继续；以progress.json为准。禁止编辑该运行runtime，19源文件摘要保持不变，恢复用resume.sh。
+新检验最终稿已原字节归档docs/3/validation；383行映射、4新测试、实际界面/误差图通过。独立队列validation_20260912已启动，UV75711/worker75713，nice10，完成轻量预测统计及只读前缀审计。request.json当前scope=pending, workers=4；等待异步问题“沿用抽样补齐模块/按新文档全年”回复。收到选择后只需原子写scope=sampled或full，队列自动读，不重启主。辅助优化还需等待main_complete及334日审计通过。
+检验代码包含审计、FIV/OUV、M0/M1、6核心设置、4—8日M2、PCHIP/lag/sequential重求。sampled四指定日，full全年，M2始终分层小样本。不预设正收益或通过；辅助状态/源代码与主隔离。对应resume.sh可从冻结检验运行恢复。
+
+
+## 紧急接续：Q3主任务目前暂停，需完成快求解器迁移（2026-09-12）
+上一轮被用户打断，旧监督74700已在接入新算法前被我们SIGTERM停止；原progress.json仍写running但已无src.q3.full_run进程，不得误报在跑。13个完整预热日和Jan14/00节点仍保留在full_priority_20260912。当前任务必须完成迁移恢复并给用户右侧实时HTML。
+新src/q3/fast_solver.py基于Q2紧凑HiGHS矩阵，加入Q3非对称成本、正终端残值、g冗余上界和已知净负荷前缀序约束；数学最优值等价、实际始终用原replay。Jan14/06隔离128.3669s拿到gap0.029999874，U4375.272092021915/L4244.014478466723，物理/整数/投影通过。证据compute_rescue_20260912/jan14_06_strengthened.json与policy.csv。5新测试和19集成测试通过。原点输入已用旧runtime精确重建，request_digest与旧快照相同；初始SOC普通/round_trip读取一致。
+workspace optimization.solve已在aggregate/free/gap>0/threads1启用fast_solver，保留fixed/lag/gap0原SCIP；快回调to_array(len(objective))已修复，负目标小例通过。需要完成更全面检查点回调与迁移。rolling已修复持久FD缓存被普通CSV低精度覆盖的问题：有JSON不覆盖、否则round_trip。
+迁移方案：新目录full_priority_fast_20260912，新runtime冻结当前代码；用原runtime重建每个旧节点输入并验旧signature，再计算新runtime signature包裹旧节点政策/界（同模型等价），保持days/audit/information全部字节和哈希。修改新state.signature与新FD缓存content.signature；保留原目录不覆盖。注入已经通过的Jan14/06新证书。新full_run --main-only恢复后检验队列需指向新run（旧val75713待scope、CPU0）。
+用户最新要求右侧HTML实时看板，应基于进程存活+数据更新时间，不能只信progress文件；当前尚待实现status_server/dashboard。检验范围仍pending，没有新回复。
+
+
+## 最新接续：Q3已恢复并实际推进，右侧实时看板已打开（2026-09-12 20:05）
+本条覆盖此前“暂停待迁移”描述。当前运行outputs/q3/raw/full_priority_fast_20260912，启动器78184/监督78185/worker78189，gap3%、120秒保存、main-only，冻结runtime22文件，禁止编辑。已验证完成15个预热日，正在Jan16/06（gap约13%，尚未达标），正式0/334；状态需实时读取，不承诺全年ETA。
+迁移已逐一重建并核验26个原节点request signature；原13日日CSV/audit/information与收据字节保留，旧运行full_priority_20260912不覆盖。Jan14/06采用128.3669秒可靠3%证书后，Jan14和Jan15均完整提交。新signature c89bd46ad764cab31a5760ab01fc8ea5671c80365a1ac9ba24bd3810b8eda585。migration.json和migration_validation.json保存迁移与15日物理/费用复核。
+新增src/q3/status_server.py与outputs/processed/q3_monitor/index.html，后台PID77621，http://127.0.0.1:8764/，2秒读取真实检查点并核对worker PID。active_run.json指向新run。CUA可见iab tab6、绑定liveProgressTab，已markDeliverable，实际AX及截图显示“计算中/15预热/Jan16”。看板观察不占求解进程。
+独立检验已重定向新主run，启动器78397、nice10；scope仍pending（未收到范围选择回复），不进行重型辅助优化，不阻塞主。旧检验启动记录保存在launch_before_main_migration.json。
+快模型5测试与恢复/检验19集成测试通过；回调负目标额外真实测试通过。日志偶有候选矩阵非有限中间运算RuntimeWarning，实际保存策略均独立核验；不要为了消除警告修改正在跑的冻结runtime。快法已解除Jan14卡点，不意味着所有后续节点均快速或全年可按该节点外推。
+当前收尾：完成compute_rescue/report.md、需求映射、README目录/CHANGE_HISTORY及文件清单；最终告诉用户看板在右边且主仍继续。没有要求新增自动任务。
+
+本轮收尾已完成compute_rescue/report.md与verification.json、README、CHANGE_HISTORY和恢复指南；实际README目录树全部存在。当前环境已有.git（不是本任务创建），旧CUMCMThesis目录已不存在，仅移除README过时列表。主仍在新冻结runtime运行。
+
+20:10最终浏览器实时复核：已完成18/31预热，正式0/334，推进到2025-01-19 06:00，观测gap4.814%，PID78189仍存活。此前Jan16节点也已通过并提交，主继续。
+
+20:12用户追问耗时原因，已只读定量核查：旧Jan14/06 82.58分钟=86.91%记录求解时间，18分钟已找到最终可行目标，随后64.57分钟等待界证明；新Jan14—19约99%在06。FD71条仅1.4秒，检验CPU0。单条SOC链目前主要1核，4workers不加速该瓶颈；短预算并行估计不足。新恢复约15.8分钟新增6日，正式0由v4连续1月预热定义。详细bottleneck_audit.json和report.md末节。无新求解或运行改动。
+
+
+## 正在执行用户“快修”要求（20:42，仍需完成迁移启动）
+现主full_priority_fast_20260912的HiGHS1.8单线程继续PID78189/监督78185，已22预热、Jan23/06长节点。禁止只汇报完成，必须把已验证的多核新实现接入并实际确认推进。
+发现官方HiGHS1.15.1（2026-07）首次加入并行MIP；已隔离uv安装，src/q3/requirements.txt新增highspy==1.15.1。fast_solver现在import highspy._core，真实threads=config.solver_threads、parallel on，回调新np.asarray(mip_solution)通过；矩阵完全未改。matrix_error先拒绝越界/非有限候选，消除无效运算警告。optimization自由aggregate gap>0不再限制threads1。full_run新增--solver-threads并传worker。拟正式2个FD workers×4solver线程（实际FD自身1thread、主4thread），总额度8≤10。
+实测Jan22同冻结输入60秒：旧1/4thread、SCIP4、凸包、cutoff、关闭heuristic、randomseed17均未显著改善，不采用。新版1/4thread约7.20%/6.91%，new4 180秒6.31%。实际新进程CPU395%证明4核生效。Jan16同输入120秒旧1thread6.41%、新版4thread4.55%，原反馈/矩阵/界核验全部通过，构成固定预算真实改善；new4该节点正在240秒验证，session91425，结果输出jan16/new4.json（之前120秒已备份new4_120s.json）。
+生产只升级引擎/线程，试验凸包已从fast_solver移至src/q3/solver_probe.py；probe及inputs/results保存outputs/q3/raw/solver_fix_20260912/jan22、jan16。不要把失败试验作为已达标加速。
+已通过7项新版数学/4线程负目标回调、23项恢复/并行/检验、1项真实新版4thread SIGKILL恢复（3.081秒），日志docs/3/compute_rescue/tests_highs115*.txt；基础23项正在session随后见tool输出。新增src/q3/migrate_solver.py冻结新runtime与requirements、逐节点重建旧request签名、复核原反馈/界/日收据/FD并迁移新signature，只接受停止的旧run。目前先在已停止的旧13日run做迁移smoke，输出solver_fix_20260912/migration_smoke，日志migration_smoke.txt，主未停。
+status_server.py新增solver_threads/version/cpu_percent；HTML新增“当前求解并行”行，尚待仅重启看板server77621并刷新tab6。新主计划full_priority_parallel_20260912，冻结完成代码后停旧监督→迁移→自主启动，异常必须恢复旧resume避免再留暂停。验证队列nice10仍scope pending，需要新主启动后重定向。当前未创建自动任务。
+剩余：检查smoke/base tests/240秒benchmark，进行安全迁移启动、检查新PID/4CPU/检查点/日期推进，重定向检验与看板，更新report/README/CHANGE_HISTORY/inventory；不更改模型、3%、预热或实验范围。
+
+
+## 最新：4线程主计算已安全启动（20:50，覆盖上条待迁移）
+当前outputs/q3/raw/full_priority_parallel_20260912，uv84991/监督84996/worker85000，2FD workers×4HiGHS1.15.1 threads，gap.03、seconds120、main-only。冻结24份源码及完整runtime/requirements.txt。签名edb90249f3669e255e7970e591e71c776eb0d10361389db5c13532c4a6afc25c；原22日字节、62个request签名、费用/反馈与FD已迁移核验。旧fast运行已停止保留。新active_run指针已切换，worker实际存活，正在Jan23/06，继承旧下界1402.5929707与可行目标1571.4641398，gap10.746%尚未达3%。实际主曾观察391%CPU（有些根/子MIP阶段仍1核），快照正在保存。
+新resume.sh使用该运行冻结依赖，不再读工作区requirements。迁移过程有启动失败自动恢复旧运行兜底，本次无需触发。src/q3/migrate_solver.py dry-smoke首试因src/__init__.py不存在失败，已改为创建空包入口，第二次13日/26节点成功；正式22日/62节点通过。
+新版数学7、基础23、原恢复/并行/检验23、新版4thread SIGKILL1，共54项通过。新Jan16同输入120秒gap4.55% vs旧6.41%；新版实际164.322秒达gap2.9990%，原生产该节点491.238秒但热启动不同，不能直接声称严格3倍。额外严格同输入旧180秒对比正在session47223（应即将完成），结果jan16/highs1.json，旧120已备份highs1_120s.json。其余计算测试均完成，没有仍跑的新版benchmark。
+看板server85281已重启，新API含solver_threads/version/cpu_percent；iab tab6 liveProgressTab已reload并markDeliverable，AX显示4线程CPU391%，尚待最终截图（UI之前已有截图）。检验队列launcher85279已重定向parallel新主，nice10、scope pending不变。
+剩余收尾：取旧180秒对比结果；报告/CSV、README目录、CHANGE_HISTORY/inventory/current恢复指南、SHA和UI最终验证，持续确认主无错误。不要再改冻结源码，不要说当前Jan23已过关或全年已完成。用户要求“快修”已实现正式真正多核和实例提速；难节点长尾仍有风险。
+
+20:55本轮多核修复收尾完成：同输入Jan16旧180.063秒仍gap5.859%，新版164.322秒达到2.9990%；正式主新PID85000的Jan23/06从继承10.746%推进到8.057%，仍未达标、22预热/0正式。新CPU实测391.6%，120秒快照3片。54测试退出0，24冻结源码与依赖、原矩阵/物理/场景/FD/data/rolling源文字节、22日62节点、README574路径和UTF8核验通过。报告parallel_solver_report.md、solver_comparison.csv、parallel_solver_verification.json及清单1233文件已更新；右侧tab6已reload、markDeliverable、AX/截图通过。主和检验继续；没有未完成的benchmark进程，也不要把长尾风险说成已消除。
+## 2026-09-12 22:01：用户已停止Q3主计算
+
+用户明确要求停止主计算。已核对并SIGTERM监督84996，启动器84991与worker85000均退出；无solver_probe残留。最终保留25个完整预热日，正式0/334，活动Jan26/06，8切片，最后gap 0.07952327660370284、未可靠。停止收据为outputs/q3/raw/full_priority_parallel_20260912/stopped_by_user.json，resume.sh保留但不得自行恢复。active_run transition=stopped，右侧API已核实worker_alive=false。
+
+本轮附件加速工作只完成：原文归档、Gurobi13.0.3受限许可证大矩阵No-Go、三真节点输入/矩阵摘要、v2固定列消元与小实例等价测试、Jan16首组影子基准。v2第一组未明显改善，剩余Jan22/Jan23基准按用户停算要求暂停；未迁移、未启动替代主任务。向用户解释时只说：在同一难题上比较旧求解法与删除无用变量的新求解法，结果不够快所以没上线。

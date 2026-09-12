@@ -1,0 +1,16 @@
+test_atomic_json_preserves_previous_on_replace_failure (src.q3.test_full_run.CheckpointTests.test_atomic_json_preserves_previous_on_replace_failure) ... ok
+test_completed_node_replays_without_optimizer (src.q3.test_full_run.CheckpointTests.test_completed_node_replays_without_optimizer) ... ok
+test_event_checkpoint_during_solving (src.q3.test_full_run.CheckpointTests.test_event_checkpoint_during_solving) ... ok
+test_experiments_are_four_dates_and_few_values (src.q3.test_full_run.CheckpointTests.test_experiments_are_four_dates_and_few_values) ... ok
+test_lock_rejects_second_writer (src.q3.test_full_run.CheckpointTests.test_lock_rejects_second_writer) ... ok
+test_real_solver_slices_and_snapshot_validation (src.q3.test_full_run.CheckpointTests.test_real_solver_slices_and_snapshot_validation) ... 节点继续切片2，gap=321.834589%
+ok
+test_sigkill_retains_and_restores_incumbent (src.q3.test_full_run.CheckpointTests.test_sigkill_retains_and_restores_incumbent) ... ok
+test_day_resumes_after_second_node_crash (src.q3.test_full_run.NodeResumeTests.test_day_resumes_after_second_node_crash) ... ok
+test_supervisor_restarts_killed_worker (src.q3.test_full_run.NodeResumeTests.test_supervisor_restarts_killed_worker) ... ok
+test_terminal_one_history_job_persisted (src.q3.test_full_run.NodeResumeTests.test_terminal_one_history_job_persisted) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 20.205s
+
+OK

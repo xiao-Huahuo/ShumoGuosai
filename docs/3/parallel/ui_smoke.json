@@ -1,0 +1,21 @@
+{
+  "title": "第三问并行计算验收",
+  "url": "http://127.0.0.1:8763/outputs/q3/raw/parallel_20260912/report.html",
+  "tool": "mcp__cua_repl",
+  "viewport_width": 588,
+  "document_width": 588,
+  "table_rows_including_header": [
+    7,
+    9
+  ],
+  "visible_throughput": "33.65s → 9.06s, 3.71×",
+  "visible_FD": "1.878s → 0.553s",
+  "memory_lifetime_caveat_visible": true,
+  "full_run_not_started_label": true,
+  "links": [
+    "线程对照CSV",
+    "进程对照CSV",
+    "完整记录"
+  ],
+  "AX_and_screenshot_checked": true
+}

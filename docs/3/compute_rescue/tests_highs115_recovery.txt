@@ -1,0 +1,65 @@
+test_atomic_json_preserves_previous_on_replace_failure (src.q3.test_full_run.CheckpointTests.test_atomic_json_preserves_previous_on_replace_failure) ... ok
+test_completed_node_replays_without_optimizer (src.q3.test_full_run.CheckpointTests.test_completed_node_replays_without_optimizer) ... ok
+test_event_checkpoint_during_solving (src.q3.test_full_run.CheckpointTests.test_event_checkpoint_during_solving) ... ok
+test_experiments_are_four_dates_and_few_values (src.q3.test_full_run.CheckpointTests.test_experiments_are_four_dates_and_few_values) ... ok
+test_lock_rejects_second_writer (src.q3.test_full_run.CheckpointTests.test_lock_rejects_second_writer) ... ok
+test_real_solver_slices_and_snapshot_validation (src.q3.test_full_run.CheckpointTests.test_real_solver_slices_and_snapshot_validation) ... 节点继续切片2，gap=310.728454%
+ok
+test_sigkill_retains_and_restores_incumbent (src.q3.test_full_run.CheckpointTests.test_sigkill_retains_and_restores_incumbent) ... ok
+test_day_resumes_after_second_node_crash (src.q3.test_full_run.NodeResumeTests.test_day_resumes_after_second_node_crash) ... ok
+test_supervisor_restarts_killed_worker (src.q3.test_full_run.NodeResumeTests.test_supervisor_restarts_killed_worker) ... ok
+test_terminal_one_history_job_persisted (src.q3.test_full_run.NodeResumeTests.test_terminal_one_history_job_persisted) ... ok
+test_cpu_budget_rejects_oversubscription (src.q3.test_parallel.ParallelMathTests.test_cpu_budget_rejects_oversubscription) ... ok
+test_duplicate_checkpoint_paths_rejected (src.q3.test_parallel.ParallelMathTests.test_duplicate_checkpoint_paths_rejected) ... ok
+test_native_concurrent_exact_mapping (src.q3.test_parallel.ParallelMathTests.test_native_concurrent_exact_mapping) ... ok
+test_process_exception_preserves_original_audit (src.q3.test_parallel.ParallelMathTests.test_process_exception_preserves_original_audit) ... ok
+test_all_required_experiment_chains_are_dispatched (src.q3.test_parallel.ParallelRealTests.test_all_required_experiment_chains_are_dispatched) ... ok
+test_fd_causal_batch_and_fiv_pair_equal (src.q3.test_parallel.ParallelRealTests.test_fd_causal_batch_and_fiv_pair_equal) ... ok
+test_parallel_failures_do_not_publish_complete_comparison (src.q3.test_parallel.ParallelRealTests.test_parallel_failures_do_not_publish_complete_comparison) ... ok
+test_parallel_independent_soc_chains_equal (src.q3.test_parallel.ParallelRealTests.test_parallel_independent_soc_chains_equal) ... parallel0 2025-01-01 SOC=6000.000 已提交
+parallel1 2025-01-01 SOC=6000.000 已提交
+parallel0 2025-01-02 SOC=6000.000 已提交
+parallel1 2025-01-02 SOC=6000.000 已提交
+parallel0 2025-01-03 SOC=6000.000 已提交
+parallel1 2025-01-03 SOC=6000.000 已提交
+parallel0 2025-01-04 SOC=6000.000 已提交
+parallel1 2025-01-04 SOC=6000.000 已提交
+parallel0 2025-01-05 SOC=6000.000 已提交
+parallel1 2025-01-05 SOC=6000.000 已提交
+parallel0 2025-01-06 SOC=6000.000 已提交
+parallel1 2025-01-06 SOC=6000.000 已提交
+parallel0 2025-01-07 SOC=6000.000 已提交
+parallel1 2025-01-07 SOC=6000.000 已提交
+parallel0 2025-01-08 SOC=10329.605 已提交
+parallel0 2025-01-09 SOC=10208.887 已提交
+parallel1 2025-01-08 SOC=10352.017 已提交
+parallel1 2025-01-09 SOC=10301.553 已提交
+serial0 2025-01-01 SOC=6000.000 已提交
+serial0 2025-01-02 SOC=6000.000 已提交
+serial0 2025-01-03 SOC=6000.000 已提交
+serial0 2025-01-04 SOC=6000.000 已提交
+serial0 2025-01-05 SOC=6000.000 已提交
+serial0 2025-01-06 SOC=6000.000 已提交
+serial0 2025-01-07 SOC=6000.000 已提交
+serial0 2025-01-08 SOC=10329.605 已提交
+serial0 2025-01-09 SOC=10208.887 已提交
+serial1 2025-01-01 SOC=6000.000 已提交
+serial1 2025-01-02 SOC=6000.000 已提交
+serial1 2025-01-03 SOC=6000.000 已提交
+serial1 2025-01-04 SOC=6000.000 已提交
+serial1 2025-01-05 SOC=6000.000 已提交
+serial1 2025-01-06 SOC=6000.000 已提交
+serial1 2025-01-07 SOC=6000.000 已提交
+serial1 2025-01-08 SOC=10352.017 已提交
+serial1 2025-01-09 SOC=10301.553 已提交
+ok
+test_stress_day_process_preserves_settlement_values (src.q3.test_parallel.ParallelRealTests.test_stress_day_process_preserves_settlement_values) ... ok
+test_empty_formal_prefix_does_not_claim_pass (src.q3.test_validation.ValidationTests.test_empty_formal_prefix_does_not_claim_pass) ... ok
+test_queue_reuses_M1_and_prioritizes_information (src.q3.test_validation.ValidationTests.test_queue_reuses_M1_and_prioritizes_information) ... ok
+test_real_single_date_information_and_comparison_tables (src.q3.test_validation.ValidationTests.test_real_single_date_information_and_comparison_tables) ... ok
+test_six_core_settings_and_three_assumptions (src.q3.test_validation.ValidationTests.test_six_core_settings_and_three_assumptions) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 73.596s
+
+OK

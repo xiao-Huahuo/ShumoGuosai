@@ -1,15 +1,14 @@
 """3.23：阶段条件聚类四阶段树与实际求解，严格限于ex-post诊断。"""
-from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 import time
 from pyscipopt import quicksum
-from .config import CAP, Config, DT, E_MIN, E_MAX, TOL
+from .config import CAP, Config, DT, TOL
 from .data import Inputs
 from .scenarios import medoids, pool_indices
 from .physics import Policy, replay, adjustment
-from .optimization import make_model, add_path, scheduled_cost, LimitedSolve
-from .rolling import date_of, previous_net, frame_for, validate_frame
+from .optimization import make_model, optimize_model, add_path, scheduled_cost, LimitedSolve
+from .rolling import frame_for, validate_frame
 
 
 def conditional_tree(revisions: np.ndarray) -> tuple[np.ndarray, list[dict]]:
@@ -67,7 +66,7 @@ def solve_tree(net: np.ndarray, labels: np.ndarray, nodes: list[dict], upper: np
     if slots%4:
         raise ValueError('四阶段树时域需可均分为四块')
     block = slots//4
-    model = make_model(config.seconds, config.gap)
+    model = make_model(config.seconds, config.gap, config.solver_threads)
     seed_grid = np.maximum(net.max(0), 0)
     g0 = [model.addVar(lb=0, ub=float(v)) for v in upper]
     entries = list(zip(g0, seed_grid))
@@ -97,9 +96,10 @@ def solve_tree(net: np.ndarray, labels: np.ndarray, nodes: list[dict], upper: np
         model.setSolVal(seed, variable, float(value))
     seed_accepted = bool(model.addSol(seed))
     size = {'variables': model.getNVars(), 'constraints': model.getNConss(), 'binaries': model.getNBinVars()}
-    model.optimize()
+    optimize_model(model, config.solver_threads)
     audit = {'status': str(model.getStatus()), 'seconds': time.perf_counter()-started, 'seed_accepted': seed_accepted,
-             'scenario_count': n, 'nodes': len(nodes), 'role': 'ex_post_only', **size}
+             'scenario_count': n, 'nodes': len(nodes), 'role': 'ex_post_only',
+             'solver_threads': config.solver_threads, **size}
     if not model.getNSols():
         audit.update(reliable=False, gap=None)
         if require:

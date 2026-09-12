@@ -1,0 +1,133 @@
+{
+  "observed_at": "2026-09-12 20:09:20 +0800",
+  "live_status": {
+    "status": "running",
+    "worker_alive": true,
+    "worker_pid": 78189,
+    "run_name": "full_priority_fast_20260912",
+    "formal_days": 0,
+    "formal_total": 334,
+    "warm_days": 18,
+    "warm_total": 31,
+    "active_date": "2025-01-19",
+    "active_hour": "06",
+    "gap": 0.11870829321017443,
+    "target_gap": 0.03,
+    "node_reliable": false,
+    "slices": 0,
+    "node_seconds": 0.8205665829882491,
+    "saved_ago_seconds": 11.775465965270996,
+    "soc": 9859.62165031808,
+    "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+    "lower_bound": 4150.244523568203,
+    "objective": 4709.274456565347,
+    "validation_phase": "waiting_scope",
+    "validation_scope": "pending",
+    "rescue_certificate": {
+      "seconds": 128.36690379100037,
+      "gap": 0.029999874475129022,
+      "passed": true
+    },
+    "main_result_ready": false,
+    "log_lines": [
+      "main 2025-01-14 SOC=9504.473 已提交",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/fast_solver.py:190: RuntimeWarning: invalid value encountered in subtract",
+      "  float(np.max(constraints.lb-activity)),float(np.max(activity-constraints.ub)))",
+      "main 2025-01-15 SOC=9644.621 已提交",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/fast_solver.py:190: RuntimeWarning: invalid value encountered in subtract",
+      "  float(np.max(constraints.lb-activity)),float(np.max(activity-constraints.ub)))",
+      "main 2025-01-16 SOC=9680.027 已提交",
+      "main 2025-01-17 SOC=9667.844 已提交",
+      "main 2025-01-18 SOC=9859.622 已提交"
+    ],
+    "observed_at": 1789214960.148454
+  },
+  "frozen_files_hash_verified": {
+    "full_priority_20260912": 19,
+    "full_priority_fast_20260912": 22
+  },
+  "dead_worker_displays_stopped": true,
+  "supervisor_not_mistaken_for_worker": true,
+  "source_sha256": {
+    "src/q3/incumbent.py": "e88488a72281b00c017dc431d0fb656fbaa4e9b84fd10a9385ecbab190755827",
+    "src/q3/scenarios.py": "756a4a306ee9f6f3adbbf7ed56efd48c4741cbc529e2c810ae3055c86e19768f",
+    "src/q3/test_fast_solver.py": "681a0bed95db2702a733df06a72b622a9c2df91a3443e7ff34ea6285de92179c",
+    "src/q3/run.py": "d51af5f4dcfd0b73bb9623cc8c9588a453db46e33284e48f4b8e18b84e417ce1",
+    "src/q3/test_validation.py": "d96190a135cb6209768060042585d5e8b1a08bfd3a2898426c2f93dbb52d1563",
+    "src/q3/config.py": "1a0cf0a08620aa90d75a38dba2b14b13294e43a85df6642c598ca109650c16e5",
+    "src/q3/analysis.py": "8bf2d047e4772ee1807c971e9c6be46cc1d6a1c393278e118c3745bc2ce3e53d",
+    "src/q3/checkpoint.py": "07f5106ef6c0175c13106a13ea90363bb5ac6d54728688b2b4a983d7d91d58cc",
+    "src/q3/multistage.py": "66897ab5c58168cd4e90665637da1dc26228c85b29aa6d37a9648c3d0c6f6e52",
+    "src/q3/terminal.py": "5b19f20b1a3e7ef1c554be26057972fb7882282d9972c5f89b1a550bb35c454d",
+    "src/q3/fast_solver.py": "d17371de8784e7f9d0565edef1c7ddb992c8f6b20d5245da855bb31e8e45b22f",
+    "src/q3/parallel_benchmark.py": "f7594e6e0151cfd757a4171a6b9f8e5b2175e57ded953aafc817f6ac467ba66c",
+    "src/q3/optimization.py": "7f690324c0ba307ddf7237f165c8cf87f6661450ccf34c386759091bc7fb82ad",
+    "src/q3/__init__.py": "594d329031b4cd6a7bb700aac918693bb2b15d82d1454ca209ca3e109d172226",
+    "src/q3/status_server.py": "d429628bfb6ee3a80bae8f963d8cda301bc05fa458cf58454b690d45e738542f",
+    "src/q3/export.py": "afd01d344bc112580b4dee5b5bd1cc869ff081de25a37ebbbedab8002cbcf02f",
+    "src/q3/rolling.py": "61903b98b54d451897ec4dfab091ff12ca42954a9d201892011d50e33b077078",
+    "src/q3/full_run.py": "64e1f00ba47ea7323c64f2d1fef994bd102ee0d073abdfdc0a682d9380bfbec6",
+    "src/q3/sampled.py": "e683803e890a792871cb2c9a6de740b56f57b4274bc0879a9e41b906af9d1ec9",
+    "src/q3/physics.py": "c4564eceed4c12b03737c6b9e1610eef813394df0ecec6190954441cbcaa7591",
+    "src/q3/test_parallel.py": "6db7fd892b598e8ebed1d0e6b720e47b888d23dc55271075065c632167832e55",
+    "src/q3/test_full_run.py": "2a81c64e2006c4fbf195d523729c788d2c004ba952d342a60a244046943a9960",
+    "src/q3/traceability.py": "3d353e9ba324cfd4db5ee9fd07f37eea158b185a05a32f28d85fbe0067aacb7f",
+    "src/q3/parallel.py": "dba8464e61872c099c2ac62a8d7621a421834818220cbddf90dbbbbf920ac465",
+    "src/q3/test_q3.py": "c92ad5490605a96b23c0b9fcbeb72616c4cb81d0d7747fbc1c16cf489d3aee73",
+    "src/q3/data.py": "660145dc0641aa7bfef48042850666d4ba5c101173da661367d1bdc5ca3ffa42",
+    "src/q3/validation.py": "d33a7bd00148cc4f77e3e8453e76c336b8c9c85c27653f162198ead321cb2a1d"
+  },
+  "ui_smoke": {
+    "url": "http://127.0.0.1:8764/",
+    "visible_tab": 6,
+    "right_panel_requested": true,
+    "actual_AX_and_screenshot_checked": true,
+    "view_width": 588,
+    "warm_formal_separate": true,
+    "automatic_refresh_observed": true,
+    "no_horizontal_overflow_observed": true
+  },
+  "bounded_tests": {
+    "fast": 5,
+    "integration": 19,
+    "integration_seconds": 28.733,
+    "additional_negative_objective_callback_records": 2
+  },
+  "migration_validation": {
+    "completed_days_verified": 15,
+    "old_days_byte_identical": 13,
+    "jan14_nodes": [
+      {
+        "hour": 0,
+        "solver": "LP_certificate",
+        "gap": 0.004359890032364841,
+        "reliable": true
+      },
+      {
+        "hour": 6,
+        "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+        "gap": 0.029999874475129022,
+        "reliable": true
+      },
+      {
+        "hour": 12,
+        "solver": "LP_certificate",
+        "gap": 0.019488902686062157,
+        "reliable": true
+      },
+      {
+        "hour": 18,
+        "solver": "LP_certificate",
+        "gap": 5.42221154089114e-16,
+        "reliable": true
+      }
+    ]
+  },
+  "limits": [
+    "全年主结果仍在计算",
+    "检验scope待回复；重型计算未执行",
+    "单节点提速不保证全年耗时"
+  ],
+  "readme_tree_existing_paths": 552,
+  "existing_template_directory_absent_before_edit": true
+}

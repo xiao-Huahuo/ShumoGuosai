@@ -1,0 +1,384 @@
+source_line,source_text,module,code,status
+1,# 第三问：模型检验与实验方案（最终整理版）,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+3,## 1. 检验目标与总体结构,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+5,第三问的实验不应平均铺开所有可能的敏感性分析，而应围绕题目真正要求回答的几个问题形成闭环：,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+7,\[,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+8,\boxed{,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+9,\text{模型算得对},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+10,\rightarrow,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+11,\text{新预报有信息增益},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+12,\rightarrow,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+13,\text{信息增益能转化为经济收益},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+14,\rightarrow,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+15,\text{随机场景建模有价值},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+16,\rightarrow,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+17,\text{滚动近似足够可信},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+18,\rightarrow,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+19,\text{核心结论具有稳健性},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+20,},1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+21,\],1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+23,正文建议压缩为“四大验证模块 + 一个小规模 \(M_2\) benchmark”：,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+25,| 模块 | 核心问题 | 正文优先级 | 建议输出 |,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+26,|---|---|---:|---|,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+27,| 1. 正确性、动态一致性与信息泄漏审计 | 模型是否物理可行、计算正确、严格遵守信息边界 | 必须 | 1 张审计表 |,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+28,| 2. 预测误差 + FIV/OUV | 6/12/18 点新预报是否更准、是否真正值得使用 | 最高 | 1 张误差图 + 1 张经济价值表/图 |,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+29,| 3. \(M_0\) vs. \(M_1\) | 显式刻画不确定性是否优于确定性滚动 | 最高 | 1 张模型对比表 |,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+30,| 4. 核心敏感性与假设稳健性 | 结论是否依赖场景数、尾部保护、终端价值及关键解释假设 | 重要 | 1 张紧凑敏感性表 |,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+31,| 附加：\(M_1\) vs. \(M_2\) | SMPC 滚动近似距离更完整的多阶段决策有多远 | 建议保留 | 1 张 4--8 日 benchmark 小表 |,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+33,正式模型记为 \(M_1\)。在进入 2--12 月正式样本外评价前，应冻结其结构与基准参数；后续敏感性和 \(M_2\) 仅用于事后检验，不得根据测试期结果反向修改主模型。,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+35,---,1,src/q3/validation.py:309,implemented; bounded tests; execution waits for main and scope decision
+37,## 2. 模块一：模型正确性、动态一致性与信息泄漏审计,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+39,### 2.1 数值与物理可行性检查,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+41,对 2--12 月真实回放结果逐日、逐 10 min 时段检查：,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+43,1. **能量平衡残差**：将最终真实购电、光伏、储能充放电和紧急购电逐时回代能量平衡式，记录,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+45,\[,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+46,r_{\mathrm{bal}}^{\max},2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+47,=,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+48,"\max_{d,t}|r_{d,t}^{\mathrm{bal}}|.",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+49,\],2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+51,2. **储能状态边界**：检查所有时刻均满足,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+53,\[,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+54,"1200\le E_{d,t}^{\mathrm{real}}\le10800\ \mathrm{kWh}.",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+55,\],2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+57,3. **单时段充放电能力**：检查,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+59,\[,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+60,"0\le c_{d,t}^{\mathrm{real}},r_{d,t}^{\mathrm{real}}",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+61,\le \frac{5000}{6}\approx833.33\ \mathrm{kWh}.,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+62,\],2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+64,4. **充放电互斥**：真实执行轨迹中不得同时充电与放电。,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+66,5. **跨日状态连续性**：检查,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+68,\[,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+69,"E_{d+1,0}^{\mathrm{real}}",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+70,=,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+71,"E_{d,24}^{\mathrm{real}}.",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+72,\],2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+74,6. **真实费用重算一致性**：最终报告费用必须由最终有效购电量、实际调整量和实际紧急购电量重新计算；terminal value、look-ahead proxy cost 与随机场景目标值均不得混入实际费用。,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+76,7. **场景权重合法性**：所有代表场景满足,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+78,\[,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+79,"\pi_s\ge0,",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+80,\qquad,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+81,\sum_s\pi_s=1.,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+82,\],2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+84,建议正文仅保留如下紧凑表：,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+86,| 检查项 | 最大残差/违反次数 | 判定 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+87,|---|---:|---|,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+88,| 能量平衡 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+89,| SOC 越界 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+90,| 充放电功率越界 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+91,| 同时充放电 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+92,| 跨日 SOC 不连续 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+93,| 场景权重异常 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+94,| 费用重算误差 | 待计算 | 通过/未通过 |,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+96,其中“通过”应依据程序预先固定的数值容差判定，不在看到结果后改变容差。,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+98,### 2.2 信息泄漏与动态一致性审计,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+100,重点检查以下因果边界：,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+102,- 第 \(d\) 日任一节点构造预测误差库和随机场景时，只能使用该节点之前已经完整实现的数据；,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+103,- 历史负荷预测误差必须来自 rolling-origin / walk-forward 样本外预测，禁止使用全年训练后的拟合残差；,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+104,"- \(6{:}00,12{:}00,18{:}00\) 的决策不得读取当前节点之后的附件 2 真实负荷或真实光伏；",2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+105,- 已经执行的购电动作和真实 SOC 在后续节点必须冻结；,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+106,- 当前节点只有 committed block 的购电调整进入真实 adjustment cost，look-ahead 与 continuation 仅用于继续价值估计；,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+107,- stale-vs-updated 对照除光伏预报版本外，当前 SOC、负荷预测、历史样本边界、比较时域、场景规模、求解器和其他参数必须完全一致；,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+108,- \(M_1\) 的基准场景规模、尾部名额、历史池规则和终端价值方法应在正式评价前固定；,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+109,- \(M_2\) 只能作为 ex-post benchmark，不得用于重新选择 \(M_1\) 的结构和参数。,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+111,该部分正文不必展开 20 余项程序断言，只需写明“逐日自动审计全部通过”，并列出上述最关键的 5--8 项即可；完整断言表可放附录。,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+113,---,2,src/q3/validation.py:43,implemented; bounded tests; execution waits for main and scope decision
+115,## 3. 模块二：预测误差与新预报经济价值——FIV/OUV,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+117,这一模块直接回答题目“是否需要引入其他时刻预报制定调整购电策略”，应作为第三问检验部分的核心。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+119,### 3.1 预测误差是否随信息更新而改善,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+121,对附件 3 的光伏预报按“发布时间 \(k\) × 预测提前量 \(h\)”计算,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+123,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+124,"MAE_{k,h},\qquad RMSE_{k,h},\qquad Bias_{k,h}.",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+125,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+127,"正文建议使用一张热力图展示 \(MAE_{k,h}\)，用于判断预测误差是否随目标时刻临近而下降。",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+129,进一步对同一目标时刻比较相邻两版预报，例如,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+131,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+132,"\widehat P_{t|0}^{PV}\ \text{vs.}\ \widehat P_{t|6}^{PV},",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+133,\qquad,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+134,"\widehat P_{t|6}^{PV}\ \text{vs.}\ \widehat P_{t|12}^{PV},",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+135,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+137,从而避免把不同目标时刻的误差混在一起。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+139,可额外计算误差自相关,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+141,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+142,"\operatorname{Corr}(e_t,e_{t+\ell}),",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+143,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+145,作为“采用完整历史误差轨迹而不是逐时独立噪声”的统计依据，但正文不必单独占大篇幅。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+147,### 3.2 FIV：新光伏预报的纯信息价值,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+149,"对 \(k\in\{6,12,18\}\)，上一发布时间记为 \(k^-=k-6\)。由于两版预报共同覆盖区间只有 18 h，纯信息价值实验统一在",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+151,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+152,\mathcal H_k^{\mathrm{cmp}},3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+153,"=[k,k+18\mathrm h)",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+154,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+156,上做受控对照。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+158,保持当前真实 SOC、负荷预测、比较时域、历史样本集合、场景规模、储能反馈形式、终端价值、结算口径和求解器设置完全一致，仅替换光伏预报：,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+160,- **Stale**：使用上一发布时间的旧预报；,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+161,- **Updated**：使用当前节点最新预报。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+163,在当前 committed block 上定义逐日直接预报信息价值,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+165,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+166,"FIV_{d,k}^{B}",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+167,=,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+168,"C_{d,k}^{\mathrm{stale},B}",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+169,-,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+170,"C_{d,k}^{\mathrm{new},B},",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+171,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+173,全年汇总,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+175,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+176,"FIV_k^{B}=\sum_dFIV_{d,k}^{B}.",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+177,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+179,若 \(FIV_k^{B}>0\)，说明在控制其他条件后，新预报本身能够降低下一信息节点到来前的真实运行成本。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+181,#### 18:00 节点单独处理,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+183,由于 18:00 后当日光伏通常已经接近 0，必须区分：,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+185,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+186,FIV_{18}^{\mathrm{day}},3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+187,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+189,"表示 \([18,24)\) 的当日直接价值，以及",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+191,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+192,FIV_{18}^{\mathrm{cont}},3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+193,=,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+194,FIV_{18}^{\mathrm{cmp}}-FIV_{18}^{\mathrm{day}},3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+195,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+197,表示通过当晚 SOC 配置影响次日上午运行的跨日继续价值。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+199,因此，即使 \(FIV_{18}^{\mathrm{day}}\approx0\)，也不能直接得出“18:00 预报无用”，还要检查 \(FIV_{18}^{\mathrm{cont}}\)。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+201,### 3.3 OUV：开放更新节点的综合运行价值,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+203,为回答“实际运行中是否值得开放该更新节点”，保持主模型其他设置不变，仅改变允许使用的信息更新时间集合：,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+205,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+206,"\mathcal K_0=\{0\},\qquad",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+207,"\mathcal K_1=\{0,6\},\qquad",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+208,"\mathcal K_2=\{0,6,12\},\qquad",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+209,"\mathcal K_3=\{0,6,12,18\}.",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+210,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+212,在同一真实轨迹上回放，得到,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+214,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+215,"C_{\mathcal K_0},\quad",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+216,"C_{\mathcal K_1},\quad",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+217,"C_{\mathcal K_2},\quad",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+218,C_{\mathcal K_3}.,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+219,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+221,定义边际综合更新价值,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+223,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+224,"OUV_6=C_{\mathcal K_0}-C_{\mathcal K_1},",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+225,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+227,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+228,"OUV_{12}=C_{\mathcal K_1}-C_{\mathcal K_2},",3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+229,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+231,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+232,OUV_{18}=C_{\mathcal K_2}-C_{\mathcal K_3}.,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+233,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+235,需要明确：\(OUV_k\) 同时包含“新预报 + 当前真实状态 + 再次优化机会”的综合收益，因此不能把 \(OUV_k\) 全部解释为新预报本身的价值。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+237,### 3.4 正文建议报告的统计量,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+239,对每个更新节点至少报告：,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+241,- 全年累计 \(FIV_k^B\) 与 \(OUV_k\)；,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+242,- 逐日成本差的中位数；,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+243,- 正收益天数占比；,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+244,- 必要时给出日均值及 bootstrap 95% 置信区间。,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+246,建议合并成一张表：,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+248,| 节点 | 旧预报 MAE | 新预报 MAE | \(FIV_k^B\) | 日成本差中位数 | 正收益天数占比 | \(OUV_k\) | 结论 |,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+249,|---|---:|---:|---:|---:|---:|---:|---|,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+250,| 6:00 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 保留/作用有限 |,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+251,| 12:00 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 保留/作用有限 |,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+252,| 18:00 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 结合跨日价值判断 |,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+254,最终判定逻辑为,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+256,\[,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+257,\boxed{,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+258,\text{预测精度改善},3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+259,\rightarrow,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+260,FIV_k^B,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+261,\rightarrow,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+262,OUV_k,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+263,\rightarrow,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+264,\text{是否值得保留该更新节点},3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+265,}.,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+266,\],3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+268,---,3,src/q3/analysis.py:15;src/q3/validation.py:131;src/q3/validation.py:157;src/q3/rolling.py:43,implemented; bounded tests; execution waits for main and scope decision
+270,## 4. 模块三：\(M_0\) vs. \(M_1\)——随机场景是否真正有价值,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+272,### 4.1 对照模型,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+274,- \(M_0\)：确定性四时点滚动优化。未来输入只采用负荷点预测和最新光伏点预测，不构造随机误差场景；,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+275,- \(M_1\)：正式的 Scenario-Based Stochastic Economic MPC，使用联合历史误差场景。,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+277,两者必须保持以下条件完全一致：信息节点、committed block、调整结算、储能约束、初始 SOC、紧急购电机制、终端价值方法以及真实回放方式。这样二者之间唯一的核心差异就是“是否显式考虑预测不确定性”。,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+279,### 4.2 主要评价指标,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+281,全年比较,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+283,\[,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+284,"C_{\mathrm{total}},\qquad",4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+285,"C_{\mathrm{plan}},\qquad",4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+286,"C_{\mathrm{adjust}},\qquad",4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+287,"C_{\mathrm{em}},",4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+288,\],4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+290,以及：,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+292,- 紧急购电总量；,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+293,- 发生紧急购电的时段数或日期数；,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+294,- 储能吞吐量；,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+295,- 日末 SOC 分布。,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+297,定义总成本相对改善率,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+299,\[,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+300,\Delta_C,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+301,=,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+302,\frac{C_{M_0}^{\mathrm{real}}-C_{M_1}^{\mathrm{real}}},4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+303,{C_{M_0}^{\mathrm{real}}}\times100\%.,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+304,\],4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+306,同时计算逐日配对差,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+308,\[,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+309,\Delta C_d^{01},4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+310,=,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+311,"C_{d,M_0}^{\mathrm{real}}-C_{d,M_1}^{\mathrm{real}},",4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+312,\],4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+314,报告其中位数和正收益天数占比；若篇幅允许，可给出按日 bootstrap 95% 置信区间。,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+316,正文表建议为：,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+318,| 模型 | 总成本 | 计划购电费 | 调整费用 | 紧急购电费 | 紧急购电量 | 紧急购电发生率 | 相对 \(M_0\) 成本改善 |,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+319,|---|---:|---:|---:|---:|---:|---:|---:|,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+320,| \(M_0\) | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | -- |,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+321,| \(M_1\) | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+323,解释时应以**真实总成本**为第一判据，以紧急购电量和紧急购电费解释随机场景模型降低尾部风险的机制。不能只因 \(M_1\) 的计划购电量更保守就判定其更优或更差。,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+325,---,4,src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+327,## 5. 模块四：核心敏感性与建模假设稳健性,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+329,### 5.1 正文重点保留的三组核心敏感性,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+331,#### （1）场景规模,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+333,\[,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+334,"S\in\{10,20,30\},",5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+335,\qquad S^\star=20.,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+336,\],5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+338,比较：,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+340,- 全年真实总成本；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+341,- 紧急购电量；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+342,- 首个 committed block 购电决策变化；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+343,- 求解时间。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+345,目的：验证 \(S=20\) 是否已能获得较稳定的经济结果，而不是证明它是测试期上的“最优场景数”。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+347,#### （2）尾部保持名额,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+349,\[,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+350,"S_{\mathrm{tail}}\in\{0,2,4\},",5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+351,\qquad S_{\mathrm{tail}}^\star=2.,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+352,\],5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+354,比较：,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+356,- 高正向净负荷误差轨迹是否被场景缩减删除；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+357,- 紧急购电量与紧急购电费；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+358,- 总成本；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+359,- \(FIV/OUV\) 的符号和主要排序。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+361,目的：验证显式保留高风险轨迹是否确实改善尾部风险刻画。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+363,#### （3）终端储能价值系数,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+365,\[,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+366,"0.8\lambda_{E,k},\qquad",5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+367,"\lambda_{E,k},\qquad",5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+368,"1.2\lambda_{E,k}.",5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+369,\],5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+371,比较：,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+373,- 全年真实总成本；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+374,- 紧急购电量；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+375,- 24 h 窗口末端 SOC；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+376,- \(FIV/OUV\) 排序。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+378,目的：验证结论并非依赖某个精确的 terminal value 系数才能成立。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+380,### 5.2 其余假设只做紧凑稳健性检查,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+382,以下项目不建议各自展开成大节，可合并为一张“小型建模假设稳健性表”：,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+384,| 假设 | 主模型 | 对照 | 必看指标 |,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+385,|---|---|---|---|,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+386,| 小时预报到 10 min 插值 | 线性插值 | PCHIP | 总成本、紧急购电量、FIV/OUV 排序 |,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+387,| 10 min 执行时序 | 区间内实时因果反馈的聚合近似 | strict lag-one-slot | 总成本、紧急购电量、储能吞吐量、FIV/OUV 排序 |,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+388,| 调整结算解释 | 最终生效量相对 0:00 原计划单次结算 | sequential settlement | 总成本、调整费、紧急购电费、FIV/OUV 排序 |,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+390,其中 sequential settlement **必须重新求解模型**，不能只对主模型已产生的策略事后重新计费，因为结算规则改变会反过来改变最优调整行为。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+392,“近期条件历史池 vs. 全部历史无条件池”可作为附录或补充检验保留。如果正文篇幅和计算预算有限，不必与上述三个核心敏感性并列展开；其主要作用是证明场景库的季节/量级条件化不是决定最终结论的唯一因素。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+394,### 5.3 建议的敏感性汇总方式,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+396,以基准 \(M_1\) 为参照，可报告,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+398,\[,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+399,\delta_C^{(v)},5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+400,=,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+401,\frac{C^{(v)}-C^{\mathrm{base}}},5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+402,"{C^{\mathrm{base}}}\times100\%,",5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+403,\],5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+405,以及紧急购电量相对变化。正文只需突出：,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+407,1. 总成本变化是否很小；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+408,2. 紧急购电风险是否出现系统性变化；,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+409,3. \(FIV/OUV\) 的符号和节点排序是否稳定。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+411,只要这三类结论稳定，就足以支撑“核心结论对参数和主要建模假设不敏感”。,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+413,---,5,src/q3/validation.py:35;src/q3/validation.py:103;src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+415,## 6. 附加 benchmark：\(M_1\) vs. \(M_2\)——滚动近似是否足够好,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+417,### 6.1 benchmark 定位,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+419,\(M_2\) 为阶段条件聚类的缩减四阶段随机规划，只用于少量代表日的 ex-post 诊断，不用于全年正式求解。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+421,场景树结构为,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+423,\[,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+424,"0{:}00\rightarrow6{:}00\rightarrow12{:}00\rightarrow18{:}00,",6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+425,\],6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+427,并采用至多,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+429,\[,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+430,\boxed{2\times2\times2},6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+431,\],6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+433,的条件分支结构。若父节点样本不足，则自动退化为单分支。同一树节点下的 descendant scenarios 必须共享该阶段决策，以保证非前瞻性。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+435,### 6.2 代表日选择,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+437,建议选择约 4--8 个 stress-test 日期，覆盖：,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+439,- 常规工况；,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+440,- 光伏预测误差较大工况；,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+441,- 峰值净负荷较高工况；,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+442,- 紧急购电风险较高或实际发生紧急购电的工况。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+444,若希望进一步避免“挑日期”的主观性，可在每类工况中预先按固定规则选择 1--2 个日期，例如中位水平代表日与高分位/最大风险日。需要明确：这些日期是**分层诊断样本**，不声称构成全年无偏随机样本。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+446,### 6.3 比较指标,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+448,在相同信息边界、储能约束、结算口径、初始 SOC、紧急购电规则和真实回放规则下，比较 \(M_1\) 与 \(M_2\) 的真实成本，定义,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+450,\[,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+451,\varepsilon_d^{\mathrm{MPC}},6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+452,=,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+453,"\frac{C_{d,M_1}^{\mathrm{real}}-C_{d,M_2}^{\mathrm{real}}}",6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+454,"{C_{d,M_2}^{\mathrm{real}}}.",6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+455,\],6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+457,\(\varepsilon_d^{\mathrm{MPC}}>0\) 表示该日期上 \(M_1\) 的真实成本高于 \(M_2\)。由于两者均依赖有限场景和近似模型，个别日期出现负值也不应被视为理论矛盾，因此正文应报告实际结果而非预设 \(M_2\) 必然逐日更优。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+459,正文一张小表即可：,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+461,| 日期 | 工况 | \(C_{M_1}^{\mathrm{real}}\) | \(C_{M_2}^{\mathrm{real}}\) | \(\varepsilon_d^{\mathrm{MPC}}\) |,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+462,|---|---|---:|---:|---:|,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+463,| 待选 | 常规 | 待计算 | 待计算 | 待计算 |,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+464,| 待选 | 高预测误差 | 待计算 | 待计算 | 待计算 |,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+465,| 待选 | 高净负荷 | 待计算 | 待计算 | 待计算 |,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+466,| 待选 | 高紧急购电风险 | 待计算 | 待计算 | 待计算 |,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+468,并报告该 stress-test 样本上的中位相对差和最大绝对相对差即可。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+470,若多数代表日的 \(|\varepsilon_d^{\mathrm{MPC}}|\) 较小，可表述为：滚动随机优化在显著降低完整多阶段随机规划计算复杂度的同时，仅产生有限的经济性能损失，因此将 \(M_1\) 用于全年求解具有工程合理性。若极端日期差距明显增大，则应如实报告滚动近似的适用边界，而不是据此反向更换正式模型。,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+472,---,6,src/q3/validation.py:243;src/q3/analysis.py:113,implemented; bounded tests; execution waits for main and scope decision
+474,## 7. 最终实验运行清单,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+476,为避免重复求解和无效计算，建议按以下顺序执行。,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+478,### A. 必做基准,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+480,1. 冻结参数后运行全年 \(M_1\) 正式回放；,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+481,2. 从该次运行日志直接完成物理可行性、SOC 连续性、场景权重和费用重算审计；,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+482,3. 完成附件 3 的 forecast-origin × horizon 误差统计。,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+484,### B. 信息价值实验,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+486,"4. 在 6/12/18 点执行 stale-vs-updated 配对实验，计算 \(FIV_6^B,FIV_{12}^B,FIV_{18}^{\mathrm{day}},FIV_{18}^{\mathrm{cont}}\)；",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+487,"5. 运行更新时间集合 \(\mathcal K_0,\mathcal K_1,\mathcal K_2\)，与已经完成的 \(\mathcal K_3=M_1\) 基准共同计算 \(OUV_6,OUV_{12},OUV_{18}\)。",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+489,### C. 模型价值验证,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+491,6. 全年运行确定性滚动基准 \(M_0\)，完成 \(M_0\) vs. \(M_1\) 对比。,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+493,### D. 核心敏感性,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+495,"7. 在基准 \(S=20,S_{\mathrm{tail}}=2,\lambda_E\) 已有结果的基础上，仅新增：",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+496,"   - \(S=10,30\)；",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+497,"   - \(S_{\mathrm{tail}}=0,4\)；",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+498,"   - \(0.8\lambda_E,1.2\lambda_E\)。",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+500,这样三个主敏感性只需要新增 6 组设置，不必重复计算基准组。,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+502,### E. 小型 benchmark 与假设稳健性,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+504,8. 选 4--8 个预先定义的 stress-test 日期求解 \(M_2\)，形成 \(M_1\) vs. \(M_2\) 小表；,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+505,9. 对线性/PCHIP、聚合反馈/lag-one-slot、主结算/sequential settlement 做紧凑稳健性对照，其中 sequential settlement 必须重新求解。,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+507,如果计算预算非常紧张，优先级应为：,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+509,\[,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+510,\boxed{,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+511,\text{正确性审计},7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+512,>,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+513,FIV/OUV,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+514,>,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+515,M_0\text{ vs. }M_1,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+516,>,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+517,"\{S,S_{\mathrm{tail}},\lambda_E\}",7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+518,>,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+519,M_1\text{ vs. }M_2,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+520,>,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+521,\text{其余假设稳健性},7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+522,},7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+523,\],7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+525,---,7,src/q3/validation.py:309;src/q3/validation.py:287,implemented; bounded tests; execution waits for main and scope decision
+527,## 8. 论文正文最终应形成的证据链,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+529,第三问的检验部分最终不应写成“做了很多敏感性分析”，而应形成以下证据链：,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+531,\[,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+532,\boxed{,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+533,\begin{aligned},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+534,&\text{物理约束与信息边界全部满足},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+535,\\,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+536,\Rightarrow\;&\text{新预报在统计上改善了预测质量},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+537,\\,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+538,\Rightarrow\;&\text{FIV/OUV 证明部分更新节点具有真实经济价值},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+539,\\,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+540,\Rightarrow\;&M_1\text{ 相比 }M_0\text{ 降低总成本和/或紧急购电风险},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+541,\\,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+542,\Rightarrow\;&M_2\text{ 代表日 benchmark 表明滚动近似性能损失有限},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+543,\\,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+544,\Rightarrow\;&\text{核心结论对场景规模、尾部保护、终端价值及主要解释假设保持稳定}.,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+545,\end{aligned},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+546,},8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+547,\],8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision
+549,正文真正要证明的不是“模型复杂”，而是：**模型正确、信息有价值、随机性处理有价值、滚动近似可信，而且结论不是由某个脆弱参数或解释假设偶然产生。**,8,src/q3/validation.py:157,implemented; bounded tests; execution waits for main and scope decision

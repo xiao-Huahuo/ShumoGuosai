@@ -1,6 +1,6 @@
 # 集中管理的绘图脚本
 
-本目录是项目自写绘图代码的唯一维护位置，覆盖第一问与第二问。技能包内示例和第三方论文模板不属于项目计算绘图实现，保留其原目录。原求解入口继续可用；`src/q1/report.py`、`src/q1/analysis_report.py`、`src/q2/figures.py`的绘图部分仅保留调用兼容函数。
+本目录是项目自写绘图代码的唯一维护位置，覆盖第一问、第二问与第三问。技能包内示例和第三方论文模板不属于项目计算绘图实现，保留其原目录。原求解入口继续可用；`src/q1/report.py`、`src/q1/analysis_report.py`、`src/q2/figures.py`的绘图部分仅保留调用兼容函数。
 
 [第一问论文图集](../../outputs/processed/figures/q1/index.html) · [全项目23组图预览](../../outputs/processed/figures/index.html) · [全图清单CSV](figure_registry.csv) · [验收说明](../../docs/plots/acceptance.md)
 
@@ -70,3 +70,7 @@ uv run --with-requirements src/q1/requirements.txt python src/plots/verify.py
 ## 第二问最终修订方案
 
 `q2_dispatch.py`集中生成预测步长误差、季节方差、DHR残差、已完成真实回放4类图，格式仅PNG/SVG。命令：`python3 src/plots/run.py q2-dispatch --run-dir outputs/q2/dispatch_runs/20260911_224501`。读取本次独立运行CSV；部分回放明确标注完成天数，不将缺失日期补零。旧23图清单继续对应已验收的旧数据诊断与Q1图集，新4类图按运行目录figures/manifest.json登记。
+
+## 第三问 v4
+
+`q3.py` 根据第三问独立测试/正式运行目录中的 `diagnostics/forecast_metrics.csv` 绘制4×24预报误差热图，使用统一中文字体与PNG/SVG格式。每个运行目录的 `diagnostics/figures/manifest.json` 登记源码、原始CSV及SHA-256；不会改写既有两问图集。数据准备与图形复现入口：`python -m src.q3.run prepare --output outputs/q3/raw/diagnostics`。

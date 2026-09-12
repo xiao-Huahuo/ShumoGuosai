@@ -1,0 +1,12 @@
+test_exact_original_and_compact_optimal_values (src.q3.test_fast_solver.FastSolverTests.test_exact_original_and_compact_optimal_values) ... ok
+test_fixed_policy_still_matches_exact_response (src.q3.test_fast_solver.FastSolverTests.test_fixed_policy_still_matches_exact_response) ... ok
+test_full_matrix_accepts_exact_feedback_and_prefix_orders (src.q3.test_fast_solver.FastSolverTests.test_full_matrix_accepts_exact_feedback_and_prefix_orders) ... ok
+test_grid_dominance_does_not_change_scenario_soc (src.q3.test_fast_solver.FastSolverTests.test_grid_dominance_does_not_change_scenario_soc) ... ok
+test_invalid_candidate_bounds_rejected_before_matrix_product (src.q3.test_fast_solver.FastSolverTests.test_invalid_candidate_bounds_rejected_before_matrix_product) ... ok
+test_parallel_solver_callback_preserves_negative_objective_certificate (src.q3.test_fast_solver.FastSolverTests.test_parallel_solver_callback_preserves_negative_objective_certificate) ... ok
+test_positive_terminal_preserves_monotone_projection (src.q3.test_fast_solver.FastSolverTests.test_positive_terminal_preserves_monotone_projection) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.254s
+
+OK

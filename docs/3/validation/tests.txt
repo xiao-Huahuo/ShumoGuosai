@@ -1,0 +1,9 @@
+test_empty_formal_prefix_does_not_claim_pass (src.q3.test_validation.ValidationTests.test_empty_formal_prefix_does_not_claim_pass) ... ok
+test_queue_reuses_M1_and_prioritizes_information (src.q3.test_validation.ValidationTests.test_queue_reuses_M1_and_prioritizes_information) ... ok
+test_real_single_date_information_and_comparison_tables (src.q3.test_validation.ValidationTests.test_real_single_date_information_and_comparison_tables) ... ok
+test_six_core_settings_and_three_assumptions (src.q3.test_validation.ValidationTests.test_six_core_settings_and_three_assumptions) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 12.687s
+
+OK

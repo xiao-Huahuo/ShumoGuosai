@@ -1,0 +1,22 @@
+{
+  "url": "http://127.0.0.1:8763/outputs/q3/raw/timing_final_20260912/report.html",
+  "tool": "mcp__cua_repl",
+  "checked": [
+    "12个真实节点时长和gap显示",
+    "明确标识未启动全量及0个严格最优证书",
+    "表格窄窗口独立横向滚动",
+    "4×24×3指标热图实际渲染",
+    "计时CSV/JSON/终端扰动链接存在"
+  ],
+  "viewport_width": 588,
+  "document_scroll_width": 588,
+  "tables": 2,
+  "scroll_containers": 2,
+  "image_complete": true,
+  "image_natural_size": [
+    3900,
+    1140
+  ],
+  "file_download_roundtrip_checked": false,
+  "observation_note": "实际AX与截图核验；不把文件链接点击等同下载文件内容回读。"
+}

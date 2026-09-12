@@ -1,0 +1,93 @@
+test_actual_small_multistage_solve (src.q3.test_q3.MathTests.test_actual_small_multistage_solve) ... ok
+test_energy_balance_saturation (src.q3.test_q3.MathTests.test_energy_balance_saturation) ... ok
+test_exact_milp_matches_fixed_min (src.q3.test_q3.MathTests.test_exact_milp_matches_fixed_min) ... ok
+test_incumbent_gradient_matches_finite_difference (src.q3.test_q3.MathTests.test_incumbent_gradient_matches_finite_difference) ... ok
+test_lag_does_not_observe_current (src.q3.test_q3.MathTests.test_lag_does_not_observe_current) ... ok
+test_no_artificial_samples (src.q3.test_q3.MathTests.test_no_artificial_samples) ... ok
+test_no_storage_deadband (src.q3.test_q3.MathTests.test_no_storage_deadband) ... ok
+test_recent_then_expand_and_condition (src.q3.test_q3.MathTests.test_recent_then_expand_and_condition) ... ok
+test_reduction_probability_tail_original_support (src.q3.test_q3.MathTests.test_reduction_probability_tail_original_support) ... ok
+test_settlement_cancellation_and_repeated_proxy (src.q3.test_q3.MathTests.test_settlement_cancellation_and_repeated_proxy) ... ok
+test_solution_objective_uses_residual_not_real_cost (src.q3.test_q3.MathTests.test_solution_objective_uses_residual_not_real_cost) ... ok
+test_tree_conditioning_and_uncertainty (src.q3.test_q3.MathTests.test_tree_conditioning_and_uncertainty) ... ok
+test_48h_predictor_identity_frozen (src.q3.test_q3.RealDataTests.test_48h_predictor_identity_frozen) ... ok
+test_cold_start_no_future_or_soc_reset (src.q3.test_q3.RealDataTests.test_cold_start_no_future_or_soc_reset) ... ok
+test_completed_trajectory_horizon (src.q3.test_q3.RealDataTests.test_completed_trajectory_horizon) ... ok
+test_fiv_common_support_and_state_independence (src.q3.test_q3.RealDataTests.test_fiv_common_support_and_state_independence) ... ok
+test_future_poison_not_used_by_node (src.q3.test_q3.RealDataTests.test_future_poison_not_used_by_node) ... ok
+test_origin_alignment_and_nodes (src.q3.test_q3.RealDataTests.test_origin_alignment_and_nodes) ... ok
+test_pchip_preserves_hourly_knots (src.q3.test_q3.RealDataTests.test_pchip_preserves_hourly_knots) ... ok
+test_real_day_rollout_and_template (src.q3.test_q3.RealDataTests.test_real_day_rollout_and_template) ... ok
+test_resume_keeps_prefix_and_rejects_tamper (src.q3.test_q3.RealDataTests.test_resume_keeps_prefix_and_rejects_tamper) ... tmp9rcty86v 2025-01-01 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-02 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-03 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-04 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-05 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-06 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-07 SOC=6000.000 已提交
+tmp9rcty86v 2025-01-08 SOC=10352.017 已提交
+tmp9rcty86v 2025-01-09 SOC=10301.553 已提交
+ok
+test_sequential_reoptimization_and_ouv_sets (src.q3.test_q3.RealDataTests.test_sequential_reoptimization_and_ouv_sets) ... ok
+test_terminal_causal_and_delta_stability (src.q3.test_q3.RealDataTests.test_terminal_causal_and_delta_stability) ... ok
+test_cpu_budget_rejects_oversubscription (src.q3.test_parallel.ParallelMathTests.test_cpu_budget_rejects_oversubscription) ... ok
+test_duplicate_checkpoint_paths_rejected (src.q3.test_parallel.ParallelMathTests.test_duplicate_checkpoint_paths_rejected) ... ok
+test_native_concurrent_exact_mapping (src.q3.test_parallel.ParallelMathTests.test_native_concurrent_exact_mapping) ... ok
+test_process_exception_preserves_original_audit (src.q3.test_parallel.ParallelMathTests.test_process_exception_preserves_original_audit) ... ok
+test_all_required_experiment_chains_are_dispatched (src.q3.test_parallel.ParallelRealTests.test_all_required_experiment_chains_are_dispatched) ... ok
+test_fd_causal_batch_and_fiv_pair_equal (src.q3.test_parallel.ParallelRealTests.test_fd_causal_batch_and_fiv_pair_equal) ... ok
+test_parallel_failures_do_not_publish_complete_comparison (src.q3.test_parallel.ParallelRealTests.test_parallel_failures_do_not_publish_complete_comparison) ... ok
+test_parallel_independent_soc_chains_equal (src.q3.test_parallel.ParallelRealTests.test_parallel_independent_soc_chains_equal) ... parallel0 2025-01-01 SOC=6000.000 已提交
+parallel1 2025-01-01 SOC=6000.000 已提交
+parallel0 2025-01-02 SOC=6000.000 已提交
+parallel1 2025-01-02 SOC=6000.000 已提交
+parallel0 2025-01-03 SOC=6000.000 已提交
+parallel1 2025-01-03 SOC=6000.000 已提交
+parallel0 2025-01-04 SOC=6000.000 已提交
+parallel1 2025-01-04 SOC=6000.000 已提交
+parallel0 2025-01-05 SOC=6000.000 已提交
+parallel1 2025-01-05 SOC=6000.000 已提交
+parallel0 2025-01-06 SOC=6000.000 已提交
+parallel1 2025-01-06 SOC=6000.000 已提交
+parallel0 2025-01-07 SOC=6000.000 已提交
+parallel1 2025-01-07 SOC=6000.000 已提交
+parallel0 2025-01-08 SOC=10329.605 已提交
+parallel0 2025-01-09 SOC=10208.887 已提交
+parallel1 2025-01-08 SOC=10352.017 已提交
+parallel1 2025-01-09 SOC=10301.553 已提交
+serial0 2025-01-01 SOC=6000.000 已提交
+serial0 2025-01-02 SOC=6000.000 已提交
+serial0 2025-01-03 SOC=6000.000 已提交
+serial0 2025-01-04 SOC=6000.000 已提交
+serial0 2025-01-05 SOC=6000.000 已提交
+serial0 2025-01-06 SOC=6000.000 已提交
+serial0 2025-01-07 SOC=6000.000 已提交
+serial0 2025-01-08 SOC=10329.605 已提交
+serial0 2025-01-09 SOC=10208.887 已提交
+serial1 2025-01-01 SOC=6000.000 已提交
+serial1 2025-01-02 SOC=6000.000 已提交
+serial1 2025-01-03 SOC=6000.000 已提交
+serial1 2025-01-04 SOC=6000.000 已提交
+serial1 2025-01-05 SOC=6000.000 已提交
+serial1 2025-01-06 SOC=6000.000 已提交
+serial1 2025-01-07 SOC=6000.000 已提交
+serial1 2025-01-08 SOC=10352.017 已提交
+serial1 2025-01-09 SOC=10301.553 已提交
+ok
+test_stress_day_process_preserves_settlement_values (src.q3.test_parallel.ParallelRealTests.test_stress_day_process_preserves_settlement_values) ... ok
+test_atomic_json_preserves_previous_on_replace_failure (src.q3.test_full_run.CheckpointTests.test_atomic_json_preserves_previous_on_replace_failure) ... ok
+test_completed_node_replays_without_optimizer (src.q3.test_full_run.CheckpointTests.test_completed_node_replays_without_optimizer) ... ok
+test_event_checkpoint_during_solving (src.q3.test_full_run.CheckpointTests.test_event_checkpoint_during_solving) ... ok
+test_experiments_are_four_dates_and_few_values (src.q3.test_full_run.CheckpointTests.test_experiments_are_four_dates_and_few_values) ... ok
+test_lock_rejects_second_writer (src.q3.test_full_run.CheckpointTests.test_lock_rejects_second_writer) ... ok
+test_real_solver_slices_and_snapshot_validation (src.q3.test_full_run.CheckpointTests.test_real_solver_slices_and_snapshot_validation) ... 节点继续切片2，gap=321.834589%
+ok
+test_sigkill_retains_and_restores_incumbent (src.q3.test_full_run.CheckpointTests.test_sigkill_retains_and_restores_incumbent) ... ok
+test_day_resumes_after_second_node_crash (src.q3.test_full_run.NodeResumeTests.test_day_resumes_after_second_node_crash) ... ok
+test_supervisor_restarts_killed_worker (src.q3.test_full_run.NodeResumeTests.test_supervisor_restarts_killed_worker) ... ok
+test_terminal_one_history_job_persisted (src.q3.test_full_run.NodeResumeTests.test_terminal_one_history_job_persisted) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 35.452s
+
+OK

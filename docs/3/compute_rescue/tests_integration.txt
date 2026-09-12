@@ -1,0 +1,25 @@
+test_exact_original_and_compact_optimal_values (src.q3.test_fast_solver.FastSolverTests.test_exact_original_and_compact_optimal_values) ... ok
+test_fixed_policy_still_matches_exact_response (src.q3.test_fast_solver.FastSolverTests.test_fixed_policy_still_matches_exact_response) ... ok
+test_full_matrix_accepts_exact_feedback_and_prefix_orders (src.q3.test_fast_solver.FastSolverTests.test_full_matrix_accepts_exact_feedback_and_prefix_orders) ... ok
+test_grid_dominance_does_not_change_scenario_soc (src.q3.test_fast_solver.FastSolverTests.test_grid_dominance_does_not_change_scenario_soc) ... ok
+test_positive_terminal_preserves_monotone_projection (src.q3.test_fast_solver.FastSolverTests.test_positive_terminal_preserves_monotone_projection) ... ok
+test_atomic_json_preserves_previous_on_replace_failure (src.q3.test_full_run.CheckpointTests.test_atomic_json_preserves_previous_on_replace_failure) ... ok
+test_completed_node_replays_without_optimizer (src.q3.test_full_run.CheckpointTests.test_completed_node_replays_without_optimizer) ... ok
+test_event_checkpoint_during_solving (src.q3.test_full_run.CheckpointTests.test_event_checkpoint_during_solving) ... ok
+test_experiments_are_four_dates_and_few_values (src.q3.test_full_run.CheckpointTests.test_experiments_are_four_dates_and_few_values) ... ok
+test_lock_rejects_second_writer (src.q3.test_full_run.CheckpointTests.test_lock_rejects_second_writer) ... ok
+test_real_solver_slices_and_snapshot_validation (src.q3.test_full_run.CheckpointTests.test_real_solver_slices_and_snapshot_validation) ... 节点继续切片2，gap=321.834589%
+ok
+test_sigkill_retains_and_restores_incumbent (src.q3.test_full_run.CheckpointTests.test_sigkill_retains_and_restores_incumbent) ... ok
+test_day_resumes_after_second_node_crash (src.q3.test_full_run.NodeResumeTests.test_day_resumes_after_second_node_crash) ... ok
+test_supervisor_restarts_killed_worker (src.q3.test_full_run.NodeResumeTests.test_supervisor_restarts_killed_worker) ... ok
+test_terminal_one_history_job_persisted (src.q3.test_full_run.NodeResumeTests.test_terminal_one_history_job_persisted) ... ok
+test_empty_formal_prefix_does_not_claim_pass (src.q3.test_validation.ValidationTests.test_empty_formal_prefix_does_not_claim_pass) ... ok
+test_queue_reuses_M1_and_prioritizes_information (src.q3.test_validation.ValidationTests.test_queue_reuses_M1_and_prioritizes_information) ... ok
+test_real_single_date_information_and_comparison_tables (src.q3.test_validation.ValidationTests.test_real_single_date_information_and_comparison_tables) ... ok
+test_six_core_settings_and_three_assumptions (src.q3.test_validation.ValidationTests.test_six_core_settings_and_three_assumptions) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 28.733s
+
+OK
