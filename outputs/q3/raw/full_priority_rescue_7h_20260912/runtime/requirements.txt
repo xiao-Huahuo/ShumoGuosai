@@ -1,0 +1,12 @@
+numpy==2.3.5
+scipy==1.16.3
+pandas==2.2.3
+statsmodels==0.14.6
+matplotlib==3.10.8
+openpyxl==3.1.5
+threadpoolctl==3.6.0
+pyscipopt==6.2.1
+lightgbm==4.7.0
+scikit-learn==1.9.1
+
+highspy==1.15.1

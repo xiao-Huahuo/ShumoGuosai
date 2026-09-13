@@ -1,0 +1,30 @@
+{
+  "completed_days_verified": 15,
+  "old_days_byte_identical": 13,
+  "jan14_nodes": [
+    {
+      "hour": 0,
+      "solver": "LP_certificate",
+      "gap": 0.004359890032364841,
+      "reliable": true
+    },
+    {
+      "hour": 6,
+      "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+      "gap": 0.029999874475129022,
+      "reliable": true
+    },
+    {
+      "hour": 12,
+      "solver": "LP_certificate",
+      "gap": 0.019488902686062157,
+      "reliable": true
+    },
+    {
+      "hour": 18,
+      "solver": "LP_certificate",
+      "gap": 5.42221154089114e-16,
+      "reliable": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "font": "Microsoft YaHei",
+  "figures": [
+    "seasonal_variance",
+    "dhr_residuals",
+    "real_rollout"
+  ],
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "missing_metrics_not_zero": true
+}

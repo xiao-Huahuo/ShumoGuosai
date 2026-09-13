@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-09-12T04:49:29.723589+00:00",
+  "committed_main_days": 171,
+  "scope": "already_committed_main_days_only",
+  "acceptance": {
+    "grid_relative_max": 0.02,
+    "first_day_expected_cost_relative_max": 0.01,
+    "known_counterexample_policy": "do_not_claim_universal_fixed_K2_if_reliable_pairs_fail_original_stability"
+  },
+  "authorization": "用户要求验证提速，有效则自动用于正式计算；保持3%",
+  "no_new_gap_sweep": true
+}

@@ -1,0 +1,22 @@
+{
+  "scenario": "main",
+  "eta_c": 0.9,
+  "eta_d": 0.9,
+  "roundtrip_efficiency": 0.81,
+  "cost_yuan": 35126.948589289634,
+  "grid_kwh": 59482.69899835391,
+  "curtail_kwh": 0.0,
+  "charge_kwh": 20740.66613168725,
+  "discharge_kwh": 16799.939566666668,
+  "load_kwh": 111024.8081,
+  "pv_kwh": 55482.835666666666,
+  "soc_min_kwh": 1200.0,
+  "soc_max_kwh": 10800.0,
+  "initial_kwh": 6000.0,
+  "terminal_kwh": 6000.0,
+  "loss_kwh": 3940.7265650205773,
+  "charge_weighted_price": 0.4929583907733867,
+  "discharge_weighted_price": 1.1376015555805956,
+  "pv_surplus_kwh": 6247.962966666666,
+  "pv_surplus_absorbed_kwh": 6247.962966666666
+}

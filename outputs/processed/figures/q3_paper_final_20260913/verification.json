@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "source_hashes_verified": 341,
+  "forecast_cells": 96,
+  "paired_days": 333,
+  "formal_days": 334,
+  "formal_slots": 48096,
+  "formal_nodes": 1336,
+  "certified_nodes": 847,
+  "limited_nodes": 489,
+  "typical_date": "2025-03-20",
+  "user_cancelled": "FIV/OUV图6-4；未运行新实验",
+  "figures_rendered_and_checked": [
+    {
+      "name": "fig6_1_forecast_quality",
+      "pixels": [
+        3840,
+        2640
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "fig6_2_rolling_mechanism",
+      "pixels": [
+        4000,
+        2440
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "fig6_3_forecast_and_plan_updates",
+      "pixels": [
+        3840,
+        2520
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "fig6_4_pressure_day_dispatch",
+      "pixels": [
+        3840,
+        3040
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "fig6_5_cost_structure",
+      "pixels": [
+        3840,
+        1739
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "fig6_6_annual_storage_and_revisions",
+      "pixels": [
+        3840,
+        2360
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "figS3_1_local_sensitivity",
+      "pixels": [
+        4000,
+        2720
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "core6_1_forecast_error",
+      "pixels": [
+        4000,
+        1739
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "core6_2_rolling_windows",
+      "pixels": [
+        4079,
+        2520
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    },
+    {
+      "name": "core6_3_typical_day",
+      "pixels": [
+        3920,
+        3300
+      ],
+      "dpi": 400,
+      "svg_text": "glyph paths"
+    }
+  ],
+  "max_energy_balance_residual": 1.1368683772161603e-13,
+  "all_original_results_unchanged": true,
+  "scope": "numerical/source/export verification; visual QA separately documented"
+}

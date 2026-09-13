@@ -1,0 +1,36 @@
+{
+  "start": "2025-02-01",
+  "end": "2025-12-31",
+  "days": 334,
+  "period": "evaluation_period_not_calendar_year",
+  "planned_cost_yuan": 13519155.116704091,
+  "emergency_cost_yuan": 677182.5457146972,
+  "total_cost_yuan": 14196337.662418788,
+  "planned_grid_kwh": 21654307.821422793,
+  "emergency_kwh": 130262.4270849516,
+  "emergency_intervals": 2058,
+  "emergency_events": 955,
+  "intervals_above_numerical_tolerance": 2058,
+  "unused_kwh": 2760865.1653923467,
+  "charge_kwh": 5695517.067523333,
+  "discharge_kwh": 4611001.4793746015,
+  "final_soc": 8630.38368811016,
+  "charge_with_emergency_intervals": 0,
+  "model_configuration": {
+    "tail_stratification": true,
+    "tail_fraction": 0.2,
+    "dynamic_soc_reserve": true,
+    "reserve_quantile": 0.8,
+    "evaluation_initial_soc_kwh": 6000.0
+  },
+  "solver_statistics": {
+    "total_runtime": 16078.24214470003,
+    "mean_daily_runtime": 48.138449535030034,
+    "median_daily_runtime": 22.15473844999906,
+    "max_daily_runtime": 1725.7826787000013,
+    "requested_mip_gap": 0.03,
+    "achieved_mip_gap_mean": 0.026874821975057524,
+    "achieved_mip_gap_max": 0.02999993837271141,
+    "days_completed": 334
+  }
+}

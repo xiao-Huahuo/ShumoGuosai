@@ -1,0 +1,41 @@
+{
+  "cutoff": "2026-09-12T01:50:50+00:00",
+  "queue_started": "2026-09-11T17:02:13.346757+00:00",
+  "queue_elapsed_hours": 8.81018145638889,
+  "worker_wall_hours": {
+    "main": 7.9795347761111115,
+    "experiments": 9.617368213333332
+  },
+  "main_share": 0.4534624519381427,
+  "peak_concurrent_queue_workers": 2,
+  "attempts": 16,
+  "progress_at_cutoff": {
+    "main_days": 85,
+    "main_target": 334,
+    "completed_required_experiments": 2,
+    "required_experiments": 27,
+    "horizon_1_days": 85,
+    "horizon_2_days": 78,
+    "horizon_3_days": 80,
+    "window_56_days": 32
+  },
+  "scope": "queue_worker_lifetimes_since_01:02_including_preparation_failures_and_retries_excluding_queue_waits_separate_diagnostics_and_preexisting_computation_not_CPU_time",
+  "remaining_rollout_work": {
+    "rollout_groups": 23,
+    "approximate_remaining_simulated_days": 7407,
+    "note": "three minimum-block comparisons can start later; rounded estimate only; excludes oracle and richer-SOC diagnostics"
+  },
+  "scenario_estimates": [
+    {
+      "assumed_minutes_per_simulated_day": 5,
+      "workers_exclusively_on_experiments": 2,
+      "approx_calendar_days": 12.859375
+    },
+    {
+      "assumed_minutes_per_simulated_day": 10,
+      "workers_exclusively_on_experiments": 2,
+      "approx_calendar_days": 25.71875
+    }
+  ],
+  "estimate_limitation": "capacity arithmetic under assumed future mean times, not measured ETA; excludes dependency idle time, final acceptance, extra diagnostics and future algorithm speedups"
+}

@@ -6,6 +6,7 @@
 - 代码修改任务依据为 `docs/2/final/Q2_Codex_最终模型修改任务书.md`。
 - 计算加速依据为 `docs/2/final/Codex_问题二求解加速任务书.md`；用户随后明确要求立即续算、取消额外对比。
 - 旧代码和旧结果已完整保存至 `outputs/history/q2_baselines/pre_tail_reserve_20260912/`。快照含 78 个源码文件、11977 个结果文件，共 583575293 字节；逐文件 SHA-256 不匹配数为 0，综合摘要为 `7E50C853EDC02E982466159FF4CD34672133F95191F713D940699AA924AE1662`。
+- 2026-09-13存储补记：上述历史快照的 `results/` 已无损压缩为同目录 `results.tar.gz`，11977个文件逐SHA回读通过；原源码、manifest与summary未改。恢复方法见 [RESTORE.md](../../../outputs/history/q2_baselines/pre_tail_reserve_20260912/RESTORE.md)。
 - 新正式运行目录为 `outputs/q2/dispatch_runs/20260912_tail_reserve_final/`，未覆盖旧运行目录。
 
 ## 实现与验收

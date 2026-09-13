@@ -1,0 +1,12 @@
+test_branch_cuts_preserve_complete_fixed_policy_trajectories (test_linear_policy.LinearPolicyTests.test_branch_cuts_preserve_complete_fixed_policy_trajectories) ... ok
+test_complete_causal_seed_satisfies_every_linear_row (test_linear_policy.LinearPolicyTests.test_complete_causal_seed_satisfies_every_linear_row) ... ok
+test_dominance_presolve_transforms_seed_but_preserves_fixed_policy (test_linear_policy.LinearPolicyTests.test_dominance_presolve_transforms_seed_but_preserves_fixed_policy) ... ok
+test_fixed_policy_cannot_invalidate_derived_activation_bounds (test_linear_policy.LinearPolicyTests.test_fixed_policy_cannot_invalidate_derived_activation_bounds) ... ok
+test_fixed_policy_exactly_matches_clipping_and_has_no_emergency_charging (test_linear_policy.LinearPolicyTests.test_fixed_policy_exactly_matches_clipping_and_has_no_emergency_charging) ... ok
+test_maximum_charge_cap_dominates_for_each_realized_step (test_linear_policy.LinearPolicyTests.test_maximum_charge_cap_dominates_for_each_realized_step) ... ok
+test_optima_match_indicator_model_at_three_initial_states (test_linear_policy.LinearPolicyTests.test_optima_match_indicator_model_at_three_initial_states) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.647s
+
+OK

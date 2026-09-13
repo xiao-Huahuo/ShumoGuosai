@@ -1,0 +1,4 @@
+model_dates,days,wall_mean_minutes,wall_median_minutes,recorded_solve_mean_minutes,supplemental_days
+3月10日—3月31日,22,3.7217784,4.7783013,3.2471352,0
+4月1日—4月12日,12,3.4029295,4.1672785,3.0272958,0
+4月13日—4月26日,14,25.737863,7.588639,13.79178,7

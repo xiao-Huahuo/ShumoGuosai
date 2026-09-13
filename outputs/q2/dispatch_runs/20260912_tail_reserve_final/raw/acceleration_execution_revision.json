@@ -1,0 +1,40 @@
+{
+  "status": "approved_for_formal_resume",
+  "checkpoint_before_resume": {
+    "days": 286,
+    "sha256": {
+      "dispatch.csv": "400e6705a1e89b6579402c2ffd57aeb38cba40e5e86ccf21d23d4a13e611e91e",
+      "daily.csv": "5c11050dc816e7e908bf39321cc3169d48e7ba601cdc48af8bbe5200c27ba0df",
+      "calibration.csv": "f13e3b1d9f52cc2cdfe6ac6e03b2d8301ac3d0c6b9525b2179ef170d50a69a98"
+    }
+  },
+  "source_snapshot_before_acceleration": "raw/pre_acceleration_source",
+  "precision_revision_sha256": "308847bde0add876ac9fb31374e7b364c4a0d485f5e1377f42b30c376ac8f0e3",
+  "version": "q2-tail-reserve-accelerated-resume-20260912",
+  "created_at": "2026-09-12T14:17:58.435575+00:00",
+  "solver_gap": 0.03,
+  "parent_protocol_sha256": "19d0b7a9e711298ef38b8ee3f0482c75793d41ec0aab564124f68856c051a78e",
+  "authorization": "用户明确要求立即采用新加速文档建议继续正式模型计算，不再增加对比实验。",
+  "previous_precision_revision_sha256": "5ea48c2721175ae5c92bf423d30b754c9b83bf48e8faec365599432309e254bb",
+  "previous_precision_revision_archive": "raw/solver_precision_revision_pre_acceleration_5ea48c272117.json",
+  "acceleration_task": "docs/2/final/Codex_问题二求解加速任务书.md",
+  "acceleration_task_sha256": "613f7f1f3c715daaf9ee896e5bafdb58dfac6bf0193e61c55f72b3c377213aa6",
+  "resume_checkpoint_days": 286,
+  "resume_date": "2025-11-14",
+  "unchanged": {
+    "mathematical_model": true,
+    "solver_gap": 0.03,
+    "scenario_count": true,
+    "tail_calibration": true,
+    "dynamic_soc_reserve": true,
+    "physical_constraints": true
+  },
+  "execution_changes": {
+    "refine_seconds": 5.0,
+    "lp_certificate_fast_path": true,
+    "rescue_reuses_day_assets_bound_and_incumbent": true,
+    "solver_threads": 1,
+    "optional_full_year_experiments_disabled": true
+  },
+  "benchmark_cancelled_by_user_priority": true
+}

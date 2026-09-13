@@ -1,0 +1,14 @@
+{
+  "at": "2026-09-12T03:42:40.694081+00:00",
+  "user_request": "好了，不测了；询问3%与5%的选择及5%是否过差",
+  "benchmark_pid_signalled": null,
+  "completed_gap_percent": [
+    3,
+    4,
+    5,
+    2,
+    1
+  ],
+  "no_new_measurements_authorized": true,
+  "formal_queue_not_stopped": true
+}

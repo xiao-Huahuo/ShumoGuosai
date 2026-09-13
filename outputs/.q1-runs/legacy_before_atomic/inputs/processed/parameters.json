@@ -1,0 +1,63 @@
+{
+  "model_source": "docs/1/final/第一问_MILP_边际价值强化版.md",
+  "period_count": 144,
+  "dt_hours": 0.16666666666666666,
+  "max_power_kw": 5000,
+  "max_energy_kwh": 833.3333333333333,
+  "max_energy_precision_decision": "用户明确确认按5000×1/6准确公式计算及验收；833.3333仅用于显示",
+  "rated_capacity_kwh": 12000,
+  "min_energy_kwh": 1200.0,
+  "max_storage_kwh": 10800.0,
+  "initial_and_terminal_kwh": 6000.0,
+  "tolerance": 1e-06,
+  "efficiency_scenarios": {
+    "main": 0.9,
+    "eta085": 0.85,
+    "eta095": 0.95,
+    "roundtrip090": 0.9486832980505138
+  },
+  "delivery_format": "用户明确要求传统CSV，替换新版第11.9节的Excel文件载体；全部回读检查保留",
+  "analysis_settings": {
+    "active_tolerance_kwh": 1e-06,
+    "rhs_step_kwh": 0.01,
+    "main_capacity_steps_kwh": [
+      1.0,
+      10.0,
+      100.0
+    ],
+    "main_power_steps_kw": [
+      1.0,
+      10.0,
+      100.0
+    ],
+    "scenario_bottleneck_step": 1.0,
+    "load_deltas": [
+      -0.05,
+      0.0,
+      0.05
+    ],
+    "pv_deltas": [
+      -0.05,
+      0.0,
+      0.05
+    ],
+    "numerical_setting_note": "实现中的数值诊断设置；不改变主模型设备参数和目标"
+  },
+  "assumptions": [
+    "右端点标记",
+    "10分钟内零阶保持",
+    "充放电量均为微网母线侧",
+    "主模型双单程效率均0.9",
+    "不售电且允许弃光",
+    "仅最小化购电费，无二级目标"
+  ],
+  "source_sections": {
+    "time": "2–3",
+    "power": "3.1",
+    "efficiency": "4、11.8",
+    "storage": "8",
+    "curtailment": "5",
+    "objective": "10",
+    "tolerance": "11–12"
+  }
+}

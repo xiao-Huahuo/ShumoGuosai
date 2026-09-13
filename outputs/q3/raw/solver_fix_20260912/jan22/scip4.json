@@ -1,0 +1,14 @@
+{
+  "method": "scip4",
+  "seconds": 63.09116670899675,
+  "status": "timelimit",
+  "objective": 2523.8190560910753,
+  "lower_bound": 2339.0975146133032,
+  "gap": 0.0731912777312456,
+  "reliable": false,
+  "feasibility": 1.8189894035458565e-12,
+  "integrality": 0.0,
+  "projection": 0.0,
+  "binaries": 6048,
+  "threads": 4
+}

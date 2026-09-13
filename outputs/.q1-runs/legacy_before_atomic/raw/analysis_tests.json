@@ -1,0 +1,7 @@
+{
+  "tests_run": 7,
+  "passed": true,
+  "failures": 0,
+  "errors": 0,
+  "log": "test_actual_rhs_slopes_and_local_thresholds (__main__.MarginalAcceptance.test_actual_rhs_slopes_and_local_thresholds) ... ok\ntest_all_36_scenarios_and_114_relaxations (__main__.MarginalAcceptance.test_all_36_scenarios_and_114_relaxations) ... ok\ntest_analytic_shadow_sign_and_price_threshold (__main__.MarginalAcceptance.test_analytic_shadow_sign_and_price_threshold) ... ok\ntest_full_input_output_csv_and_normalized_sensitivity (__main__.MarginalAcceptance.test_full_input_output_csv_and_normalized_sensitivity) ... ok\ntest_independent_power_limits_and_csv_nonfinite_rejected (__main__.MarginalAcceptance.test_independent_power_limits_and_csv_nonfinite_rejected) ... ok\ntest_lp_relaxation_keeps_big_m_coupling (__main__.MarginalAcceptance.test_lp_relaxation_keeps_big_m_coupling) ... ok\ntest_nested_baselines_and_analytic_no_ess (__main__.MarginalAcceptance.test_nested_baselines_and_analytic_no_ess) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.081s\n\nOK\n"
+}

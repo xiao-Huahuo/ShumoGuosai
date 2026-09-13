@@ -1,0 +1,5 @@
+{
+  "phase": "stopped_for_production_rescue",
+  "scope": "pending",
+  "committed_main_days": 25
+}

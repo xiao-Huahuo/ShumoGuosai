@@ -1,0 +1,194 @@
+"""原反馈MILP的有界线性编码；每个激活常数均由题设物理边界逐项推导。"""
+
+import time
+
+import numpy as np
+from scipy.optimize import Bounds, LinearConstraint, linprog
+from scipy.optimize._highspy import _core as highs_core
+from scipy.sparse import coo_matrix
+
+from policy import CAP, E_MIN, E_MAX, ETA_C, ETA_D, PHYSICAL_TOL, Policy, replay
+
+
+def build_linear_policy(net, prices, weights, initial_soc, *, fixed_policy=None):
+    net, prices, weights = [np.asarray(v, dtype=float) for v in (net, prices, weights)]
+    if net.ndim != 2 or prices.shape != (net.shape[1],) or weights.shape != (net.shape[0],):
+        raise ValueError("场景/电价/概率维度不符")
+    if not all(np.isfinite(v).all() for v in (net, prices, weights)) or (prices <= 0).any() or (weights <= 0).any():
+        raise ValueError("输入必须有限且电价/概率为正")
+    if not np.isclose(weights.sum(), 1, atol=1e-12) or not E_MIN <= initial_soc <= E_MAX:
+        raise ValueError("概率或初态不符")
+    s, t = net.shape
+    g, cp, rp = [np.arange(k*t, (k+1)*t) for k in range(3)]
+    blocks = [np.arange(3*t+k*s*t, 3*t+(k+1)*s*t).reshape(s, t) for k in range(12)]
+    c, r, q, w, e, z, *selectors = blocks
+    lr, lc = selectors[:3], selectors[3:]
+    size = 3*t+12*s*t
+    objective, lo, hi, integer = np.zeros(size), np.zeros(size), np.full(size, np.inf), np.zeros(size)
+    grid_upper = np.maximum(net.max(0), 0)+CAP
+    objective[g] = prices; objective[q] = 5*weights[:, None]*prices
+    hi[g], hi[cp], hi[rp] = grid_upper, CAP, CAP
+    hi[c], hi[r], hi[q], hi[w] = CAP, CAP, np.maximum(net, 0), np.maximum(grid_upper-net, 0)
+    lo[e], hi[e] = E_MIN, E_MAX
+    for block in (z, *lr, *lc):
+        hi[block] = 1; integer[block] = 1
+    hi[z[net < 0]] = 0
+    if fixed_policy is not None:
+        if fixed_policy.charge_cap.shape != (t,) or fixed_policy.grid.shape != (t,):
+            raise ValueError("线性编码只支持单段策略")
+        for indices, values in ((g, fixed_policy.grid), (cp, fixed_policy.charge_cap), (rp, fixed_policy.discharge_cap)):
+            if (values < lo[indices]-1e-8).any() or (values > hi[indices]+1e-8).any():
+                raise ValueError("固定策略超出线性编码的物理上界")
+            values = np.clip(values, lo[indices], hi[indices])
+            lo[indices] = values; hi[indices] = values
+    rows, cols, coefficients, lower, upper = [], [], [], [], []
+    def add(terms, rhs, equal=False):
+        index = len(upper)
+        for column, value in terms:
+            rows.append(index); cols.append(int(column)); coefficients.append(value)
+        lower.append(rhs if equal else -np.inf); upper.append(rhs)
+    for j in range(s):
+        for i in range(t):
+            n = float(net[j, i]); ci, ri, qi, wi, ei, zi = [int(v[j, i]) for v in (c, r, q, w, e, z)]
+            previous = int(e[j, i-1]) if i else None
+            add([(g[i], 1), (ri, 1), (qi, 1), (ci, -1), (wi, -1)], n, True)
+            add([(ei, 1), (ci, -ETA_C), (ri, 1/ETA_D)]+([(previous, -1)] if i else []), 0 if i else initial_soc, True)
+            add([(ci, 1), (cp[i], -1)], 0); add([(ri, 1), (rp[i], -1)], 0)
+            room_max = (E_MAX-E_MIN)/ETA_C if i else (E_MAX-initial_soc)/ETA_C
+            available_max = ETA_D*(E_MAX-E_MIN) if i else ETA_D*(initial_soc-E_MIN)
+            add([(ci, 1)]+([(previous, 1/ETA_C)] if i else []), E_MAX/ETA_C if i else room_max)
+            add([(ri, 1)]+([(previous, -ETA_D)] if i else []), -ETA_D*E_MIN if i else available_max)
+            add([(ci, 1), (zi, CAP)], CAP); add([(ri, 1), (zi, -CAP)], 0)
+            add([(qi, 1), (zi, -max(n, 0))], 0)
+            surplus_max = max(float(grid_upper[i])-n, 0)
+            add([(wi, 1), (zi, surplus_max)], surplus_max)
+            add([(int(v[j, i]), 1) for v in lr]+[(zi, -1)], 0, True)
+            add([(int(v[j, i]), 1) for v in lc]+[(zi, 1)], 1, True)
+            # 分支激活常数分别为：CAP、max(n,0)、可用电量上界，以及CAP、Gmax-n、容量空间上界。
+            add([(rp[i], 1), (ri, -1), (lr[0][j, i], CAP)], CAP)
+            deficit_max = max(n, 0)
+            add([(g[i], -1), (ri, -1), (lr[1][j, i], deficit_max)], deficit_max-n)
+            add([(ri, -1), (lr[2][j, i], available_max)]+([(previous, ETA_D)] if i else []),
+                available_max+ETA_D*E_MIN if i else 0)
+            add([(cp[i], 1), (ci, -1), (lc[0][j, i], CAP)], CAP)
+            add([(g[i], 1), (ci, -1), (lc[1][j, i], surplus_max)], surplus_max+n)
+            add([(ci, -1), (lc[2][j, i], room_max)]+([(previous, -1/ETA_C)] if i else []),
+                room_max-E_MAX/ETA_C if i else 0)
+    matrix = coo_matrix((coefficients, (rows, cols)), shape=(len(upper), size)).tocsc()
+    return objective, Bounds(lo, hi), integer, LinearConstraint(matrix, lower, upper), {"g": g, "cp": cp, "rp": rp,
+                                                                                   "responses": (c, r, q, w, e), "z": z, "lr": lr, "lc": lc}
+
+
+def linear_seed(policy, net, initial_soc, indices, size):
+    vector = np.zeros(size)
+    for key, values in (("g", policy.grid), ("cp", policy.charge_cap), ("rp", policy.discharge_cap)):
+        vector[indices[key]] = values
+    for j, path in enumerate(net):
+        response = replay(policy, path, initial_soc)
+        for columns, key in zip(indices["responses"], ("charge", "discharge", "emergency", "unused", "soc")):
+            vector[columns[j]] = response[key]
+        previous = initial_soc
+        for i, n in enumerate(path):
+            x = n-policy.grid[i]; deficit = x >= 0
+            vector[indices["z"][j, i]] = int(deficit)
+            rmin = np.argmin([policy.discharge_cap[i], max(x, 0), ETA_D*(previous-E_MIN)])
+            cmin = np.argmin([policy.charge_cap[i], max(-x, 0), (E_MAX-previous)/ETA_C])
+            if deficit:
+                vector[indices["lr"][rmin][j, i]] = 1
+            else:
+                vector[indices["lc"][cmin][j, i]] = 1
+            previous = response["soc"][i]
+    return vector
+
+
+def polish_linear_seed(policy, net, initial_soc, objective, bounds, integer, constraints, indices):
+    """固定当前响应分支求局部LP，仅改善可行上界；它的最优值从不作全局下界。"""
+    started = time.perf_counter()
+    vector = linear_seed(policy, net, initial_soc, indices, len(objective))
+    initial_cost = float(objective@vector)
+    equality = constraints.lb == constraints.ub
+    rounds = 0
+    for _ in range(10):
+        remaining = 30-(time.perf_counter()-started)
+        if remaining <= 0:
+            break
+        lo, hi = bounds.lb.copy(), bounds.ub.copy()
+        lo[integer == 1] = hi[integer == 1] = vector[integer == 1]
+        solved = linprog(objective, A_eq=constraints.A[equality], b_eq=constraints.ub[equality],
+                         A_ub=constraints.A[~equality], b_ub=constraints.ub[~equality], bounds=np.column_stack([lo, hi]),
+                         method="highs", options={"time_limit": remaining, "primal_feasibility_tolerance": 1e-8,
+                                                  "dual_feasibility_tolerance": 1e-8})
+        if not solved.success:
+            break
+        candidate = Policy(*[np.maximum(solved.x[indices[key]], 0) for key in ("g", "cp", "rp")])
+        updated = linear_seed(candidate, net, initial_soc, indices, len(objective))
+        if float(objective@updated) >= float(objective@vector)-1e-5:
+            break
+        policy, vector = candidate, updated
+        rounds += 1
+    return vector, {"rounds": rounds, "seconds": time.perf_counter()-started, "initial_cost": initial_cost,
+                    "candidate_cost": float(objective@vector), "role": "local_region_feasible_upper_bound_only"}
+
+
+def solve_linear_policy(net, prices, weights, initial_soc, *, gap=.01, time_limit=900,
+                        fixed_policy=None, seed_policy=None, log=False):
+    started = time.perf_counter()
+    objective, bounds, integer, constraints, indices = build_linear_policy(net, prices, weights, initial_soc, fixed_policy=fixed_policy)
+    refinement = None
+    if seed_policy is not None:
+        vector, refinement = polish_linear_seed(seed_policy, net, initial_soc, objective, bounds, integer, constraints, indices)
+    # 使用已锁定SciPy 1.16.3内置的HiGHS 1.8绑定，以传入经过逐行检查的完整可行初值。
+    highs_core._Highs.resetGlobalScheduler(True)
+    solver = highs_core._Highs()
+    # HiGHS以可行上界U归一化gap，本项目以全局下界L归一化；换算保证(U-L)/L仍不超过gap。
+    internal_gap = gap/(1+gap)
+    for key, value in {"mip_rel_gap": internal_gap, "time_limit": max(time_limit-(time.perf_counter()-started), .01), "output_flag": log, "threads": 1,
+                       "mip_feasibility_tolerance": 1e-8, "primal_feasibility_tolerance": 1e-8}.items():
+        if solver.setOptionValue(key, value) == highs_core.HighsStatus.kError:
+            raise ValueError(f"HiGHS参数不受当前锁定版本支持：{key}")
+    lp, matrix = highs_core.HighsLp(), constraints.A
+    lp.num_col_, lp.num_row_ = len(objective), matrix.shape[0]
+    lp.a_matrix_.num_col_, lp.a_matrix_.num_row_ = lp.num_col_, lp.num_row_
+    lp.a_matrix_.format_ = highs_core.MatrixFormat.kColwise
+    lp.col_cost_, lp.col_lower_, lp.col_upper_ = objective, bounds.lb, bounds.ub
+    lp.row_lower_, lp.row_upper_ = constraints.lb, constraints.ub
+    lp.a_matrix_.start_, lp.a_matrix_.index_, lp.a_matrix_.value_ = matrix.indptr, matrix.indices, matrix.data
+    lp.integrality_ = [highs_core.HighsVarType(int(v)) for v in integer]
+    if solver.passModel(lp) == highs_core.HighsStatus.kError:
+        raise ValueError("HiGHS未能加载物理边界线性模型")
+    if seed_policy is not None:
+        activity = matrix@vector
+        violation = max(float(np.max(bounds.lb-vector)), float(np.max(vector-bounds.ub)),
+                        float(np.max(constraints.lb-activity)), float(np.max(activity-constraints.ub)))
+        if violation > PHYSICAL_TOL:
+            raise ValueError(f"完整可行初值未通过线性编码逐行核验：{violation}")
+        seed = highs_core.HighsSolution(); seed.col_value = vector; seed.value_valid = True
+        if solver.setSolution(seed) == highs_core.HighsStatus.kError:
+            raise ValueError("HiGHS拒绝已校验初值")
+    if solver.run() == highs_core.HighsStatus.kError:
+        raise ValueError("HiGHS求解器错误")
+    solved = solver.getInfo()
+    lower = float(solved.mip_dual_bound)
+    info = {"status": solver.modelStatusToString(solver.getModelStatus()), "solver": "HiGHS_physical_bound_linear_MILP",
+            "solver_version": solver.version(), "time_limit": time_limit,
+            "requested_gap": gap, "solve_seconds": time.perf_counter()-started, "reliable": False,
+            "continuous_variables": int((integer == 0).sum()), "binary_variables": int(integer.sum()),
+            "constraints": int(constraints.A.shape[0]), "nodes": int(solved.mip_node_count),
+            "dual_bound": lower if np.isfinite(lower) else None, "seed_verified": seed_policy is not None,
+            "seed_refinement": refinement, "highs_primal_relative_gap_target": internal_gap}
+    if solved.primal_solution_status != highs_core.kSolutionStatusFeasible:
+        return None, None, info
+    vector = np.asarray(solver.getSolution().col_value)
+    policy = Policy(*[np.maximum(vector[indices[key]], 0) for key in ("g", "cp", "rp")])
+    responses = [replay(policy, row, initial_soc) for row in net]
+    raw = np.stack([vector[v] for v in indices["responses"]], axis=-1)
+    exact = np.array([np.array([row[key] for key in ("charge", "discharge", "emergency", "unused", "soc")]).T for row in responses])
+    error = float(np.max(np.abs(raw-exact)))
+    value = float(prices@policy.grid+sum(5*p*(prices@row["emergency"]) for p, row in zip(weights, responses)))
+    certified_gap = max(value-lower, 0)/max(abs(lower), 1e-8) if np.isfinite(lower) else None
+    info.update(objective=value, optimizer_objective=float(solved.objective_function_value), mip_gap=certified_gap,
+                mapping_error_kwh=error, reliable=bool(certified_gap is not None and error <= PHYSICAL_TOL
+                                                     and lower <= value+PHYSICAL_TOL and certified_gap <= gap+1e-8))
+    if error > PHYSICAL_TOL:
+        raise ValueError(f"物理边界线性MILP与原始反馈映射不符：{error}kWh")
+    return policy, responses, info

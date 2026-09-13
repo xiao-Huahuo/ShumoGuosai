@@ -1,0 +1,8 @@
+{
+  "days": 91,
+  "sha256": {
+    "dispatch.csv": "3404bf84c73dc48d19b09d6a87e9f014a468e1bba6fdaedde9c6826133243827",
+    "daily.csv": "e4fe3fdf27a6db5364c3ce344398051487e60d955384434597ea4affda5453cf",
+    "calibration.csv": "af574fb4273a1e6800759e705b41eff8d98750b8e29f00257f9fe6a67b58eac5"
+  }
+}

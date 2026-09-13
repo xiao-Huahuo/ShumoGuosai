@@ -1,0 +1,133 @@
+{
+  "main": {
+    "passed": true,
+    "tolerance": 1e-06,
+    "metrics": {
+      "11.1_balance_max_abs_kwh": 2.2737367544323206e-13,
+      "11.2_soc_max_abs_kwh": 8.313350008393172e-13,
+      "11.3_soc_bound_violation_kwh": 0.0,
+      "11.4_power_bound_violation_kwh": 0.0,
+      "11.5_simultaneous_kwh": 0.0,
+      "11.6_nonnegative_violation_kwh": 0.0,
+      "11.7_curtail_bound_violation_kwh": 0.0,
+      "11.8_initial_error_kwh": 0.0,
+      "11.8_terminal_error_kwh": 0.0,
+      "11.9_objective_recalculation_error_yuan": 7.275957614183426e-12,
+      "9_binary_distance": 5.995204332975845e-15,
+      "9_binary_bound_violation": 5.995204332975845e-15,
+      "9_binary_coupling_violation_kwh": 4.996003610813204e-12,
+      "10_primal_dual_gap_yuan": 7.275957614183426e-12,
+      "day_energy_identity_error_kwh": 3.637978807091713e-12,
+      "11.2_relative_global_gap": 2.0713320986844553e-16
+    }
+  },
+  "eta085": {
+    "passed": true,
+    "tolerance": 1e-06,
+    "metrics": {
+      "11.1_balance_max_abs_kwh": 2.2737367544323206e-13,
+      "11.2_soc_max_abs_kwh": 1.1368683772161603e-12,
+      "11.3_soc_bound_violation_kwh": 0.0,
+      "11.4_power_bound_violation_kwh": 0.0,
+      "11.5_simultaneous_kwh": 0.0,
+      "11.6_nonnegative_violation_kwh": 0.0,
+      "11.7_curtail_bound_violation_kwh": 0.0,
+      "11.8_initial_error_kwh": 0.0,
+      "11.8_terminal_error_kwh": 0.0,
+      "11.9_objective_recalculation_error_yuan": 0.0,
+      "9_binary_distance": 0.0,
+      "9_binary_bound_violation": 0.0,
+      "9_binary_coupling_violation_kwh": 0.0,
+      "10_primal_dual_gap_yuan": 0.0,
+      "day_energy_identity_error_kwh": 9.094947017729282e-13,
+      "11.2_relative_global_gap": 0.0
+    }
+  },
+  "eta095": {
+    "passed": true,
+    "tolerance": 1e-06,
+    "metrics": {
+      "11.1_balance_max_abs_kwh": 2.2737367544323206e-13,
+      "11.2_soc_max_abs_kwh": 8.242295734817162e-13,
+      "11.3_soc_bound_violation_kwh": 0.0,
+      "11.4_power_bound_violation_kwh": 0.0,
+      "11.5_simultaneous_kwh": 0.0,
+      "11.6_nonnegative_violation_kwh": 0.0,
+      "11.7_curtail_bound_violation_kwh": 0.0,
+      "11.8_initial_error_kwh": 0.0,
+      "11.8_terminal_error_kwh": 0.0,
+      "11.9_objective_recalculation_error_yuan": 7.275957614183426e-12,
+      "9_binary_distance": 7.993605777301127e-15,
+      "9_binary_bound_violation": 7.993605777301127e-15,
+      "9_binary_coupling_violation_kwh": 6.6613381477509384e-12,
+      "10_primal_dual_gap_yuan": 7.275957614183426e-12,
+      "day_energy_identity_error_kwh": 5.002220859751105e-12,
+      "11.2_relative_global_gap": 2.1547518539463566e-16
+    }
+  },
+  "roundtrip090": {
+    "passed": true,
+    "tolerance": 1e-06,
+    "metrics": {
+      "11.1_balance_max_abs_kwh": 2.2737367544323206e-13,
+      "11.2_soc_max_abs_kwh": 9.094947017729282e-13,
+      "11.3_soc_bound_violation_kwh": 0.0,
+      "11.4_power_bound_violation_kwh": 0.0,
+      "11.5_simultaneous_kwh": 0.0,
+      "11.6_nonnegative_violation_kwh": 0.0,
+      "11.7_curtail_bound_violation_kwh": 0.0,
+      "11.8_initial_error_kwh": 0.0,
+      "11.8_terminal_error_kwh": 0.0,
+      "11.9_objective_recalculation_error_yuan": 7.275957614183426e-12,
+      "9_binary_distance": 3.1086244689504383e-15,
+      "9_binary_bound_violation": 2.6645352591003757e-15,
+      "9_binary_coupling_violation_kwh": 2.220446049250313e-12,
+      "10_primal_dual_gap_yuan": 7.275957614183426e-12,
+      "day_energy_identity_error_kwh": 1.4779288903810084e-12,
+      "11.2_relative_global_gap": 2.152554938018913e-16
+    }
+  },
+  "csv": {
+    "passed": true,
+    "tolerance": 1e-06,
+    "metrics": {
+      "12.1_count_error": 0,
+      "12.2_all_variables_max_abs_error": 0.0,
+      "12.3_grid_day_error_kwh": 0.0,
+      "12.4_cost_error_yuan": 0.0,
+      "12.5_block_max_abs_error_kwh": 0.0,
+      "12.6_endpoint_max_abs_error_kwh": 0.0,
+      "daily_summary_max_abs_error": 0.0,
+      "table1_max_abs_error_kwh": 0.0,
+      "start_state_max_abs_error_kwh": 0.0,
+      "soc_fraction_max_abs_error": 0.0,
+      "period_cost_max_abs_error_yuan": 0.0
+    },
+    "reread_physical": {
+      "passed": true,
+      "tolerance": 1e-06,
+      "metrics": {
+        "11.1_balance_max_abs_kwh": 2.2737367544323206e-13,
+        "11.2_soc_max_abs_kwh": 8.313350008393172e-13,
+        "11.3_soc_bound_violation_kwh": 0.0,
+        "11.4_power_bound_violation_kwh": 0.0,
+        "11.5_simultaneous_kwh": 0.0,
+        "11.6_nonnegative_violation_kwh": 0.0,
+        "11.7_curtail_bound_violation_kwh": 0.0,
+        "11.8_initial_error_kwh": 0.0,
+        "11.8_terminal_error_kwh": 0.0,
+        "11.9_objective_recalculation_error_yuan": 7.275957614183426e-12,
+        "9_binary_distance": 5.995204332975845e-15,
+        "9_binary_bound_violation": 5.995204332975845e-15,
+        "9_binary_coupling_violation_kwh": 4.996003610813204e-12,
+        "10_primal_dual_gap_yuan": 7.275957614183426e-12,
+        "day_energy_identity_error_kwh": 3.637978807091713e-12,
+        "11.2_relative_global_gap": 2.0713320986844553e-16
+      }
+    },
+    "reread_grid_kwh": 59482.69899835391,
+    "reread_cost_yuan": 35126.948589289634,
+    "reread_initial_kwh": 6000.0,
+    "reread_terminal_kwh": 6000.0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "method": "highs1",
+  "seconds": 120.06095245799224,
+  "status": "Time limit reached",
+  "objective": 3348.742710263421,
+  "lower_bound": 3134.0786761146865,
+  "gap": 0.06410287463734368,
+  "reliable": false,
+  "feasibility": 9.094947017729282e-13,
+  "integrality": 0.0,
+  "projection": 0.0,
+  "binaries": 3456,
+  "threads": 1
+}

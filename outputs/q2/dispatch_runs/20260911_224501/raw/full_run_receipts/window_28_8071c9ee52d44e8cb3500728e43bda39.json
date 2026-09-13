@@ -1,0 +1,13 @@
+{
+  "job": "window_28",
+  "attempt": "8071c9ee52d44e8cb3500728e43bda39",
+  "started": "2026-09-12T08:12:42.574104+00:00",
+  "pid": 69787,
+  "precision_execution": {
+    "solver_gap": 0.03,
+    "execution_revision": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec"
+  },
+  "complete": true,
+  "finished": "2026-09-12T08:12:49.617538+00:00",
+  "exit_code": 0
+}

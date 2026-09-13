@@ -1,0 +1,11 @@
+{
+  "id": "q3_lambda_E_0.8_2025-07-01",
+  "question": "q3",
+  "parameter": "lambda_E",
+  "value": 0.8,
+  "date": "2025-07-01",
+  "role": "高调整成本日",
+  "status": "pending",
+  "started_at": 1789277668.7701828,
+  "signature": "43af63f761dc791b0a68392645f62c0c15f23ef0c167ca7dc4e6c6a2ac1691ae"
+}

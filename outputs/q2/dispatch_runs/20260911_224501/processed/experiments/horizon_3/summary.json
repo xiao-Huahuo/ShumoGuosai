@@ -1,0 +1,19 @@
+{
+  "start": "2025-02-01",
+  "end": "2025-12-31",
+  "days": 334,
+  "period": "evaluation_period_not_calendar_year",
+  "planned_cost_yuan": 12869646.260493027,
+  "emergency_cost_yuan": 1034198.215474071,
+  "total_cost_yuan": 13903844.475967098,
+  "planned_grid_kwh": 20848419.984092474,
+  "emergency_kwh": 185463.63531156667,
+  "emergency_intervals": 2456,
+  "emergency_events": 1093,
+  "intervals_above_numerical_tolerance": 2456,
+  "unused_kwh": 1918641.0436994524,
+  "charge_kwh": 6191054.176853184,
+  "discharge_kwh": 5015001.096115263,
+  "final_soc": 8208.085424795967,
+  "charge_with_emergency_intervals": 0
+}

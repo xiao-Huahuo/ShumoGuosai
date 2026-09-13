@@ -1,0 +1,11 @@
+{
+  "script": "src/plots/q3.py",
+  "source": "outputs/q3/raw/timing_final_20260912/diagnostics/forecast_metrics.csv",
+  "source_sha256": "1d9dc692cdd3b71b577080ad19a952a8f892d7b43baef6ad8a8632246011cbcb",
+  "outputs": [
+    "forecast_error_heatmaps.png",
+    "forecast_error_heatmaps.svg"
+  ],
+  "font": "Heiti TC",
+  "description": "四发布时间×24小时提前量MAE/RMSE/Bias；年末无真值目标排除而不填零"
+}

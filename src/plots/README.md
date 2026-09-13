@@ -74,3 +74,19 @@ uv run --with-requirements src/q1/requirements.txt python src/plots/verify.py
 ## 第三问 v4
 
 `q3.py` 根据第三问独立测试/正式运行目录中的 `diagnostics/forecast_metrics.csv` 绘制4×24预报误差热图，使用统一中文字体与PNG/SVG格式。每个运行目录的 `diagnostics/figures/manifest.json` 登记源码、原始CSV及SHA-256；不会改写既有两问图集。数据准备与图形复现入口：`python -m src.q3.run prepare --output outputs/q3/raw/diagnostics`。
+
+
+## 问题二最终正文图（蓝色渐变版）
+
+`q2_paper_data.py`从当前正式结果生成同预测起点统计、304共同日误差/PICP、真实压力日与全年矩阵；`q2_paper_final.py`按scientific-figure-making、scientific-visualization和matplotlib技能生成图5-1至5-5及附加热图，主色为多强度蓝色。PNG为400dpi，SVG中文转曲。`q2_paper_verify.py`核查原值、统计、SOC、计时对照与导出元数据。
+
+图5-5经用户确认是4代表日的局部K对照，非全年。计时由`src/q2/benchmarks/horizon_for_figure.py`完成12个同机场景前缀实验，均3%认证；其他图不重求解。结果在`outputs/processed/figures/q2_paper_final_20260913/`，图集index.html、README、图注与源数据齐备。已通过catalog独立登记，不修改旧图集来源。
+
+复现：`python -m src.plots.q2_paper_final --data-dir outputs/processed/figures/q2_paper_final_20260913/data --output-dir outputs/processed/figures/q2_paper_final_20260913`。本命令只重绘缓存数据。
+
+
+## 第三问正文图与蓝色扩展图（2026-09-13）
+
+`q3_paper_core.py`按用户补充文档输出图6-1/6-2/6-3（MAE同目标哑铃、B/P/C滚动窗口、客观代表日三联图）。用户已明确取消缺乏数据的FIV/OUV图6-4。`q3_paper_final.py`保留扩展图设计，交付选择高更新日、压力日分轴、月度费用和全年热图4张；敏感性仅以CSV交付。`q3_paper_data.py`按正式334日及预测共同333日准备数据，`q3_paper_verify.py`验证341原件SHA/物理/配对/导出；`q3_paper_package.py`汇集7图和README/方案/图注/CSV/源码。`catalog --register-manifest`现在按manifest的question登记Q3，默认Q2向后兼容。
+
+缓存重绘：`python -m src.plots.q3_paper_core --data-dir outputs/processed/figures/q3_paper_final_20260913/data --output-dir outputs/processed/figures/q3_paper_final_20260913/core`。7张交付图的位置和数据见该目录delivery_manifest.json。

@@ -1,0 +1,166 @@
+{
+  "version": "q2-deferred-K1-and-identical-baseline-reuse-20260912",
+  "at": "2026-09-12T05:01:17.881336+00:00",
+  "status": "official_rollout_validated",
+  "authorization": "用户明确：就这么干，试试。如果确实很好，那就直接应用到正式计算。",
+  "fixed_K2_applied": false,
+  "fixed_K2_rejection_evidence": "raw/solver_diagnostics/horizon_validation_20260912/review.json",
+  "fixed_K2_reason": "118 reliable paired days: 49 violate original stability thresholds; 3pct subset 39/62 violate",
+  "horizon_evaluation": "K2_K3_then_K1_only_if_both_fail",
+  "mathematical_selection_unchanged": true,
+  "skipped_K1_not_counted_as_solved": true,
+  "baseline_reuse": [
+    "baseline_initial_SOC_after_complete_main",
+    "window_28_only_if_all_candidate_inputs_and_scores_match_complete_main"
+  ],
+  "baseline_reuse_not_independent_rerun": true,
+  "solver_gap": 0.03,
+  "precision_revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+  "unchanged": [
+    "physical_constraints",
+    "history_boundary",
+    "forecast_library",
+    "scenario_rules",
+    "K2_K3_stability_thresholds",
+    "120_and_900_second_budgets",
+    "two_workers"
+  ],
+  "legacy_execution_sha256": {
+    "full_run_execution_fb857ad26bff.json": "b78b0cc6a4b2430bf1cffb56143fff8e1d2f149cdc15fe895ffffc0cc5b1bac7",
+    "full_run_execution_afd9bf5f1f8a.json": "c1767cc84e4aeb06cbf4473e475af09724a8d1db0d14e17788a16cd7cde6090e",
+    "full_run_execution.json": "e4c07495921943de9e3c00be03a94f1bdbc3b9c029446fcea275225c89cc9155"
+  },
+  "source_sha256": {
+    "src/q2/incumbent.py": "c98ac37e42fdd3df0a1686b729d40d7db09f1e536bac560fce97170faeeb11fe",
+    "src/q2/test_dispatch.py": "c7a2a5f0dfe8cbc870bab5f861f0b591479a37952eb8343f6d756c4deb9221d5",
+    "src/q2/scenarios.py": "94294629945afd8a97fe28c6c495106d233a54948c8f4eb937b5b3b7d1f26b35",
+    "src/q2/test_baseline_reuse.py": "f40f4d36f372d0d6e2743df0d05f5c26ae3a30a087b9e466484db3a5c806af54",
+    "src/q2/run.py": "09817c8d40857358c539c9cd68d66efcc134a044bc82c1ab7fb4f1101869ef4a",
+    "src/q2/final_diagnostics.py": "a6faeaece292deb32486c2f828d86db51fb773e7d119354436dc92a0feabe538",
+    "src/q2/forecast.py": "48694ce530fd85d83478fee6767af6b5e34421c466e87efbbfede2c2bd771a16",
+    "src/q2/execution.py": "a7320573013508af6b2549d2310509670e14b4bf2ac41d94dd3498f8efb92bea",
+    "src/q2/export_dispatch.py": "65da9d963ec45f12295179520427c318a0ca04a198cf62e1386d85c3903ad6d5",
+    "src/q2/checkpoint.py": "bb5ca9bbc60ea8bdf9cd359cd0c10e40b9baef2558f156939964e210eb750902",
+    "src/q2/diagnostics.py": "2bf985e1c02d115a5a26a2212c07ed01be40e6642e711de7ff5eb179d486d8e4",
+    "src/q2/dispatch.py": "0679a5252ca59f04e45452ec5865159e40dacf5db7f0450830f32d84a98eb296",
+    "src/q2/linear_policy.py": "fc12b9d47a6be303e9272e608ad965c30a515f775b6a2e8385b2db060ccedcc8",
+    "src/q2/protocol.py": "07be4f8a6ef665a0e1ab7946824466ebbba35ac03266d917c9e1e8e97e68c832",
+    "src/q2/relaxation.py": "5bf284f802e2271ac406a5446628fb2423ea865e421bc7ca2efb45c556fc8d26",
+    "src/q2/test_forecast_dispatch.py": "7754088b16102dfdf6b6f1d2406ef6745fa48af383db199a53d57c7f4967437c",
+    "src/q2/policy.py": "a5715a808f5d49e9350c6452d06192076a5c692c6c4eb33c4df9cbee194091a9",
+    "src/q2/optimization.py": "e39539ef5dfb2074a6f61a252073d304559983f5da56d654509e290854704bda",
+    "src/q2/test_linear_policy.py": "dcde4b08f7bd3fa79000c3f521d3040f313b2cc50dc80ca63d507fe2a1054bf2",
+    "src/q2/rolling.py": "1521344e59cfd1581712e9896503b8e74d994c1df4003c67dc65ef204ff4abdf",
+    "src/q2/full_run.py": "61da608462e86ba547fc1e252c16c1bcba9e4739f39b254e01e72f11aeb8b389",
+    "src/q2/shadows.py": "e639ccb1f862ac7afcf5e3dc59b856360bf92acc759433fa44c3fe850b5f4117",
+    "src/q2/test_execution.py": "720a707f96d7debb7020fd29d739d3ee606159449531048528bc2e0da66bcbfc",
+    "src/q2/experiments.py": "eaf8dc37366c59a0de2da862c35eb66f3a0af63035f2a9d544f1d8ab7bcd8022",
+    "src/q2/final_traceability.py": "05ec03eae9cf68cb1cd46939e42defb6355306d74775d59bac6b5b1e5bf90445",
+    "src/q2/figures.py": "85dfceb206a09ff01b2381a60c7a639d3d5eb60ea8f0b56b5467bcb6527d3d06",
+    "src/q2/final_report.py": "ee5adaa51d82bf14df9deff628a8f127eb05d28ff89cdc28ab79844bbc0ca21a",
+    "src/q2/test_full_run.py": "9a2bc2a0b62c12684976c80c922723e40b786c2b1783c2d2e345441bdd44fec6",
+    "src/q2/traceability.py": "400931afcb91e2f4949ace019551ca8f5cf3b2c22f7677188be39039bd72a826",
+    "src/q2/baseline_reuse.py": "9552fd30b76f20f320de82556100f200b097d1bd699c5f05297c2fc816b7aed6",
+    "src/q2/test_q2.py": "d68f7f655a6a232d85a698bec8b6cc2416c8a98ec8307e7ef0b64dd425394fd7",
+    "src/q2/backtest.py": "7df9a78f93f2048648b4cc558b11f9d3ec99686dd68fdf8b9fd66a1a0ec21e64",
+    "src/q2/report.py": "aacc0134157882be7c0343ffadf5bb281f11c0e21298c6960cad50905ec22a59",
+    "src/q2/test_horizon_execution.py": "a7fd40e20e97f5605c0c95a06994d85286eb8de1006a1782778821e8cbbddeb7",
+    "src/q2/data.py": "34a3c7b179ad064efd45180d68c614f19987dba946c8d4b8a909cc92f6241cbb",
+    "src/q2/comparators.py": "0d8ec257896973ee719bef76b7ac32ca30858daa72308b91522c144744321cd5",
+    "src/plots/q2_dispatch.py": "874b2f04b47c21fdf9e386d2defb49bd73778a00d0c5ad69803f78a2d321ac32",
+    "src/plots/common.py": "d523c9710035f5c3cbd8bd01ab9d81e16eef9f513fdbb06a9a1f9b3ef6dfa92d"
+  },
+  "full_tests": 84,
+  "runtime_evidence": "raw/solver_diagnostics/horizon_validation_20260912/runtime_probe.json",
+  "runtime_records": [
+    {
+      "date": "2025-05-21",
+      "initial_soc": 8926.355625060722,
+      "legacy_wall_seconds": 76.28360287499527,
+      "legacy_K": 2,
+      "legacy_cost": 36607.3598084738,
+      "legacy_final_soc": 8917.222738756767,
+      "deferred_K1_wall_seconds": 66.0705608329954,
+      "deferred_K1_K": 2,
+      "deferred_K1_cost": 36607.3598084738,
+      "deferred_K1_final_soc": 8917.222738756767,
+      "same_policy_and_real_replay": true,
+      "saved_seconds": 10.21304204199987
+    },
+    {
+      "date": "2025-06-20",
+      "initial_soc": 7030.1860400849,
+      "legacy_wall_seconds": 157.18729812500533,
+      "legacy_K": 3,
+      "legacy_cost": 22650.953867666576,
+      "legacy_final_soc": 6234.273550818573,
+      "deferred_K1_wall_seconds": 31.9265054589996,
+      "deferred_K1_K": 3,
+      "deferred_K1_cost": 22650.953867666576,
+      "deferred_K1_final_soc": 6234.273550818573,
+      "same_policy_and_real_replay": true,
+      "saved_seconds": 125.26079266600573
+    },
+    {
+      "date": "2025-07-07",
+      "initial_soc": 6952.674617603735,
+      "legacy_wall_seconds": 10.263073125002848,
+      "legacy_K": 3,
+      "legacy_cost": 53896.509252431926,
+      "legacy_final_soc": 8307.94898684446,
+      "deferred_K1_wall_seconds": 8.487331834003271,
+      "deferred_K1_K": 3,
+      "deferred_K1_cost": 53896.509252431926,
+      "deferred_K1_final_soc": 8307.94898684446,
+      "same_policy_and_real_replay": true,
+      "saved_seconds": 1.7757412909995764
+    }
+  ],
+  "transition_archive": "raw/horizon_compute_transition_20260912",
+  "preserved_prefixes": {
+    "main": {
+      "days": 232,
+      "last_date": "2025-09-20",
+      "next_date": "2025-09-21",
+      "final_soc": 7876.121919600843,
+      "directory": "raw/horizon_compute_transition_20260912/main"
+    },
+    "horizon_1": {
+      "days": 334,
+      "last_date": "2025-12-31",
+      "next_date": null,
+      "final_soc": 1200.0,
+      "directory": "raw/horizon_compute_transition_20260912/horizon_1"
+    },
+    "horizon_2": {
+      "days": 301,
+      "last_date": "2025-11-28",
+      "next_date": "2025-11-29",
+      "final_soc": 8178.685280523755,
+      "directory": "raw/horizon_compute_transition_20260912/horizon_2"
+    },
+    "horizon_3": {
+      "days": 91,
+      "last_date": "2025-05-02",
+      "next_date": "2025-05-03",
+      "final_soc": 1581.0258364579151,
+      "directory": "raw/horizon_compute_transition_20260912/horizon_3"
+    },
+    "predictor_week_mean7": {
+      "days": 5,
+      "last_date": "2025-02-05",
+      "next_date": "2025-02-06",
+      "final_soc": 8285.753049423445,
+      "directory": "raw/horizon_compute_transition_20260912/predictor_week_mean7"
+    },
+    "window_56": {
+      "days": 32,
+      "last_date": "2025-03-04",
+      "next_date": "2025-03-05",
+      "final_soc": 7858.341944000581,
+      "directory": "raw/horizon_compute_transition_20260912/window_56"
+    }
+  },
+  "official_validation": "raw/horizon_compute_official_validation.json",
+  "baseline_reuse_status": "pending_complete_main_then_verify_and_reuse"
+}

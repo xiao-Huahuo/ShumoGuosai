@@ -1,0 +1,26 @@
+{
+  "complete": true,
+  "settings": {
+    "fixed_pair": [
+      "load_week",
+      "pv_dhr"
+    ]
+  },
+  "start_index": 31,
+  "end_index": 365,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.03,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+    "precision_revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+    "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt",
+    "horizon_evaluation": "K2_K3_then_K1_only_if_both_fail"
+  },
+  "execution_history": [],
+  "days": 334,
+  "initial_soc": 8482.766385,
+  "final_soc": 8246.963989367408,
+  "full_evaluation_period": true
+}

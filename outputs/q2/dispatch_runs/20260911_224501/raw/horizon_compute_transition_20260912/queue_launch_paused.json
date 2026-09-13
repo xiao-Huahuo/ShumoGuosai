@@ -1,0 +1,9 @@
+{
+  "at": "2026-09-12T04:57:38.643131+00:00",
+  "supervisor_pid": 50957,
+  "reason": "prevent new workers loading source under validation; existing workers continue",
+  "existing_workers": {
+    "main": 50991,
+    "horizon_2": 52948
+  }
+}

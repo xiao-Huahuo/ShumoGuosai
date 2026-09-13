@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "browser": "CUA IAB",
+  "tab_id": "1",
+  "desktop_width": 1280,
+  "desktop_document_width": 1280,
+  "mobile_width": 390,
+  "mobile_document_width": 390,
+  "table_count": 6,
+  "primary_table_rows": 2,
+  "expanded_measurement_rows": 8,
+  "link_count": 6,
+  "comparison_csv_download_event": true,
+  "wide_tables_scroll_inside_containers": true,
+  "report_utf8": true,
+  "tail_revision": {
+    "passed": true,
+    "table_count": 7,
+    "link_count": 9,
+    "first_table_groups": 3,
+    "natural_viewport": 319,
+    "page_width": 319,
+    "stratified_method_expanded": true,
+    "tail_csv_download_event": true,
+    "user_file_tab_not_refreshed": "file URL navigation blocked; same artifact verified in existing localhost tab"
+  }
+}

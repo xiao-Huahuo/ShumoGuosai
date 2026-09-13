@@ -1,0 +1,19 @@
+main 2025-01-14 SOC=9504.473 已提交
+/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/fast_solver.py:190: RuntimeWarning: invalid value encountered in subtract
+  float(np.max(constraints.lb-activity)),float(np.max(activity-constraints.ub)))
+main 2025-01-15 SOC=9644.621 已提交
+/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/fast_solver.py:190: RuntimeWarning: invalid value encountered in subtract
+  float(np.max(constraints.lb-activity)),float(np.max(activity-constraints.ub)))
+main 2025-01-16 SOC=9680.027 已提交
+main 2025-01-17 SOC=9667.844 已提交
+main 2025-01-18 SOC=9859.622 已提交
+main 2025-01-19 SOC=9836.264 已提交
+/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/fast_solver.py:190: RuntimeWarning: invalid value encountered in subtract
+  float(np.max(constraints.lb-activity)),float(np.max(activity-constraints.ub)))
+main 2025-01-20 SOC=10122.339 已提交
+main 2025-01-21 SOC=10362.545 已提交
+/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/fast_solver.py:190: RuntimeWarning: invalid value encountered in subtract
+  float(np.max(constraints.lb-activity)),float(np.max(activity-constraints.ub)))
+main 2025-01-22 SOC=9603.972 已提交
+/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

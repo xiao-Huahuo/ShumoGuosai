@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "at": "2026-09-12T05:01:34.453782+00:00",
+  "checkpoints": [
+    {
+      "directory": "processed/main",
+      "days": 232
+    },
+    {
+      "directory": "processed/experiments/horizon_1",
+      "days": 334
+    },
+    {
+      "directory": "processed/experiments/horizon_2",
+      "days": 301
+    },
+    {
+      "directory": "processed/experiments/horizon_3",
+      "days": 91
+    },
+    {
+      "directory": "processed/experiments/predictor_week_mean7",
+      "days": 5
+    },
+    {
+      "directory": "processed/experiments/window_56",
+      "days": 32
+    }
+  ]
+}

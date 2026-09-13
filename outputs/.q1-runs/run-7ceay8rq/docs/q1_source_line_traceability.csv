@@ -1,0 +1,540 @@
+formula_id,paper_path,paper_start_line,paper_end_line,formula,meaning,code_path,code_line,code_statement,unit_test_path,unit_test_line,unit_test,runtime_evidence_in_generation
+F001,docs/1/final/第一问_MILP_边际价值强化版.md,11,19,"\boxed{
+\text{外网购电}
++
+\text{光伏发电}
++
+\text{储能放电}
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F002,docs/1/final/第一问_MILP_边际价值强化版.md,23,29,"\boxed{
+\text{小区负荷}
++
+\text{储能充电}
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F040,docs/1/final/第一问_MILP_边际价值强化版.md,383,387,"\boxed{
+G_t,\quad S_t-W_t,\quad D_t
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F041,docs/1/final/第一问_MILP_边际价值强化版.md,397,401,"\boxed{
+L_t,\quad C_t
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F042,docs/1/final/第一问_MILP_边际价值强化版.md,410,422,"\boxed{
+\text{外网}
++
+\text{有效光伏}
++
+\text{储能放电}
+\rightarrow
+\text{负荷}
++
+\text{储能充电}
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F047,docs/1/final/第一问_MILP_边际价值强化版.md,471,473,G_t+(S_t-W_t)+D_t.,母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F048,docs/1/final/第一问_MILP_边际价值强化版.md,477,479,L_t+C_t.,母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F049,docs/1/final/第一问_MILP_边际价值强化版.md,483,489,"\boxed{
+G_t+(S_t-W_t)+D_t
+=
+L_t+C_t
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F050,docs/1/final/第一问_MILP_边际价值强化版.md,493,499,"\boxed{
+G_t+S_t+D_t
+=
+L_t+C_t+W_t
+}",母线来源、去向与平衡,src/q1/model.py,160,"for name, coefficient in ((""G"", 1), (""C"", -1), (""D"", 1), (""W"", -1)):",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F003,docs/1/final/第一问_MILP_边际价值强化版.md,44,48,"\boxed{
+\text{具有跨时段储能耦合的确定性日前经济调度问题}
+}",模型类型说明，由整数求解调用落实,src/q1/model.py,189,"result = milp(problem[""objective""], integrality=problem[""integer""],",src/q1/test_review.py,30,test_official_attachment_fresh_solve_golden_and_csv,raw/solution_main.json#solver
+F004,docs/1/final/第一问_MILP_边际价值强化版.md,52,56,"\boxed{
+\text{Mixed Integer Linear Programming（MILP）}
+}",模型类型说明，由整数求解调用落实,src/q1/model.py,189,"result = milp(problem[""objective""], integrality=problem[""integer""],",src/q1/test_review.py,30,test_official_attachment_fresh_solve_golden_and_csv,raw/solution_main.json#solver
+F005,docs/1/final/第一问_MILP_边际价值强化版.md,66,68,\Delta t=\frac{10}{60}=\frac16\text{ h},时长,src/q1/model.py,17,DT = 1 / 6  # 最终稿第 2、3 节：10 min，以 h 为单位。,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/parameters.json#dt_hours
+F022,docs/1/final/第一问_MILP_边际价值强化版.md,207,209,\Delta t=\frac16\text{ h}.,时长,src/q1/model.py,17,DT = 1 / 6  # 最终稿第 2、3 节：10 min，以 h 为单位。,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/parameters.json#dt_hours
+F006,docs/1/final/第一问_MILP_边际价值强化版.md,72,74,T=24\times6=144,时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F007,docs/1/final/第一问_MILP_边际价值强化版.md,78,80,"t=1,2,\ldots,144.",时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F014,docs/1/final/第一问_MILP_边际价值强化版.md,135,137,"t=1,2,\ldots,144.",时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F044,docs/1/final/第一问_MILP_边际价值强化版.md,440,442,"t=1,\ldots,144,",时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F051,docs/1/final/第一问_MILP_边际价值强化版.md,503,505,"t=1,\ldots,144.",时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F053,docs/1/final/第一问_MILP_边际价值强化版.md,535,537,"t=1,\ldots,144.",时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F059,docs/1/final/第一问_MILP_边际价值强化版.md,583,585,"t=1,\ldots,144.",时段数和索引域,src/q1/model.py,16,T = 144,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F008,docs/1/final/第一问_MILP_边际价值强化版.md,84,88,"00{:}10
+\longleftrightarrow
+[00{:}00,00{:}10)",时间映射,src/q1/model.py,95,if endpoint != t * 10:,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F009,docs/1/final/第一问_MILP_边际价值强化版.md,90,94,"00{:}20
+\longleftrightarrow
+[00{:}10,00{:}20)",时间映射,src/q1/model.py,95,if endpoint != t * 10:,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F010,docs/1/final/第一问_MILP_边际价值强化版.md,98,102,"0{:}00+1
+\longleftrightarrow
+[23{:}50,24{:}00).",时间映射,src/q1/model.py,95,if endpoint != t * 10:,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F011,docs/1/final/第一问_MILP_边际价值强化版.md,106,108,10{:}00-10{:}10,时间映射,src/q1/model.py,95,if endpoint != t * 10:,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F012,docs/1/final/第一问_MILP_边际价值强化版.md,112,114,10{:}10,时间映射,src/q1/model.py,95,if endpoint != t * 10:,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F013,docs/1/final/第一问_MILP_边际价值强化版.md,127,129,"10,20,\ldots,1440\ \text{min},",时间映射,src/q1/model.py,95,if endpoint != t * 10:,src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F015,docs/1/final/第一问_MILP_边际价值强化版.md,153,155,"P_t^L,\qquad P_t^{PV},",ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F016,docs/1/final/第一问_MILP_边际价值强化版.md,159,161,"P^L(\tau)=P_t^L,",ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F017,docs/1/final/第一问_MILP_边际价值强化版.md,163,165,P^{PV}(\tau)=P_t^{PV}.,ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F018,docs/1/final/第一问_MILP_边际价值强化版.md,169,176,"L_t
+=
+\int_{(t-1)\Delta t}^{t\Delta t}
+P^L(\tau)\,d\tau
+=
+P_t^L\Delta t,",ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F019,docs/1/final/第一问_MILP_边际价值强化版.md,180,184,"\boxed{
+L_t=P_t^L\Delta t
+}",ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F020,docs/1/final/第一问_MILP_边际价值强化版.md,188,195,"S_t
+=
+\int_{(t-1)\Delta t}^{t\Delta t}
+P^{PV}(\tau)\,d\tau
+=
+P_t^{PV}\Delta t,",ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F021,docs/1/final/第一问_MILP_边际价值强化版.md,199,203,"\boxed{
+S_t=P_t^{PV}\Delta t
+}",ZOH等效常量与单位转换,src/q1/model.py,107,"""load_kwh"": pl * DT, ""pv_kwh"": ppv * DT})",src/q1/test_q1.py,36,test_time_and_unit_examples,inputs/processed/timeseries.csv
+F023,docs/1/final/第一问_MILP_边际价值强化版.md,219,221,P_{\max}=5000\text{ kW}.,紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F024,docs/1/final/第一问_MILP_边际价值强化版.md,225,229,"Q_{\max}
+=
+P_{\max}\Delta t",紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F025,docs/1/final/第一问_MILP_边际价值强化版.md,233,239,"Q_{\max}
+=
+5000\times\frac16
+=\frac{5000}{6}\text{ kWh}\approx
+833.3333\text{ kWh}.",紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F026,docs/1/final/第一问_MILP_边际价值强化版.md,243,247,"\boxed{
+Q_{\max}=\frac{5000}{6}\text{ kWh}\approx833.3333\text{ kWh}
+}",紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F064,docs/1/final/第一问_MILP_边际价值强化版.md,631,633,Q_{\max}=\frac{5000}{6}\text{ kWh}\approx833.3333\text{ kWh}.,紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F083,docs/1/final/第一问_MILP_边际价值强化版.md,819,825,"Q_{\max}
+=
+5000\times\frac16
+=\frac{5000}{6}\text{ kWh}\approx
+833.3333\text{ kWh},",紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F136,docs/1/final/第一问_MILP_边际价值强化版.md,1334,1336,P_{\max}=5000\text{ kW}.,紧物理功率上界,src/q1/model.py,18,Q_MAX = 5000 * DT  # 用户确认精确公式；833.3333 仅作显示。,src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,inputs/processed/parameters.json#max_energy_kwh
+F027,docs/1/final/第一问_MILP_边际价值强化版.md,259,261,C_t,变量定义与输出列,src/q1/model.py,131,"names = (""G"", ""C"", ""D"", ""E"", ""W"", ""u"")",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,raw/solution_main.json
+F028,docs/1/final/第一问_MILP_边际价值强化版.md,267,269,D_t,变量定义与输出列,src/q1/model.py,131,"names = (""G"", ""C"", ""D"", ""E"", ""W"", ""u"")",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,raw/solution_main.json
+F030,docs/1/final/第一问_MILP_边际价值强化版.md,281,283,"C_t,",变量定义与输出列,src/q1/model.py,131,"names = (""G"", ""C"", ""D"", ""E"", ""W"", ""u"")",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,raw/solution_main.json
+F032,docs/1/final/第一问_MILP_边际价值强化版.md,293,295,"D_t,",变量定义与输出列,src/q1/model.py,131,"names = (""G"", ""C"", ""D"", ""E"", ""W"", ""u"")",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,raw/solution_main.json
+F043,docs/1/final/第一问_MILP_边际价值强化版.md,426,428,E_t,变量定义与输出列,src/q1/model.py,131,"names = (""G"", ""C"", ""D"", ""E"", ""W"", ""u"")",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,raw/solution_main.json
+F078,docs/1/final/第一问_MILP_边际价值强化版.md,731,733,G_t.,变量定义与输出列,src/q1/model.py,131,"names = (""G"", ""C"", ""D"", ""E"", ""W"", ""u"")",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,raw/solution_main.json
+F029,docs/1/final/第一问_MILP_边际价值强化版.md,275,277,"\eta_c,\qquad \eta_d.",充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F031,docs/1/final/第一问_MILP_边际价值强化版.md,287,289,\eta_cC_t.,充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F033,docs/1/final/第一问_MILP_边际价值强化版.md,299,301,\frac{D_t}{\eta_d}.,充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F034,docs/1/final/第一问_MILP_边际价值强化版.md,305,315,"\boxed{
+E_t
+=
+E_{t-1}
++
+\eta_cC_t
+-
+\frac{D_t}{\eta_d}
+}",充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F036,docs/1/final/第一问_MILP_边际价值强化版.md,327,337,"\boxed{
+E_t
+=
+E_{t-1}
++
+0.9C_t
+-
+\frac{D_t}{0.9}
+}",充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F052,docs/1/final/第一问_MILP_边际价值强化版.md,521,531,"\boxed{
+E_t
+=
+E_{t-1}
++
+\eta_cC_t
+-
+\frac{D_t}{\eta_d}
+}",充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F055,docs/1/final/第一问_MILP_边际价值强化版.md,547,555,"E_t
+=
+E_{t-1}
++
+0.9C_t
+-
+\frac{D_t}{0.9}.",充电效率与状态方程,src/q1/model.py,165,"a[n + t, index[""C""][t]] = -eta_c",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F029,docs/1/final/第一问_MILP_边际价值强化版.md,275,277,"\eta_c,\qquad \eta_d.",独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F031,docs/1/final/第一问_MILP_边际价值强化版.md,287,289,\eta_cC_t.,独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F033,docs/1/final/第一问_MILP_边际价值强化版.md,299,301,\frac{D_t}{\eta_d}.,独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F034,docs/1/final/第一问_MILP_边际价值强化版.md,305,315,"\boxed{
+E_t
+=
+E_{t-1}
++
+\eta_cC_t
+-
+\frac{D_t}{\eta_d}
+}",独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F036,docs/1/final/第一问_MILP_边际价值强化版.md,327,337,"\boxed{
+E_t
+=
+E_{t-1}
++
+0.9C_t
+-
+\frac{D_t}{0.9}
+}",独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F052,docs/1/final/第一问_MILP_边际价值强化版.md,521,531,"\boxed{
+E_t
+=
+E_{t-1}
++
+\eta_cC_t
+-
+\frac{D_t}{\eta_d}
+}",独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F055,docs/1/final/第一问_MILP_边际价值强化版.md,547,555,"E_t
+=
+E_{t-1}
++
+0.9C_t
+-
+\frac{D_t}{0.9}.",独立放电效率与状态方程,src/q1/model.py,166,"a[n + t, index[""D""][t]] = 1 / eta_d",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F035,docs/1/final/第一问_MILP_边际价值强化版.md,319,323,"\boxed{
+\eta_c=\eta_d=0.9.
+}",主效率口径,src/q1/model.py,35,"SCENARIOS = {""main"": 0.90, ""eta085"": 0.85, ""eta095"": 0.95,",src/q1/test_q1.py,28,test_all_actual_scenarios,raw/solution_main.json#eta_c
+F054,docs/1/final/第一问_MILP_边际价值强化版.md,541,543,\eta_c=\eta_d=0.9.,主效率口径,src/q1/model.py,35,"SCENARIOS = {""main"": 0.90, ""eta085"": 0.85, ""eta095"": 0.95,",src/q1/test_q1.py,28,test_all_actual_scenarios,raw/solution_main.json#eta_c
+F084,docs/1/final/第一问_MILP_边际价值强化版.md,829,831,\eta_c=\eta_d=0.9.,主效率口径,src/q1/model.py,35,"SCENARIOS = {""main"": 0.90, ""eta085"": 0.85, ""eta095"": 0.95,",src/q1/test_q1.py,28,test_all_actual_scenarios,raw/solution_main.json#eta_c
+F126,docs/1/final/第一问_MILP_边际价值强化版.md,1233,1235,"\eta_c=\eta_d=0.9,",主效率口径,src/q1/model.py,35,"SCENARIOS = {""main"": 0.90, ""eta085"": 0.85, ""eta095"": 0.95,",src/q1/test_q1.py,28,test_all_actual_scenarios,raw/solution_main.json#eta_c
+F147,docs/1/final/第一问_MILP_边际价值强化版.md,1469,1471,"\eta_c=\eta_d=0.9,",主效率口径,src/q1/model.py,35,"SCENARIOS = {""main"": 0.90, ""eta085"": 0.85, ""eta095"": 0.95,",src/q1/test_q1.py,28,test_all_actual_scenarios,raw/solution_main.json#eta_c
+F037,docs/1/final/第一问_MILP_边际价值强化版.md,355,357,W_t\ge0,弃光范围,src/q1/model.py,139,"upper[index[""W""]] = pv",src/q1/test_q1.py,136,test_curtailment_is_available_when_absorption_is_limited,raw/validation.json#main/metrics/11.7_curtail_bound_violation_kwh
+F039,docs/1/final/第一问_MILP_边际价值强化版.md,369,373,"\boxed{
+0\le W_t\le S_t.
+}",弃光范围,src/q1/model.py,139,"upper[index[""W""]] = pv",src/q1/test_q1.py,136,test_curtailment_is_available_when_absorption_is_limited,raw/validation.json#main/metrics/11.7_curtail_bound_violation_kwh
+F038,docs/1/final/第一问_MILP_边际价值强化版.md,363,365,S_t-W_t.,有效光伏,src/q1/model.py,243,"""11.1_balance_max_abs_kwh"": float(np.max(np.abs(g + pv - w + d - load - c))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F045,docs/1/final/第一问_MILP_边际价值强化版.md,457,459,"G_t,C_t,D_t,W_t\ge0,",变量非负性,src/q1/model.py,136,"lower, upper = np.zeros(size), np.full(size, np.inf)",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.6_nonnegative_violation_kwh
+F046,docs/1/final/第一问_MILP_边际价值强化版.md,461,463,"u_t\in\{0,1\}.",二元域,src/q1/model.py,155,"integer[index[""u""]] = 1",src/q1/test_review.py,87,test_binary_tolerance_is_independent_of_physical,raw/validation.json#main/metrics/9_binary_distance
+F068,docs/1/final/第一问_MILP_边际价值强化版.md,655,657,"u_t\in\{0,1\}.",二元域,src/q1/model.py,155,"integer[index[""u""]] = 1",src/q1/test_review.py,87,test_binary_tolerance_is_independent_of_physical,raw/validation.json#main/metrics/9_binary_distance
+F096,docs/1/final/第一问_MILP_边际价值强化版.md,949,951,"u_t\in\{0,1\}",二元域,src/q1/model.py,155,"integer[index[""u""]] = 1",src/q1/test_review.py,87,test_binary_tolerance_is_independent_of_physical,raw/validation.json#main/metrics/9_binary_distance
+F056,docs/1/final/第一问_MILP_边际价值强化版.md,563,565,"12000\text{ kWh},",额定容量用于比例显示，不替代安全上限,src/q1/model.py,291,"row[""soc_fraction""] = solution[""E""][t] / 12000",src/q1/test_q1.py,92,test_csv_roundtrip_and_tamper_rejection,processed/result1.csv#soc_fraction
+F057,docs/1/final/第一问_MILP_边际价值强化版.md,569,571,1200\sim10800\text{ kWh}.,安全范围,src/q1/model.py,137,"lower[index[""E""]], upper[index[""E""]] = e_min, e_max",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,raw/validation.json#main/metrics/11.3_soc_bound_violation_kwh
+F058,docs/1/final/第一问_MILP_边际价值强化版.md,575,579,"\boxed{
+1200\le E_t\le10800
+}",安全范围,src/q1/model.py,137,"lower[index[""E""]], upper[index[""E""]] = e_min, e_max",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,raw/validation.json#main/metrics/11.3_soc_bound_violation_kwh
+F060,docs/1/final/第一问_MILP_边际价值强化版.md,593,597,"\boxed{
+E_0=6000\text{ kWh}.
+}",初始时刻与6000kWh状态,src/q1/model.py,169,lb[n + t] = ub[n + t] = E_INITIAL if t == 0 else 0,src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.8_initial_error_kwh
+F061,docs/1/final/第一问_MILP_边际价值强化版.md,605,607,0{:}00,初始时刻与6000kWh状态,src/q1/model.py,169,lb[n + t] = ub[n + t] = E_INITIAL if t == 0 else 0,src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.8_initial_error_kwh
+F062,docs/1/final/第一问_MILP_边际价值强化版.md,611,613,24{:}00,终端时刻与6000kWh状态,src/q1/model.py,138,"lower[index[""E""][-1]] = upper[index[""E""][-1]] = E_INITIAL",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.8_terminal_error_kwh
+F063,docs/1/final/第一问_MILP_边际价值强化版.md,617,621,"\boxed{
+E_{144}=E_0=6000.
+}",终端时刻与6000kWh状态,src/q1/model.py,138,"lower[index[""E""][-1]] = upper[index[""E""][-1]] = E_INITIAL",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.8_terminal_error_kwh
+F065,docs/1/final/第一问_MILP_边际价值强化版.md,637,639,"0\le C_t\le Q_{\max},",充电Big-M及模式含义,src/q1/model.py,172,"a[2 * n + t, index[""u""][t]] = -qc",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F069,docs/1/final/第一问_MILP_边际价值强化版.md,661,665,"\boxed{
+0\le C_t\le Q_{\max}u_t
+}",充电Big-M及模式含义,src/q1/model.py,172,"a[2 * n + t, index[""u""][t]] = -qc",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F073,docs/1/final/第一问_MILP_边际价值强化版.md,691,693,u_t=0,充电Big-M及模式含义,src/q1/model.py,172,"a[2 * n + t, index[""u""][t]] = -qc",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F074,docs/1/final/第一问_MILP_边际价值强化版.md,697,699,"C_t=0,",充电Big-M及模式含义,src/q1/model.py,172,"a[2 * n + t, index[""u""][t]] = -qc",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F066,docs/1/final/第一问_MILP_边际价值强化版.md,641,643,"0\le D_t\le Q_{\max},",放电Big-M及模式含义,src/q1/model.py,174,"a[3 * n + t, index[""u""][t]] = qd",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F070,docs/1/final/第一问_MILP_边际价值强化版.md,669,673,"\boxed{
+0\le D_t\le Q_{\max}(1-u_t)
+}",放电Big-M及模式含义,src/q1/model.py,174,"a[3 * n + t, index[""u""][t]] = qd",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F071,docs/1/final/第一问_MILP_边际价值强化版.md,677,679,u_t=1,放电Big-M及模式含义,src/q1/model.py,174,"a[3 * n + t, index[""u""][t]] = qd",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F072,docs/1/final/第一问_MILP_边际价值强化版.md,683,685,"D_t=0,",放电Big-M及模式含义,src/q1/model.py,174,"a[3 * n + t, index[""u""][t]] = qd",src/q1/test_analysis.py,148,test_independent_power_limits_and_csv_nonfinite_rejected,raw/validation.json#main/metrics/9_binary_coupling_violation_kwh
+F067,docs/1/final/第一问_MILP_边际价值强化版.md,647,649,"C_t>0,\qquad D_t>0,",67为被排除反例；75为互斥结果,src/q1/model.py,247,"""11.5_simultaneous_kwh"": float(max(0, np.max(np.minimum(c, d)))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.5_simultaneous_kwh
+F075,docs/1/final/第一问_MILP_边际价值强化版.md,705,709,"\boxed{
+C_tD_t=0
+}",67为被排除反例；75为互斥结果,src/q1/model.py,247,"""11.5_simultaneous_kwh"": float(max(0, np.max(np.minimum(c, d)))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.5_simultaneous_kwh
+F076,docs/1/final/第一问_MILP_边际价值强化版.md,719,721,p_t,电价与单位,src/q1/model.py,99,"p, pl, ppv = map(float, row[1:])",src/q1/test_q1.py,48,test_corrupted_inputs_rejected,inputs/processed/timeseries.csv#price_yuan_per_kwh
+F077,docs/1/final/第一问_MILP_边际价值强化版.md,725,727,\text{元/kWh}.,电价与单位,src/q1/model.py,99,"p, pl, ppv = map(float, row[1:])",src/q1/test_q1.py,48,test_corrupted_inputs_rejected,inputs/processed/timeseries.csv#price_yuan_per_kwh
+F079,docs/1/final/第一问_MILP_边际价值强化版.md,737,739,p_tG_t.,逐时费用,src/q1/model.py,292,"row[""cost_yuan""] = record[""price_yuan_per_kwh""] * solution[""G""][t]",src/q1/test_q1.py,144,test_export_csv_matches_all_variables_and_inputs,processed/result1.csv#cost_yuan
+F080,docs/1/final/第一问_MILP_边际价值强化版.md,743,746,"J=
+\sum_{t=1}^{144}p_tG_t.",单一目标,src/q1/model.py,135,"objective[index[""G""]] = p",src/q1/test_review.py,30,test_official_attachment_fresh_solve_golden_and_csv,raw/solution_main.json#solver/objective_yuan
+F081,docs/1/final/第一问_MILP_边际价值强化版.md,750,756,"\boxed{
+\min J
+=
+\sum_{t=1}^{144}p_tG_t.
+}",单一目标,src/q1/model.py,135,"objective[index[""G""]] = p",src/q1/test_review.py,30,test_official_attachment_fresh_solve_golden_and_csv,raw/solution_main.json#solver/objective_yuan
+F082,docs/1/final/第一问_MILP_边际价值强化版.md,760,815,"\boxed{
+\begin{aligned}
+\min_{\mathbf G,\mathbf C,\mathbf D,\mathbf E,\mathbf W,\mathbf u}
+\quad&
+\sum_{t=1}^{144}p_tG_t
+\\[2mm]
+\mathrm{s.t.}\quad
+&
+G_t+(S_t-W_t)+D_t
+=
+L_t+C_t,
+&&t=1,\ldots,144,
+\\
+&
+E_t
+=
+E_{t-1}
++
+\eta_cC_t
+-
+\frac{D_t}{\eta_d},
+&&t=1,\ldots,144,
+\\
+&
+1200\le E_t\le10800,
+&&t=1,\ldots,144,
+\\
+&
+E_0=6000,
+\\
+&
+E_{144}=6000,
+\\
+&
+0\le C_t\le Q_{\max}u_t,
+&&t=1,\ldots,144,
+\\
+&
+0\le D_t\le Q_{\max}(1-u_t),
+&&t=1,\ldots,144,
+\\
+&
+0\le W_t\le S_t,
+&&t=1,\ldots,144,
+\\
+&
+G_t\ge0,
+&&t=1,\ldots,144,
+\\
+&
+u_t\in\{0,1\},
+&&t=1,\ldots,144.
+\end{aligned}
+}",完整MILP：目标，约束分别见同表49/52/58/60/63/69/70/39/45/46,src/q1/model.py,135,"objective[index[""G""]] = p",src/q1/test_review.py,30,test_official_attachment_fresh_solve_golden_and_csv,raw/validation.json#main
+F085,docs/1/final/第一问_MILP_边际价值强化版.md,848,854,"\varepsilon_E=10^{-6}\text{ kWh},\quad
+\varepsilon_J=10^{-6}\text{ 元},\quad
+\varepsilon_u=10^{-8},\quad
+\varepsilon_g=10^{-6},\quad
+\varepsilon_V=10^{-6}\text{ 元/单位}.",分量纲数值容差,src/q1/model.py,27,"TOLERANCES = {""physical_kwh"": PHYS_TOL_KWH, ""cost_yuan"": COST_TOL_YUAN,",src/q1/test_review.py,87,test_binary_tolerance_is_independent_of_physical,inputs/processed/parameters.json#tolerances
+F086,docs/1/final/第一问_MILP_边际价值强化版.md,858,862,"r_t^{\mathrm{bal}}
+=
+G_t+(S_t-W_t)+D_t-L_t-C_t,",母线残差,src/q1/model.py,243,"""11.1_balance_max_abs_kwh"": float(np.max(np.abs(g + pv - w + d - load - c))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F088,docs/1/final/第一问_MILP_边际价值强化版.md,874,880,"\boxed{
+\max_t|r_t^{\mathrm{bal}}|\le\varepsilon_E,
+\qquad
+\max_t|r_t^{\mathrm{soc}}|\le\varepsilon_E.
+}",母线残差,src/q1/model.py,243,"""11.1_balance_max_abs_kwh"": float(np.max(np.abs(g + pv - w + d - load - c))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.1_balance_max_abs_kwh
+F087,docs/1/final/第一问_MILP_边际价值强化版.md,866,870,"r_t^{\mathrm{soc}}
+=
+E_t-E_{t-1}-\eta_c C_t+\frac{D_t}{\eta_d}.",状态残差,src/q1/model.py,244,"""11.2_soc_max_abs_kwh"": float(np.max(np.abs(e - prior - ec * c + d / ed))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F088,docs/1/final/第一问_MILP_边际价值强化版.md,874,880,"\boxed{
+\max_t|r_t^{\mathrm{bal}}|\le\varepsilon_E,
+\qquad
+\max_t|r_t^{\mathrm{soc}}|\le\varepsilon_E.
+}",状态残差,src/q1/model.py,244,"""11.2_soc_max_abs_kwh"": float(np.max(np.abs(e - prior - ec * c + d / ed))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.2_soc_max_abs_kwh
+F089,docs/1/final/第一问_MILP_边际价值强化版.md,884,886,"1200-\varepsilon_E\le E_t\le10800+\varepsilon_E,",安全界验收,src/q1/model.py,245,"""11.3_soc_bound_violation_kwh"": float(max(0, np.max(emin - e), np.max(e - emax))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.3_soc_bound_violation_kwh
+F090,docs/1/final/第一问_MILP_边际价值强化版.md,888,890,"0\le C_t,D_t\le Q_{\max}+\varepsilon_E,",功率界验收,src/q1/model.py,246,"""11.4_power_bound_violation_kwh"": float(max(0, np.max(c - qc), np.max(d - qd))),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.4_power_bound_violation_kwh
+F091,docs/1/final/第一问_MILP_边际价值强化版.md,894,898,"|E_0-6000|\le\varepsilon_E,
+\qquad
+|E_{144}-6000|\le\varepsilon_E.",首尾状态验收,src/q1/model.py,251,"""11.8_terminal_error_kwh"": float(abs(e[-1] - E_INITIAL)),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.8_terminal_error_kwh
+F092,docs/1/final/第一问_MILP_边际价值强化版.md,902,906,"J_{\mathrm{recalc}}
+=
+\sum_{t=1}^{144}p_tG_t,",费用独立复算,src/q1/model.py,252,"""11.9_objective_recalculation_error_yuan"": float(abs(p @ g - solution[""solver""][""objective_yuan""])),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.9_objective_recalculation_error_yuan
+F093,docs/1/final/第一问_MILP_边际价值强化版.md,910,914,"\boxed{
+|J_{\mathrm{solver}}-J_{\mathrm{recalc}}|\le\varepsilon_J.
+}",费用独立复算,src/q1/model.py,252,"""11.9_objective_recalculation_error_yuan"": float(abs(p @ g - solution[""solver""][""objective_yuan""])),",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.9_objective_recalculation_error_yuan
+F094,docs/1/final/第一问_MILP_边际价值强化版.md,924,929,"\mathrm{Gap}
+=
+\frac{|J^{\mathrm{UB}}-J^{\mathrm{LB}}|}
+{\max\{1,|J^{\mathrm{UB}}|\}}.",全局Gap,src/q1/model.py,268,"metrics[""11.2_relative_global_gap""] = float(abs(p @ g - solution[""solver""][""dual_bound_yuan""])",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.2_relative_global_gap
+F095,docs/1/final/第一问_MILP_边际价值强化版.md,933,937,"\boxed{
+\mathrm{Gap}\le10^{-6}
+}",全局Gap,src/q1/model.py,268,"metrics[""11.2_relative_global_gap""] = float(abs(p @ g - solution[""solver""][""dual_bound_yuan""])",src/q1/test_q1.py,71,test_corrupted_schedules_rejected,raw/validation.json#main/metrics/11.2_relative_global_gap
+F097,docs/1/final/第一问_MILP_边际价值强化版.md,955,959,"\boxed{
+0\le u_t\le1,
+}",LP诊断及松弛间隙,src/q1/analysis.py,279,"""integer_gap"": float((jm - relaxed.fun) / max(1, abs(jm))),",src/q1/test_analysis.py,71,test_lp_relaxation_keeps_big_m_coupling,processed/lp_diagnosis.csv
+F098,docs/1/final/第一问_MILP_边际价值强化版.md,963,965,J_{\mathrm{LPR}}^*.,LP诊断及松弛间隙,src/q1/analysis.py,279,"""integer_gap"": float((jm - relaxed.fun) / max(1, abs(jm))),",src/q1/test_analysis.py,71,test_lp_relaxation_keeps_big_m_coupling,processed/lp_diagnosis.csv
+F099,docs/1/final/第一问_MILP_边际价值强化版.md,969,973,"\boxed{
+J_{\mathrm{LPR}}^*\le J_{\mathrm{MILP}}^*.
+}",LP诊断及松弛间隙,src/q1/analysis.py,279,"""integer_gap"": float((jm - relaxed.fun) / max(1, abs(jm))),",src/q1/test_analysis.py,71,test_lp_relaxation_keeps_big_m_coupling,processed/lp_diagnosis.csv
+F100,docs/1/final/第一问_MILP_边际价值强化版.md,977,984,"\boxed{
+\mathrm{Gap}_{\mathrm{IP}}
+=
+\frac{J_{\mathrm{MILP}}^*-J_{\mathrm{LPR}}^*}
+{\max\{1,|J_{\mathrm{MILP}}^*|\}}.
+}",LP诊断及松弛间隙,src/q1/analysis.py,279,"""integer_gap"": float((jm - relaxed.fun) / max(1, abs(jm))),",src/q1/test_analysis.py,71,test_lp_relaxation_keeps_big_m_coupling,processed/lp_diagnosis.csv
+F101,docs/1/final/第一问_MILP_边际价值强化版.md,988,992,"N_{\mathrm{frac}}
+=
+\#\{t:\varepsilon_u<u_t<1-\varepsilon_u\},",分数模式,src/q1/analysis.py,280,"""fractional_modes"": int(np.sum((u > BINARY_TOL) & (u < 1 - BINARY_TOL))),",src/q1/test_analysis.py,71,test_lp_relaxation_keeps_big_m_coupling,processed/lp_diagnosis.csv#fractional_modes
+F102,docs/1/final/第一问_MILP_边际价值强化版.md,994,998,"N_{\mathrm{sim}}
+=
+\#\{t:C_t>\varepsilon_E,\ D_t>\varepsilon_E\}.",同时动作,src/q1/analysis.py,281,"""simultaneous_periods"": int(np.sum((c > PHYS_TOL_KWH) & (d > PHYS_TOL_KWH)))}",src/q1/test_analysis.py,71,test_lp_relaxation_keeps_big_m_coupling,processed/lp_diagnosis.csv#simultaneous_periods
+F103,docs/1/final/第一问_MILP_边际价值强化版.md,1017,1019,"C_t=D_t=0,",No-ESS,src/q1/model.py,147,"upper[index[""C""]] = upper[index[""D""]] = 0",src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/baseline_comparison.csv
+F104,docs/1/final/第一问_MILP_边际价值强化版.md,1023,1025,J_{\mathrm{noESS}}.,No-ESS,src/q1/model.py,147,"upper[index[""C""]] = upper[index[""D""]] = 0",src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/baseline_comparison.csv
+F105,docs/1/final/第一问_MILP_边际价值强化版.md,1031,1035,"\boxed{
+C_t\le \max\{S_t-L_t,0\},
+}",PV-only充电界,src/q1/model.py,149,"upper[index[""C""]] = np.maximum(pv - load, 0)",src/q1/test_review.py,74,test_pv_only_source_with_zero_price_and_surplus,raw/analysis_validation.json#checks/pv_only
+F106,docs/1/final/第一问_MILP_边际价值强化版.md,1039,1043,"\boxed{
+D_t\le \max\{L_t-S_t,0\}.
+}",PV-only放电界,src/q1/model.py,150,"upper[index[""D""]] = np.maximum(load - pv, 0)",src/q1/test_review.py,74,test_pv_only_source_with_zero_price_and_surplus,raw/analysis_validation.json#checks/pv_only
+F107,docs/1/final/第一问_MILP_边际价值强化版.md,1047,1049,J_{\mathrm{PV}}^*.,PV-only放电界,src/q1/model.py,150,"upper[index[""D""]] = np.maximum(load - pv, 0)",src/q1/test_review.py,74,test_pv_only_source_with_zero_price_and_surplus,raw/analysis_validation.json#checks/pv_only
+F108,docs/1/final/第一问_MILP_边际价值强化版.md,1055,1057,J_{\mathrm{MILP}}^*.,基准嵌套及成本次序,src/q1/analysis.py,264,if not jm <= jpv + COST_TOL_YUAN <= j0 + 2 * COST_TOL_YUAN:,src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/baseline_comparison.csv
+F109,docs/1/final/第一问_MILP_边际价值强化版.md,1061,1069,"\boxed{
+\mathcal F_{\mathrm{noESS}}
+\subseteq
+\mathcal F_{\mathrm{PV}}
+\subseteq
+\mathcal F_{\mathrm{Full}},
+}",基准嵌套及成本次序,src/q1/analysis.py,264,if not jm <= jpv + COST_TOL_YUAN <= j0 + 2 * COST_TOL_YUAN:,src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/baseline_comparison.csv
+F110,docs/1/final/第一问_MILP_边际价值强化版.md,1073,1081,"\boxed{
+J_{\mathrm{MILP}}^*
+\le
+J_{\mathrm{PV}}^*
+\le
+J_{\mathrm{noESS}}.
+}",基准嵌套及成本次序,src/q1/analysis.py,264,if not jm <= jpv + COST_TOL_YUAN <= j0 + 2 * COST_TOL_YUAN:,src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/baseline_comparison.csv
+F111,docs/1/final/第一问_MILP_边际价值强化版.md,1085,1089,"\Delta J_{\mathrm{PV}}
+=
+J_{\mathrm{noESS}}-J_{\mathrm{PV}}^*,",依赖基准的增量节约,src/q1/analysis.py,269,"benefits = {""pv_increment_yuan"": j0 - jpv, ""flex_increment_yuan"": jpv - jm,",src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/incremental_benefits.csv
+F112,docs/1/final/第一问_MILP_边际价值强化版.md,1091,1095,"\Delta J_{\mathrm{flex}}
+=
+J_{\mathrm{PV}}^*-J_{\mathrm{MILP}}^*.",依赖基准的增量节约,src/q1/analysis.py,269,"benefits = {""pv_increment_yuan"": j0 - jpv, ""flex_increment_yuan"": jpv - jm,",src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/incremental_benefits.csv
+F113,docs/1/final/第一问_MILP_边际价值强化版.md,1104,1110,"\Delta J_{\mathrm{PV}}
++
+\Delta J_{\mathrm{flex}}
+=
+J_{\mathrm{noESS}}-J_{\mathrm{MILP}}^*.",依赖基准的增量节约,src/q1/analysis.py,269,"benefits = {""pv_increment_yuan"": j0 - jpv, ""flex_increment_yuan"": jpv - jm,",src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/incremental_benefits.csv
+F114,docs/1/final/第一问_MILP_边际价值强化版.md,1116,1120,"\boxed{
+\text{嵌套可行域逐步放宽下的增量收益比较}
+}",依赖基准的增量节约,src/q1/analysis.py,269,"benefits = {""pv_increment_yuan"": j0 - jpv, ""flex_increment_yuan"": jpv - jm,",src/q1/test_analysis.py,59,test_nested_baselines_and_analytic_no_ess,processed/incremental_benefits.csv
+F115,docs/1/final/第一问_MILP_边际价值强化版.md,1130,1132,"u_t=u_t^*,\qquad t=1,\ldots,144,",固定模式,src/q1/model.py,145,"lower[index[""u""]] = upper[index[""u""]] = mode",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,raw/analysis_solutions.json#scenarios
+F116,docs/1/final/第一问_MILP_边际价值强化版.md,1138,1140,\mu_t,局部影子价及符号,src/q1/analysis.py,85,"mu, lam = result.eqlin.marginals[:n], -result.eqlin.marginals[n:]",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/marginal_values.csv
+F117,docs/1/final/第一问_MILP_边际价值强化版.md,1144,1146,\lambda_t,局部影子价及符号,src/q1/analysis.py,85,"mu, lam = result.eqlin.marginals[:n], -result.eqlin.marginals[n:]",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/marginal_values.csv
+F118,docs/1/final/第一问_MILP_边际价值强化版.md,1159,1165,"\boxed{
+\mu_t<\eta_c\lambda_t
+\quad\Longrightarrow\quad
+\text{倾向充电},
+}",阈值与独立效率,src/q1/analysis.py,88,"low, high = ec * lam[i], lam[i] / ed",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,processed/marginal_values.csv
+F119,docs/1/final/第一问_MILP_边际价值强化版.md,1167,1177,"\boxed{
+\eta_c\lambda_t
+\le
+\mu_t
+\le
+\frac{\lambda_t}{\eta_d}
+\quad\Longrightarrow\quad
+\text{倾向待机},
+}",阈值与独立效率,src/q1/analysis.py,88,"low, high = ec * lam[i], lam[i] / ed",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,processed/marginal_values.csv
+F120,docs/1/final/第一问_MILP_边际价值强化版.md,1179,1185,"\boxed{
+\mu_t>\frac{\lambda_t}{\eta_d}
+\quad\Longrightarrow\quad
+\text{倾向放电}.
+}",阈值与独立效率,src/q1/analysis.py,88,"low, high = ec * lam[i], lam[i] / ed",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,processed/marginal_values.csv
+F121,docs/1/final/第一问_MILP_边际价值强化版.md,1199,1201,\eta_c\text{ kWh}.,母线与内部能量效率,src/q1/model.py,301,"""roundtrip_efficiency"": solution[""eta_c""] * solution[""eta_d""],",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,processed/efficiency_comparison.csv
+F122,docs/1/final/第一问_MILP_边际价值强化版.md,1205,1207,\eta_c\eta_d\text{ kWh}.,母线与内部能量效率,src/q1/model.py,301,"""roundtrip_efficiency"": solution[""eta_c""] * solution[""eta_d""],",src/q1/test_review.py,42,test_independent_efficiencies_analytical_case,processed/efficiency_comparison.csv
+F123,docs/1/final/第一问_MILP_边际价值强化版.md,1211,1213,p_s\eta_c\eta_d.,跨期价差阈值,src/q1/analysis.py,341,"""current_price"": float(p[i]), ""future_price_threshold"": float(p[i] / efficiency ** 2),",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/arbitrage_thresholds.csv
+F124,docs/1/final/第一问_MILP_边际价值强化版.md,1217,1219,p_s\eta_c\eta_d>p_t,跨期价差阈值,src/q1/analysis.py,341,"""current_price"": float(p[i]), ""future_price_threshold"": float(p[i] / efficiency ** 2),",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/arbitrage_thresholds.csv
+F125,docs/1/final/第一问_MILP_边际价值强化版.md,1223,1227,"\boxed{
+p_s>\frac{p_t}{\eta_c\eta_d}
+}",跨期价差阈值,src/q1/analysis.py,341,"""current_price"": float(p[i]), ""future_price_threshold"": float(p[i] / efficiency ** 2),",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/arbitrage_thresholds.csv
+F127,docs/1/final/第一问_MILP_边际价值强化版.md,1239,1244,"\frac1{\eta_c\eta_d}
+=
+\frac1{0.81}
+\approx1.2346.",跨期价差阈值,src/q1/analysis.py,341,"""current_price"": float(p[i]), ""future_price_threshold"": float(p[i] / efficiency ** 2),",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/arbitrage_thresholds.csv
+F151,docs/1/final/第一问_MILP_边际价值强化版.md,1575,1579,"\boxed{
+p_s>\frac{p_t}{\eta_c\eta_d}
+}",跨期价差阈值,src/q1/analysis.py,341,"""current_price"": float(p[i]), ""future_price_threshold"": float(p[i] / efficiency ** 2),",src/q1/test_analysis.py,86,test_analytic_shadow_sign_and_price_threshold,processed/arbitrage_thresholds.csv
+F128,docs/1/final/第一问_MILP_边际价值强化版.md,1260,1262,"E_t=10800,",按当前参数识别活跃界,src/q1/analysis.py,65,"for key, var, limit in ((""E_min"", ""E"", settings[""e_min""]), (""E_max"", ""E"", settings[""e_max""]),",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/active_constraints.csv
+F129,docs/1/final/第一问_MILP_边际价值强化版.md,1270,1274,"\mathcal A_{E^{\min}}
+=
+\{t:|E_t-1200|\le\varepsilon_a\},",按当前参数识别活跃界,src/q1/analysis.py,65,"for key, var, limit in ((""E_min"", ""E"", settings[""e_min""]), (""E_max"", ""E"", settings[""e_max""]),",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/active_constraints.csv
+F130,docs/1/final/第一问_MILP_边际价值强化版.md,1276,1280,"\mathcal A_{E^{\max}}
+=
+\{t:|E_t-10800|\le\varepsilon_a\},",按当前参数识别活跃界,src/q1/analysis.py,65,"for key, var, limit in ((""E_min"", ""E"", settings[""e_min""]), (""E_max"", ""E"", settings[""e_max""]),",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/active_constraints.csv
+F131,docs/1/final/第一问_MILP_边际价值强化版.md,1282,1286,"\mathcal A_C
+=
+\{t:|C_t-Q_{\max}|\le\varepsilon_a\},",按当前参数识别活跃界,src/q1/analysis.py,65,"for key, var, limit in ((""E_min"", ""E"", settings[""e_min""]), (""E_max"", ""E"", settings[""e_max""]),",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/active_constraints.csv
+F132,docs/1/final/第一问_MILP_边际价值强化版.md,1288,1292,"\mathcal A_D
+=
+\{t:|D_t-Q_{\max}|\le\varepsilon_a\}.",按当前参数识别活跃界,src/q1/analysis.py,65,"for key, var, limit in ((""E_min"", ""E"", settings[""e_min""]), (""E_max"", ""E"", settings[""e_max""]),",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/active_constraints.csv
+F133,docs/1/final/第一问_MILP_边际价值强化版.md,1300,1302,E^{\max}=10800\text{ kWh}.,按当前参数识别活跃界,src/q1/analysis.py,65,"for key, var, limit in ((""E_min"", ""E"", settings[""e_min""]), (""E_max"", ""E"", settings[""e_max""]),",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/active_constraints.csv
+F134,docs/1/final/第一问_MILP_边际价值强化版.md,1306,1312,"\boxed{
+\widehat V_E(\Delta E)
+=
+\frac{J^*(E^{\max})-J^*(E^{\max}+\Delta E)}{\Delta E}.
+}",四方向有限增量价值,src/q1/analysis.py,225,"""saving_yuan"": saving, ""value_per_unit_day"": saving / step, ""unit"": unit,",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/bottleneck_values.csv
+F135,docs/1/final/第一问_MILP_边际价值强化版.md,1324,1326,\widehat V_{E^-}(\Delta E)=\frac{J^*(E^{\min})-J^*(E^{\min}-\Delta E)}{\Delta E}.,四方向有限增量价值,src/q1/analysis.py,225,"""saving_yuan"": saving, ""value_per_unit_day"": saving / step, ""unit"": unit,",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/bottleneck_values.csv
+F138,docs/1/final/第一问_MILP_边际价值强化版.md,1348,1354,"\boxed{
+\widehat V_{P_C}(\Delta P)
+=
+\frac{J^*(P_C^{\max})-J^*(P_C^{\max}+\Delta P)}{\Delta P}.
+}",四方向有限增量价值,src/q1/analysis.py,225,"""saving_yuan"": saving, ""value_per_unit_day"": saving / step, ""unit"": unit,",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/bottleneck_values.csv
+F139,docs/1/final/第一问_MILP_边际价值强化版.md,1358,1364,"\boxed{
+\widehat V_{P_D}(\Delta P)
+=
+\frac{J^*(P_D^{\max})-J^*(P_D^{\max}+\Delta P)}{\Delta P}.
+}",四方向有限增量价值,src/q1/analysis.py,225,"""saving_yuan"": saving, ""value_per_unit_day"": saving / step, ""unit"": unit,",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/bottleneck_values.csv
+F152,docs/1/final/第一问_MILP_边际价值强化版.md,1585,1591,"\widehat V_E,
+\qquad
+\widehat V_{P_C},
+\qquad
+\widehat V_{P_D},",四方向有限增量价值,src/q1/analysis.py,225,"""saving_yuan"": saving, ""value_per_unit_day"": saving / step, ""unit"": unit,",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/bottleneck_values.csv
+F137,docs/1/final/第一问_MILP_边际价值强化版.md,1342,1344,\Delta Q=\Delta P\Delta t.,功率扰动单位转换,src/q1/analysis.py,223,"""increment_period_kwh"": step if parameter in (""e_min"", ""e_max"") else step * DT,",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/bottleneck_values.csv#increment_period_kwh
+F140,docs/1/final/第一问_MILP_边际价值强化版.md,1377,1383,"\boxed{
+\text{物理边界活跃}
+\neq
+\text{经济瓶颈}
+}",概念比较；经济显著性未擅自设门槛,src/q1/analysis.py,237,"""economic_significance"": ""not_assessed_no_economic_threshold""})",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/bottleneck_values.csv#economic_significance
+F141,docs/1/final/第一问_MILP_边际价值强化版.md,1394,1400,"\boxed{
+\text{储能空间}
+\quad\text{还是}\quad
+\text{充放电速率}
+}",概念比较；经济显著性未擅自设门槛,src/q1/analysis.py,237,"""economic_significance"": ""not_assessed_no_economic_threshold""})",src/q1/test_review.py,57,test_active_sets_use_current_limits_and_lower_space,processed/bottleneck_values.csv#economic_significance
+F142,docs/1/final/第一问_MILP_边际价值强化版.md,1412,1416,"\eta_c=\eta_d
+\in
+\{0.85,\ 0.90,\ 0.95\}.",效率情景,src/q1/model.py,36,"""roundtrip090"": float(np.sqrt(0.90))}",src/q1/test_q1.py,28,test_all_actual_scenarios,processed/efficiency_comparison.csv
+F148,docs/1/final/第一问_MILP_边际价值强化版.md,1475,1477,"\eta_c=\eta_d=\sqrt{0.9}\approx0.94868,",效率情景,src/q1/model.py,36,"""roundtrip090"": float(np.sqrt(0.90))}",src/q1/test_q1.py,28,test_all_actual_scenarios,processed/efficiency_comparison.csv
+F143,docs/1/final/第一问_MILP_边际价值强化版.md,1420,1424,"L_t'=(1+\delta_L)L_t,
+\qquad
+S_t'=(1+\delta_{PV})S_t,",输入缩放,src/q1/analysis.py,71,"return [{**r, ""load_kw"": r[""load_kw""] * (1 + dl), ""load_kwh"": r[""load_kwh""] * (1 + dl),",src/q1/test_analysis.py,130,test_full_input_output_csv_and_normalized_sensitivity,raw/analysis_schedules.csv
+F144,docs/1/final/第一问_MILP_边际价值强化版.md,1428,1430,"\delta_L,\delta_{PV}\in\{-0.05,0,0.05\}.",扰动网格,src/q1/analysis.py,15,"""load_deltas"": [-0.05, 0.0, 0.05], ""pv_deltas"": [-0.05, 0.0, 0.05],",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/sensitivity_scenarios.csv
+F145,docs/1/final/第一问_MILP_边际价值强化版.md,1434,1444,"J^*,
+\qquad
+G_{\mathrm{day}}=\sum_tG_t,
+\qquad
+C_{\mathrm{day}}=\sum_tC_t,
+\qquad
+D_{\mathrm{day}}=\sum_tD_t,
+\qquad
+W_{\mathrm{day}}=\sum_tW_t.",汇总电量和费用,src/q1/model.py,302,"""cost_yuan"": float(p @ g), ""grid_kwh"": float(g.sum()),",src/q1/test_analysis.py,27,test_all_36_scenarios_and_432_relaxations,processed/sensitivity_scenarios.csv
+F146,docs/1/final/第一问_MILP_边际价值强化版.md,1448,1456,"\boxed{
+S_x
+\approx
+\frac{J(x(1+\delta))-J(x(1-\delta))}
+{2\delta\,J(x)},
+\qquad \delta=0.05.
+}",归一化敏感度,src/q1/analysis.py,334,"""normalized_sensitivity"": (plus[""cost_yuan""] - minus[""cost_yuan""]) / (0.1 * base[""cost_yuan""])})",src/q1/test_analysis.py,130,test_full_input_output_csv_and_normalized_sensitivity,processed/normalized_sensitivity.csv
+F149,docs/1/final/第一问_MILP_边际价值强化版.md,1495,1501,"\boxed{
+|J^{csv}-J^*|\le\varepsilon_J,
+\qquad
+|G_{\mathrm{day}}^{csv}-G_{\mathrm{day}}^*|\le\varepsilon_E,
+}",按用户要求改CSV关闭回读,src/q1/export.py,63,"""12.4_cost_error_yuan"": float(abs(p @ g - day[""cost_yuan""])),",src/q1/test_review.py,30,test_official_attachment_fresh_solve_golden_and_csv,raw/validation.json#csv
+F150,docs/1/final/第一问_MILP_边际价值强化版.md,1557,1569,"\boxed{
+\text{时间离散}
++
+\text{物理能流}
++
+\text{储能状态}
++
+\text{0-1 运行模式}
++
+\text{经济优化}
+}",流程/章节小结；各计算公式见单独映射,src/q1/run.py,77,"analysis = run_analysis(data, solutions, output_raw, output)",src/q1/test_review.py,172,test_pipeline_analysis_and_test_failure_do_not_publish,raw/run_manifest.json
+F153,docs/1/final/第一问_MILP_边际价值强化版.md,1597,1607,"\boxed{
+\text{MILP 最优调度}
+\rightarrow
+\text{储能边际价值}
+\rightarrow
+\text{充/停/放阈值}
+\rightarrow
+\text{容量和功率经济瓶颈}
+}",流程/章节小结；各计算公式见单独映射,src/q1/run.py,77,"analysis = run_analysis(data, solutions, output_raw, output)",src/q1/test_review.py,172,test_pipeline_analysis_and_test_failure_do_not_publish,raw/run_manifest.json
+F154,docs/1/final/第一问_MILP_边际价值强化版.md,1611,1627,"\boxed{
+\text{数据标准化}
+\rightarrow
+\text{物理 MILP}
+\rightarrow
+\text{全局优化}
+\rightarrow
+\text{边际机制解释}
+\rightarrow
+\text{瓶颈识别}
+\rightarrow
+\text{稳健性分析}
+\rightarrow
+\text{结果文件复核}
+}",流程/章节小结；各计算公式见单独映射,src/q1/run.py,77,"analysis = run_analysis(data, solutions, output_raw, output)",src/q1/test_review.py,172,test_pipeline_analysis_and_test_failure_do_not_publish,raw/run_manifest.json

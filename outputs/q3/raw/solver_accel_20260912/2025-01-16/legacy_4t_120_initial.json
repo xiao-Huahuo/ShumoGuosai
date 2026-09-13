@@ -1,0 +1,77 @@
+{
+  "status": "Time limit reached",
+  "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+  "solver_version": "1.15.1",
+  "binaries": 3456,
+  "variables": 14364,
+  "constraints": 22360,
+  "scenario_count": 8,
+  "requested_gap": 0.03,
+  "terminal": 0.8938676491250226,
+  "solver_threads": 4,
+  "formulation_version": "legacy",
+  "matrix_digest": "874fb970ef3cc44a983538729e6e58473ea7e123b108de5abd3d8905da6796fd",
+  "objective_offset": 0.0,
+  "bound_sources": [
+    {
+      "kind": "solver_global_bound",
+      "matrix_digest": "874fb970ef3cc44a983538729e6e58473ea7e123b108de5abd3d8905da6796fd"
+    }
+  ],
+  "solver_backend_requested": "highs",
+  "reliable": false,
+  "seconds": 120.0676028750022,
+  "solver_seconds": 120.02310145899537,
+  "lower_bound": 3117.23282645945,
+  "node_count": 673,
+  "simplex_iterations": 358686,
+  "barrier_iterations": -1,
+  "objective": 3348.742710263421,
+  "optimizer_objective": 3348.742710263421,
+  "gap": 0.06913337447347814,
+  "linear_feasibility_error": 9.094947017729282e-13,
+  "integrality_error": 0.0,
+  "monotone_projection_error": 0.0,
+  "raw_response_difference": 0.0,
+  "mapping_error": null,
+  "mapped_cost_not_above_optimizer": true,
+  "wall_seconds": 120.07527637499152,
+  "backend": "highs",
+  "policy_sha256": "3c2522fd18360d46f728ee6b43891c39c08c6128df2ec75b9850425418550a31",
+  "trajectory": [
+    {
+      "seconds": 0.0,
+      "objective": 3348.742710263421,
+      "lower_bound": null,
+      "gap": null,
+      "reliable": false,
+      "policy_sha256": "3c2522fd18360d46f728ee6b43891c39c08c6128df2ec75b9850425418550a31"
+    },
+    {
+      "seconds": 120.06041120900773,
+      "objective": 3348.742710263421,
+      "optimizer_objective": 3348.742710263421,
+      "lower_bound": 3117.23282645945,
+      "gap": 0.06913337447347814,
+      "reliable": false,
+      "node_count": 673,
+      "simplex_iterations": -1,
+      "barrier_iterations": -1,
+      "policy_sha256": "3c2522fd18360d46f728ee6b43891c39c08c6128df2ec75b9850425418550a31"
+    },
+    {
+      "seconds": 120.0676028750022,
+      "objective": 3348.742710263421,
+      "optimizer_objective": 3348.742710263421,
+      "lower_bound": 3117.23282645945,
+      "gap": 0.06913337447347814,
+      "reliable": false,
+      "node_count": 673,
+      "simplex_iterations": 358686,
+      "barrier_iterations": -1,
+      "policy_sha256": "3c2522fd18360d46f728ee6b43891c39c08c6128df2ec75b9850425418550a31"
+    }
+  ],
+  "fixture": "2025-01-16",
+  "original_replay_verified": true
+}

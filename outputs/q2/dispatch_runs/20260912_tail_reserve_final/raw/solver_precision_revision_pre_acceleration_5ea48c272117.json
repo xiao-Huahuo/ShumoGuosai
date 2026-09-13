@@ -1,0 +1,10 @@
+{
+  "version": "q2-tail-reserve-inherit-current-gap-20260912",
+  "created_at": "2026-09-12T09:46:50.201114+00:00",
+  "solver_gap": 0.03,
+  "parent_protocol_sha256": "e038526ce4b4208bb8e644ee24704609391ac72fba770e3a1ce0a931717cdc93",
+  "authorization": "承接用户此前明确选择的当前正式MIP gap策略；本轮任务书要求保持当前solver与MIP gap策略不变。",
+  "source_revision": "D:\\Projects\\Python\\ShumoGuosai\\outputs\\q2\\dispatch_runs\\20260911_224501\\raw\\solver_precision_revision.json",
+  "source_revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+  "no_gap_experiment_rerun": true
+}

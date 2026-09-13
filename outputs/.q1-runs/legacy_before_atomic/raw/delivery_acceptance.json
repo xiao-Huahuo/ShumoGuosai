@@ -1,0 +1,393 @@
+{
+  "model_source": "docs/1/final/第一问_MILP_边际价值强化版.md",
+  "model_sha256": "dc09df3620062e28eeab696a050e889e9fa1cd514b093571cb9df3c6c52c806b",
+  "completed_utc": "2026-09-11T03:05:46.150794+00:00",
+  "passed": true,
+  "unfinished": [],
+  "traceability_nonempty_lines": 1159,
+  "tests_run": 15,
+  "scenarios": 36,
+  "resource_relaxations": 114,
+  "rhs_directions": 288,
+  "rhs_lp_solves": 576,
+  "analysis_csv_tables_reread": 11,
+  "file_checks": {
+    "current_run_model_code_outputs_hashes_match": true,
+    "original_input_copy_matches": true,
+    "utf8_without_bom_files": 63,
+    "valid_local_links": 85,
+    "readme_tree_entries": 187,
+    "readme_all_entries_annotated": true
+  },
+  "ui_smoke": {
+    "actual_browser": true,
+    "main_input_rows": 144,
+    "main_output_rows": 144,
+    "main_output_opened_with_keyboard": true,
+    "main_to_analysis_link_clicked": true,
+    "marginal_rows": 144,
+    "scenario_rows": 36,
+    "bottleneck_rows": 9,
+    "bottleneck_details_opened_with_keyboard": true,
+    "new_figures_loaded": 2,
+    "new_figures_visually_reviewed": 2,
+    "narrow_panel_tables_have_horizontal_scroll": true,
+    "last_interval": "23:50-24:00",
+    "terminal_kwh": 6000
+  },
+  "review": {
+    "unresolved_P0": 0,
+    "unresolved_P1": 0,
+    "unresolved_P2": 0,
+    "unresolved_P3": 0,
+    "reported_limits": [
+      "固定模式局部量，不主张模式自由切换",
+      "阈值等号可有非零动作",
+      "25项非光滑/单侧方向",
+      "增量归因非唯一",
+      "已报告不满足预期的敏感性趋势"
+    ]
+  },
+  "links": [
+    {
+      "file": "README.md",
+      "target": "数学建模开发规范.md"
+    },
+    {
+      "file": "README.md",
+      "target": "docs/1/README.md"
+    },
+    {
+      "file": "README.md",
+      "target": "docs/1/final/第一问_MILP_边际价值强化版.md"
+    },
+    {
+      "file": "README.md",
+      "target": "docs/1/deliverables/q1_run_guide.md"
+    },
+    {
+      "file": "README.md",
+      "target": "inputs/q1/processed/timeseries.csv"
+    },
+    {
+      "file": "README.md",
+      "target": "outputs/processed/q1/result1.csv"
+    },
+    {
+      "file": "README.md",
+      "target": "docs/1/deliverables/q1_results.md"
+    },
+    {
+      "file": "README.md",
+      "target": "outputs/processed/q1/marginal_report.html"
+    },
+    {
+      "file": "README.md",
+      "target": "outputs/processed/q1/sensitivity_scenarios.csv"
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CHANGE_HISTORY.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "final/第一问_MILP_边际价值强化版.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "final/Q1最终优化模型-最终版.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "deliverables/q1_marginal_analysis.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "deliverables/q1_results.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "deliverables/q1_run_guide.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "deliverables/q1_implementation_acceptance.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "deliverables/q1_source_line_traceability.csv"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../inputs/q1/processed/timeseries.csv"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../outputs/processed/q1/result1.csv"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../outputs/processed/q1/daily_summary.csv"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../outputs/processed/q1/efficiency_comparison.csv"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../outputs/processed/q1/report.html"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../src/q1/run.py"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "intermediate/临时方案.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "intermediate/Q1_最终优化模型_结合comments.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "intermediate/Q1_最终优化模型修订版_结合评审comments.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "intermediate/Q1_精简修订版_公式兼容Obsidian.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "intermediate/临时方案_严格审查报告.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "intermediate/q1_compact_review_comments.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "cleanup_candidates/notes.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "cleanup_candidates/task_plan.md"
+    },
+    {
+      "file": "docs/1/README.md",
+      "target": "../../outputs/q1/raw/docs_organization_manifest.json"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "../final/第一问_MILP_边际价值强化版.md"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "q1_marginal_analysis.md"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "q1_results.md"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "../../../outputs/q1/raw/analysis_validation.json"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "../../../outputs/q1/raw/analysis_solutions.json"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "../../../outputs/q1/raw/tests.json"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "../../../outputs/q1/raw/analysis_tests.json"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "q1_source_line_traceability.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "target": "q1_run_guide.md"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/baseline_comparison.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/incremental_benefits.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/lp_diagnosis.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/marginal_values.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/marginal_rhs_validation.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/bottleneck_values.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/sensitivity_scenarios.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/normalized_sensitivity.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/active_constraints.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/arbitrage_thresholds.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/../../q1/raw/analysis_schedules.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_marginal_analysis.md",
+      "target": "../../../outputs/processed/q1/marginal_report.html"
+    },
+    {
+      "file": "docs/1/deliverables/q1_results.md",
+      "target": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/processed/q1/report.html"
+    },
+    {
+      "file": "docs/1/deliverables/q1_results.md",
+      "target": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/processed/q1/result1.csv"
+    },
+    {
+      "file": "docs/1/deliverables/q1_results.md",
+      "target": "q1_marginal_analysis.md"
+    },
+    {
+      "file": "docs/1/deliverables/q1_run_guide.md",
+      "target": "../final/第一问_MILP_边际价值强化版.md"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "report.html"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "baseline_comparison.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "incremental_benefits.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "lp_diagnosis.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "marginal_values.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "marginal_rhs_validation.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "bottleneck_values.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "sensitivity_scenarios.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "normalized_sensitivity.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "active_constraints.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "arbitrage_thresholds.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "../../q1/raw/analysis_schedules.csv"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "marginal_analysis.png"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "bottleneck_analysis.png"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "../../q1/raw/analysis_validation.json"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "../../q1/raw/analysis_solutions.json"
+    },
+    {
+      "file": "outputs/processed/q1/marginal_report.html",
+      "target": "../../../docs/1/deliverables/q1_implementation_acceptance.md"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "result1.csv"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "daily_summary.csv"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "../../../inputs/q1/raw/attachment1.csv"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "../../../inputs/q1/processed/timeseries.csv"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "../../../inputs/q1/processed/parameters.json"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "marginal_report.html"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "dispatch.png"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "efficiency.png"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "../../q1/raw/validation.json"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "../../q1/raw/run_manifest.json"
+    },
+    {
+      "file": "outputs/processed/q1/report.html",
+      "target": "../../../docs/1/deliverables/q1_implementation_acceptance.md"
+    }
+  ]
+}

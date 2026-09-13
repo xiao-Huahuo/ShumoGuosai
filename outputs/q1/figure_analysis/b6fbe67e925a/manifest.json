@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "src/q1/device_sensitivity.py": "7ac0b61c4886852b5383947b6d5377803ac8e63b64ea2f53e8e4ca775cf31dfb",
+    "src/q1/model.py": "afadae782d45b18891d1bceedabe70206558fc15e5e8d5192bee4df4e53c52b0",
+    "outputs/.q1-runs/run-ie6fkatf/inputs/processed/timeseries.csv": "8d8a983cfc12e647c5841b2c41514a244e3d3530b3cc57072e08c50d120e0d40"
+  },
+  "generation": "run-ie6fkatf",
+  "assumptions": [
+    "双单程效率0.9；Emin=1200；E0=E144=6000；其余模型与输入不变",
+    "Emax是储电上限；超过原额定容量的点仅为数学约束放宽实验，不能直接作为设备设计",
+    "二维纵轴同时改变充放电功率；一维功率曲线只改变一种功率",
+    "等值线在实际求解网格间作线性绘图插值，插值点不声称已求解",
+    "网格范围为绘图实验选择，不代表题目给定设备候选集；没有投资成本或经济显著性门槛"
+  ],
+  "energy_grid_kwh": [
+    6000,
+    8400,
+    10800,
+    13200,
+    15600,
+    18000,
+    20400,
+    22800,
+    25200,
+    27600,
+    30000
+  ],
+  "common_power_grid_kw": [
+    1000,
+    2000,
+    3000,
+    4000,
+    5000,
+    6000,
+    7000,
+    8000,
+    9000,
+    10000
+  ],
+  "unique_solves": 133,
+  "joint_points": 110,
+  "one_dimensional_points": 36,
+  "all_saved_solutions_rechecked": true,
+  "monotonicity_passed": true,
+  "max_mip_gap": 1.334834566262507e-16,
+  "output_sha256": {
+    "one_dimensional.csv": "e659ddb96f03c304ca9bf9fc1da54225893eed740e40e496bc87d7e50ad2d688",
+    "joint_grid.csv": "90df9e36c92e13e986b716e1196fa44b198d60d7b231b84ab2ab8c7218bfa203",
+    "solver_checks.csv": "bba4f72f271bf00066bf43f0c3c6779f7fb18d64e35ba129d9c6dbedb4eab681",
+    "solutions.npz": "e11488a7abb3d54d5b26a31be22da8b8d2f4e3ef49cf0f0d6a77338623e0a97a"
+  }
+}

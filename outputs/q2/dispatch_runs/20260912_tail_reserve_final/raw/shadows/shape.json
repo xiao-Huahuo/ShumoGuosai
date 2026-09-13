@@ -1,0 +1,23 @@
+{
+  "shape": [
+    365,
+    3,
+    144
+  ],
+  "dtype": "<f8",
+  "axes": [
+    "origin",
+    "horizon",
+    "slot"
+  ],
+  "first_origin_date": "2025-01-01 00:00:00",
+  "model_ids": [
+    "load_week",
+    "load_lgb_0",
+    "load_lgb_1",
+    "pv_mean7",
+    "pv_dhr"
+  ],
+  "boundary": "source_date_before_origin",
+  "missing": "NaN=no_forecast_not_zero"
+}

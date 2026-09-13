@@ -1,0 +1,17 @@
+test_adjustment_matrix_three_cases_and_continuation (src.q4.test_rescue.RescueTests.test_adjustment_matrix_three_cases_and_continuation) ... ok
+test_baseline_alarm_and_storage_alarm (src.q4.test_rescue.RescueTests.test_baseline_alarm_and_storage_alarm) ... ok
+test_formal_limited_forbidden_before_inputs_and_output (src.q4.test_rescue.RescueTests.test_formal_limited_forbidden_before_inputs_and_output) ... ok
+test_four_slot_hand_balance (src.q4.test_rescue.RescueTests.test_four_slot_hand_balance) ... ok
+test_hard_timeout_has_no_fallback (src.q4.test_rescue.RescueTests.test_hard_timeout_has_no_fallback) ... ok
+test_limited_solver_rejected_even_with_allow_flag (src.q4.test_rescue.RescueTests.test_limited_solver_rejected_even_with_allow_flag) ... ok
+test_positive_radius_matches_two_point_hand_worst_case (src.q4.test_rescue.RescueTests.test_positive_radius_matches_two_point_hand_worst_case) ... ok
+test_residual_origin_48h_and_midnight (src.q4.test_rescue.RescueTests.test_residual_origin_48h_and_midnight) ... ok
+test_rho_zero_equals_hand_expected_cost (src.q4.test_rescue.RescueTests.test_rho_zero_equals_hand_expected_cost) ... ok
+test_tail_never_absorbs_ordinary_mass (src.q4.test_rescue.RescueTests.test_tail_never_absorbs_ordinary_mass) ... ok
+test_window_is_declared_preset (src.q4.test_rescue.RescueTests.test_window_is_declared_preset) ... ok
+test_zero_integer_and_shared_storage_variables (src.q4.test_rescue.RescueTests.test_zero_integer_and_shared_storage_variables) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.233s
+
+OK

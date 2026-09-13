@@ -1,0 +1,8 @@
+{
+  "sources": {
+    "src/sensitivity/report.py": "e0e9145e6803595fe98258cd7c9d98a058c12a5f6dc80ee4e2f30db74b9e167a",
+    "src/sensitivity/verify.py": "b7d72f774a4194b76b03e20951b1e3dba251de2df43c3bad4ad8470641c41944",
+    "docs/sensitivity_q2_q3/interpretation.md": "523c93f8fc6716e436ed7eb047fce9011aa11186367746decf1087627e64f24a"
+  },
+  "independent_verification_passed": true
+}

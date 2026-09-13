@@ -1,0 +1,34 @@
+{
+  "q42": {
+    "pid": 28952,
+    "command": [
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/.venv/bin/python",
+      "-u",
+      "-m",
+      "src.q4.run",
+      "q42",
+      "--output",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q4/raw/rescue_lp_q42_20260913"
+    ],
+    "signature": "86f16c0203f142a83ffc887ff811b400dc84a8e0f1c700a83b198af66163b843",
+    "model_version": "q4_rescue_lp_v1",
+    "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+    "frozen_sources": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/4/rescue_lp/frozen_source"
+  },
+  "q43": {
+    "pid": 28953,
+    "command": [
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/.venv/bin/python",
+      "-u",
+      "-m",
+      "src.q4.run",
+      "q43",
+      "--output",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q4/raw/rescue_lp_q43_20260913"
+    ],
+    "signature": "86f16c0203f142a83ffc887ff811b400dc84a8e0f1c700a83b198af66163b843",
+    "model_version": "q4_rescue_lp_v1",
+    "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+    "frozen_sources": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/4/rescue_lp/frozen_source"
+  }
+}

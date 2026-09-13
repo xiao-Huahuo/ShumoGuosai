@@ -1,0 +1,104 @@
+{
+  "status": "ok",
+  "selected": {
+    "harmonics": 6,
+    "p": 1,
+    "q": 1,
+    "bic": 42138.32589472693,
+    "aic": 41955.567378244144,
+    "converged": true,
+    "warnings": ""
+  },
+  "candidates": [
+    {
+      "harmonics": 3,
+      "p": 0,
+      "q": 0,
+      "bic": 55432.739723008664,
+      "aic": 55338.209455862394,
+      "converged": true,
+      "warnings": ""
+    },
+    {
+      "harmonics": 3,
+      "p": 0,
+      "q": 1,
+      "bic": 50139.95102083015,
+      "aic": 50039.11873587413,
+      "converged": true,
+      "warnings": "Non-invertible starting MA parameters found. Using zeros as starting parameters."
+    },
+    {
+      "harmonics": 3,
+      "p": 1,
+      "q": 0,
+      "bic": 46019.00785674595,
+      "aic": 45918.17557178993,
+      "converged": true,
+      "warnings": ""
+    },
+    {
+      "harmonics": 3,
+      "p": 1,
+      "q": 1,
+      "bic": 42664.93093464587,
+      "aic": 42557.7966318801,
+      "converged": true,
+      "warnings": ""
+    },
+    {
+      "harmonics": 6,
+      "p": 0,
+      "q": 0,
+      "bic": 53081.82791146743,
+      "aic": 52911.67343060415,
+      "converged": true,
+      "warnings": ""
+    },
+    {
+      "harmonics": 6,
+      "p": 0,
+      "q": 1,
+      "bic": 47911.16397784617,
+      "aic": 47734.707479173136,
+      "converged": true,
+      "warnings": "Non-invertible starting MA parameters found. Using zeros as starting parameters."
+    },
+    {
+      "harmonics": 6,
+      "p": 1,
+      "q": 0,
+      "bic": 45173.76356539135,
+      "aic": 44997.30706671832,
+      "converged": true,
+      "warnings": ""
+    },
+    {
+      "harmonics": 6,
+      "p": 1,
+      "q": 1,
+      "bic": 42138.32589472693,
+      "aic": 41955.567378244144,
+      "converged": true,
+      "warnings": ""
+    }
+  ],
+  "residual_mean_kw": 4.127914941082487e-13,
+  "residual_std_kw": 170.00578698088876,
+  "first_half_residual_std_kw": 179.10874806065908,
+  "second_half_residual_std_kw": 160.38428301635346,
+  "ljung_box": [
+    {
+      "lag": 6,
+      "lb_stat": 242.72246894392583,
+      "lb_pvalue": 2.405079306807296e-51
+    },
+    {
+      "lag": 144,
+      "lb_stat": 1169.6135273631855,
+      "lb_pvalue": 4.890638383271858e-161
+    }
+  ],
+  "annual_harmonics": false,
+  "adf": "not_invoked_fixed_stationary_error_candidate"
+}

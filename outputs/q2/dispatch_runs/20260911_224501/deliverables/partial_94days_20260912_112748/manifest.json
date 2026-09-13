@@ -1,0 +1,26 @@
+{
+  "partial": true,
+  "days": 94,
+  "records": 13536,
+  "start": "2025-02-01",
+  "end": "2025-05-05",
+  "source_checkpoint": {
+    "days": 94,
+    "sha256": {
+      "dispatch.csv": "4669b0db64ffdbd87daa16cbe996fefe59928b1ceb7778012b96b8ab87d21584",
+      "daily.csv": "a9b8da99a84811249bb00129ec7dfb3db98b0ecfdb563c14c18cc4171eff6f91",
+      "calibration.csv": "03527c8d9d006a41b4679682be0b2aed04987928bfc4b1e930a121a19d2c851a"
+    }
+  },
+  "original_data_physics_cost_and_soc_validated": true,
+  "excel_roundtrip_passed": true,
+  "workbook_sha256": "7b0e8d4eb6c954940f4ddd74ec9246a289c6b2e6c5806f7cbf5d07223b578a44",
+  "csv_sha256": {
+    "dispatch": "4669b0db64ffdbd87daa16cbe996fefe59928b1ceb7778012b96b8ab87d21584",
+    "daily": "a9b8da99a84811249bb00129ec7dfb3db98b0ecfdb563c14c18cc4171eff6f91",
+    "calibration": "03527c8d9d006a41b4679682be0b2aed04987928bfc4b1e930a121a19d2c851a",
+    "storage_blocks": "0341cdec3bfb3255f573fcd333dcbd90e33cb466cab9a435392a38df0faacd3e",
+    "emergency_events": "95afa747e16e2aeeb9b09f6985e25494ce9233b3c18f2af9bd5ae0c452c11a82",
+    "solver_acceptance": "dd9447ee06474456c0dda2c86560a369340125e232ff906afdd570e05f5219d8"
+  }
+}

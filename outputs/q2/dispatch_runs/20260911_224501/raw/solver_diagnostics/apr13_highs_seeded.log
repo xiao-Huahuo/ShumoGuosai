@@ -1,0 +1,80 @@
+seed objective 36702.81827634054
+Running HiGHS 1.8.0 (git hash: 222cce7): Copyright (c) 2024 HiGHS under MIT licence terms
+Coefficient ranges:
+  Matrix [7e-02, 1e+04]
+  Cost   [7e-02, 1e+00]
+  Bound  [7e-02, 1e+04]
+  RHS    [7e-02, 1e+04]
+Assessing feasibility of MIP using primal feasibility and integrality tolerance of       1e-08
+Solution has               num          max          sum
+Col     infeasibilities      0            0            0
+Integer infeasibilities      0            0            0
+Row     infeasibilities      0            0            0
+Row     residuals            0            0            0
+Presolving model
+63762 rows, 43527 cols, 180007 nonzeros  0s
+56612 rows, 37175 cols, 201547 nonzeros  0s
+
+MIP start solution is feasible, objective value is 36702.8182763
+
+Solving MIP model with:
+   56612 rows
+   37175 cols (21334 binary, 0 integer, 0 implied int., 15841 continuous)
+   201547 nonzeros
+MIP-Timing:        0.26 - starting analytic centre calculation
+
+Src: B => Branching; C => Central rounding; F => Feasibility pump; H => Heuristic; L => Sub-MIP;
+     P => Empty MIP; R => Randomized rounding; S => Solve LP; T => Evaluate node; U => Unbounded;
+     z => Trivial zero; l => Trivial lower; u => Trivial upper; p => Trivial point
+
+        Nodes      |    B&B Tree     |            Objective Bounds              |  Dynamic Constraints |       Work      
+Src  Proc. InQueue |  Leaves   Expl. | BestBound       BestSol              Gap |   Cuts   InLp Confl. | LpIters     Time
+
+         0       0         0   0.00%   0               36702.818276     100.00%        0      0      0         0     0.3s
+         0       0         0   0.00%   36293.533042    36702.818276       1.12%        0      0      4     20753     2.8s
+         0       0         0   0.00%   36304.467905    36702.818276       1.09%    16706   3289    117     27765     9.9s
+         0       0         0   0.00%   36313.478034    36702.818276       1.06%    18838   5970    117     36124    16.6s
+         0       0         0   0.00%   36318.644146    36702.818276       1.05%    20279   7403    117     43959    25.2s
+         0       0         0   0.00%   36321.134551    36702.818276       1.04%    21601   8798    117     49441    30.9s
+         0       0         0   0.00%   36322.645579    36702.818276       1.04%    22878   9426    117     55666    37.3s
+         0       0         0   0.00%   36324.354628    36702.818276       1.03%    24115  10598    117     62907    44.8s
+         0       0         0   0.00%   36325.102052    36702.818276       1.03%    26103  11687    117     70803    53.4s
+         0       0         0   0.00%   36327.30906     36702.818276       1.02%    25351  11304    117     79784    63.6s
+         0       0         0   0.00%   36327.455752    36702.818276       1.02%    26344  11807    117     83981    68.6s
+         0       0         0   0.00%   36327.673458    36702.818276       1.02%    26952  12276    117     88122    73.7s
+         0       0         0   0.00%   36327.830488    36702.818276       1.02%    29624  10607    117     96128    83.1s
+         0       0         0   0.00%   36327.952415    36702.818276       1.02%    27746  11471    117    102534    90.3s
+         0       0         0   0.00%   36328.170109    36702.818276       1.02%    29199  12272    117    110973   101.0s
+         0       0         0   0.00%   36328.204233    36702.818276       1.02%    29126   9657    117    115915   107.5s
+         0       0         0   0.00%   36328.563699    36702.818276       1.02%    27160  10447    180    191704   185.2s
+
+0.2% inactive integer columns, restarting
+Model after restart has 56556 rows, 37094 cols (21253 bin., 0 int., 0 impl., 15841 cont.), and 201049 nonzeros
+
+         0       0         0   0.00%   36328.563699    36702.818276       1.02%     5134      0      0    191704   185.5s
+         0       0         0   0.00%   36328.563699    36702.818276       1.02%     5134   2511      4    202053   187.9s
+         1       0         1 100.00%   36345.512337    36702.818276       0.97%    16101   3616      4    204607   190.3s
+
+Solving report
+  Status            Optimal
+  Primal bound      36702.8182763
+  Dual bound        36345.5123372
+  Gap               0.974% (tolerance: 1%)
+  P-D integral      4.49459768274
+  Solution status   feasible
+                    36702.8182763 (objective)
+                    0 (bound viol.)
+                    0 (int. viol.)
+                    0 (row viol.)
+  Timing            190.27 (total)
+                    0.00 (presolve)
+                    0.00 (solve)
+                    0.00 (postsolve)
+  Max sub-MIP depth 1
+  Nodes             1
+  Repair LPs        0 (0 feasible; 0 iterations)
+  LP iterations     204607 (total)
+                    0 (strong br.)
+                    103573 (separation)
+                    69932 (heuristics)
+{'status': 'Optimal', 'solver': 'HiGHS_physical_bound_linear_MILP', 'solver_version': '1.8.0', 'time_limit': 600, 'requested_gap': 0.01, 'solve_seconds': 190.44756908400086, 'reliable': True, 'continuous_variables': 20592, 'binary_variables': 28224, 'constraints': 72576, 'nodes': 1, 'dual_bound': 36345.512337213964, 'seed_verified': True, 'objective': 36702.81827634054, 'optimizer_objective': 36702.81827634054, 'mip_gap': 0.009830813108685617, 'mapping_error_kwh': 0.0}

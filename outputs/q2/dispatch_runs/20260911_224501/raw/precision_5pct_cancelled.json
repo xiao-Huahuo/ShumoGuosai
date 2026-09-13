@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-12T03:55:07.757104+00:00",
+  "user_request": "等等，还是用2%。",
+  "status": "5pct_transition_cancelled_before_configuration_or_process_changes",
+  "active_gap": 0.02,
+  "active_precision_sha256": "fb857ad26bffed71da5abfd9e8f963fe4c30c3680432e25719a30cc35ce72896",
+  "supervisor_pid_unchanged": 42052,
+  "running_jobs": {
+    "main": {
+      "pid": 42066,
+      "attempt": "eec1b05869ef4877a31f85d18e6f0926",
+      "completed_days": 101
+    },
+    "horizon_2": {
+      "pid": 45848,
+      "attempt": "e8b6a70e64de455481bd18b0622eacce",
+      "completed_days": 93
+    }
+  },
+  "preparation_source_edits_reverted": [
+    "final_report.py",
+    "test_execution.py"
+  ],
+  "original_78_test_source_hashes_restored": true,
+  "no_benchmark_restart": true
+}

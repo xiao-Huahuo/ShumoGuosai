@@ -1,0 +1,20 @@
+{
+  "zip": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/processed/deliverables/数学建模_全套结果_20260913_140811.zip",
+  "bytes": 91248774,
+  "files": 7297,
+  "folders": [
+    "问题1",
+    "问题2",
+    "问题3",
+    "问题4-2",
+    "问题4-3",
+    "实验"
+  ],
+  "all_zip_crc_verified": true,
+  "all_members_sha256_verified": true,
+  "source_copies_sha256_verified": true,
+  "readme_present": true,
+  "file_description_rows": 7296,
+  "q1_format": "CSV as existing verified output",
+  "sha256": "d632d542467ac23d1e25933b15c530bf52964f5a09d054d5c393737e07a024f8"
+}

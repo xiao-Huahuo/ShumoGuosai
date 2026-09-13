@@ -1,0 +1,16 @@
+{
+  "launcher_pid": 7415,
+  "command": [
+    "caffeinate",
+    "-i",
+    "uv",
+    "run",
+    "--with-requirements",
+    "src/q2/requirements.txt",
+    "python",
+    "src/q2/full_run.py",
+    "--run-dir",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501"
+  ],
+  "log": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/full_run_supervisor.log"
+}

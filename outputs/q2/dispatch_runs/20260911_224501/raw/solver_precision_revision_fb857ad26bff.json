@@ -1,0 +1,85 @@
+{
+  "version": "q2-solver-gap-2pct-20260912",
+  "created_at": "2026-09-12T02:06:43.681017+00:00",
+  "solver_gap": 0.02,
+  "previous_solver_gap": 0.01,
+  "parent_protocol_sha256": "25017183dced59d3ba948c67b11be61ee4da1d767be71b3a04b3ecc6ebd3c26c",
+  "plan_sha256": "69a31915a1fdca5b2ef74d4c4165a612d1e3ec87f2171f4c7d714a2efaa947ae",
+  "authorization": "用户明确授权：时间有限，要不你调整一下精度，你看什么精度合适；需为第三问及第四问重复计算节省时间。",
+  "selection_basis": {
+    "old_original_failed_candidates": 93,
+    "gap_within_2pct": 92,
+    "gap_within_3pct": 93,
+    "gap_within_5pct": 93,
+    "decision": "2%真实难例和正式逐日入口均在数秒至21秒通过；不再额外放宽到3%或5%。"
+  },
+  "benchmarks": {
+    "precision_2pct_benchmark.json": "f0e96e26ea3b7f99aa748c13c47b14af45305ad072ddcebcd8b436a70dfc6135",
+    "precision_2pct_production_validation.json": "b0e8321981557222aec047a20afd5bc7180f8ffe16b5900b919b57481f71bc70"
+  },
+  "previous_execution_sha256": "e4c07495921943de9e3c00be03a94f1bdbc3b9c029446fcea275225c89cc9155",
+  "transition_archive": "raw/precision_transition_20260912T020643Z",
+  "switch_checkpoints": {
+    "main": {
+      "completed_days": 85,
+      "last_date": "2025-04-26",
+      "next_date": "2025-04-27",
+      "final_soc": 1200.0,
+      "checkpoint_sha256": "694549c7ba3bd4e6e1f89c3343deffd8da2e7a235086f9ab6b1b63a87bf86921",
+      "saved_prefix_directory": "raw/precision_transition_20260912T020643Z/main"
+    },
+    "horizon_1": {
+      "completed_days": 85,
+      "last_date": "2025-04-26",
+      "next_date": "2025-04-27",
+      "final_soc": 1200.0,
+      "checkpoint_sha256": "cdcccd59fc129f7ab18a01db873f2f3997411af7958b188391eef1a743af4a5b",
+      "saved_prefix_directory": "raw/precision_transition_20260912T020643Z/horizon_1"
+    },
+    "horizon_2": {
+      "completed_days": 78,
+      "last_date": "2025-04-19",
+      "next_date": "2025-04-20",
+      "final_soc": 8572.981643763536,
+      "checkpoint_sha256": "6f76c02ab80be94a1744862d68c2856859eb4cc351e489a5706012bf7d58c027",
+      "saved_prefix_directory": "raw/precision_transition_20260912T020643Z/horizon_2"
+    },
+    "horizon_3": {
+      "completed_days": 83,
+      "last_date": "2025-04-24",
+      "next_date": "2025-04-25",
+      "final_soc": 2218.9873903064467,
+      "checkpoint_sha256": "1073809173a16b65e40c00de6be5c19f12b18fe2f448a5fa5d5fc3cd3811e820",
+      "saved_prefix_directory": "raw/precision_transition_20260912T020643Z/horizon_3"
+    },
+    "predictor_week_mean7": {
+      "completed_days": 5,
+      "last_date": "2025-02-05",
+      "next_date": "2025-02-06",
+      "final_soc": 8285.753049423445,
+      "checkpoint_sha256": "21867e84a1d0bcabc5eabbfa9c4e7af813e51d5afb6fb5e16556809c5da865fd",
+      "saved_prefix_directory": "raw/precision_transition_20260912T020643Z/predictor_week_mean7"
+    },
+    "window_56": {
+      "completed_days": 32,
+      "last_date": "2025-03-04",
+      "next_date": "2025-03-05",
+      "final_soc": 7858.341944000581,
+      "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296",
+      "saved_prefix_directory": "raw/precision_transition_20260912T020643Z/window_56"
+    }
+  },
+  "unchanged": {
+    "base_solver_seconds": 120,
+    "supplemental_solver_seconds": 900,
+    "workers": 2,
+    "physical_constraints": true,
+    "forecast_library": true,
+    "history_information_boundary": true,
+    "scenario_and_horizon_selection": true,
+    "stability_thresholds": true
+  },
+  "interpretation": "past_1pct_policy_prefix_preserved_future_2pct_stopping_rule_not_uniform_from_start_counterfactual",
+  "original_failure_records_preserved": true,
+  "future_runtime_guarantee": false
+}

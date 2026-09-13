@@ -1,0 +1,12 @@
+{
+  "validation_period": "2025-01-14..2025-01-30",
+  "available_days": 17,
+  "candidate_effective_days": {
+    "56": 17,
+    "84": 17,
+    "112": 17
+  },
+  "tie_break": "shortest window",
+  "selected_window": 56,
+  "future_test_data_used": false
+}

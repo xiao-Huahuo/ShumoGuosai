@@ -1,0 +1,8 @@
+{
+  "plan_sha256": "59cbe60167a7281a9daa089453c4ae4a629e501859ec16e05dcf12de6a580270",
+  "nonempty_source_lines": 1125,
+  "records": 1261,
+  "source_coverage": 1.0,
+  "unaccepted_records": 0,
+  "scope": "code_links_and_evidence_status_do_not_imply_unrun_experiments_passed"
+}

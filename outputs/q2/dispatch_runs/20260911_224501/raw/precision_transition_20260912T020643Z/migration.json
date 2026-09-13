@@ -1,0 +1,22 @@
+{
+  "stopped_supervisor": 35653,
+  "stopped_workers": [
+    {
+      "pid": 37204,
+      "attempt": "58660fbdea224592bcfee5f769c41f8b"
+    },
+    {
+      "pid": 39588,
+      "attempt": "6435de6c2f60465589be4fd40fec039f"
+    }
+  ],
+  "requeued": [
+    "main",
+    "horizon_1",
+    "horizon_2",
+    "horizon_3",
+    "predictor_week_mean7"
+  ],
+  "gap": 0.02,
+  "old_execution_unchanged": true
+}

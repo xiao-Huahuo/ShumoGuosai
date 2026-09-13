@@ -1,0 +1,116 @@
+{
+  "price": {
+    "minimum": 0.0076,
+    "maximum": 1.7936,
+    "mean": 0.7661976046423136,
+    "daily_mean_trend_r2": 0.001902126351844169,
+    "lag1_same_slot_correlation": 0.9335388576734369,
+    "lag7_same_slot_correlation": 0.98203695552026,
+    "lag14_same_slot_correlation": 0.9744728461864318,
+    "profile_min_slot": 33,
+    "profile_min_price": 0.3712602739726028,
+    "profile_max_slot": 123,
+    "profile_max_price": 1.3952457534246572,
+    "forecast": {
+      "information_boundary": "daily origin uses only days strictly before origin; day+1 is recursive",
+      "feature_count": 17,
+      "selected_alpha": 0.0001,
+      "selected_l1_ratio": 0.9,
+      "tuning": [
+        {
+          "alpha": 0.0001,
+          "l1_ratio": 0.1,
+          "mae": 0.03963432525852005,
+          "rmse": 0.04945360244507224
+        },
+        {
+          "alpha": 0.0001,
+          "l1_ratio": 0.5,
+          "mae": 0.03484461186566465,
+          "rmse": 0.04352355042829101
+        },
+        {
+          "alpha": 0.0001,
+          "l1_ratio": 0.9,
+          "mae": 0.034540297082727295,
+          "rmse": 0.04340977506817668
+        },
+        {
+          "alpha": 0.001,
+          "l1_ratio": 0.1,
+          "mae": 0.03454743983628537,
+          "rmse": 0.043495244905446366
+        },
+        {
+          "alpha": 0.001,
+          "l1_ratio": 0.5,
+          "mae": 0.03487307626365242,
+          "rmse": 0.04395497507858702
+        },
+        {
+          "alpha": 0.001,
+          "l1_ratio": 0.9,
+          "mae": 0.03486319426455709,
+          "rmse": 0.04397425558533579
+        },
+        {
+          "alpha": 0.01,
+          "l1_ratio": 0.1,
+          "mae": 0.03488764014728108,
+          "rmse": 0.04401926720881087
+        },
+        {
+          "alpha": 0.01,
+          "l1_ratio": 0.5,
+          "mae": 0.03571451913960436,
+          "rmse": 0.04534926672566235
+        },
+        {
+          "alpha": 0.01,
+          "l1_ratio": 0.9,
+          "mae": 0.036828776474593115,
+          "rmse": 0.04700310950877739
+        }
+      ],
+      "elastic_net_mae": 0.041927783193341644,
+      "elastic_net_rmse": 0.056230006711715644,
+      "seasonal_mae": 0.04715118305056554,
+      "seasonal_rmse": 0.06534801504178886
+    },
+    "lightgbm_comparison": {
+      "mae": 0.04028026250564616,
+      "rmse": 0.05422795808888974,
+      "information_boundary": "same features; train target days strictly before each origin",
+      "used_for_dispatch": false
+    }
+  },
+  "seven_day_anomaly_dependence": {
+    "correlation": 0.6725660869227478,
+    "net_q90": 89.40959166666659,
+    "price_q90": 0.07230000000000003,
+    "price_upper_tail_given_net_upper_tail": 0.5419958419958419
+  },
+  "block_bootstrap_95": {
+    "correlation": [
+      0.653925239455564,
+      0.6921394699992583
+    ],
+    "upper_tail_conditional_probability": [
+      0.5184451850718226,
+      0.5711226611226611
+    ],
+    "repetitions": 500
+  },
+  "pv_committed_6h_mae_kw": {
+    "0": 2.7769023744292234,
+    "6": 153.47299155251142,
+    "12": 68.35287292237443,
+    "18": 0.00032789954337899554
+  },
+  "oos_residual_dependence": {
+    "correlation": 0.2396682585901559,
+    "net_q90": 68.25425554715088,
+    "price_q90": 0.07214556310949705,
+    "price_upper_tail_given_net_upper_tail": 0.2677754677754678
+  }
+}

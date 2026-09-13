@@ -1,0 +1,14 @@
+{
+  "execution": {
+    "workers": 2,
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "gap": 0.03,
+    "trigger": "all_day_candidates_failed",
+    "model_changed": false,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+    "precision_revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec"
+  },
+  "frozen_at": "2026-09-12T04:22:45.297975+00:00",
+  "authorization": "用户明确授权Mac自主全量计算与验收"
+}

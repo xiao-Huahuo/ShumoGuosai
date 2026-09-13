@@ -1,0 +1,14 @@
+{
+  "method": "cut1",
+  "seconds": 60.102598332989146,
+  "status": "Time limit reached",
+  "objective": 2523.8190560910753,
+  "lower_bound": 2346.836369398262,
+  "gap": 0.07012495062420461,
+  "reliable": false,
+  "feasibility": 1.8189894035458565e-12,
+  "integrality": 0.0,
+  "projection": 0.0,
+  "binaries": 6048,
+  "threads": 1
+}

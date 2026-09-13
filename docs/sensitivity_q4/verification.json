@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "new_day_cases": 20,
+  "new_optimal_nodes": 32,
+  "baseline_days_reused": 6,
+  "baseline_nodes_matrix_verified": 12,
+  "baseline_resolved": 0,
+  "baseline_source_files_unchanged": true,
+  "physical_and_settlement_checks": true,
+  "strict_history_boundaries": true,
+  "rho_scenario_probability_frozen": true,
+  "weights_full_pipeline_rebuilt": true,
+  "rolling_node_soc_chain": true,
+  "optional_window_scenarios": "not run under requested stopping rule",
+  "max_primal_error": 6.901217375343549e-10,
+  "max_certificate_error": 4.3655745685100555e-11
+}

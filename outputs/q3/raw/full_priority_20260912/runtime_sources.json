@@ -1,0 +1,26 @@
+{
+  "files": {
+    "incumbent.py": "e88488a72281b00c017dc431d0fb656fbaa4e9b84fd10a9385ecbab190755827",
+    "scenarios.py": "756a4a306ee9f6f3adbbf7ed56efd48c4741cbc529e2c810ae3055c86e19768f",
+    "run.py": "d51af5f4dcfd0b73bb9623cc8c9588a453db46e33284e48f4b8e18b84e417ce1",
+    "config.py": "1a0cf0a08620aa90d75a38dba2b14b13294e43a85df6642c598ca109650c16e5",
+    "analysis.py": "8bf2d047e4772ee1807c971e9c6be46cc1d6a1c393278e118c3745bc2ce3e53d",
+    "checkpoint.py": "07f5106ef6c0175c13106a13ea90363bb5ac6d54728688b2b4a983d7d91d58cc",
+    "multistage.py": "66897ab5c58168cd4e90665637da1dc26228c85b29aa6d37a9648c3d0c6f6e52",
+    "terminal.py": "5b19f20b1a3e7ef1c554be26057972fb7882282d9972c5f89b1a550bb35c454d",
+    "parallel_benchmark.py": "f7594e6e0151cfd757a4171a6b9f8e5b2175e57ded953aafc817f6ac467ba66c",
+    "optimization.py": "a3318d8e3e1a1d9de4852393c6ad7001efa6a1f774bdcb288695bd2248c91adf",
+    "__init__.py": "594d329031b4cd6a7bb700aac918693bb2b15d82d1454ca209ca3e109d172226",
+    "export.py": "afd01d344bc112580b4dee5b5bd1cc869ff081de25a37ebbbedab8002cbcf02f",
+    "rolling.py": "7d6cabe26a725cca10dd3eb8ee0780fbc08e4b8ea365e7c3d6c6756b172c0c37",
+    "full_run.py": "64e1f00ba47ea7323c64f2d1fef994bd102ee0d073abdfdc0a682d9380bfbec6",
+    "sampled.py": "e683803e890a792871cb2c9a6de740b56f57b4274bc0879a9e41b906af9d1ec9",
+    "physics.py": "c4564eceed4c12b03737c6b9e1610eef813394df0ecec6190954441cbcaa7591",
+    "traceability.py": "3d353e9ba324cfd4db5ee9fd07f37eea158b185a05a32f28d85fbe0067aacb7f",
+    "parallel.py": "dba8464e61872c099c2ac62a8d7621a421834818220cbddf90dbbbbf920ac465",
+    "data.py": "660145dc0641aa7bfef48042850666d4ba5c101173da661367d1bdc5ca3ffa42"
+  },
+  "workspace": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai",
+  "purpose": "freeze main solver while validation code evolves",
+  "main_only": true
+}

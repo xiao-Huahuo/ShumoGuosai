@@ -1,0 +1,16 @@
+{
+  "pid": 30612,
+  "command": [
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/.venv/bin/python",
+    "-u",
+    "-m",
+    "src.q4.run",
+    "q43",
+    "--output",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q4/raw/rescue_lp_q43_20260913_v3"
+  ],
+  "signature": "641021277680f555b1f5c98c981d24763afad11f0cf94889880e6d02a9e6ecd6",
+  "model_version": "q4_rescue_lp_v3",
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "frozen_sources": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/4/rescue_lp/frozen_source_v3"
+}

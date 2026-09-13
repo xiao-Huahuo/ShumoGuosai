@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Projects\Python\ShumoGuosai\src\q4\run.py", line 69, in <module>
+    main()
+  File "D:\Projects\Python\ShumoGuosai\src\q4\run.py", line 63, in main
+    frame = run_period(data, mode, config, arguments.output, end=arguments.end)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\Python\ShumoGuosai\src\q4\rolling.py", line 236, in run_period
+    write_json(audit_path, audit)
+  File "D:\Projects\Python\ShumoGuosai\src\q4\config.py", line 70, in write_json
+    json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
+  File "D:\Softwares\Python\Python312\Lib\json\__init__.py", line 179, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 398, in _iterencode_dict
+    yield _floatstr(value)
+          ^^^^^^^^^^^^^^^^
+  File "D:\Softwares\Python\Python312\Lib\json\encoder.py", line 240, in floatstr
+    raise ValueError(
+ValueError: Out of range float values are not JSON compliant: -inf

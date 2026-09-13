@@ -1,0 +1,30 @@
+4-2 2025-02-01 SOC=10200.000 committed
+4-2 2025-02-02 SOC=7950.000 committed
+4-2 2025-02-03 SOC=10800.000 committed
+4-2 2025-02-04 SOC=10050.000 committed
+4-2 2025-02-05 SOC=7950.000 committed
+4-2 2025-02-06 SOC=1200.000 committed
+4-2 2025-02-07 SOC=8700.000 committed
+4-2 2025-02-08 SOC=10710.415 committed
+4-2 2025-02-09 SOC=5700.000 committed
+4-2 2025-02-10 SOC=7800.000 committed
+4-2 2025-02-11 SOC=5700.000 committed
+4-2 2025-02-12 SOC=6450.000 committed
+4-2 2025-02-13 SOC=1200.000 committed
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/run.py", line 74, in <module>
+    main()
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/run.py", line 66, in main
+    frame = run_period(data, mode, config, arguments.output, end=arguments.end)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/rolling.py", line 253, in run_period
+    frame, audit = runner(data, day, state["soc"], config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/rolling.py", line 95, in run_day_q42
+    solution = solve(scenarios, initial, config)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/optimization.py", line 224, in solve
+    raise LimitedSolve(result)
+src.q4.optimization.LimitedSolve: 节点未取得可信LP最优解：worker_exception

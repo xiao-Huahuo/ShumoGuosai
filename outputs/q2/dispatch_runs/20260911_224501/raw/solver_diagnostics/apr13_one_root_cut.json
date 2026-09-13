@@ -1,0 +1,10 @@
+{
+  "status": "timelimit",
+  "seconds": 151.844032,
+  "nodes": 1,
+  "dual_bound": 36293.8438138302,
+  "solutions": 2,
+  "role": "diagnostic_not_executed",
+  "objective": 36694.62722296149,
+  "gap": 0.011042738024308336
+}

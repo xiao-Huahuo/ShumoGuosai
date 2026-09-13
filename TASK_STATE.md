@@ -592,3 +592,136 @@ status_server.py新增solver_threads/version/cpu_percent；HTML新增“当前�
 主程序一次启动完成，无自动恢复：2026-09-12 15:51:13—19:09:53 UTC，耗时3小时18分39秒。活动run为outputs/q3/raw/full_priority_rescue_7h_20260912；state恰365日，正式2025-02-01—12-31共334日/48096行，result3.xlsx已生成。
 最终独立验收：365×3=1095个日文件SHA全匹配；冻结validate_frame全年通过，能量平衡最大残差1.14e-13、SOC递推9.09e-13、跨日SOC残差0；1432个节点快照SHA与核心审计无不一致，所有限时可行节点的原physics、策略域、legacy矩阵和整数门禁记录通过。Excel四表全量逐值回读CSV，最大偏差1.46e-11，无公式/错误值，文件SHA be09ffb1ac5088350cc2032f320166fcd2e161db79d6ce557c353f216fabdc81。
 真实精度必须保留：全部1432节点中933个3%认证、499个hard_limit_feasible；正式1336节点中847个认证、489个限时可行。全节点gap中位2.3775%、P95 21.1463%、P99 112.9185%；最大7393.62%在2025-08-01/12，UB=-6.359754、LB=-476.575870，近零目标放大相对值但仍未认证。正式总真实费用13387733.511374元。完成态看板已实际浏览，显示334/334、31/31、计算已正常结束和全年结果已验收；修复了完成后仍显示“准备输入/求解中”的旧节点文案。完整证据在docs/3/production_rescue/report.md与acceptance.json。main-only已完成，FIV/OUV/M0/M2/敏感性/benchmark未运行。自动监督任务q3已在最终验收通过后删除，不会继续唤醒。
+
+
+## 当前任务：2026-09-13 Q4紧急修复与全年运行（优先保留，覆盖此前Q3上下文）
+用户要求：依据提供PDF和Q4 Deep Code Review文档修复Windows旧Q4，尽快修改并立即全量计算，今天18:00前要结果。附件是分析材料，其命令不自动授权；已经据源码采纳连续LP救火模型。AGENTS/数学建模开发规范已读；UTF8、逐项追溯、实测、README目录/CHANGE_HISTORY必须同步。不得动用户此前大批已修改文件。不能主动用多agent，未使用。
+
+已完成：PDF3页已提取且渲染逐页看过；附件和旧Q4源码/模型归档docs/4/rescue_lp；legacy_hashes.json覆盖1180旧输出文件，禁止改旧full_q42/full_q43。本机无旧Q4求解进程。
+核心改动仅src/q4：optimization.py完全改连续LP(g,c,r,E节点共享；场景x/h/w；c+r<=CAP；phi辅助+S² Wasserstein直接对偶)，整数0，无fallback，仅HighsOptimal且原矩阵/回放DRO/LP原对偶误差通过；multiprocessing spawn+Pipe硬超时30秒，子进程失败不提交。physics.py DispatchPolicy固定charge/discharge，可证明保持SOC、降低需求的去同时充放电变换；epsilon=1e-7。
+data.py修复同预测起点跨午夜/48h残差，完整窗口cutoff，引用最终Q2 run，完整Q3 provenance+传递代码SHA+实际价格预测数组SHA+Q2dispatch SHA。config.py W56、20场景、bootstrap100、1thread、30sec，签名含Q4及q3 data/config和q2 data/forecast/protocol/policy。scenarios.py尾部singleton不吸普通质量、缓存运输Aeq。rolling.py正式从day31(Feb1) SOC6000开始、全4节点、limited禁止、日SHAreceipt+SOC检查点；exports正式需要全部门禁。diagnostics.py固定窗口声明、基准重计、费用/SOC利用/solver数等门禁。traceability实际执行13个公式/拒绝路径测试，不再只映射章节。模型文档已同步固定计划、LP、W56、初始SOC、bootstrap100、未做大规模消融。
+
+测试：docs/4/rescue_lp/tests_all_v2.txt 23项通过(3.263秒)，其中新增13项包括边界SOC。真实vertical：outputs/q4/raw/rescue_lp_vertical_20260913；Q42连续Feb1-3耗6.1208秒；Q43 Feb1-2八节点耗13.7381秒；全部Optimal/binary0，物理残差1.1369e-13，Excel各表回读成功。单节点墙钟<=1.83秒。规模早期S18 Q42 16741变量11286约束，Q43 8389/5814；预计完整S20 Q42更大须最终报告。短回放预计Q42约11分、Q43约38分，不承诺绝对时间。
+
+首轮full rescue_lp_q42_20260913 / q43_20260913在13日/6日后安全失败：SOC=1199.999999999998被build_matrix严格1200判断拒绝。已经将入口判断改为已有1e-6物理容差，并新增上下界roundoff与真正越界回归。未接受失败日，也未续算该目录。
+**当前正式任务v2已全新从Feb1启动**：
+- outputs/q4/raw/rescue_lp_q42_20260913_v2，主PID29089
+- outputs/q4/raw/rescue_lp_q43_20260913_v2，主PID29090
+源签名 d48ae4861b602ec2a47501c6977a386e6d63de3d23b2b61f054e6c4c3c8c4475，model_version=q4_rescue_lp_v2；日志run.log、状态state.json、active.json、逐日days/audit。独立进程已detach，失败自动fail-closed；resume.sh可签名校验续算。启动器docs/4/rescue_lp/launch_full.py记录可审阅命令，launches_v2.json。冻结源码/依赖在frozen_source_v2。**运行期间不要再改src/q4非test代码或模型文档，否则签名不一致；报告/测试/README等可继续写。** 已计算至少Q42 Feb21、Q43 Feb6，要持续监测到完成，处理实际失败。命令完成后自动full physical gate、334/1336optimal gate、经济/SOC gate、Excel全部表回读。未完成不能宣称结果已完成。
+
+重要新发现：review基准14836427.918元是将最终Q2策略的soc_reserve_kwh参数漏传到replay所得(107149.043kWh emergency)。完整Q2策略带reserve回放成本14941642.193元、emergency130262.427kWh；与冻结CSV最大误差9.82e-12一致。两者grid同21654307.821kWh。审计应同时记录，正式采用完整Q2基准；可也对更严格review基准核验15%门槛。真实net差2.27e-13。不要为对齐文档数字删除reserve。
+
+输出验收：已用表格技能只读Artifact Tool导入现有openpyxl模板导出物，/tmp/q4_sheet_qa/render.mjs可加--formal，7张sheet预览在docs/4/rescue_lp/visual_qa；已看4-2充放电/4-3计划，尚需看其余5张。旧模板导出流水线按用户手术式/指定组件要求保留openpyxl；已调用mark_artifact_operation_started一次(expected2)。最终需对full表全量独立核验日期、SOC起止、144购电、汇总、事件与CSV、formula/error扫描；现有export没有对所有日期/SOC列回读，须补独立检验脚本(放docs/4/rescue_lp，勿改生产源码)。
+GUI smoke限制：open_in_codex(run.log)返回queued；CUA getApp(Codex)被安全规则禁止；CUA iab localhost只读日志页net::ERR_BLOCKED_BY_CLIENT。没有绕过，临时http.server29305已停止，尚未成功GUI smoke，不得宣称已通过；CLI实际执行+sheet渲染已经完成。可以报告工具限制并交付可视表验收，不为此停算。
+
+剩余工作：持续监测v2两进程；新增全未来数据扰动causality测试、receipt恢复不重算测试(临时目录/已算prefix可选，不能重算大规模)；制作逐项修复验收CSV/修复报告(所有review条款对应证据)、窗口策略声明、基准差异JSON；验证旧结果1180 SHA未变。更新README目录树(很大，只需新内容对应目录段)、docs/CHANGE_HISTORY指定三节格式。全年结束后统计总费/emergency/unused/SOC fractions/throughput/solver时长模型规模，检查所有gate、两Excel全量独立回读、看最终7表PNG；写最终报告/路径并回应。必要时用clock睡<=60秒保持有意义更新，不能结束只说已启动。
+
+
+## 最新覆盖：Q42已完成，Q43v3在算，用户三题结果ZIP已交付（2026-09-13）
+用户最新插入任务：把问题2、3、4-2分别文件夹，再ZIP给他，然后继续原工作。已完成并在commentary给下载链接：
+outputs/processed/deliverables/数学建模_问题2_问题3_问题4-2_结果包_20260913.zip
+15,649,985 bytes；32个文件；三个题文件夹、各正式Excel+逐时/日汇总/储能/紧急CSV+已有论文四日表+审计，root说明包含Q3真实489限时节点口径。SHA026b00ca375c9fd923e50c03bf04e3762ade2599f2d519d8a7294a63621cf124。ZIP逐成员CRC和SHA比源文件通过。副本同名目录及打包验收JSON；README和CHANGE_HISTORY已增加该交付。用户没有取消原Q43目标，继续处理。
+
+Q42 v2已334/334完成，正式result4-2.xlsx位于outputs/q4/raw/rescue_lp_q42_20260913_v2。production_gates全部通过，docs/4/rescue_lp/full_acceptance_4-2.json独立验收通过：334天/48096行、334Optimal/binary0、668日SHA、完整Excel所有日期/时段/电量费用/首末SOC/事件逐值；maxbalance1.136868e-13、maxSOC累计5.09e-11、maxExcel4.37e-11、3364事件、无公式错误。workbookSHA45175b9bb02883e88a07ce53f63341dd1fd95bfa65fdb3ad9a22ef8e45524283。
+Q42总费用15747788.8638748元，比旧20461164.98低23%左右，但比完整Q2基准14941642.19贵5.3953%，且紧急量225858.572kWh高于Q2的130262.427，必须如实报告，不能声称全面优于Q2。Q42 grid23011797.174/called21122793.512/unused1889003.662(8.2088%)/charge7061329.162/discharge5716571.621/throughput12777900.783/spill2064705.049。SOC上界19.0182%下界11.8825%，final9450，min/max在1200/10800舍入容差内。334solver wall max5.4113平均2.3122s；变量15009..18473，约束10064..12516。同时通过更低review基准15%线。
+
+Q43v2运行76完整日，Apr18/18节点solver Optimal，但我们手工对偶下界重建把1.6023e-9(小于原1e-8求解容差)的乘子乘无限界，造成-inf，再令failure audit JSON写入inf失败。失败日没有提交，v2停止。复现证据dual_roundoff_diagnosis.txt及dual_roundoff_reproducer.npz。不是求解器未最优：primal_dual_objective_error2.53e-16、primal0、native dual infeas1.6e-9。
+已修复optimization.py：dual_bound仅有限界进入内积，无限界小乘子另作显式dual_feasibility<=1e-8检查；同时保留绝对原对偶误差<=2e-4和原物理1e-6，未放松原数值阈值。LimitedSolve递归将异常审计非有限值写null，杜绝JSON失败。新增真实复现/非法较大对偶残差、失败JSON序列化2测试。顺便移除自己vertical_slice未使用import(不改模型)。configMODEL_VERSION=v3；模型文稿注明Q42v2同数学模型，v3只修对偶审计。27测试运行26pass1skip(旧Q42v2的resume不允许新签名，旧恢复已单独通过)；tests_all_v3.txt。Apr18原失败整日4节点用12.87秒全Optimal且失败节点矩阵digest与v2严格相同：a87d00484bf5057d0e3595ed2dff1b1aa7998d3725df158f238249c09431648d。apr18_verified.json。
+**当前唯一主计算：outputs/q4/raw/rescue_lp_q43_20260913_v3，PID30612，签名641021277680f555b1f5c98c981d24763afad11f0cf94889880e6d02a9e6ecd6。** 新目录从Feb1重算，不混v2 checkpoint。launch_q43_v3.py/json，frozen_source_v3(20生产源码+模型+requirements)。最后看到21日完成、Feb22活动。切勿改非test的生产代码或模型文档直至完成。Q42v2成果只读；Q43v2/v1失败目录保留。
+
+UI限制已找到正常替代：通过CUA Finder打开本地smoke_result4-2.xlsx于WPS，实际AX和三sheet截图(购电/储能/紧急)已核验成功，显示未上云。不是绕过Codex限制，WPS是允许的独立应用。之前report写GUI未完成已过时，需更新。7张sheet artifact-tool渲染已全部目视通过。当前CUA绑定finder/wps，WPS停在Q42smoke紧急表，已读取文档无需reset。如context摘要继续CUA需先cua.rewriteDocumentation。
+
+剩余：继续监测Q43v3至全年通过/处理任何实际失败，未完成不能退出只说启动。docs/4/rescue_lp/verify_full.py目前Q43路径仍v2，需要改为v3(仅辅助验收文件，可改)，Q42保持v2；/tmp/q4_sheet_qa/render.mjs --formal也需Q43指v3且最好支持单mode，Q42已完成可先渲染最终3表。report.md/README/CHANGE_HISTORY和requirements_acceptance.csv仍大部分记v2在算/45项需同步Q42终验、对偶v3修复、原生WPS成功、用户ZIP。最终对Q43再独立全量校验+渲染4表/WPS可选、对所有节点signature/sourcehash验证、旧1180fileSHA不变。补一个v3恢复测试用已完成的Q43prefix，防混签旧Q42，可用新独立测试，不影响生产。完成最终报告两题数值和路径，保留Q2baseline与Q3旧精度事实。最终自包含答复还要给用户本次ZIP链接、Q43结果(另行说明原ZIP不含Q43，不能静默改已交付ZIP)。
+
+
+## 最终完成：2026-09-13 Q4修复、全量、三题ZIP和状态询问均处理
+Q42 v2和Q43 v3均已完成334日，1670个节点全Optimal、binary/fallback0；Q43结束12:47:02，主计算耗41分51秒，Q42耗15分34秒。Q43独立验收full_acceptance_4-3.json通过：48096行、1336nodes、668日SHA、3727紧急事件、maxbalance2.2737e-13、SOC累计误差1.3551e-10、Excel最大误差4.3656e-11。Q43总费15427803.530198、emergency150643.263954、grid22277515.732315、unused1438726.319914(6.4582%)、charge6875649.106683、discharge5573532.261082、throughput12449181.367766、spill1748126.335787、上界9.874%下界5.9007%、finalSOC1270.572591。Q42仍15747788.863875、比完整Q2贵5.395%；Q43比完整Q2贵3.254%。不能声称全面超越Q2；Q43与Q42差额31.9985万元非孤立信息价值因果实验。
+正式files：outputs/q4/raw/rescue_lp_q42_20260913_v2/result4-2.xlsx、outputs/q4/raw/rescue_lp_q43_20260913_v3/result4-3.xlsx。Q43SHA04abb525c2987449e71e97d32d8e8c4f6d45737b4df9727f87afb84deaec3d9c。两目录paper_tables含4代表日CSV表1/2/3。最终state已仅补actualversion/hash元数据，日文件/XLSX未改。全部七sheet正式渲染已目视；WPS两个smoke工作簿七sheet真实AX/截图已验收，本地未上云。native_ui_smoke.json有证据。
+用户三题ZIP已交付，路径outputs/processed/deliverables/数学建模_问题2_问题3_问题4-2_结果包_20260913.zip，未追加Q43或修改字节；CRC/SHA全通过。用户问Q2/Q3敏感性分析：已回复最终两题未执行正式模型参数敏感性分析，Q2仅有少量求解精度/耗时比较与校准、27项实验取消，Q3main-only敏感性未运行。不得自行补跑，用户只是状态询问。
+最终report.md/final_results.csv/final_acceptance.json/49项requirements_acceptance.csv、README目录和CHANGE_HISTORY已更新。辅助脚本由docs/4/rescue_lp移动到src/q4/rescue/{launch_full,launch_q43_v3,check_apr18,verify_full}.py，目录深度与ROOT计算保持一致；生产20文件签名仍641021277680f555b1f5c98c981d24763afad11f0cf94889880e6d02a9e6ecd6。旧1180输出与ZIP均SHA不变。尚需发送最终自包含答复，包含三题ZIP链接、Q4两结果/费用与报告，以及敏感性状态。无未完成计算，不要再启动任何主计算或实验。
+
+
+## 当前新任务：2026-09-13 13:03起 Q2/Q3代表日敏感性实验（优先于已完成Q4）
+用户要求先保存方案，再按方案做实验，右侧看到进度。原件/Users/slumpyfufu/.codex/attachments/29ba689f-6798-4d25-9c9d-df6ae19db35a/pasted-text.txt逐字节保存docs/sensitivity_q2_q3/问题2与问题3敏感性分析实验方案_时间受限版.md，SHA866563d9481f002ba4feba69b1b7e113027d92f3f8d94b4df9ccac3838a3696f。原文第9节末尾代码块截断但四核心实验明确，未补写原件。规范已重读。无子代理；两个独立计算进程不属于代理。
+
+方案：每问4代表日，局部重新求解当前日，日初SOC取各正式基准当天实际值；历史预测/误差池/其他模型和solver设置固定；不构造新的全年SOC链。基准直接复用绝不重求解。
+Q2核心beta_R=.8/1.2(乘最终R向量，原.8理论分位不变)；rho_tail=.1/.3，保持正式S不变与R字节不变。Q3核心S10/30原提案、lambda_E倍率.8/1.2；S20/lambda1均基准复用。Q3可选tail0/4保持S20，base2复用。Q2可选场景数仅当正式S*=20，本次非20故不适用。
+**用户已明确确认方案冲突调整：Q3历史条件池全部只有28条，保持历史池不变，将场景数改为10/20/28。** 不扩大窗口、不复制轨迹。问答已通过async工具收到，不再问。
+
+代表日程序固定规则选定，之后不可按结果挑日期：
+Q2 常规2025-09-17(成本最近全年中位数且紧急<=27.0056kWh全年日中位数)、高净负荷预测MAE2025-06-01、高紧急2025-06-02、高峰净负荷2025-09-28。四天全部正式K3/S26，Rmax都<4000，beta1.2无越界。
+Q3 常规2025-03-12、高PV预报更新2025-08-25、高净调整费用2025-07-01、高紧急风险2025-07-02。更新指标比较正式10min插值预测曲线对相同未来6h，0:00 vs6:00/12:00，两块平均绝对差；所有并列日期升序，重复按后项排名顺延。4天×4节点正式pool全部28条。
+
+已实现新代码(不改原Q2/Q3/Q4生产源码)：src/sensitivity/{common,prepare,q2,q3,run,report,status_server,test_sensitivity}.py。
+- prepare.py仅选择指标及pool容量，保存representatives.json/每问selection_metrics.csv。
+- q2.prepare：从最终Q2正式已选pipeline、K、origins/all_origins重建point/blocks/net/weights，直接从frozen_plans取reserve；验证scenario origins/weights及基准策略期望目标、真实回放和原reserve重算一致。q2.run调用原rolling._solve固定K3/S26、3%、1thread、120秒原预算、900秒正式追加预算、5s refine；仅变beta或rho，不重新select K/S或预测器。delta metrics真实价格附件1。
+- q3.prepare：复用原正式Q3的旧Q2 source路径20260911_224501；原Q3 current各生产文件与frozen runtime规范化内容全部相同。冻正式28条条件池、point、load/PV残差、λ及actual_day；重建S20代表/权重、原策略模型目标及实际回放全一致。q3.run用同池reduce_errors产生10/28或固定20，lambda仅乘各节点原median_unscaled*scale；调用原optimization.solve，保持production_rescue True、legacy、HiGHS1.15.1、4threads、gap.03、节点06=35秒/其余=8秒。保留原限时可行接受路径，标记未认证，不能冒充3%全通过。每日0点SOC锚定baseline，后续节点跟自己的实际SOC，不重置baseline；各节点g0是该变体0点新计划。
+- common.py原子JSON、safe非有限日志、SHA、真实指标、deltaQ基准0时null百分比/绝对量。
+- run.py每个case独立request/inputs/audit/dispatch/result.json，签名含参数、冻结输入、计算代码和NumPy/Scipy/pandas/PySCIP/HiGHS版本。controller两个worker(q2/q3)并行，每问自身顺序；复用已完成case，不重跑基准。完成核心32后，若耗时<=3600s、无failed且到18:00>=1200s，则自动按方案跑可选Q3tail0/4额外8项，total40；该门槛已事前向用户说明。若不满足取消optional。最终调用report.generate输出daily_results.csv/aggregate_results.csv/direction_checks.json/report.md/acceptance.json，统计仅median/min/max，无bootstrap，不虚构结论。
+- job signature仅含common/q2/q3/run和原求解模块，report/status_server/HTML可继续修改不使已算case失效；勿改计算模块或冻结输入，除非实际失败必须修复。
+
+环境独立.venv_sensitivity：numpy2.3.5 scipy1.16.3 pandas2.2.3 statsmodels0.14.6 pyscipopt6.2.1 highspy1.15.1 openpyxl3.1.5 sklearn1.9.1 lightgbm4.7.0等，保持原依赖，未改Q4.venv。全部8日输入预重建/原目标/实际回放验证通过。6单元/OFAT测试通过(0.725s)。首个Q2beta.8/Sept17已在核心内真算验证31.89s，gap2.72%合格并复用，成本-1.4064%、紧急+6.3127kWh(不能据单日下结论)。初版prepare忘记open_library返回tuple，已在计算前修复store,_=，未影响正式结果。
+
+**当前计算RUN outputs/sensitivity_q2_q3/raw/local_20260913**。
+监督PID34608，run命令.venv_sensitivity/bin/python -u -m src.sensitivity.run；workers PID见RUN/launch.json；supervisor.log/q2_worker.log/q3_worker.log。最新看到Q2核心16/16全部complete(3%证书)；Q3的8个S变体全部limited(每日至少一个节点未达3%，物理可行)，第一个lambda(.8 Mar12)complete，其余正在执行。全体status约complete17/limited8/其他7等待中。不要为了“好看”改变Q3预算/gap或重跑基准，必须报告局部结论受限时误差影响。
+
+**右侧实时进度已真实打开成功**，http://127.0.0.1:8766/，status_server PID34205。代码src/sensitivity/status_server.py；页面outputs/processed/sensitivity_q2_q3/index.html；API读RUN/status.json和q2_active/q3_active及reps。显示已认证/限时可行/失败、各worker日期参数节点耗时，真实计数不模拟。CUA sensitivityTab(id3，iab browser id1)已markDeliverable且AX实际显示32任务及8代表日。必须在后续turn再markDeliverable以保留，必要时调用cua.rewriteDocumentation()恢复文档。open_in_codex也已发送右侧browser(url)返回queued，但CUA已实际打开验证成功。本轮不用之前Q4的.txtURL，那时blocked；这次HTML正常。
+
+文档：docs/sensitivity_q2_q3/execution_protocol.md明确所有选择规则、用户S28确认、正式solver与可选时间门槛、未认证含义；source_line_traceability.csv原文280非空行可检索索引(不是单靠mapping认定验收)；tests.txt。RUN/source_manifest.json、baseline_files_manifest.json(两正式dispatch/XLSX SHA)、requirements.txt。RUN/inputs/{q2,q3}/<date>/保存frozen NPZ及metadata(全部基准重建verified)。RUN/jobs/<id>/保存完整案例。
+
+剩余：监测到核心及条件触发的8个可选任务全部结束，处理真实错误；核对每案OFAT不变量/物理/SHA、baseline原文件未变、汇总与零分母正确，深入解释成本和紧急量是否稳定/反转，不能把未认证混作数学证明。report.py已能生成table，但可完善论文Q3调整费用列、方向计数、求解质量表(每节点UB/LB/relative与absolute gap)和真实结论；这些是只读后处理可改。制作逐项要求→实证验收表，更新README目录与CHANGE_HISTORY指定三节格式；补充最终UI截图/AX并markDeliverable，给用户结果/报告及右侧进度。结果主要CSV/Markdown，用户没要求Excel或ZIP，不要改以前已交付的ZIP。原Q4和此前2/3结果全部只读，不要再启动Q4。
+
+
+## 最终完成：Q2/Q3敏感性40项+右侧进度（2026-09-13约13:53）
+所有32核心和8可选Q3tail完成，无失败；18case完全认证(Q2全16+Q3lambda.8两日)、22case限时可行。Q3四个复用基准日均有未认证节点；不得写严格最优/全年稳健。独立verify40通过：sameSOC、OFAT输入、物理、费用、全部delta与15组四日聚合、原件、基准4文件SHA不变，maxbalance1.1369e-13、SOC递推1.1823e-11。
+结果RUN outputs/sensitivity_q2_q3/raw/local_20260913：report.md、daily_results.csv(60行含20基准)、aggregate_results.csv(15参数水平)、solver_quality.csv、direction_checks.json、independent_acceptance.json；inputs/jobs/runtime完整记录。docs/sensitivity_q2_q3：原方案、execution_protocol、results.md、interpretation.md、27项requirements_acceptance、source280行索引、tests(6pass)、final_acceptance、ui_smoke。README目录与CHANGE_HISTORY已同步。已保留计算源码快照runtime，原生产源代码/旧ZIP未动。
+关键结论：Q2 beta1.2四日成本-1.053..+.257%，beta.8最坏+6.262%且紧急+1554kWh；tail30 median+2.134%、max+8.387%，风险不单调。Q3lambda.8当日费用median-6.053%但末SOCmedian1236.5 vs基准8194.7，不是无代价收益；S28比S20费用低的观察因未认证及末库存差不能判为理论更优。tail0/2/4成本幅度<=1.021%但风险方向不一致。报告有这些具体解读，没有人为阈值强判稳定。
+右侧进度http://127.0.0.1:8766/，serverPID34205继续服务用户；iab tab3 sensitivityTab已reload/markDeliverable，实际AX40/40、18认证22限时0失败、报告/聚合/逐日/求解质量链接可见；截图完成态清晰。页面源码outputs/processed/sensitivity_q2_q3/index.html。不要关闭server或启动新实验。监督和计算worker已结束，所有case收据完成。
+尚需最后给用户自包含简短答复：原文已存、40项完成、右侧可看，给报告与CSV链接，并明确Q3未认证限制；不能宣称全局/全年敏感性稳健。用户批准S28例外已遵循，不再问。
+
+
+## 当前活动任务更新：问题二论文配图（2026-09-13约14:20）
+用户要求依据附件问题二_必须与强推荐图_最终版.md画漂亮科研图，使用科研绘图skills，并把图ZIP给他。新文件已读完整并保存docs/plots/q2_paper_final/问题二_必须与强推荐图_最终版.md。新绘图尚未开始编码/出图，前期数据核查和技能已读。用户最新仅问Q4是否做敏感性：已回答没有，Q4仅修复/验证/全年，40敏感性是Q2/Q3；“只是问问”不授权新增Q4实验，也不取消配图任务。
+
+上一并行请求全套结果ZIP已完成并在commentary给链接：outputs/processed/deliverables/数学建模_全套结果_20260913_140811.zip，91,248,774 bytes，7297文件，6目录(问题1/2/3/4-2/4-3/实验)、根和各子README、7296行文件说明.csv(内容/来源/大小/SHA)。所有CRC/成员SHA通过。SHA d632d542467ac23d1e25933b15c530bf52964f5a09d054d5c393737e07a024f8；docs/全套结果打包_20260913.json存收据。README及CHANGE_HISTORY已记。不能静默改该ZIP。
+Q1路径outputs/processed/q1、outputs/q1/raw、outputs/q1_current在Windows传输后是文本指针，不是真目录/符号链接；已正确读到实际outputs/.q1-runs/run-ie6fkatf(正式CSV、无result1.xlsx，既往用户只用CSV)，并打包了真实内容、q1_paper/run-ie6fkatf-d9b1d24a和figures/q1图。未改指针。全包是当前结果+审计，未包含老失败Q4或重复checkpoint_previous。
+
+**科研skills现已找到真正位置**：/Users/slumpyfufu/Desktop/Projects/Skills/.agents/skills/，不是本项目.agents。已向用户说明使用scientific-figure-making、scientific-visualization、matplotlib。完整SKILL已读(其中matplotlib分段补读)，并读scientific-figure-making/references/design-theory.md、common-patterns.md，scientific-visualization/references/publication_guidelines.md。关键：真实数据不裁切隐藏、CI定义、共同尺度、色彩冗余、OO Matplotlib、查看最终图片、记录来源/转换；项目仅PNG/SVG(不新建PDF)、SVG文本转path保证中文、物理尺寸固定不bbox tight、不要constrained_layout后tight_layout。无目标期刊，按建模论文通用规范，不声称期刊/WCAG合规。
+所有绘图代码必须集中src/plots，既有README要求catalog/manifest登记。新输出目录已创建outputs/processed/figures/q2_paper_final_20260913/data；docs/plots/q2_paper_final存方案/验收。拟主脚本src/plots/q2_paper_final.py。现有src/plots/common.py setup字体和配色可复用；font候选PingFang SC/Heiti/...，缺字应报错。matplotlib3.10.8/pillow12.3已安装到.venv_sensitivity，原NumPy2.3.5/SciPy1.16.3等不变。所有已有结果与旧ZIP不改。
+
+用户图清单：
+5-1 必须2x2：a周一至周五vs周末平均负荷(可P25/P75带，明确非CI)横0-24刻0/4/8/12/16/20/24、纵kW；b1/4/7/10月平均PV曲线四季变化；c负荷lagcorr至1008，明确虚线标144=1日、288=2日、1008=7日；d去日内周期PV残差ACF到288，95%带。拟μ为每月×slot平均PV，仅事后诊断不回流预测，图注定义；使用statsmodels acf Bartlett区间(参考带=CI-acf)，不虚称IID显著性。负荷lagcorr用真实Corr(L[k:],L[:-k])，可FFT+前缀均值计算并用几个lag独立np.corrcoef核验。时间曲线源右端点0:10..24，不造缺失0:00样本。
+5-2 必须1x2：a h0/1/2净负荷误差(real-pred)，箱线y0参考线，保留尾部不隐藏；b80/90%预测区间PICP点线，y=.8/.9参考线，适当0.6..1范围。拟使用共同预测起点：正式实际K3且3个目标日都有真值的共同origin(约304天，需实算)，保证三个h对比同样本；误差从最终Q2 selected pipeline的frozen shadows与actual按same origin算，PICP从正式main/calibration.csv同origin过滤weighted covered/n，不平均月百分比。h0/h1原334/333支持与h2更少，不能混支持；保存全/共同统计，图注n与筛选。先检查误差分位再决定标准全范围box是否需透明标注inset，不隐藏outliers，不假造范围。
+5-3 非常推荐：横向时间轴+信息流，不用普通竖向流程图。0点已知I_d,E_d0,p→预测→联合场景→随机优化→独立冻结G_t,Cp_t,Dp_t“0:00一次确定并冻结”；R_t可作历史预先给定补充注以对齐当前模型。日内0:10→0:20→…24当前L/PV/Eprev→冻结反馈映射→C,D,B；未来L/PV轨迹灰遮罩/虚线框不可见；24点Ereal_d144→下一日0点闭环。用Matplotlib patches/箭头做准确SVG，不用生成图片猜公式。
+5-4 必须3x1共享x：题目指定3/20、6/21、9/23、12/21中实际紧急量最高=**2025-03-20**，53.567333kWh(其他6/21=0,9/23=40.623082,12/21=0)。a实际净外部需求Z、计划G，紧急B用bar/area非普通线，可浅虚线预测Z；b+实际charge、-discharge正负柱/阶梯+0线；c实际SOC145点含日初，1200/10800虚线。正式Q2模型无储能净外部需求定义=[DT*(L-PV)]_+，因此Z实际/预测取正部并图注，不能误混原有负net；能源单位kWh/10min，SOC kWh。紧急bars相对购电很小，要保留真实高度，可浅红标注发生时段/总量，不能夸大bar。绘图来源最终Q2正式dispatch.csv。
+5-5 原必须K1/2/3全年费用—平均日求解耗时。**用户已明确同意改为当前模型代表日局部费用对照，不是全年。** 原旧run20260911_224501有3条完整334日horizon_1/2/3，但初始SOC8482.766385、无reserve列且精度经历1→2→3%迁移；不是当前定稿(初值6000、tail+R)，不使用旧数据冒充当前。新当前正式K分布306天K3、28天K2，不能当固定K3全年度。
+用户确认回复：“当前模型代表日对照，明确改为局部费用（推荐）”。已向用户表示“同一组代表日、共同场景前缀、同机计时，图中标非全年”。拟采用已预先选定的Q2敏感性4日(9/17常规、6/1高误差、6/2高紧急、9/28高压力，均K3/S26)，直接复用outputs/sensitivity_q2_q3/raw/local_20260913/inputs/q2/<date>/frozen.npz的72h联合场景/概率/R前缀，K1/2/3分别取144/288/432。相同S26、weights、日初SOC、R第一天、point同源，只改前瞻长度。**为保证时间可比，3个K都在同机独立重求解计时**(这是新图5-5比较，不覆盖之前40敏感性/原正式结果)。拟新脚本src/q2/benchmarks/horizon_for_figure.py，独立输出outputs/q2/benchmarks/horizon_figure_20260913。调用原q2.rolling._solve，gap.03、threads1、refine5、120/900原预算，记录每case真实首日cost/endSOC/runtime/gap。图点x=4日平均求解时间，y=4日平均真实日费(或相对最小)，标24h/48h/72h，注4代表日/共同场景/3%/非全年。末SOC不同，不能把低当日费用直接当跨日更优，记录末库存。尚未写或启动该benchmark。
+附加图可选：做1x3全年负荷/PV/net热图，日期Jan1顶→Dec31底，时间0-24；负荷/PV顺序色图，net以0为中心发散色图；no interpolation或nearest，不改数据，source52560值全保留。
+
+数据：最终Q2 RUN outputs/q2/dispatch_runs/20260912_tail_reserve_final；actual在inputs/processed/timeseries.csv(365x144 load_kw,pv_kw)，shadows raw/shadows/shape.json (365,3,144),*.dat load_lgb_1,pv_mean7等；每日pipeline从processed/main/daily_audit/<date>.json [str(selected_K)]['selection']['pipeline']；dispatch.csv已含h0 predicted_load_kw/predicted_pv_kw。main/calibration.csv columnsorigin,horizon,nominal,covered_intervals,n,picp。processed/scenario_calibration_summary.csv是按月汇总，可核验但不直接平均百分比。main/final_calibration.csv只有metric/value/unit/n的MAE总表，不能当horizon校准表。K3有306原始日，扣年末目标缺失后共同起点数需计算。
+
+可用风格：蓝#0F4D92/#0072B2，青绿#009E88，橙#C38314，紫#8B5FBF，深灰#41464D。白底、轻水平网格、上右spine移除、统一中英/数学字体，panel(a)..标签一致，线型/marker冗余。预计多面板190-210mm，字体9-11pt，PNG300或600dpi，SVG转曲。图内不塞过长说明，caption/README解释数据含义与方法，保留CSV+源sha+软件元数据。
+
+待完成：编写/启动K局部同机benchmark；绘图数据准备和5张无依赖图；图5-5等实际结果后画；逐张view_image迭代到好看清晰，不能只信脚本；源公式/节点/数据/采样范围逐项验收；打包6图×PNG/SVG及CSV/README/脚本/manifest为新ZIP给用户，展示几张代表图/或右侧图集。更新src/plots/catalog.py/registry(现catalog.main会读outputs/q2_current文本假链接，不能为此顺便改全部旧路径；可加独立登记子命令或manifest分组注册)与src/plots/README、项目README/CHANGE_HISTORY。最终同时再次给全套结果ZIP和新图ZIP，保持原包字节。所有工作继续自主，不再询问已批准的图5-5口径。不做Q4敏感性，因为用户明确只是问问。
+
+
+## 完成待最终回复：Q2六图蓝色渐变版（2026-09-13）
+用户最新要求调整为科研级多强度蓝色/渐变，尽量蓝色线条，快速看到结果。已完成所有6图重绘；BLUE#1263A0/NAVY#103B62/MID#3988C1/PALE#4F97C8/STEEL#285785，暗红只辅助紧急/禁止提示，net零中心7级蓝灰-白-蓝发散色标确保0白点。所有统计/模型未改。图5-1和热图蓝版已看、5-4/5-2蓝版已看；其余布局不改。q2FigureTab(id4, iab)已刷新并markDeliverable，http127.0.0.1:8767/ server37628，用户右侧可见。
+ZIP已完成且CRC/逐成员SHA通过：outputs/processed/deliverables/问题二科研图_蓝色渐变版_20260913.zip，7,984,554 bytes，41文件，6PNG400dpi+6SVG、data/、README、captions、manifest、verification、源代码与重绘依赖。SHA c5fa27a0e8a9e28dc2bd7d6174d7945cf5aa2081482192971ebbe4369ff114fe。收据docs/plots/q2_paper_final/zip_acceptance.json。
+图脚本src/plots/q2_paper_final.py，数据q2_paper_data.py，验证q2_paper_verify.py，benchmark src/q2/benchmarks/horizon_for_figure.py(12cases全3%认证)。源数据输出outputs/processed/figures/q2_paper_final_20260913，完整数组/hash与说明。K图批准当前4代表日共同场景前缀局部对照，不是全年；K1/2/3平均日费68698.881/72523.517/71555.496元，平均耗时4.015/6.784/9.642秒，日末SOC1468/7831/7818，不能说K1更优。
+6图已通过catalog.py新增--register-manifest登记，旧指针坏路径不修改；README项目目录、src/plots/README和CHANGE_HISTORY已同步。全套结果旧ZIP数学建模_全套结果_20260913_140811.zip(91MB)已在此前commentary交付，未改。用户Q4是否敏感性只问状态，已答没有，未启动任何Q4实验。现在应立即最终回复蓝色版ZIP链接，可附1张预览，不再进行新实验或额外改动。
+
+
+## 当前任务最终完成：2026-09-13 Q4代表日敏感性（用户明确新授权）
+用户本轮明确要求按上传方案做Q4敏感性，覆盖旧“仅问问未授权”的历史状态。原件在docs/sensitivity_q4/问题四敏感性分析实验方案_时间受限版.md。20变体/32节点均Optimal，6基准日复用零重求解；Q424日9/18,12/14,7/1,7/6，Q432日9/2,7/1。输出outputs/q4/raw/sensitivity_20260913，报告docs/sensitivity_q4/results.md，逐日/聚合CSV及HTML在outputs/processed/sensitivity_q4。新增仅src/sensitivity/q4_experiment.py与q4_report.py。原Q4v2/v3分别冻结加载，12基准节点矩阵SHA一致，价格预测/物理/结算/SOC信息边界不变。
+费用delta范围Q42rho[-2.173,+1.530]%、weight[-1.489,+1.194]%，Q43rho[-1.808,+4.022]%。Q43风险日adjust_abs700.210→363.517/1363.000，故不能声称所有调整指标稳定；常规日紧急量+54.90%实际只+4.331kWh。报告完整实测讨论与可用论文段落已写，不预设稳定阈值，无全年推广。W/S按停止规则不做。431非空源行映射，独立物理/结算/边界/哈希/32证书验收通过，16项恢复测试0新求解。浏览器真实30数据行+表头，截图已目视通过，ui_smoke.json存证。只读结果服务器PID38455端口8768，不是定时任务。未改既有ZIP。新结果ZIP在outputs/processed/deliverables/问题四敏感性分析_结果包_20260913.zip（打包最后一步）。README和CHANGE_HISTORY已同步，必做无未完成。下一步仅打包校验并给用户简短自包含完成答复及报告/ZIP链接，切勿继续扩参。
+
+Q4敏感性结果ZIP已完成并通过182成员CRC/SHA校验：2061453 bytes，SHA53731c35235ad7f0df0322f62d3af6ca7b4edfc8e054439d5af75caef1300d71。package_receipt.json存证，报告已排队在Codex打开。实验和交付均完成，无须新增求解。临时8768服务器已结束，离线HTML仍可打开。
+
+
+## 当前完成待ZIP校验：第三问蓝色科研图（2026-09-13）
+用户要设计Q3图组且最终只要ZIP；新增补充原文docs/plots/q3_paper_final/第三问_必须绘制的核心图及绘图细节.md。图6-4需要缺失FIV/OUV，用户答“那就不要了”，明确取消，不跑实验。3核心（同目标MAE哑铃/BCP窗口/3月20日三联图）+4扩展（8月25日更新/3月20日分轴/月费/年度SOC-grid变化）最终7图400dpi PNG/SVG。敏感性以36条CSV交付，无多余图。原始设计10图保留本地，但只选7入包。
+源码src/plots/q3_paper_{data,final,core,verify,package}.py，catalog仅question/necessity读取扩展；输出outputs/processed/figures/q3_paper_final_20260913，delivery_manifest已注册7图。核验341源SHA、333预测共同日、334执行日、能量平衡1.14e-13、SOC/结算/源值/选日/敏感性delta全通过；7图逐张看过；原先中文mathtext缺字已通过显式宋体修复并无警告。UI隐藏tab6显示8769包图集，7img全部loaded/nooverflow/screenshot可读；qa服务器session21607待结束。
+待最后：运行q3_paper_package --archive生成/验证 outputs/processed/deliverables/问题三科研图_蓝色渐变完整版_20260913.zip，收据记录后结束QA服务器、关闭临时tab，最终仅ZIP Markdown链接。README项目树、plotsREADME、CHANGE_HISTORY已更新。
+
+Q3图ZIP已完成并验收：57成员、7PNG+7SVG，8,486,079 bytes；SHA aa5f8c9e37b14defcbe87b9ff09e4b22f680918551eeac84e83959e8a5b7da7c。CRC和逐成员SHA通过，7图manifest/data/README目录检查通过。临时QA页已关闭，最终仅交付ZIP链接。

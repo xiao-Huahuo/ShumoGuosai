@@ -1,0 +1,15 @@
+{
+  "random_seed": 20260912,
+  "cases": 160,
+  "steps_per_case": 144,
+  "initial_soc": [
+    1200.0,
+    1462.9246853535594,
+    6000.0,
+    10800.0
+  ],
+  "max_soc_reversal": 0.0,
+  "max_emergency_increase": 0.0,
+  "scope": "single_SOC_band_free_caps_no_terminal_equality_no_throughput_cost",
+  "production_source_changed": false
+}

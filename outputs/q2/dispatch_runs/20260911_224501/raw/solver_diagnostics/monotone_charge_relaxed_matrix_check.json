@@ -1,0 +1,16 @@
+{
+  "paths": 96,
+  "periods": 144,
+  "initial_soc_values": [
+    1200.0,
+    1538.0615848778116,
+    6000.0,
+    10800.0
+  ],
+  "arbitrary_undercharging_full_matrix_feasible": true,
+  "maximum_row_or_bound_error": 1.8189894035458565e-12,
+  "maximum_SOC_dominance_violation": 0.0,
+  "maximum_emergency_nonincrease_violation": 0.0,
+  "production_unchanged": true,
+  "candidate_sha256": "fc12b9d47a6be303e9272e608ad965c30a515f775b6a2e8385b2db060ccedcc8"
+}

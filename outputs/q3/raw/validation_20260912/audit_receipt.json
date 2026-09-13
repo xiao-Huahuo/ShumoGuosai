@@ -1,0 +1,17 @@
+{
+  "committed_days": 25,
+  "formal_days": 0,
+  "input_manifest": {
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件1.xlsx": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/shadows/shape.json": "25e4640dc8a3ac8e8db669e4d5c25df0aec7a25560aadef4c313221248204289",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/shadows/frozen_lightgbm.json": "2a086f9cd9928bff4e208f2e29f41514c016bbb23757faf82924b513b6d95149",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/shadows/load_week.dat": "70121be93b28f78274a72aa908d842394ccfeedbe954a3bea23feee2ce54409b",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/shadows/load_lgb_0.dat": "408882bf7688a499947662d6f03ed324f3312deef1242f58225c761ed72e3740",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/shadows/load_lgb_1.dat": "fed06e8d7d29e1476664558397da6540c195899f14b0f142ae14c53e2e377b6a"
+  },
+  "model_parameters_not_retuned": true,
+  "historical_load_errors": "inherited_Q2_rolling_origin_library; source/code tests accompany numeric audit",
+  "time_resolution": "10min aggregate causal feedback, not claimed as observed sub10min control"
+}

@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-12T01:18:37.795341+00:00",
+  "committed_snapshot_hashes_checked": true,
+  "48_main_intervals_sum_to_observed_start_end": true,
+  "original_K_candidates": 144,
+  "constant_scenario_counts": true,
+  "actual_ui_tab": "16",
+  "ui_checks": [
+    "three_period_rows",
+    "seven_slow_dates",
+    "timing_scope_distinguished",
+    "48_day_details_entry",
+    "three_CSV_links_and_JSON_and_progress"
+  ],
+  "source_production_unchanged": true,
+  "artifact_sha256": {
+    "period_summary.csv": "da4d0e0dc00f1f9ec9e0385c6430dc5ac160efd72d4cd1baf20f0449442d8c89",
+    "summary.json": "abe416bf384a882d1759037c195743aab0de8ef0ac18bc811779d2ebffa1c3d3",
+    "candidate_timing.csv": "888960942273948fda13229d208882c25df04197f27b9957e7c5a0454bb6a31e",
+    "snapshot.json": "51d544f1eb87fb7f546738c632584fc62066952919fb6aa86dcbf6df138aa24a",
+    "daily_timing.csv": "ace6b54d7a29ce9df19b18d23afb8d673c12149c004c244e17b1b30d12e3688f",
+    "report.html": "789b2206a45e8ae6dadb1135afd1dda6843017dc9b11c521f12e982a6e9be8c8"
+  }
+}

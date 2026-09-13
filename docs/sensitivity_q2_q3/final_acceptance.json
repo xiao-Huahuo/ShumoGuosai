@@ -1,0 +1,25 @@
+{
+  "requirements": 27,
+  "all_requirements_addressed": true,
+  "independent": {
+    "jobs_verified": 40,
+    "core_jobs": 32,
+    "optional_jobs": 8,
+    "original_plan_bytes_verified": true,
+    "q3_S28_user_approved": true,
+    "baseline_files_unchanged": 4,
+    "all_same_initial_soc": true,
+    "OFAT_frozen_inputs_verified": true,
+    "max_balance_error_kwh": 1.1368683772161603e-13,
+    "max_soc_transition_error_kwh": 1.1823431123048067e-11,
+    "all_delta_and_aggregate_statistics_verified": true,
+    "baseline_not_resolved": true,
+    "certified_jobs": 18,
+    "limited_feasible_jobs": 22,
+    "failed_jobs": 0
+  },
+  "ui_verified": true,
+  "original_plan_sha256": "866563d9481f002ba4feba69b1b7e113027d92f3f8d94b4df9ccac3838a3696f",
+  "scope": "32核心+8可选Q3，非全年，基准复用",
+  "scientific_limitation": "Q3四个基准日均含未认证节点，22变体含未认证节点，结论仅为原预算下的局部策略诊断"
+}

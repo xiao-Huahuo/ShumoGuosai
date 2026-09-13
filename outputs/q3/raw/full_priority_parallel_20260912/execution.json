@@ -1,0 +1,30 @@
+{
+  "config": {
+    "scenarios": 20,
+    "tail": 2,
+    "unconditional": false,
+    "terminal_scale": 1.0,
+    "interpolation": "linear",
+    "feedback": "aggregate",
+    "settlement": "final",
+    "nodes": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "deterministic": false,
+    "seconds": 120.0,
+    "gap": 0.03,
+    "solver_threads": 4,
+    "fd_delta": 100.0,
+    "fd_base": 6000.0,
+    "fd_days": 28
+  },
+  "signature": "edb90249f3669e255e7970e591e71c776eb0d10361389db5c13532c4a6afc25c",
+  "q2_run": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501",
+  "end_day": 365,
+  "sampled_experiments": false,
+  "workers": 2,
+  "authorization": "用户允许主计算gap≤3%，少量辅助实验，准备完成后自主启动全年"
+}

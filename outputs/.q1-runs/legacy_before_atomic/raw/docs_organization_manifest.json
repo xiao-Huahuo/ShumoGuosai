@@ -1,0 +1,144 @@
+{
+  "before_file_count": 13,
+  "files": [
+    {
+      "category": "final",
+      "old_path": "docs/1/Q1最终优化模型-最终版.md",
+      "new_path": "docs/1/final/Q1最终优化模型-最终版.md",
+      "sha256_before": "92a4ed0c5390e76390b6fa6d5f45f654259e98aa7853d6e89d41109300d1a74c",
+      "sha256_after": "92a4ed0c5390e76390b6fa6d5f45f654259e98aa7853d6e89d41109300d1a74c",
+      "content_unchanged": true
+    },
+    {
+      "category": "deliverables",
+      "old_path": "docs/1/q1_results.md",
+      "new_path": "docs/1/deliverables/q1_results.md",
+      "sha256_before": "050533f7296fe61dc2ac0bf47e458238fec4a46f30f88a1f1ddb2d9c9b7c692f",
+      "sha256_after": "050533f7296fe61dc2ac0bf47e458238fec4a46f30f88a1f1ddb2d9c9b7c692f",
+      "content_unchanged": true
+    },
+    {
+      "category": "deliverables",
+      "old_path": "docs/1/q1_run_guide.md",
+      "new_path": "docs/1/deliverables/q1_run_guide.md",
+      "sha256_before": "61db42119fe74d146b0db5b4f07d09b1a1beca766b7918bfeae41ea5fd1d1db0",
+      "sha256_after": "dafdf1e7d795b28468b77539350bcdd5ee5423f20689cd39cba1a6b5bdd6c051",
+      "content_unchanged": false,
+      "change_reason": "只更新三项交付文档的目录路径"
+    },
+    {
+      "category": "deliverables",
+      "old_path": "docs/1/q1_implementation_acceptance.md",
+      "new_path": "docs/1/deliverables/q1_implementation_acceptance.md",
+      "sha256_before": "080774dc08e94bae9bbc01b55a2f7af6c8e8071c7b19e11868627d19a88efba5",
+      "sha256_after": "080774dc08e94bae9bbc01b55a2f7af6c8e8071c7b19e11868627d19a88efba5",
+      "content_unchanged": true
+    },
+    {
+      "category": "deliverables",
+      "old_path": "docs/1/q1_source_line_traceability.csv",
+      "new_path": "docs/1/deliverables/q1_source_line_traceability.csv",
+      "sha256_before": "d2a8131acfd9657687107e1fd0213d836eb6ccbc028b8f2478c4d27708188671",
+      "sha256_after": "d2a8131acfd9657687107e1fd0213d836eb6ccbc028b8f2478c4d27708188671",
+      "content_unchanged": true
+    },
+    {
+      "category": "intermediate",
+      "old_path": "docs/1/临时方案.md",
+      "new_path": "docs/1/intermediate/临时方案.md",
+      "sha256_before": "9eda354315ee9d013ec0f9aac27204b1e5511479c3f741192015dff55049d454",
+      "sha256_after": "9eda354315ee9d013ec0f9aac27204b1e5511479c3f741192015dff55049d454",
+      "content_unchanged": true
+    },
+    {
+      "category": "intermediate",
+      "old_path": "docs/1/Q1_最终优化模型_结合comments.md",
+      "new_path": "docs/1/intermediate/Q1_最终优化模型_结合comments.md",
+      "sha256_before": "d4b2cb76077a6532db57a7ab5d0bd8fefbf08df11483f0e923e9d0867445ecc6",
+      "sha256_after": "d4b2cb76077a6532db57a7ab5d0bd8fefbf08df11483f0e923e9d0867445ecc6",
+      "content_unchanged": true
+    },
+    {
+      "category": "intermediate",
+      "old_path": "docs/1/Q1_最终优化模型修订版_结合评审comments.md",
+      "new_path": "docs/1/intermediate/Q1_最终优化模型修订版_结合评审comments.md",
+      "sha256_before": "25f7c414884ada19b19e04d62efc354267eff42a3c878aef3d1e9f3bf23d0e29",
+      "sha256_after": "25f7c414884ada19b19e04d62efc354267eff42a3c878aef3d1e9f3bf23d0e29",
+      "content_unchanged": true
+    },
+    {
+      "category": "intermediate",
+      "old_path": "docs/1/Q1_精简修订版_公式兼容Obsidian.md",
+      "new_path": "docs/1/intermediate/Q1_精简修订版_公式兼容Obsidian.md",
+      "sha256_before": "84bac79a12fb2a3db018b230b9d93653fb3154ef1e48682ad7f209816a8634b3",
+      "sha256_after": "84bac79a12fb2a3db018b230b9d93653fb3154ef1e48682ad7f209816a8634b3",
+      "content_unchanged": true
+    },
+    {
+      "category": "intermediate",
+      "old_path": "docs/1/临时方案_严格审查报告.md",
+      "new_path": "docs/1/intermediate/临时方案_严格审查报告.md",
+      "sha256_before": "9a41c50d87ab6dd5f61ce35e14a28a2a1893dd162e2cb0db7e6c7f894aee3b79",
+      "sha256_after": "9a41c50d87ab6dd5f61ce35e14a28a2a1893dd162e2cb0db7e6c7f894aee3b79",
+      "content_unchanged": true
+    },
+    {
+      "category": "intermediate",
+      "old_path": "docs/1/q1_compact_review_comments.md",
+      "new_path": "docs/1/intermediate/q1_compact_review_comments.md",
+      "sha256_before": "5dad080b321329e9f3cd085afad83c35a4cf61ea7bfcac0af49b1b5249f0c371",
+      "sha256_after": "5dad080b321329e9f3cd085afad83c35a4cf61ea7bfcac0af49b1b5249f0c371",
+      "content_unchanged": true
+    },
+    {
+      "category": "cleanup_candidates",
+      "old_path": "docs/1/notes.md",
+      "new_path": "docs/1/cleanup_candidates/notes.md",
+      "sha256_before": "2b998f8a5d23973bc0bd020ccf894560b2b2ba596f6a353e11905055a9f2fcc7",
+      "sha256_after": "2b998f8a5d23973bc0bd020ccf894560b2b2ba596f6a353e11905055a9f2fcc7",
+      "content_unchanged": true
+    },
+    {
+      "category": "cleanup_candidates",
+      "old_path": "docs/1/task_plan.md",
+      "new_path": "docs/1/cleanup_candidates/task_plan.md",
+      "sha256_before": "d6ae19ca7a444fb96a599c9608d91efe3047af05371288d7c2a3c4a833980abd",
+      "sha256_after": "d6ae19ca7a444fb96a599c9608d91efe3047af05371288d7c2a3c4a833980abd",
+      "content_unchanged": true
+    }
+  ],
+  "result_csv_sha256_before": {
+    "outputs/processed/q1/table2_storage.csv": "8eb93598ac664659d15755c51aaac22309e02d009bf2e797c2f7d45f1a723d94",
+    "outputs/processed/q1/table1_purchase.csv": "477d7f80e720e4eba37aeea00c989e96991e7fb0151487aec10070f15e3bc13d",
+    "outputs/processed/q1/efficiency_comparison.csv": "1aadae1f5e22066653d961eb29e4d480713ae4982a423c6698018eaa6e962e02",
+    "outputs/processed/q1/daily_summary.csv": "07fc345d418fe9d0e0367c6810aa09337d04fdf6b3a991904fb1cc68de517570",
+    "outputs/processed/q1/result1.csv": "d3adfe5f9f06d16c75d8e3a11e2b3f8152f1fd947ea59742fc69ca3ff6542535"
+  },
+  "classification_counts": {
+    "final": 1,
+    "deliverables": 4,
+    "intermediate": 6,
+    "cleanup_candidates": 2
+  },
+  "deletions": [],
+  "status": "completed",
+  "after_document_count_excluding_index": 13,
+  "new_navigation": "docs/1/README.md",
+  "markdown_local_links_checked": 25,
+  "report_local_links_checked": 10,
+  "all_result_csv_unchanged": true,
+  "model_and_intermediate_and_notes_unchanged": true,
+  "end_to_end_run_passed": true,
+  "ui_smoke": "在实际报告页面核对验收链接href已更新至docs/1/deliverables；所有链接目标另通过文件检查",
+  "uncompleted": [],
+  "review_findings": {
+    "P0": [],
+    "P1": [],
+    "P2": [
+      "多个旧稿文件名含最终，易误作当前MILP准绳；已归档并逐文件说明"
+    ],
+    "P3": [
+      "两份已完成任务工作笔记重复交付信息；移入清理候选并保留"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "tests": 6,
+  "passed": true,
+  "random_144_step_scenario_paths": 96,
+  "all_original_and_new_rows_verified": true,
+  "maximum_constraint_error": 1.8189894035458565e-12
+}

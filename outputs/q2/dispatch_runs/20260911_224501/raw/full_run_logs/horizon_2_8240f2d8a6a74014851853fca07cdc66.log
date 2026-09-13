@@ -1,0 +1,36 @@
+从已验收的301日连续回放检查点续算
+真实回放 2025-11-29 K=2 S=27 SOC=7719.335
+真实回放 2025-11-30 K=2 S=27 SOC=7758.468
+真实回放 2025-12-01 K=2 S=27 SOC=7713.051
+真实回放 2025-12-02 K=2 S=27 SOC=7688.295
+真实回放 2025-12-03 K=2 S=27 SOC=7609.245
+真实回放 2025-12-04 K=2 S=27 SOC=7810.958
+真实回放 2025-12-05 K=2 S=27 SOC=8673.251
+真实回放 2025-12-06 K=2 S=27 SOC=8410.657
+真实回放 2025-12-07 K=2 S=27 SOC=8233.199
+真实回放 2025-12-08 K=2 S=27 SOC=8719.044
+真实回放 2025-12-09 K=2 S=27 SOC=8508.095
+真实回放 2025-12-10 K=2 S=27 SOC=8529.534
+真实回放 2025-12-11 K=2 S=27 SOC=8596.233
+真实回放 2025-12-12 K=2 S=27 SOC=8799.904
+真实回放 2025-12-13 K=2 S=27 SOC=8742.460
+真实回放 2025-12-14 K=2 S=27 SOC=8506.429
+真实回放 2025-12-15 K=2 S=27 SOC=8611.741
+真实回放 2025-12-16 K=2 S=27 SOC=8424.913
+真实回放 2025-12-17 K=2 S=27 SOC=8654.339
+真实回放 2025-12-18 K=2 S=27 SOC=8598.268
+真实回放 2025-12-19 K=2 S=27 SOC=8801.084
+真实回放 2025-12-20 K=2 S=27 SOC=8560.434
+真实回放 2025-12-21 K=2 S=27 SOC=8544.154
+真实回放 2025-12-22 K=2 S=27 SOC=8331.005
+真实回放 2025-12-23 K=2 S=27 SOC=8647.885
+真实回放 2025-12-24 K=2 S=27 SOC=8492.242
+真实回放 2025-12-25 K=2 S=27 SOC=8467.169
+真实回放 2025-12-26 K=2 S=27 SOC=9108.250
+真实回放 2025-12-27 K=2 S=27 SOC=8566.963
+真实回放 2025-12-28 K=2 S=27 SOC=8643.757
+真实回放 2025-12-29 K=2 S=27 SOC=8273.020
+真实回放 2025-12-30 K=2 S=27 SOC=8630.615
+真实回放 2025-12-31 K=2 S=27 SOC=8129.247
+/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/export_dispatch.py:115: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  write_csv(output/"paper_table3.csv", pd.concat(events, ignore_index=True) if events else emergency_events(specified))

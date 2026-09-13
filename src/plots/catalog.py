@@ -48,5 +48,31 @@ def main():
     print(f'已登记{len(rows)}组图：src/plots/figure_registry.csv')
 
 
+def register_manifest(path):
+    """独立登记新图清单；不重绘或重验证其他历史图集。"""
+    import json
+    path=Path(path).resolve();items=json.loads(path.read_text(encoding='utf-8'))
+    registry=ROOT/'src/plots/figure_registry.csv'
+    with registry.open(encoding='utf-8',newline='') as stream:
+        reader=csv.DictReader(stream);fields=reader.fieldnames;rows=list(reader)
+    added=[]
+    for item in items:
+        data=[path.parent/'data'/name for name in item['data']]
+        if not data:data=[ROOT/'docs/plots/q2_paper_final/问题二_必须与强推荐图_最终版.md']
+        png=path.parent/item['png'];svg=path.parent/item['svg']
+        for p in data+[png,svg,ROOT/item['script']]:
+            if not p.is_file():raise ValueError(f'新图登记路径不存在：{p}')
+        added.append({'question':item.get('question','q2'),'name':item['name'],'title':item['title'],'necessity':item.get('necessity','用户指定正文图或附加热图'),
+                      'script':item['script'],'data':';'.join(str(p.relative_to(ROOT)) for p in data),
+                      'png':str(png.relative_to(ROOT)),'svg':str(svg.relative_to(ROOT))})
+    keys={(r['question'],r['name']) for r in added}
+    rows=[r for r in rows if (r['question'],r['name']) not in keys]+added
+    with registry.open('w',encoding='utf-8',newline='') as stream:
+        writer=csv.DictWriter(stream,fieldnames=fields);writer.writeheader();writer.writerows(rows)
+    print(f'已独立登记{len(added)}张新图，保留其他登记')
+
+
 if __name__=='__main__':
-    main()
+    import sys
+    if len(sys.argv)==3 and sys.argv[1]=='--register-manifest':register_manifest(sys.argv[2])
+    else:main()

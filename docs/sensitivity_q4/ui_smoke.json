@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:8768/",
+  "browser": "Codex in-app browser",
+  "actual_ui_observed": true,
+  "title": "问题四 · 敏感性实验已完成",
+  "completed_days": "20 / 20",
+  "optimal_nodes": "32 / 32",
+  "table_rows_including_header": 31,
+  "last_row_verified": "4-3 2025-07-01 rho 1.0 baseline",
+  "screenshot_visually_checked": true,
+  "checks": [
+    "三项必做范围可见",
+    "逐日30行及最后Q43基准可见",
+    "中文表头清晰，真实数值与CSV一致",
+    "报告/逐日/聚合/证书链接可见"
+  ]
+}

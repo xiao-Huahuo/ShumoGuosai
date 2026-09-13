@@ -1,0 +1,23 @@
+{
+  "launcher_pid": 78184,
+  "command": [
+    "/opt/homebrew/bin/uv",
+    "run",
+    "--offline",
+    "--with-requirements",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q3/requirements.txt",
+    "python",
+    "-m",
+    "src.q3.full_run",
+    "--run-dir",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912",
+    "--gap",
+    "0.03",
+    "--seconds",
+    "120",
+    "--workers",
+    "4",
+    "--main-only"
+  ],
+  "migrated_from": "full_priority_20260912"
+}

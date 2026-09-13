@@ -1,0 +1,8 @@
+{
+  "status": "gaplimit",
+  "time": 45.272252,
+  "dual_bound": 44376.7954086716,
+  "solutions": 2,
+  "role": "diagnostic_only_not_executed",
+  "objective": 44722.956884521205
+}

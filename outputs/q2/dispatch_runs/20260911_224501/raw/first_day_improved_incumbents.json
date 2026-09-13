@@ -1,0 +1,35 @@
+[
+  {
+    "K": 1,
+    "M": 17,
+    "lower_bound": 19895.926766993434,
+    "incumbent_cost": 20234.825625163252,
+    "certified_gap": 0.01703357989495808,
+    "seconds": 0.23959795799964922,
+    "variables": 12384,
+    "constraints": 4896,
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  {
+    "K": 2,
+    "M": 16,
+    "lower_bound": 77011.38664954012,
+    "incumbent_cost": 78075.36087895778,
+    "certified_gap": 0.01381580407400731,
+    "seconds": 0.636485166998682,
+    "variables": 23328,
+    "constraints": 9216,
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  {
+    "K": 3,
+    "M": 15,
+    "lower_bound": 133612.95326435234,
+    "incumbent_cost": 135123.20577636667,
+    "certified_gap": 0.011303189362383908,
+    "seconds": 0.9447747919984977,
+    "variables": 32832,
+    "constraints": 12960,
+    "role": "lower_bound_only_never_free_recourse_execution"
+  }
+]

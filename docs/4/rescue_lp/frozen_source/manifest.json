@@ -1,0 +1,22 @@
+{
+  "src/q4/__init__.py": "af2ad42a63eb91042591eb9420e9e74bb75a2602d860efef898f8ba2e1ba09ee",
+  "src/q4/config.py": "1d65e597becd9e2b247c88ea1f1cb6082308edd4bb9a01091d63ffcd5029ebdc",
+  "src/q4/data.py": "36017edfaeb29aa74adecfc665cb44c104da150a0c81be97ced6f5eb9f397fa5",
+  "src/q4/diagnostics.py": "d9a880e338e81674dd11d10ef8717d4ab31e555724c95c354927691ecb736aba",
+  "src/q4/export.py": "c9c465fcc8b3c832eaf18a247480d46858453c40c933ccf4d3e23a93195450ae",
+  "src/q4/optimization.py": "cbe7693e3d440997712f0f54fed0a7b360f1063cad64489ff592a6b065e8dbde",
+  "src/q4/physics.py": "3fd0bed219d85ed847fec4101a9a6d82d914c9c1c838a13b029c0752643f83e1",
+  "src/q4/price.py": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+  "src/q4/rolling.py": "a32f21b8bf96b8c01448afb842d92885195188aa62cfa782027d6f7e29e8c382",
+  "src/q4/run.py": "eed3e7d5e164688535dc32bf7380d79229bc25755145180690445a93c3126640",
+  "src/q4/scenarios.py": "9caf29784c716f6fd98da580834c7b59515085f014dcd35eb96d43cb17879887",
+  "src/q4/traceability.py": "7755d1cb1aad0de9257d5ed42e5ea282b69e49e41721f5ba6d516e18d48a5696",
+  "src/q4/vertical_slice.py": "2f835f65cc39cc5eb4a48f3141685f52e84cfe8de6b0425f0bd60e5931d9683a",
+  "src/q3/data.py": "787cb1e2eef6a2994100179df66f38597e1b7c5b08f7e709841e78ff16191eaf",
+  "src/q3/config.py": "f89cd39b2295bb5b7da9761543151cf04d2aeb220b322fa2a0d14bc6394ccd2a",
+  "src/q2/data.py": "b7259d5762c83d9dcba2686ff0b3749e1b072323f5f81f072f6ffcdef3992cb0",
+  "src/q2/forecast.py": "7893f22f175a3a5dabcef6464ceecd74f97cf877542a972b268617c875d57ae2",
+  "src/q2/protocol.py": "a01e4a49e0d19e1bd751159aede4fd1cf5d13143103b2799658dc8da89ebbc27",
+  "src/q2/policy.py": "a0794ae68696d4e251d7edab589bceee7d87a08c20ea617c5b14557c325bb11f",
+  "docs/4/Q4_问题四_严格因果波动电价_完整建模_最终修订版.md": "9edf1cd963070c4297ba1910ad2692ac645992ff1800989d4118435bf93e50b8"
+}

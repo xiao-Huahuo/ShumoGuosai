@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-12T09:13:19.7734741Z",
+  "purpose": "Immutable pre-tail-aware-scenario and pre-dynamic-SOC-reserve Q2 baseline",
+  "original_source": "src/q2",
+  "original_results": "outputs/q2",
+  "snapshot_source": "source",
+  "snapshot_results": "results",
+  "source_files": 78,
+  "result_files": 11977,
+  "source_bytes": 969596.0,
+  "result_bytes": 582605697.0,
+  "mismatch_count": 0,
+  "composite_sha256": "7E50C853EDC02E982466159FF4CD34672133F95191F713D940699AA924AE1662",
+  "manifest_sha256": "1C66BA4A17730310A065D9D1197DB126F698888602ED071BA2C64D1CA654CE29"
+}

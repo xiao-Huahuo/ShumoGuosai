@@ -1,0 +1,28 @@
+requirement,implementation,verification,status
+原文先归档且字节不改,prepare归档与SHA,原件SHA866563d9481f002ba4feba69b1b7e113027d92f3f8d94b4df9ccac3838a3696f,verified
+不做全年参数搜索,run.design局部32+optional8,40个局部case，未调用全年run_period,verified
+代表日自动固定选择,prepare.select,representatives.json；q2/q3_selection_metrics.csv,verified
+Q2常规/误差/紧急/压力四类,prepare.main,四个唯一日期；预先固定低紧急量中位数规则,verified
+Q3常规/更新/调整/风险四类,prepare.main,同目标时段比较；四个唯一日期,verified
+重复条件按下一名未使用日期顺延,prepare.select,稳定排序日期升序；6项测试,verified
+正式该日0点真实SOC相同,q2.run;q3.run,independent_acceptance.all_same_initial_soc,verified
+历史预测与误差池固定,q2.prepare;q3.prepare,全部基准重构目标、场景概率和真实回放一致；NPZ与SHA,verified
+仅指定参数变化，其余物理/价格/solver设置固定,q2.run;q3.run;run.signature,独立OFAT检查、原求解器/依赖版本与配置,verified
+Q3日内SOC由变体真实块递推，不构造新全年链,q3.run,每节点初态与前块实际末态逐值核验,verified
+已有基准直接复用不重求解,run.design;report.generate,参数基准不在40个作业中；20行基准仅从metadata复用,verified
+Q2 beta_R .8/1/1.2，理论.8分位不变,q2.run,reserve变体精确等于原向量乘倍率；8项认证,verified
+Q2 rho_tail10/20/30保持总S不变,q2.run,全部S26；reserve SHA不变；8项认证,verified
+Q2场景数可选有条件,run.supervise,正式S*=26，原S*=20前提不满足，未执行,verified
+Q3 S10/20/30与固定池冲突先确认,用户明确批准10/20/28,approval记录；28条同池，未复制或扩大,verified
+Q3 lambda倍率 .8/1/1.2,q3.run,冻结各原节点λ乘倍率，场景字节不变；8项完成,verified
+Q3可选tail0/2/4仅在有时间时,run.supervise,optional_decision：core714秒且尚余15715秒，8项完成,verified
+记录全部实际费用、紧急量、SOC与时间,common.metrics,daily_results.csv / aggregate_results.csv,verified
+Q3记录调整费用,q3.run;report.generate,逐日、聚合CSV和正文表格均有调整费用,verified
+delta_C相同日期基准,common.comparison,独立算式逐行核验,verified
+delta_Q基准0不算比例，报绝对变化,common.comparison,零分母单测通过，统一绝对变化列,verified
+4日聚合只中位数/最小/最大,report.generate,15参数行×4日；无bootstrap或复杂检验；聚合独立核验,verified
+正文聚合、逐日放附录,report.generate,results.md聚合表，daily_results.csv完整60行,verified
+物理正确及储能异常检查,verify.main,最大平衡残差1.14e-13，SOC递推1.18e-11，边界与功率通过,verified
+结论依据结果，不强行宣布稳定,results.md解读,Q2风险工况差异、Q3末SOC与未认证限制如实呈现,verified
+右侧显示真实进度,status_server与index.html,实际iab右侧40/40；18认证/22限时/0失败；结果下载入口及完成态截图通过,verified
+旧正式结果保护,baseline_files_manifest,两问dispatch/XLSX四文件SHA保持不变,verified

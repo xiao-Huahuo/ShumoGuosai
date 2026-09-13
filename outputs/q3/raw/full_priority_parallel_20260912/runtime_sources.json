@@ -1,0 +1,33 @@
+{
+  "files": {
+    "incumbent.py": "e88488a72281b00c017dc431d0fb656fbaa4e9b84fd10a9385ecbab190755827",
+    "scenarios.py": "756a4a306ee9f6f3adbbf7ed56efd48c4741cbc529e2c810ae3055c86e19768f",
+    "run.py": "d51af5f4dcfd0b73bb9623cc8c9588a453db46e33284e48f4b8e18b84e417ce1",
+    "config.py": "1a0cf0a08620aa90d75a38dba2b14b13294e43a85df6642c598ca109650c16e5",
+    "analysis.py": "8bf2d047e4772ee1807c971e9c6be46cc1d6a1c393278e118c3745bc2ce3e53d",
+    "checkpoint.py": "07f5106ef6c0175c13106a13ea90363bb5ac6d54728688b2b4a983d7d91d58cc",
+    "multistage.py": "66897ab5c58168cd4e90665637da1dc26228c85b29aa6d37a9648c3d0c6f6e52",
+    "terminal.py": "5b19f20b1a3e7ef1c554be26057972fb7882282d9972c5f89b1a550bb35c454d",
+    "fast_solver.py": "0760e458db1b9f2f7932af7332a4e1191ad266e290f060c59cd7eaabbd091a9e",
+    "parallel_benchmark.py": "f7594e6e0151cfd757a4171a6b9f8e5b2175e57ded953aafc817f6ac467ba66c",
+    "optimization.py": "db638608c57864bf5eda4f2bba59674be0599d7f205c6337626dace6c19da833",
+    "__init__.py": "594d329031b4cd6a7bb700aac918693bb2b15d82d1454ca209ca3e109d172226",
+    "solver_probe.py": "f47966cec6d357adda120178d80b41cd484c323e63d65c8bc9db0c10b1ba6cb9",
+    "status_server.py": "40e814f8e9ba23dc70595cbdc61529b267f144b8feb7f90ccd76901f92692bf0",
+    "export.py": "afd01d344bc112580b4dee5b5bd1cc869ff081de25a37ebbbedab8002cbcf02f",
+    "rolling.py": "61903b98b54d451897ec4dfab091ff12ca42954a9d201892011d50e33b077078",
+    "full_run.py": "02d364e9a725d4af3e53af00dff54b668f889cc9cbf167578079f072303b8e9b",
+    "sampled.py": "e683803e890a792871cb2c9a6de740b56f57b4274bc0879a9e41b906af9d1ec9",
+    "physics.py": "c4564eceed4c12b03737c6b9e1610eef813394df0ecec6190954441cbcaa7591",
+    "migrate_solver.py": "efa49447daf1d773142595d24faf20ffde80897cf22019851beece694342b5cc",
+    "traceability.py": "3d353e9ba324cfd4db5ee9fd07f37eea158b185a05a32f28d85fbe0067aacb7f",
+    "parallel.py": "dba8464e61872c099c2ac62a8d7621a421834818220cbddf90dbbbbf920ac465",
+    "data.py": "660145dc0641aa7bfef48042850666d4ba5c101173da661367d1bdc5ca3ffa42",
+    "validation.py": "d33a7bd00148cc4f77e3e8453e76c336b8c9c85c27653f162198ead321cb2a1d"
+  },
+  "requirements_sha256": "8012ffecc7a47b92f145ef043b8a46fe588bd397d8f8e84cb7b503b6301f1908",
+  "previous_run": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912",
+  "workspace": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai",
+  "solver": "highspy==1.15.1",
+  "basis": "unchanged build_matrix, physics and model; solver implementation upgrade"
+}

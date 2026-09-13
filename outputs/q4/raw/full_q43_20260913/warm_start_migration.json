@@ -1,0 +1,9 @@
+{
+  "old_signature": "ad6883967ea40c1e0f189272494fe1c226c76d61abb7cf1fbd5e879e09c1026e",
+  "new_signature": "83328995ffadad5e7c7ccb8d085d505db94e31a6cc26e0cd86de55223623f2de",
+  "days_verified": 20,
+  "mode": "4-3",
+  "reason": "add feasible incumbent seed only; objective, constraints, scenarios and settings unchanged",
+  "receipt_hashes_verified": true,
+  "physical_replay_verified": true
+}

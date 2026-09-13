@@ -1,0 +1,19 @@
+{
+  "first": {
+    "rounds": 16,
+    "seconds": 6.784372292000626,
+    "initial_cost": 36275.85296762959,
+    "candidate_cost": 36261.45616508913,
+    "role": "local_region_feasible_upper_bound_only"
+  },
+  "second": {
+    "rounds": 4,
+    "seconds": 1.7253111249992799,
+    "initial_cost": 36261.45616508913,
+    "candidate_cost": 36260.18751085423,
+    "role": "local_region_feasible_upper_bound_only"
+  },
+  "total_seconds": 8.509683416999906,
+  "candidate_cost": 36260.18751085423,
+  "scope": "upper_bound_only; first_free_cp_then_dominance_presolve"
+}

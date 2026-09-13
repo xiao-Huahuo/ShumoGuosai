@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "total_cost": 77788.04072962768,
+    "planned_cost": 71735.61811849203,
+    "emergency_kwh": 1198.2089576615754,
+    "emergency_cost": 6052.422611135652,
+    "min_soc": 1199.9999999999982,
+    "final_soc": 9300.000000000002,
+    "initial_soc": 10200.000000000004,
+    "adjustment_up_kwh": 0.0,
+    "adjustment_down_kwh": 0.0,
+    "adjustment_abs_kwh": 0.0,
+    "adjustment_net_kwh": 0.0,
+    "adjustment_cost": 0.0,
+    "solve_seconds": 0.5888089580112137,
+    "solver_native_seconds": 0.5436362079926766,
+    "solve_wall_seconds": 1.7407056670053862,
+    "scenario_seconds": 0.2061667919915635,
+    "nodes": 1,
+    "all_optimal": true,
+    "max_gap": 0.0,
+    "mode": "4-2",
+    "date": "2025-12-14",
+    "role": "高价格波动日",
+    "parameter": "rho",
+    "setting": "0.75",
+    "baseline_reused": false,
+    "day_elapsed_seconds": 1.8485243750037625,
+    "delta_cost_pct": -0.1133868387529391,
+    "delta_emergency_kwh": 195.35664060455895,
+    "delta_emergency_pct": 19.480100637136196,
+    "delta_adjustment_cost": 0.0
+  },
+  "artifact_hashes": {
+    "dispatch.csv": "c69a664954c4126c8709069aa723a6b95fa324692848d4dc1c404c89add50d52",
+    "audit.json": "c618c50287d32ef5a55baf25113e50e90d98af35617c84bb59077352ebc81d94"
+  }
+}

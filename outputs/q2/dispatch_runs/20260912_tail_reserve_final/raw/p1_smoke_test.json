@@ -1,0 +1,148 @@
+{
+  "complete": true,
+  "purpose": "P1 smoke only; high-emergency initial SOC is a baseline fixture, not the new trajectory state",
+  "cases": [
+    {
+      "case": "ordinary",
+      "date": "2025-02-01",
+      "initial_soc_fixture": 6000.0,
+      "selected_K": 3,
+      "scenario_count": 15,
+      "tail_scenario_count": 3,
+      "body_scenario_count": 12,
+      "tail_probability_mass": 0.2,
+      "weight_sum": 1.0,
+      "max_reserve_kwh": 1509.9191717625135,
+      "mean_reserve_kwh": 747.7902972252216,
+      "proxy_reserve_max_kwh": 0.0,
+      "solver": {
+        "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+        "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+        "solver_version": "10.0.2",
+        "before_presolve": {
+          "continuous": 104931,
+          "binary": 51840,
+          "variables": 156771,
+          "constraints": 220245
+        },
+        "after_presolve": {
+          "continuous": 102339,
+          "binary": 49113,
+          "variables": 151452,
+          "constraints": 206483
+        },
+        "mip_gap": 0.02712719546455645,
+        "requested_gap": 0.03,
+        "objective": 138446.97408508733,
+        "dual_bound": 134790.48621867085,
+        "solve_seconds": 2.8102971999978763,
+        "mapping_error_kwh": 0.0,
+        "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+        "reliable": true,
+        "certificate": {
+          "lower_bound": 134790.48621867085,
+          "incumbent_cost": 138446.97408508733,
+          "certified_gap": 0.02712719546455645,
+          "seconds": 0.6708720999995421,
+          "variables": 32832,
+          "constraints": 12960,
+          "refinement": null,
+          "role": "lower_bound_only_never_free_recourse_execution"
+        },
+        "branch_and_bound_required": false,
+        "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+      },
+      "actual_emergency_kwh": 16.20030121432353,
+      "actual_total_cost_yuan": 24045.490008069377,
+      "final_soc": 8835.938716540168,
+      "validation": {
+        "soc_min": 1926.3521377847226,
+        "soc_max": 10800.0,
+        "soc_violation_count": 0,
+        "simultaneous_charge_discharge_count": 0,
+        "power_violation_count": 0,
+        "max_energy_balance_residual": 0.0,
+        "emergency_and_charge_count": 0,
+        "reserve_discharge_violation_count": 0,
+        "intervals_checked": 144,
+        "overall_pass": true
+      },
+      "wall_seconds": 5.442498100001103
+    },
+    {
+      "case": "high_emergency",
+      "date": "2025-06-01",
+      "initial_soc_fixture": 8714.06485945293,
+      "selected_K": 3,
+      "scenario_count": 26,
+      "tail_scenario_count": 5,
+      "body_scenario_count": 21,
+      "tail_probability_mass": 0.2,
+      "weight_sum": 1.0,
+      "max_reserve_kwh": 1964.1491567323328,
+      "mean_reserve_kwh": 1000.3302899139411,
+      "proxy_reserve_max_kwh": 0.0,
+      "solver": {
+        "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+        "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+        "solver_version": "10.0.2",
+        "before_presolve": {
+          "continuous": 180930,
+          "binary": 89856,
+          "variables": 270786,
+          "constraints": 381758
+        },
+        "after_presolve": {
+          "continuous": 170884,
+          "binary": 79602,
+          "variables": 250486,
+          "constraints": 337053
+        },
+        "mip_gap": 0.024614599362317125,
+        "requested_gap": 0.03,
+        "objective": 110638.42869552529,
+        "dual_bound": 107980.53118156097,
+        "solve_seconds": 5.8419632999975875,
+        "mapping_error_kwh": 0.0,
+        "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+        "reliable": true,
+        "certificate": {
+          "lower_bound": 107980.53118156097,
+          "incumbent_cost": 110638.42869552529,
+          "certified_gap": 0.024614599362317125,
+          "seconds": 1.98241169999892,
+          "variables": 56592,
+          "constraints": 22464,
+          "refinement": {
+            "method": "piecewise_gradient_incumbent_only",
+            "iterations": null,
+            "evaluations": 3,
+            "seconds": 0.07485170000290964,
+            "termination": "feasible_upper_bound_reached_requested_gap",
+            "candidate_cost": 110638.4286955253,
+            "global_optimality_claim": false
+          },
+          "role": "lower_bound_only_never_free_recourse_execution"
+        },
+        "branch_and_bound_required": false,
+        "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+      },
+      "actual_emergency_kwh": 12853.656081907806,
+      "actual_total_cost_yuan": 110021.82164935704,
+      "final_soc": 7006.452786735744,
+      "validation": {
+        "soc_min": 1311.2021239830278,
+        "soc_max": 9260.559099828557,
+        "soc_violation_count": 0,
+        "simultaneous_charge_discharge_count": 0,
+        "power_violation_count": 0,
+        "max_energy_balance_residual": 1.1368683772161603e-13,
+        "emergency_and_charge_count": 0,
+        "reserve_discharge_violation_count": 0,
+        "intervals_checked": 144,
+        "overall_pass": true
+      },
+      "wall_seconds": 10.769522400001733
+    }
+  ]
+}

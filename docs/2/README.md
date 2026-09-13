@@ -11,6 +11,7 @@
 - 结果：334/334 日，初始 SOC 6000 kWh，3% gap；物理/数值违规 0，96 项测试通过，界面验收通过。
 - 预测缓存逐摘要复用；未重训预测器。最终任务书取消的 27 项开发型全年实验没有继续运行，也不再作为论文完成门槛。
 - 旧 baseline：`outputs/history/q2_baselines/pre_tail_reserve_20260912/`，78 个源码文件与 11977 个结果文件逐 SHA-256 核验一致。
+  2026-09-13体积清理后，源码与清单原样保留，结果存于同目录 `results.tar.gz`；11977文件解压流SHA全部一致，恢复见[RESTORE.md](../../outputs/history/q2_baselines/pre_tail_reserve_20260912/RESTORE.md)。
 
 以下内容均为此前方案和执行过程的历史记录。
 

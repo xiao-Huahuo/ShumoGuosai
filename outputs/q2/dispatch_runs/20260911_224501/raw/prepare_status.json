@@ -1,0 +1,12 @@
+{
+  "complete": true,
+  "forecast_source_sha256": {
+    "data.py": "34a3c7b179ad064efd45180d68c614f19987dba946c8d4b8a909cc92f6241cbb",
+    "forecast.py": "48694ce530fd85d83478fee6767af6b5e34421c466e87efbbfede2c2bd771a16",
+    "shadows.py": "e639ccb1f862ac7afcf5e3dc59b856360bf92acc759433fa44c3fe850b5f4117",
+    "scenarios.py": "94294629945afd8a97fe28c6c495106d233a54948c8f4eb937b5b3b7d1f26b35",
+    "policy.py": "a5715a808f5d49e9350c6452d06192076a5c692c6c4eb33c4df9cbee194091a9",
+    "protocol.py": "07be4f8a6ef665a0e1ab7946824466ebbba35ac03266d917c9e1e8e97e68c832",
+    "requirements.txt": "62f82877c641afb177a6693247dcfebab81e410460d7426776684c92e8f2fe16"
+  }
+}

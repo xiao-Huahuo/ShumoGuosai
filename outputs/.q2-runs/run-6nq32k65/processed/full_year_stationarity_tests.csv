@@ -1,0 +1,61 @@
+scope,series,form,test,regression,input_n,status,statistic,p_value,p_value_type,selected_lags,test_n,bic,critical_1pct,critical_5pct,critical_10pct,reject_null_1pct,reject_null_5pct,reject_null_10pct,warning
+full_year,load_kw,raw,ADF,c,52560,ok,-32.286429586264283,0,approximate,58,52501,673872.57563244354,-3.4304745618132237,-2.8615950538210817,-2.5667993033181031,True,True,True,
+full_year,load_kw,raw,KPSS,c,52560,ok,0.52516900329078708,0.03599797223180471,interpolated,135,52560,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,True,True,
+full_year,load_kw,raw,ADF,ct,52560,ok,-32.289872731736651,0,approximate,58,52501,673883.20197260985,-3.9589424470300387,-3.4105736283523638,-3.127099250009878,True,True,True,
+full_year,load_kw,raw,KPSS,ct,52560,ok,0.50625164058044225,0.01,less_than,135,52560,,0.216,0.14599999999999999,0.11899999999999999,True,True,True,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+"
+full_year,load_kw,diff144,ADF,c,52416,ok,-28.277514721563602,0,approximate,58,52357,668615.54084771487,-3.4304749044184266,-2.861595205242518,-2.566799383915253,True,True,True,
+full_year,load_kw,diff144,KPSS,c,52416,ok,0.0039032990671292065,0.10000000000000001,greater_than,136,52416,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,load_kw,diff144,ADF,ct,52416,ok,-28.27783870507945,0,approximate,58,52357,668626.37340350763,-3.9589429213479304,-3.4105738583685259,-3.1270993854685001,True,True,True,
+full_year,load_kw,diff144,KPSS,ct,52416,ok,0.0030023352336249502,0.10000000000000001,greater_than,136,52416,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,load_kw,diff1008,ADF,c,51552,ok,-16.543590493006427,1.9737789596935941e-29,approximate,24,51527,628822.81097705127,-3.4304769164865188,-2.8615960945171581,-2.5667998572498907,True,True,True,
+full_year,load_kw,diff1008,KPSS,c,51552,ok,0.74519412982057076,0.01,less_than,127,51552,,0.73899999999999999,0.46300000000000002,0.34699999999999998,True,True,True,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+"
+full_year,load_kw,diff1008,ADF,ct,51552,ok,-16.551414596218535,0,approximate,24,51527,628833.44869697141,-3.9589457069451215,-3.4105752092181079,-3.1271001809960235,True,True,True,
+full_year,load_kw,diff1008,KPSS,ct,51552,ok,0.76456153753309208,0.01,less_than,127,51552,,0.216,0.14599999999999999,0.11899999999999999,True,True,True,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+"
+full_year,load_kw,diff144_then1008,ADF,c,51408,ok,-26.814737719971735,0,approximate,28,51379,660455.36237672542,-3.430477282094619,-2.8615962561050701,-2.5667999432583768,True,True,True,
+full_year,load_kw,diff144_then1008,KPSS,c,51408,ok,0.014251500238975751,0.10000000000000001,greater_than,93,51408,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,load_kw,diff144_then1008,ADF,ct,51408,ok,-26.814512502925673,0,approximate,28,51379,660466.20874719252,-3.9589462131094573,-3.4105754546777223,-3.1271003255493794,True,True,True,
+full_year,load_kw,diff144_then1008,KPSS,ct,51408,ok,0.014086716232100763,0.10000000000000001,greater_than,93,51408,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,pv_kw,raw,ADF,c,52560,ok,-50.694171247221014,0,approximate,58,52501,596337.7247730596,-3.4304745618132237,-2.8615950538210817,-2.5667993033181031,True,True,True,
+full_year,pv_kw,raw,KPSS,c,52560,ok,6.8378681292074734,0.01,less_than,134,52560,,0.73899999999999999,0.46300000000000002,0.34699999999999998,True,True,True,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+"
+full_year,pv_kw,raw,ADF,ct,52560,ok,-50.700305708077856,0,approximate,58,52501,596347.95295573084,-3.9589424470300387,-3.4105736283523638,-3.127099250009878,True,True,True,
+full_year,pv_kw,raw,KPSS,ct,52560,ok,6.8048991214831407,0.01,less_than,134,52560,,0.216,0.14599999999999999,0.11899999999999999,True,True,True,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+"
+full_year,pv_kw,diff144,ADF,c,52416,ok,-38.100737911537429,0,approximate,21,52394,614235.76779399579,-3.4304748162081369,-2.8615951662561625,-2.5667993631639692,True,True,True,
+full_year,pv_kw,diff144,KPSS,c,52416,ok,0.17048765428807006,0.10000000000000001,greater_than,117,52416,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,pv_kw,diff144,ADF,ct,52416,ok,-38.121086732763601,0,approximate,21,52394,614245.02968707983,-3.9589427992256763,-3.4105737991464484,-3.1270993505920774,True,True,True,
+full_year,pv_kw,diff144,KPSS,ct,52416,ok,0.0069751703557194566,0.10000000000000001,greater_than,117,52416,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,pv_kw,diff1008,ADF,c,51552,ok,-32.945388979627523,0,approximate,21,51530,605940.01593240921,-3.4304769090972616,-2.8615960912513256,-2.5667998555115843,True,True,True,
+full_year,pv_kw,diff1008,KPSS,c,51552,ok,4.3416953284766571,0.01,less_than,122,51552,,0.73899999999999999,0.46300000000000002,0.34699999999999998,True,True,True,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+"
+full_year,pv_kw,diff1008,ADF,ct,51552,ok,-33.53782902956597,0,approximate,21,51530,605911.90939062845,-3.9589456967151011,-3.4105752042571558,-3.1271001780744743,True,True,True,
+full_year,pv_kw,diff1008,KPSS,ct,51552,ok,0.16160672917271957,0.036994392356067024,interpolated,121,51552,,0.216,0.14599999999999999,0.11899999999999999,False,True,True,
+full_year,pv_kw,diff144_then1008,ADF,c,51408,ok,-37.852017007559127,0,approximate,21,51386,637958.02451914654,-3.4304772647548929,-2.8615962484414266,-2.5667999391792451,True,True,True,
+full_year,pv_kw,diff144_then1008,KPSS,c,51408,ok,0.0024887232293882627,0.10000000000000001,greater_than,116,51408,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+full_year,pv_kw,diff144_then1008,ADF,ct,51408,ok,-37.851654252243904,0,approximate,21,51386,637968.86884793267,-3.9589461891035578,-3.4105754430362887,-3.1271003186936355,True,True,True,
+full_year,pv_kw,diff144_then1008,KPSS,ct,51408,ok,0.0024556137988041189,0.10000000000000001,greater_than,116,51408,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"

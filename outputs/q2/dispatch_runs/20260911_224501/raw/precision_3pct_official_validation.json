@@ -1,0 +1,96 @@
+{
+  "complete": true,
+  "at": "2026-09-12T04:24:34.607370+00:00",
+  "revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+  "checkpoints": {
+    "main": {
+      "completed_days": 110,
+      "preserved_prefix_days": 109,
+      "prefix_tables_exact": true,
+      "prefix_audit_and_policy_sha256_exact": true,
+      "physical_cost_source_and_soc_replay": true,
+      "execution_history_preserved": true,
+      "new_official_days": [
+        {
+          "date": "2025-05-21",
+          "K": 2,
+          "gap": 0.026145179673611556,
+          "solver": "HiGHS_monotone_charge_bound_MILP",
+          "solve_seconds": 11.126532000002044,
+          "computational_limited": false
+        }
+      ]
+    },
+    "horizon_1": {
+      "completed_days": 139,
+      "preserved_prefix_days": 132,
+      "prefix_tables_exact": true,
+      "prefix_audit_and_policy_sha256_exact": true,
+      "physical_cost_source_and_soc_replay": true,
+      "execution_history_preserved": true,
+      "new_official_days": [
+        {
+          "date": "2025-06-13",
+          "K": 1,
+          "gap": 0.02989065653750508,
+          "solver": "HiGHS_monotone_charge_bound_MILP",
+          "solve_seconds": 40.273365125001874,
+          "computational_limited": false
+        },
+        {
+          "date": "2025-06-14",
+          "K": 1,
+          "gap": 0.029928608827044123,
+          "solver": "HiGHS_monotone_charge_bound_MILP",
+          "solve_seconds": 33.32271704199957,
+          "computational_limited": false
+        },
+        {
+          "date": "2025-06-15",
+          "K": 1,
+          "gap": 0.028037534840783012,
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solve_seconds": 1.5506563330054632,
+          "computational_limited": false
+        },
+        {
+          "date": "2025-06-16",
+          "K": 1,
+          "gap": 0.02696370114545382,
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solve_seconds": 1.6095237500048825,
+          "computational_limited": false
+        },
+        {
+          "date": "2025-06-17",
+          "K": 1,
+          "gap": 0.027596390386414066,
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solve_seconds": 2.003628333004599,
+          "computational_limited": false
+        },
+        {
+          "date": "2025-06-18",
+          "K": 1,
+          "gap": 0.02946570631655086,
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solve_seconds": 1.7162748749979073,
+          "computational_limited": false
+        },
+        {
+          "date": "2025-06-19",
+          "K": 1,
+          "gap": 0.027913823452765937,
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solve_seconds": 1.7949671250098618,
+          "computational_limited": false
+        }
+      ]
+    }
+  },
+  "test_manifest_current": true,
+  "full_tests": 79,
+  "previous_execution_files_unchanged": true,
+  "original_plan_sha256": "69a31915a1fdca5b2ef74d4c4165a612d1e3ec87f2171f4c7d714a2efaa947ae",
+  "browser_smoke": "IAB28 actual progress page: gap3%, main109, H1 running; no new precision benchmarks"
+}

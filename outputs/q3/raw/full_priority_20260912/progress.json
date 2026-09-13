@@ -1,0 +1,20 @@
+{
+  "status": "paused_for_solver_migration",
+  "phase": "main",
+  "worker_pid": 74704,
+  "attempt": 1,
+  "completed_days_including_warmup": 13,
+  "formal_days": 0,
+  "total_formal_days": 334,
+  "active_date": "2025-01-14",
+  "active_hour": "06",
+  "last_solver_gap": 0.059150478283400386,
+  "completed_slices": 41,
+  "node_reliable": false,
+  "checkpoint": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_20260912/main/nodes/2025-01-14/06/latest.json",
+  "soc": 9668.805906785554,
+  "updated_at": "2026-09-12T11:33:51.970203+00:00",
+  "main_result_ready": false,
+  "completed_sample_jobs": 0,
+  "sample_jobs_total": 36
+}

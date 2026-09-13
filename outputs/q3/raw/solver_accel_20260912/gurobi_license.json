@@ -1,0 +1,20 @@
+{
+  "probe": {
+    "installed": true,
+    "usable": true,
+    "version": [
+      13,
+      0,
+      3
+    ],
+    "tiny_status": 2,
+    "tiny_objective": 1.0
+  },
+  "matrix_digest": "2ff1bab6a35dbd09bdddb46d39de81953a23ef51aeca9238077c9d85f8d70db4",
+  "variables": 24732,
+  "constraints": 39409,
+  "binaries": 6048,
+  "full_matrix_usable": false,
+  "full_matrix_error_type": "GurobiUnavailable",
+  "full_matrix_error": "size_limited_license: Model too large for size-limited license; visit https://gurobi.com/unrestricted for more information"
+}

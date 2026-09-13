@@ -1,0 +1,10 @@
+{
+  "previous_supervisor_pid": 7417,
+  "new_launcher_pid": 7947,
+  "preserved_worker_pids": [
+    7422,
+    7452
+  ],
+  "reason": "reload_verified_memory_guard_without_interrupting_scientific_workers",
+  "at": "2026-09-11T17:14:18.726457+00:00"
+}

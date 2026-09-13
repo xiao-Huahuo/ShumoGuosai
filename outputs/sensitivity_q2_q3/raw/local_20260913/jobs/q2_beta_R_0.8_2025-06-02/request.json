@@ -1,0 +1,11 @@
+{
+  "id": "q2_beta_R_0.8_2025-06-02",
+  "question": "q2",
+  "parameter": "beta_R",
+  "value": 0.8,
+  "date": "2025-06-02",
+  "role": "高紧急购电日",
+  "status": "pending",
+  "started_at": 1789277217.741463,
+  "signature": "7603c3d7de8701d32c711ffdf06e716c71cba14fdf1dc769a7413e8ea8c1372a"
+}

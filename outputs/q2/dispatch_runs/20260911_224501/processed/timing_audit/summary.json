@@ -1,0 +1,82 @@
+{
+  "at": "2026-09-12T01:14:36.288330+00:00",
+  "completed_window_local": [
+    "2026-09-12T01:02:13.346757+08:00",
+    "2026-09-12T09:05:16.008050679+08:00"
+  ],
+  "new_main_days": 48,
+  "early_days": 34,
+  "early_hours": 2.045237985277778,
+  "early_average_minutes": 3.6092435034313723,
+  "late_days": 14,
+  "late_hours": 6.005501255555554,
+  "late_average_minutes": 25.737862523809515,
+  "late_to_early_average_ratio": 7.131096169970264,
+  "supplemental_dates": [
+    "2025-04-13",
+    "2025-04-14",
+    "2025-04-15",
+    "2025-04-16",
+    "2025-04-17",
+    "2025-04-20",
+    "2025-04-23"
+  ],
+  "supplemental_days": 7,
+  "supplemental_day_wall_hours": 5.471834775277777,
+  "supplemental_share_of_main_advancement_wall": 0.6796686132280428,
+  "regular_days": 41,
+  "regular_mean_minutes": 3.7740065349593492,
+  "final_attempt_recorded_solver_hours": 5.0141574989344475,
+  "scenario_counts_stable": {
+    "K1": 28,
+    "K2": 27,
+    "K3": 26
+  },
+  "original_failed_calls_by_K": {
+    "1": 8,
+    "2": 31,
+    "3": 38
+  },
+  "hardware_snapshot": {
+    "worker_pids": [
+      28187,
+      34303
+    ],
+    "cpu_per_worker_percent": [
+      99.9,
+      99.3
+    ],
+    "rss_mib": [
+      2411.25,
+      628.5
+    ],
+    "swap_used_mib": 0,
+    "thermal_warning_reported": false,
+    "performance_warning_reported": false,
+    "scope": "snapshot_from_ps_vm_stat_pmset_at_09:09_not_full_night_telemetry"
+  },
+  "hard_case_diagnostic": {
+    "job": "horizon_1",
+    "date": "2025-04-27",
+    "solver_seconds": 2769.8426908750043,
+    "gap": 0.009999820651744812,
+    "reliable": true,
+    "officially_committed": false,
+    "exceeds_production_900_budget": true
+  },
+  "interpretation": "stage_slowdown_dominated_by_difficult_days_retries_and_repair_waits; no_evidence_of_monotonic_model_size_growth_or_current_swap_thrashing",
+  "timing_limitations": [
+    "completion_intervals_use_immutable_daily_audit_filesystem_timestamps",
+    "intervals_include_failed_retries_repairs_queue_wait_preparation_not_just_solver",
+    "recorded_solver_totals_exclude_earlier_aborted_attempts_and_separate_diagnostics",
+    "parallel_worker_solver_hours_cannot_be_added_as_elapsed_wall_time"
+  ],
+  "last_day_save_observation": {
+    "date": "2025-04-26",
+    "days": 85,
+    "audit_to_checkpoint_write_seconds": 0.26470446586608887,
+    "dispatch_bytes": 3062424,
+    "scope": "single_latest_committed_day_observation_including_replay_calibration_and_checkpoint_write_not_a_dedicated_IO_benchmark",
+    "at": "2026-09-12T01:15:05.911938+00:00"
+  }
+}

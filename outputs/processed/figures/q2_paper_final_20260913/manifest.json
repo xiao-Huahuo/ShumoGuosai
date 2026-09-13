@@ -1,0 +1,130 @@
+[
+  {
+    "name": "fig5_1_source_load_structure",
+    "title": "图5-1 源荷结构与预测特征依据组合图",
+    "caption": "全年2025年数据的事后结构展示。工作日指周一至周五；分位带是跨日25%–75%范围。光伏以每月×时刻均值去周期，未将全样本统计用于滚动预测。负荷为配对Pearson相关；残差带为逐点Bartlett参考带。",
+    "data": [
+      "fig51_weekday_profiles.csv",
+      "fig51_seasonal_pv.csv",
+      "fig51_load_lag_correlation.csv",
+      "fig51_pv_residual_acf.csv",
+      "fig51_pv_deseasonalized.csv"
+    ],
+    "png": "fig5_1_source_load_structure.png",
+    "svg": "fig5_1_source_load_structure.svg",
+    "width_inches": 8.8,
+    "height_inches": 6.5,
+    "dpi": 400,
+    "font": "Heiti TC",
+    "svg_text": "glyph paths",
+    "script": "src/plots/q2_paper_final.py",
+    "sha256": {
+      "png": "f970a3fa064b835c4d0e7ab6fc21cab73461cb0b0235b86acd22e8aa8817ca50",
+      "svg": "81e0a31c02ddfa59047d339f5b49d97b9f3dabb4aa5f8bc5476a092e273fd189"
+    }
+  },
+  {
+    "name": "fig5_2_forecast_and_calibration",
+    "title": "图5-2 不同前瞻日的误差分布与场景校准",
+    "caption": "仅使用三个前瞻日均有正式场景且目标真值完整的304个共同预测起点，每个h为43,776时段。误差为同forecast-origin真实净负荷减点预测，单位kWh/10min。箱线须为1.5IQR，点保留全部离群值；PICP由覆盖数/样本数计算。",
+    "data": [
+      "fig52_paired_errors.csv",
+      "fig52_error_quantiles.csv",
+      "fig52_paired_coverage.csv",
+      "fig52_all_available_coverage.csv"
+    ],
+    "png": "fig5_2_forecast_and_calibration.png",
+    "svg": "fig5_2_forecast_and_calibration.svg",
+    "width_inches": 8.8,
+    "height_inches": 4.25,
+    "dpi": 400,
+    "font": "Heiti TC",
+    "svg_text": "glyph paths",
+    "script": "src/plots/q2_paper_final.py",
+    "sha256": {
+      "png": "a8cd718537edf8c18d79b175a80db0457409f00018019e3cb6994d3b8f23b5a4",
+      "svg": "fa0188c4c9cec7681af70214c14af1ab304af8ca632db224726472cb199369ee"
+    }
+  },
+  {
+    "name": "fig5_3_causal_information_timeline",
+    "title": "图5-3 非前瞻滚动调度的信息时序",
+    "caption": "横向时间轴区分日前冻结与日内反馈。G为计划购电，Cp/Dp为事前反馈上限，R为历史给定安全裕度；C/D/B为实际充电/放电/紧急购电。当前映射不访问未来真实轨迹。真实日末SOC传至下一日，不重置。",
+    "data": [],
+    "png": "fig5_3_causal_information_timeline.png",
+    "svg": "fig5_3_causal_information_timeline.svg",
+    "width_inches": 9.6,
+    "height_inches": 5.6,
+    "dpi": 400,
+    "font": "Heiti TC",
+    "svg_text": "glyph paths",
+    "script": "src/plots/q2_paper_final.py",
+    "sha256": {
+      "png": "f2408998d2380fefc89d1385da4ec950b4a0cd6e8e72673d2bfadd2502ab0767",
+      "svg": "c79dbed8a22098c41bf2e255a7a917ac74c5f0ee2ea97d24df8cbf91de151752"
+    }
+  },
+  {
+    "name": "fig5_4_real_dispatch_20250320",
+    "title": "图5-4 压力代表日真实购电与储能运行",
+    "caption": "2025-03-20在题目四个指定日期中紧急量最高（53.567333kWh）。Z为储能之前净负荷正部，单位kWh/10min；红柱为真实紧急量，淡红时段仅标事件位置、不放大能量。充电为正、放电为负，SOC含日初共145点。",
+    "data": [
+      "fig54_real_dispatch.csv",
+      "fig54_storage_145.csv",
+      "fig54_candidate_dates.csv"
+    ],
+    "png": "fig5_4_real_dispatch_20250320.png",
+    "svg": "fig5_4_real_dispatch_20250320.svg",
+    "width_inches": 8.8,
+    "height_inches": 7.7,
+    "dpi": 400,
+    "font": "Heiti TC",
+    "svg_text": "glyph paths",
+    "script": "src/plots/q2_paper_final.py",
+    "sha256": {
+      "png": "ece60128c1226bb8b0e475efbd62ce977b248b0084344b9a542774df0fe35cb8",
+      "svg": "42fe5a31513618044a4b76a2e0d1f50fa0247f1263d7d362c563493b421c6c08"
+    }
+  },
+  {
+    "name": "fig5_5_local_horizon_tradeoff",
+    "title": "图5-5 前瞻长度的局部费用与耗时权衡",
+    "caption": "经用户确认改为当前模型4个代表日局部比较，纵轴不是全年费用。K1/2/3采用相同S26联合72h场景的前缀、同一各日日初SOC/R和同机3%预算，均独立计时。日末库存不同，较低当日费不等于更优跨日经济性。",
+    "data": [
+      "fig55_horizon_summary.csv",
+      "fig55_horizon_cases.csv"
+    ],
+    "png": "fig5_5_local_horizon_tradeoff.png",
+    "svg": "fig5_5_local_horizon_tradeoff.svg",
+    "width_inches": 7.0,
+    "height_inches": 4.4,
+    "dpi": 400,
+    "font": "Heiti TC",
+    "svg_text": "glyph paths",
+    "script": "src/plots/q2_paper_final.py",
+    "sha256": {
+      "png": "f92a1ffad63328e71d35e962c976d058966db86bf1633ea06cfe2b3c785dba90",
+      "svg": "9132cce66f0a9913205d2e6acfbee214c7d6d0d553aaf91bba9827b4a5eff43d"
+    }
+  },
+  {
+    "name": "figS1_annual_source_load_heatmaps",
+    "title": "附加图 全年源荷日期—时刻热力图",
+    "caption": "52560个原始10分钟记录逐格呈现，不做平滑或缺失补值。日期自上而下，负荷/PV顺序色标，净负荷发散色标以0为中心；三个色标各自标明原始kW。SVG中的热图为栅格图元，坐标和中文标签为矢量路径。",
+    "data": [
+      "figS1_annual_arrays.npz"
+    ],
+    "png": "figS1_annual_source_load_heatmaps.png",
+    "svg": "figS1_annual_source_load_heatmaps.svg",
+    "width_inches": 9.6,
+    "height_inches": 4.9,
+    "dpi": 400,
+    "font": "Heiti TC",
+    "svg_text": "glyph paths",
+    "script": "src/plots/q2_paper_final.py",
+    "sha256": {
+      "png": "9618c4cb2f42543f50b8aad3ae273a22a32eb15e2fd4571b8e5d1e845a14b375",
+      "svg": "19d2a8e21d4b5a0e1d3030a4fe3aabeba64243359a9951e42954d0caae2df21f"
+    }
+  }
+]

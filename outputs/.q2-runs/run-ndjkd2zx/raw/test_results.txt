@@ -1,0 +1,29 @@
+test_acf_and_pacf_computed_through_weekly_lags (test_q2.Q2Tests.test_acf_and_pacf_computed_through_weekly_lags) ... ok
+test_candidate_guard_rejects_full_year_information (test_q2.Q2Tests.test_candidate_guard_rejects_full_year_information) ... ok
+test_constant_series_not_reported_as_significant (test_q2.Q2Tests.test_constant_series_not_reported_as_significant) ... ok
+test_cross_midnight_emergency_is_one_contiguous_event (test_q2.Q2Tests.test_cross_midnight_emergency_is_one_contiguous_event) ... ok
+test_dispatch_metrics_plan_billing_and_fivefold_emergency (test_q2.Q2Tests.test_dispatch_metrics_plan_billing_and_fivefold_emergency) ... ok
+test_duplicate_and_missing_dates_rejected (test_q2.Q2Tests.test_duplicate_and_missing_dates_rejected) ... ok
+test_duplicate_missing_and_wrong_endpoints_rejected (test_q2.Q2Tests.test_duplicate_missing_and_wrong_endpoints_rejected) ... ok
+test_failed_publish_keeps_current_generation (test_q2.Q2Tests.test_failed_publish_keeps_current_generation) ... ok
+test_forecast_metrics_hand_calculation (test_q2.Q2Tests.test_forecast_metrics_hand_calculation) ... ok
+test_future_and_midnight_perturbation_cannot_change_prediction (test_q2.Q2Tests.test_future_and_midnight_perturbation_cannot_change_prediction) ... ok
+test_generated_artifacts_roundtrip (test_q2.Q2Tests.test_generated_artifacts_roundtrip) ... ok
+test_invalid_predictions_rejected (test_q2.Q2Tests.test_invalid_predictions_rejected) ... ok
+test_jump_review_preserves_spikes_and_uses_past_peers (test_q2.Q2Tests.test_jump_review_preserves_spikes_and_uses_past_peers) ... ok
+test_missing_and_nonfinite_rejected (test_q2.Q2Tests.test_missing_and_nonfinite_rejected) ... ok
+test_missing_sheet_rejected (test_q2.Q2Tests.test_missing_sheet_rejected) ... ok
+test_monthly_and_weekday_profiles_and_stability (test_q2.Q2Tests.test_monthly_and_weekday_profiles_and_stability) ... ok
+test_negative_physical_values_rejected (test_q2.Q2Tests.test_negative_physical_values_rejected) ... ok
+test_new_model_per_variable_per_day (test_q2.Q2Tests.test_new_model_per_variable_per_day) ... ok
+test_original_values_and_quality (test_q2.Q2Tests.test_original_values_and_quality) ... ok
+test_right_endpoint_and_calendar (test_q2.Q2Tests.test_right_endpoint_and_calendar) ... ok
+test_small_weekly_peak_alone_does_not_prioritize_multiseason_model (test_q2.Q2Tests.test_small_weekly_peak_alone_does_not_prioritize_multiseason_model) ... ok
+test_spectrum_known_daily_weekly_peaks_and_parseval (test_q2.Q2Tests.test_spectrum_known_daily_weekly_peaks_and_parseval) ... ok
+test_strict_midnight_and_334_folds (test_q2.Q2Tests.test_strict_midnight_and_334_folds) ... ok
+test_transforms_match_four_term_identity (test_q2.Q2Tests.test_transforms_match_four_term_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 2.559s
+
+OK

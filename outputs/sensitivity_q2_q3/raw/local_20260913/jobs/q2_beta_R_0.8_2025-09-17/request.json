@@ -1,0 +1,11 @@
+{
+  "id": "q2_beta_R_0.8_2025-09-17",
+  "question": "q2",
+  "parameter": "beta_R",
+  "value": 0.8,
+  "date": "2025-09-17",
+  "role": "常规日",
+  "status": "pending",
+  "started_at": 1789277035.741312,
+  "signature": "e7283dab3ef5529d0191c80fbe606b74db89258aca055d040d98271492effc29"
+}

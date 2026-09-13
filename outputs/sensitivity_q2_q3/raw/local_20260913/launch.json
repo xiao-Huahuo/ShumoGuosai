@@ -1,0 +1,9 @@
+{
+  "supervisor_pid": 34608,
+  "workers": [
+    34611,
+    34612
+  ],
+  "started_at": 1789277171.023901,
+  "python": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/.venv_sensitivity/bin/python"
+}

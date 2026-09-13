@@ -1,0 +1,11 @@
+test_core_design_and_no_baseline_resolve (src.sensitivity.test_sensitivity.Tests.test_core_design_and_no_baseline_resolve) ... ok
+test_q2_scaling_and_tail_fixed_reserve (src.sensitivity.test_sensitivity.Tests.test_q2_scaling_and_tail_fixed_reserve) ... ok
+test_q3_scenario_size_does_not_change_pool (src.sensitivity.test_sensitivity.Tests.test_q3_scenario_size_does_not_change_pool) ... ok
+test_representatives_are_four_unique_and_frozen (src.sensitivity.test_sensitivity.Tests.test_representatives_are_four_unique_and_frozen) ... ok
+test_terminal_only_perturbation_leaves_scenarios_unchanged (src.sensitivity.test_sensitivity.Tests.test_terminal_only_perturbation_leaves_scenarios_unchanged) ... ok
+test_zero_emergency_baseline_is_not_percent (src.sensitivity.test_sensitivity.Tests.test_zero_emergency_baseline_is_not_percent) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.725s
+
+OK

@@ -1,0 +1,6 @@
+def diagnostic_charge_dominance(*args, **kwargs):
+    objective, bounds, integer, constraints, indices = original_build(*args, **kwargs)
+    assert kwargs.get("fixed_policy") is None
+    bounds.lb[indices["cp"]] = CAP
+    bounds.ub[indices["cp"]] = CAP
+    return objective, bounds, integer, constraints, indices

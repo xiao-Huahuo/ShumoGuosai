@@ -1,0 +1,68 @@
+{
+  "model_source": "docs/1/final/第一问_MILP_边际价值强化版.md",
+  "period_count": 144,
+  "dt_hours": 0.16666666666666666,
+  "max_power_kw": 5000,
+  "max_energy_kwh": 833.3333333333333,
+  "max_energy_precision_decision": "5000×1/6准确计算及验收；833.3333仅用于显示",
+  "rated_capacity_kwh": 12000,
+  "min_energy_kwh": 1200.0,
+  "max_storage_kwh": 10800.0,
+  "initial_and_terminal_kwh": 6000.0,
+  "tolerances": {
+    "physical_kwh": 1e-06,
+    "cost_yuan": 1e-06,
+    "binary": 1e-08,
+    "mip_gap": 1e-06,
+    "economic_value_per_unit": 1e-06,
+    "dimensionless": 1e-08
+  },
+  "efficiency_scenarios": {
+    "main": 0.9,
+    "eta085": 0.85,
+    "eta095": 0.95,
+    "roundtrip090": 0.9486832980505138
+  },
+  "delivery_format": "用户明确要求仅CSV；review中的XLSX建议不采用",
+  "analysis_settings": {
+    "active_tolerance_kwh": 1e-06,
+    "rhs_step_kwh": 0.01,
+    "main_capacity_steps_kwh": [
+      1.0,
+      10.0,
+      100.0
+    ],
+    "main_power_steps_kw": [
+      1.0,
+      10.0,
+      100.0
+    ],
+    "all_scenario_boundary_steps": [
+      1.0,
+      10.0,
+      100.0
+    ],
+    "economic_significance_threshold": null,
+    "economic_significance_note": "题目未给设备投资成本或经济显著性门槛；仅报告数值稳定性和节约",
+    "load_deltas": [
+      -0.05,
+      0.0,
+      0.05
+    ],
+    "pv_deltas": [
+      -0.05,
+      0.0,
+      0.05
+    ],
+    "numerical_setting_note": "实现中的数值诊断设置；不改变主模型设备参数和目标"
+  },
+  "assumptions": [
+    "右端点标记",
+    "10分钟内零阶保持",
+    "充放电量为微网母线侧",
+    "主模型双单程效率均0.9；函数支持独立效率",
+    "不售电且允许弃光",
+    "只最小化购电费，无二级目标",
+    "无经济显著性门槛时不判断投资意义"
+  ]
+}

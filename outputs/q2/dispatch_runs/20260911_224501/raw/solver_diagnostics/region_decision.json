@@ -1,0 +1,12 @@
+{
+  "adopted": false,
+  "reason": "固定分支LP只略改善可行上界，不能通过1%门槛；充电上限固定到设备上限的诊断与原生求解达到相同下界，无足够速度改善证据，因此未接入生产求解。主模型现已用现有代码在42.465267秒通过原先失败的3月10日K1，gap0.781292%。其他K的原120秒失败继续保留。",
+  "source": "region_incumbent_source.txt",
+  "results": [
+    "mar10_k1_region.json",
+    "mar10_k1_region_policy.csv",
+    "mar10_k1_max_charge.json",
+    "mar10_k1_max_charge.log"
+  ],
+  "actual_dispatch_changed_by_diagnostic": false
+}

@@ -1,0 +1,50 @@
+{
+  "complete": true,
+  "settings": {},
+  "start_index": 31,
+  "end_index": 365,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900.0,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.03,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+    "tail_stratification": true,
+    "tail_fraction": 0.2,
+    "dynamic_soc_reserve": true,
+    "reserve_quantile": 0.8,
+    "refine_seconds": 5.0,
+    "lp_certificate_fast_path": true,
+    "solver_threads": 1,
+    "rescue_reuses_day_assets_bound_and_incumbent": true,
+    "evaluation_initial_soc_kwh": 6000.0,
+    "precision_revision_sha256": "308847bde0add876ac9fb31374e7b364c4a0d485f5e1377f42b30c376ac8f0e3",
+    "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt",
+    "horizon_evaluation": "K2_K3_then_K1_only_if_both_fail"
+  },
+  "execution_history": [
+    {
+      "execution": {
+        "base_solver_seconds": 120.0,
+        "rescue_seconds": 900.0,
+        "rescue_trigger": "all_day_candidates_failed",
+        "gap": 0.03,
+        "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+        "tail_stratification": true,
+        "tail_fraction": 0.2,
+        "dynamic_soc_reserve": true,
+        "reserve_quantile": 0.8,
+        "evaluation_initial_soc_kwh": 6000.0,
+        "precision_revision_sha256": "5ea48c2721175ae5c92bf423d30b754c9b83bf48e8faec365599432309e254bb",
+        "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt",
+        "horizon_evaluation": "K2_K3_then_K1_only_if_both_fail"
+      },
+      "completed_days": 286,
+      "next_date": "2025-11-14"
+    }
+  ],
+  "days": 334,
+  "initial_soc": 6000.0,
+  "final_soc": 8630.38368811016,
+  "full_evaluation_period": true
+}

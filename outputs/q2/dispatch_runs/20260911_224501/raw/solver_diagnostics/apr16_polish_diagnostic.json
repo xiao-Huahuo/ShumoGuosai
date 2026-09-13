@@ -1,0 +1,39 @@
+{
+  "date": "2025-04-16",
+  "information_boundary": "complete_source_days_before_105",
+  "uses_realized_target_day": false,
+  "records": [
+    {
+      "label": "original_charge_cap",
+      "initial_cost": 36275.85296762959,
+      "polish": {
+        "rounds": 11,
+        "seconds": 4.129634667002392,
+        "initial_cost": 36275.85296762959,
+        "candidate_cost": 36262.88872421386,
+        "role": "local_region_feasible_upper_bound_only"
+      },
+      "scenario_objective": 36262.88872421386,
+      "initial_soc": 1462.9246853535594,
+      "previous_valid_global_lower": 35882.86518344423,
+      "gap_using_previous_lower": 0.010590668800466012,
+      "net_sha256": "956a6f55d97aafccf4c12954e6fbe9a66d83f371fca720c823cb34204ec526e1"
+    },
+    {
+      "label": "maximum_charge_cap",
+      "initial_cost": 36275.85296762959,
+      "polish": {
+        "rounds": 16,
+        "seconds": 5.635241957999824,
+        "initial_cost": 36275.85296762959,
+        "candidate_cost": 36261.45616508913,
+        "role": "local_region_feasible_upper_bound_only"
+      },
+      "scenario_objective": 36261.45616508913,
+      "initial_soc": 1462.9246853535594,
+      "previous_valid_global_lower": 35882.86518344423,
+      "gap_using_previous_lower": 0.010550745591507954,
+      "net_sha256": "956a6f55d97aafccf4c12954e6fbe9a66d83f371fca720c823cb34204ec526e1"
+    }
+  ]
+}

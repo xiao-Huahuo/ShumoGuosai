@@ -1,0 +1,6 @@
+{
+  "date": "2025-01-07",
+  "mode": "4-3",
+  "cold_start": true,
+  "reason": "inherit Q2/Q3 Jan1-Jan7 unavailable-load stationary-storage protocol"
+}

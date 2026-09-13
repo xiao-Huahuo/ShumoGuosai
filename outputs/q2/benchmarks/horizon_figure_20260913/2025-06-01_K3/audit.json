@@ -1,0 +1,42 @@
+{
+  "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+  "solver": "LP_bound_and_exact_policy_replay",
+  "solver_version": null,
+  "before_presolve": null,
+  "after_presolve": null,
+  "mip_gap": 0.024297937539756127,
+  "requested_gap": 0.03,
+  "objective": 110247.48932126805,
+  "dual_bound": 107632.24768964158,
+  "solve_seconds": 1.6450885410013143,
+  "mapping_error_kwh": 0.0,
+  "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+  "reliable": true,
+  "certificate": {
+    "lower_bound": 107632.24768964158,
+    "incumbent_cost": 110247.48932126805,
+    "certified_gap": 0.024297937539756127,
+    "seconds": 1.6213835829985328,
+    "variables": 56592,
+    "constraints": 22464,
+    "refinement": {
+      "method": "piecewise_gradient_incumbent_only",
+      "iterations": null,
+      "evaluations": 4,
+      "seconds": 0.04774387500947341,
+      "termination": "feasible_upper_bound_reached_requested_gap",
+      "candidate_cost": 110247.4893212681,
+      "global_optimality_claim": false
+    },
+    "refine_seconds_budget": 5.0,
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  "branch_and_bound_required": false,
+  "certificate_source": "LP_BOUND",
+  "upper_bound": 110247.48932126805,
+  "lower_bound": 107632.24768964158,
+  "scip_build_skipped": true,
+  "presolve_scope": "skipped_after_LP_certificate",
+  "reused_recourse_bound": false,
+  "refine_seconds": 5.0
+}

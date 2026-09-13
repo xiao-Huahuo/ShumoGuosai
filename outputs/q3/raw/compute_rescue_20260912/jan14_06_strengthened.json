@@ -1,0 +1,23 @@
+{
+  "status": "Optimal",
+  "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+  "solver_version": "1.8.0",
+  "seconds": 128.36690379100037,
+  "binaries": 2592,
+  "variables": 10908,
+  "constraints": 16803,
+  "scenario_count": 6,
+  "requested_gap": 0.03,
+  "lower_bound": 4244.014478466723,
+  "terminal": 0.8950521117082826,
+  "reliable": true,
+  "objective": 4375.272092021915,
+  "optimizer_objective": 4375.2720920219135,
+  "gap": 0.029999874475129022,
+  "linear_feasibility_error": 1.8189894035458565e-12,
+  "integrality_error": 0.0,
+  "monotone_projection_error": 0.0,
+  "raw_response_difference": 0.0,
+  "mapping_error": null,
+  "mapped_cost_not_above_optimizer": true
+}

@@ -1,0 +1,65 @@
+scope,series,form,test,regression,input_n,status,statistic,p_value,p_value_type,selected_lags,test_n,bic,critical_1pct,critical_5pct,critical_10pct,reject_null_1pct,reject_null_5pct,reject_null_10pct,warning
+initial_history,load_kw,raw,ADF,c,4463,ok,-7.129632410688866,3.5453880888365025e-10,approximate,13,4449,57013.726289618033,-3.4318206848720512,-2.8621898659692988,-2.567115927484342,True,True,True,
+initial_history,load_kw,raw,KPSS,c,4463,ok,0.046459668653403688,0.10000000000000001,greater_than,40,4463,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,raw,ADF,ct,4463,ok,-7.1310831592322392,7.12393376296679e-09,approximate,13,4449,57022.023215764231,-3.9608062995118454,-3.4114772855272113,-3.1276313628571346,True,True,True,
+initial_history,load_kw,raw,KPSS,ct,4463,ok,0.046152648658892813,0.10000000000000001,greater_than,40,4463,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,diff144,ADF,c,4319,ok,-3.7681687806308055,0.0032503059911505303,approximate,17,4301,54780.410978124499,-3.4318713222755868,-2.8622122358955395,-2.5671278361087952,True,True,True,
+initial_history,load_kw,diff144,KPSS,c,4319,ok,0.11239923087952675,0.10000000000000001,greater_than,40,4319,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,diff144,ADF,ct,4319,ok,-3.77591122113264,0.017820327252063072,approximate,17,4301,54788.685965456629,-3.9608764210364655,-3.4115112749034178,-3.1276513749798398,False,True,True,
+initial_history,load_kw,diff144,KPSS,ct,4319,ok,0.098792423690672676,0.10000000000000001,greater_than,40,4319,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,diff1008,ADF,c,3455,ok,-14.672232496066535,3.2530394736621851e-27,approximate,13,3441,41508.437522970729,-3.4322518264869708,-2.8623803178837206,-2.5672173165743857,True,True,True,
+initial_history,load_kw,diff1008,KPSS,c,3455,ok,0.050129830618587105,0.10000000000000001,greater_than,2,3455,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,diff1008,ADF,ct,3455,ok,-14.67018079041175,3.3562707484850486e-22,approximate,13,3441,41516.555859018277,-3.9614033545138252,-3.4117666724245646,-3.1278017415131973,True,True,True,
+initial_history,load_kw,diff1008,KPSS,ct,3455,ok,0.047491047400660215,0.10000000000000001,greater_than,2,3455,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,diff144_then1008,ADF,c,3311,ok,-12.71533056862455,1.0094000148203124e-23,approximate,16,3294,42063.190598498637,-3.4323367648004606,-2.8624178351722858,-2.5672372898489977,True,True,True,
+initial_history,load_kw,diff144_then1008,KPSS,c,3311,ok,0.026147407935940978,0.10000000000000001,greater_than,8,3311,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,load_kw,diff144_then1008,ADF,ct,3311,ok,-12.713444518984097,3.2681303816870043e-20,approximate,16,3294,42071.264125133021,-3.9615209843961181,-3.4118236816488055,-3.1278353046821503,True,True,True,
+initial_history,load_kw,diff144_then1008,KPSS,ct,3311,ok,0.025940270827980633,0.10000000000000001,greater_than,8,3311,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,raw,ADF,c,4463,ok,-14.3026548852103,1.221602410802353e-26,approximate,11,4451,47101.942250622007,-3.4318200236568881,-2.8621895738638443,-2.5671157719825066,True,True,True,
+initial_history,pv_kw,raw,KPSS,c,4463,ok,0.027674178879038027,0.10000000000000001,greater_than,40,4463,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,raw,ADF,ct,4463,ok,-14.311952671987887,6.0037687942773356e-22,approximate,11,4451,47110.1283712312,-3.9608053838802424,-3.4114768416975716,-3.1276311015398703,True,True,True,
+initial_history,pv_kw,raw,KPSS,ct,4463,ok,0.0039535567726387373,0.10000000000000001,greater_than,40,4463,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,diff144,ADF,c,4319,ok,-11.795591493770168,9.5964111998116674e-22,approximate,15,4303,46404.152589890153,-3.4318706147546623,-2.8622119233388688,-2.5671276697188872,True,True,True,
+initial_history,pv_kw,diff144,KPSS,c,4319,ok,0.018165975618977516,0.10000000000000001,greater_than,37,4319,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,diff144,ADF,ct,4319,ok,-11.794253031624235,8.3850583706280983e-19,approximate,15,4303,46412.515214560575,-3.9608754412732972,-3.4115107999955461,-3.1276510953667227,True,True,True,
+initial_history,pv_kw,diff144,KPSS,ct,4319,ok,0.017620180003791262,0.10000000000000001,greater_than,37,4319,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,diff1008,ADF,c,3455,ok,-10.565318622714166,7.5432803810499177e-19,approximate,11,3443,37087.795708515099,-3.4322507209120432,-2.862379829543769,-2.5672170565954873,True,True,True,
+initial_history,pv_kw,diff1008,KPSS,c,3455,ok,0.23658486390493164,0.10000000000000001,greater_than,35,3455,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,diff1008,ADF,ct,3455,ok,-10.637047625140827,1.1306401892630415e-16,approximate,11,3443,37094.482305202073,-3.9614018234301107,-3.4117659303755659,-3.1278013046419177,True,True,True,
+initial_history,pv_kw,diff1008,KPSS,ct,3455,ok,0.024716895335924142,0.10000000000000001,greater_than,35,3455,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,diff144_then1008,ADF,c,3311,ok,-10.357718722919151,2.4418339247684562e-18,approximate,11,3299,37777.453973009084,-3.4323337512904191,-2.8624165041219203,-2.5672365812276881,True,True,True,
+initial_history,pv_kw,diff144_then1008,KPSS,c,3311,ok,0.026984064629030236,0.10000000000000001,greater_than,35,3311,,0.73899999999999999,0.46300000000000002,0.34699999999999998,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"
+initial_history,pv_kw,diff144_then1008,ADF,ct,3311,ok,-10.356349193724325,4.169444765313758e-16,approximate,11,3299,37785.545759606728,-3.9615168109982672,-3.4118216590424137,-3.1278341139165851,True,True,True,
+initial_history,pv_kw,diff144_then1008,KPSS,ct,3311,ok,0.026847779670344459,0.10000000000000001,greater_than,35,3311,,0.216,0.14599999999999999,0.11899999999999999,False,False,False,"The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+"

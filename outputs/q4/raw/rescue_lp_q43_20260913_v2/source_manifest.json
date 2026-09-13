@@ -1,0 +1,2122 @@
+{
+  "q2_run": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final",
+  "q3_provenance": {
+    "q2_run": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final",
+    "q2_reselection": false,
+    "q2_decisions": [
+      {
+        "date": "2025-02-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-01.json",
+        "sha256": "34a5370c33fec04fe4443ca50a97895decc7b954c3e8cb4523d7b62c3aa2f16b"
+      },
+      {
+        "date": "2025-02-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-02.json",
+        "sha256": "2fc0e3386ab76132ae1773ce4c0d8a9847ff01e956f25227e5302cee70e76f6c"
+      },
+      {
+        "date": "2025-02-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-03.json",
+        "sha256": "448f87add8cf491c15e79208020247049bc2695d317541e091052fedb3fb7349"
+      },
+      {
+        "date": "2025-02-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-04.json",
+        "sha256": "544dbbaea0205c5a0750afc1a0e0a927f8e0ec30b53f61eb3093a2036b881432"
+      },
+      {
+        "date": "2025-02-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-05.json",
+        "sha256": "1773acedab834c8be99ef8c4bf3d2348639694ac3ce748bf85a355cb2127e026"
+      },
+      {
+        "date": "2025-02-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-06.json",
+        "sha256": "1e1da8ede61d85d24ef2a0d9090f62fb8520c202e0dba59c352be6c9a48c1e2e"
+      },
+      {
+        "date": "2025-02-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-07.json",
+        "sha256": "728714c2502b379d296e9bc7672e9a5450fea3da10e9467b4e14fec360dbd0ab"
+      },
+      {
+        "date": "2025-02-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-08.json",
+        "sha256": "23f7c36547b6c3c18dd9deae3be787278140a8829e3c9efc4e6318f37ff8d8ef"
+      },
+      {
+        "date": "2025-02-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-09.json",
+        "sha256": "320aed6d25c1d75234ff096d2a91bb46ca8f942848a416c921e9470e83aa934e"
+      },
+      {
+        "date": "2025-02-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-10.json",
+        "sha256": "b79748d6fbd0df3c635d331e04d5eefea3faa53b2715507d84a4f7f7903ad398"
+      },
+      {
+        "date": "2025-02-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-11.json",
+        "sha256": "08947bdc516d4c00dbd7c3daf31a12a613da67f4feef3032fee53863d400b4d2"
+      },
+      {
+        "date": "2025-02-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-12.json",
+        "sha256": "6b32a4d4faddab490dfdcecd6cb02e70e2b100b142bfe9ce2f35319335003ce5"
+      },
+      {
+        "date": "2025-02-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-13.json",
+        "sha256": "453372c7b318775e705eb63a58cc9dedd31a79dd638d73445776b12bd83cb65e"
+      },
+      {
+        "date": "2025-02-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-14.json",
+        "sha256": "d420af7e33427418aeafc565343b3946b0280d46a0ec23b28f24863a0ad99c6c"
+      },
+      {
+        "date": "2025-02-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-15.json",
+        "sha256": "3b7e6302e544bcd7a447f0186226ee446ffd53d151eb683e17e4a4f14c3d6b45"
+      },
+      {
+        "date": "2025-02-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-16.json",
+        "sha256": "9c7570668efac505a9f60884624d878fce07be7df9d118ea5eedf759fb06a77d"
+      },
+      {
+        "date": "2025-02-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-17.json",
+        "sha256": "9ac3082cb6889a04379cb7964927dee4c1638d822016cee254d39093b9f72183"
+      },
+      {
+        "date": "2025-02-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-18.json",
+        "sha256": "5ac41270bce61c2f3b09f6dbd6a196581094f65895269bef58b94e0cbc39bce9"
+      },
+      {
+        "date": "2025-02-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-19.json",
+        "sha256": "2891e7f164da043d0cd6d7cf42eaea5c029baa47c95f007cf214d7105f6a5c21"
+      },
+      {
+        "date": "2025-02-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-20.json",
+        "sha256": "df3ce93e528b6955e703dd6e0d47e2d8e5d2a5668c85f26b965e52d523940deb"
+      },
+      {
+        "date": "2025-02-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-21.json",
+        "sha256": "c068538cc2d36ab459536280f08a80826310dcb067c75b482355580be684982a"
+      },
+      {
+        "date": "2025-02-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-22.json",
+        "sha256": "7df5a2fa001c683f5f5d98a7993f87a48ed6fb2e551085f9713c43ee91d307d6"
+      },
+      {
+        "date": "2025-02-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-23.json",
+        "sha256": "093c431fd26f8db6b1755f510741f31a6e49c7382c0833d39d84a6b28ba935f1"
+      },
+      {
+        "date": "2025-02-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-24.json",
+        "sha256": "580df4dd42eea2253c8c1317c210cc93137b6f97a8d5fd0c7faf1a2d90ecd67d"
+      },
+      {
+        "date": "2025-02-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-25.json",
+        "sha256": "f715331cd29e10224479b5fb28fb42f88ff1c0e37db1f745710143e1e1ed9045"
+      },
+      {
+        "date": "2025-02-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-26.json",
+        "sha256": "6e850a0b592b89c0ddc83eac11d84b5b22196816978ce518df1518ea2fcf3b70"
+      },
+      {
+        "date": "2025-02-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-27.json",
+        "sha256": "3a9d17bbe820ae526aff29844a8f7aab0017249f892f6a30936e17055a68ba1b"
+      },
+      {
+        "date": "2025-02-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-02-28.json",
+        "sha256": "8d61077240d9ff97e546d0470b86e61daf6b3c6fa0b06614d7f42258ddc5c440"
+      },
+      {
+        "date": "2025-03-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-01.json",
+        "sha256": "37fa40c253814f9230ad9243a7e3491fc96e94c81f98316a0958e664c5474c86"
+      },
+      {
+        "date": "2025-03-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-02.json",
+        "sha256": "ba2d8fae172027e9eae607cbefcae4ec366fc53f49e1195b150c3227e4eba7f4"
+      },
+      {
+        "date": "2025-03-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-03.json",
+        "sha256": "fff24f61b75391fea53494bc016f7172d5a772d3b0262c0eb45bccac0268dc9b"
+      },
+      {
+        "date": "2025-03-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-04.json",
+        "sha256": "8bc6b8593e0684169f3a91005ce36663eba0de2330e100dbdc8c974524cb7495"
+      },
+      {
+        "date": "2025-03-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-05.json",
+        "sha256": "18083a29bbaafd19a8ba80aa2c7cbfafb537574e6af420bf1f8991607ad0bf75"
+      },
+      {
+        "date": "2025-03-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-06.json",
+        "sha256": "14a663dd33f6842151844d7c839199470905c94092a954012efeda131b10e753"
+      },
+      {
+        "date": "2025-03-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-07.json",
+        "sha256": "ddeefbb9d055e252e13cb273df4fe45784c675f88b9e7ea13129bd7202adbd0a"
+      },
+      {
+        "date": "2025-03-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-08.json",
+        "sha256": "321eaa14f4d3ec9b275f71c9d2fe9d9ab43f76d18345e25abf2004885b8a61c9"
+      },
+      {
+        "date": "2025-03-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-09.json",
+        "sha256": "670986be28607f6d99f5df89506c541b2fecea6974156fff3554941044cd81d2"
+      },
+      {
+        "date": "2025-03-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-10.json",
+        "sha256": "a28e32ea69b2f6e8201b7700b69009be2a1cad7d799440c31669633b8d5b11df"
+      },
+      {
+        "date": "2025-03-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-11.json",
+        "sha256": "69e17758b78aae47661d3fb117627a2bd9ee22612885e202cecac059dc54625f"
+      },
+      {
+        "date": "2025-03-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-12.json",
+        "sha256": "c8b5cba3f79fc3e1f3e4e8cb88f89ebb875f99056fd40bc3f039e2c2df11a41c"
+      },
+      {
+        "date": "2025-03-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-13.json",
+        "sha256": "32d621004f47e24c2be824aa283ec69fce1020156148725f171d4267d30c5b11"
+      },
+      {
+        "date": "2025-03-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-14.json",
+        "sha256": "c6d87041409357dfbbb0efb5b367069b692a5e3b203ede628a9d201d987178b5"
+      },
+      {
+        "date": "2025-03-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-15.json",
+        "sha256": "2916ad541ab7abadef072db69e834223862ae2288371ebbc4dc3178121b9043d"
+      },
+      {
+        "date": "2025-03-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-16.json",
+        "sha256": "de62f11511fbc018f0b7113b1622cb305ac70b07e80d12bbaa325ac7a9cf5a4d"
+      },
+      {
+        "date": "2025-03-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-17.json",
+        "sha256": "e10d91db1a6d8b97adb757c21ab00c47fbb978e5d5fefb8b44795cc485888ee8"
+      },
+      {
+        "date": "2025-03-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-18.json",
+        "sha256": "ca6c15da1b4d2f7a9cbfce409770bc8046502e9333dd93ed36167b83e34b7626"
+      },
+      {
+        "date": "2025-03-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-19.json",
+        "sha256": "d62d8f9cbc778871ea8f7ae1115d543ea36395de2c755d4f47b12f392f865c73"
+      },
+      {
+        "date": "2025-03-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-20.json",
+        "sha256": "47e423b82da985cd1613fff7b3dd3ed0e7b45159dfec1e18b2a2eb43905e4f63"
+      },
+      {
+        "date": "2025-03-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-21.json",
+        "sha256": "0b5ec7ab39c7893d42287210b0c5388d4bb06f8b9478753eb9ecd78bd8a07e21"
+      },
+      {
+        "date": "2025-03-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-22.json",
+        "sha256": "9c39afee576bd7ca5fc64d3a3595c3efe03304553717ab7bd5e351fdc8e61e65"
+      },
+      {
+        "date": "2025-03-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-23.json",
+        "sha256": "ae8209233934ee1ab58419f88bcda7a84764a1ac5102cb6426b89f38776aaeae"
+      },
+      {
+        "date": "2025-03-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-24.json",
+        "sha256": "4cb9ce350616933a7129bc4ffe5a0c98341a80636f93f0bc675080e789b74a0b"
+      },
+      {
+        "date": "2025-03-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-25.json",
+        "sha256": "fab64a6f5ab859a7305fed9492c5562e65fa944149ad37ab22983f5262822fc6"
+      },
+      {
+        "date": "2025-03-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-26.json",
+        "sha256": "3cd3dfd7016e5755743da3e70c1e57f892fe53bc50193e791b3144551e30f1a8"
+      },
+      {
+        "date": "2025-03-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-27.json",
+        "sha256": "002967568cc2dfa16d035a27e78b0666cca09c67c98f6faf2e6b73dcc12466a9"
+      },
+      {
+        "date": "2025-03-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-28.json",
+        "sha256": "3d08bebfe27e91d8064f78861c9b80451893213c1b8ca5232e3c6b2801c7cfd9"
+      },
+      {
+        "date": "2025-03-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-29.json",
+        "sha256": "f490335073c5137e5ae4bac6152e863217c9351b2e7a634a7b941a3782fc9911"
+      },
+      {
+        "date": "2025-03-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-30.json",
+        "sha256": "337aef4544ef465c4378d3392e08fd3020a69aa0bce764608affe68e14159587"
+      },
+      {
+        "date": "2025-03-31",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-03-31.json",
+        "sha256": "ecf60c6876e39618ad92a5100a5d0a34499535252c32fcc96d94768322f3ac7a"
+      },
+      {
+        "date": "2025-04-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-01.json",
+        "sha256": "5e2a97dbff3ad306dae5f5a1360a709915b5549f9347f82f014ecf6cbc6a9c99"
+      },
+      {
+        "date": "2025-04-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-02.json",
+        "sha256": "544151d85cff1684fdd649d12466f13e45b986998667f83f0f670de1ed43634b"
+      },
+      {
+        "date": "2025-04-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-03.json",
+        "sha256": "be71edb01f3fd2ca0ef8cea693aac02457cc9387a65513652c3fb0ab60e1fb00"
+      },
+      {
+        "date": "2025-04-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-04.json",
+        "sha256": "8a7b95b36879e9f6887ab2eeea2e88c4684b151528d1299080bbbccdfe0ee36e"
+      },
+      {
+        "date": "2025-04-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-05.json",
+        "sha256": "1359d466462f8a30497d01ae2d92a93fa71778653ed37d666f71661730323cf8"
+      },
+      {
+        "date": "2025-04-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-06.json",
+        "sha256": "ca37e245840a1ea7401e5c43154d82fbeb1cf139f6d2540d8b1b8cedb0c92d14"
+      },
+      {
+        "date": "2025-04-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-07.json",
+        "sha256": "5263f4c227c9a370118c2fc26355bbbb8979073a828da705535e9556a66c65ba"
+      },
+      {
+        "date": "2025-04-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-08.json",
+        "sha256": "730e778d94708a26c90f6066021235f525da6f41d8a5c285f90b9895b603a00a"
+      },
+      {
+        "date": "2025-04-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-09.json",
+        "sha256": "d6b70737accc426b27cdf4c5e0c98f53c294c9ed76decf8ba0a16ac0961befdc"
+      },
+      {
+        "date": "2025-04-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-10.json",
+        "sha256": "23ee744117974d6f793794f9a77f95c9132b6bdf8bbb3544862f0babcd6a8858"
+      },
+      {
+        "date": "2025-04-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-11.json",
+        "sha256": "cf9ccd9dc81c4fce2993528b9040a60854dd71dd05029479bedbbf830f3a92a9"
+      },
+      {
+        "date": "2025-04-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-12.json",
+        "sha256": "e0345d8c1c436b40f02d4d41a980ce7a576fe081a006528ba1226728cc164ecf"
+      },
+      {
+        "date": "2025-04-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-13.json",
+        "sha256": "7fa05ec685a03d14249aa1f746be50c2a240c24bc013c321d192e1c02c677a1a"
+      },
+      {
+        "date": "2025-04-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-14.json",
+        "sha256": "895ba27e3023d4ecfc2846cc154374e703b0bad4d0d1910b61ad43d2a65934f7"
+      },
+      {
+        "date": "2025-04-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-15.json",
+        "sha256": "c90f5a867e611244bc2e1bb7b0f4fe7b7d40132ebab9b6ed0ef806fc332a5ff2"
+      },
+      {
+        "date": "2025-04-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-16.json",
+        "sha256": "33c83c8883e7e2948e37794d173f12da62ac8c21bbd28e212a1a13782a735306"
+      },
+      {
+        "date": "2025-04-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-17.json",
+        "sha256": "697059c43d67f3e986db745ed3a8afa95796e8cd1134e9d613f4a23a963c359e"
+      },
+      {
+        "date": "2025-04-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-18.json",
+        "sha256": "56f6bb8b88eeff08b64f40cf30ccf262c70589dab06385f3a627bea7c5fba071"
+      },
+      {
+        "date": "2025-04-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-19.json",
+        "sha256": "beaedc0779403bf02a0244e1d7f9c9db6eadbeffb643cddf6690d4e2f7cb6045"
+      },
+      {
+        "date": "2025-04-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-20.json",
+        "sha256": "d6aff10fafac684cea7d7cfde3e826891bb98503e542ff2f7cdec7a14479599d"
+      },
+      {
+        "date": "2025-04-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-21.json",
+        "sha256": "a545612e2aca8fb8a7ad7f3b5aff5ee99f827608a546f0f3c4f8e4ce982cb348"
+      },
+      {
+        "date": "2025-04-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-22.json",
+        "sha256": "2881cf0ac0adcd7439747859909723096b3f621d2140dd8d02c35b7ea1d4a725"
+      },
+      {
+        "date": "2025-04-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-23.json",
+        "sha256": "2cab0c3b8cc2f6b081ff38339c1e5fc13311eddc39546e3453ca21f56afcbfe1"
+      },
+      {
+        "date": "2025-04-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-24.json",
+        "sha256": "a213a3fab9d8b63d4e5dea3ab3180aad9556e5c48c51ad06d653632758916d8d"
+      },
+      {
+        "date": "2025-04-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-25.json",
+        "sha256": "ff434229a49eca132a3117f70729f2dc27cf9365d41ef70244f8eabfd61cee19"
+      },
+      {
+        "date": "2025-04-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-26.json",
+        "sha256": "98d63cdb1abf7de7a26df1be7640ac72f35eb848fa9e8cf607761102aa597197"
+      },
+      {
+        "date": "2025-04-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-27.json",
+        "sha256": "7079b5a1e54f67a8a8102e66b9948f2000bd63c4c45e217ce458c5152544da25"
+      },
+      {
+        "date": "2025-04-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-28.json",
+        "sha256": "7d3ec32a1b68f2fdab0b41f8f78273d512429d840a9b2eebd7d3347597bdeb29"
+      },
+      {
+        "date": "2025-04-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-29.json",
+        "sha256": "5b08a14e14d6110540cf80bb3e756216c62598f434ca5feb15e13c0e9135a3f2"
+      },
+      {
+        "date": "2025-04-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-04-30.json",
+        "sha256": "c68c9c1d9ed70a0650a08fc5ca784a729296116da7296957d5850ffda8fa7f9f"
+      },
+      {
+        "date": "2025-05-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-01.json",
+        "sha256": "74af443c8484a4df0ece9e12870143ad3918b8b437e8800c8889ca4ddb1d0a34"
+      },
+      {
+        "date": "2025-05-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-02.json",
+        "sha256": "5de28a70b5ab63901e930f94e68bfb789c3254e5ba22878e4ffb5c9e9244a805"
+      },
+      {
+        "date": "2025-05-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-03.json",
+        "sha256": "b2e82132ff616320886bba7a40df459b3ad0915d2477e1e3f5c8ec8321301675"
+      },
+      {
+        "date": "2025-05-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-04.json",
+        "sha256": "49a5c118c6326b4a324f6ab24939f95c3b3b9040e97f36b9446c8546c1106e22"
+      },
+      {
+        "date": "2025-05-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-05.json",
+        "sha256": "1e3e7c8ddcf3cde2a19cf1832e31db7fd8275bb579f1147401c342c202045f74"
+      },
+      {
+        "date": "2025-05-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-06.json",
+        "sha256": "e493228dc2559c00fdcd6c040e74f43c6ab77a225336e157f0307e30b5c0577e"
+      },
+      {
+        "date": "2025-05-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-07.json",
+        "sha256": "3b2b4f142df8e3740682550f334df0f5ce0ce87a79e0592e1ee56ad3c97b2ff9"
+      },
+      {
+        "date": "2025-05-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-08.json",
+        "sha256": "d0d4e0d7a3f655b6a741003ce5946df26e8ee772e4c841b4b2e62588aa3b6f1a"
+      },
+      {
+        "date": "2025-05-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-09.json",
+        "sha256": "fe1ac321fa149fe83e7e6c309c8c3a6bf8179bc44edfca90c4da4cb1eda96e4f"
+      },
+      {
+        "date": "2025-05-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-10.json",
+        "sha256": "5d21252106a43d3c27ccdcbb9901f2538dd5f401ae4dba00a9afef134e990f76"
+      },
+      {
+        "date": "2025-05-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-11.json",
+        "sha256": "25a40647c5cb9e04ea5eb9d9e11a90e6609f60945b680f35f6abc44ecdd82368"
+      },
+      {
+        "date": "2025-05-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-12.json",
+        "sha256": "ab6db0456913144c86c809e42d0f7bf07926cd83f935fea4c6dfb75a53da7c23"
+      },
+      {
+        "date": "2025-05-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-13.json",
+        "sha256": "cf23e169469bff795ecd61775e05e1168c72cb58189384490d36293f9d4b614e"
+      },
+      {
+        "date": "2025-05-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-14.json",
+        "sha256": "e0c8aba0db2cc59eab8eafadde6003c4550657efc2294cc7ed2436f2ff9dee64"
+      },
+      {
+        "date": "2025-05-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-15.json",
+        "sha256": "8aa637dcb71eb09240ff9b28b9d6d54b35afaa74d4da53122dab011a68a666e0"
+      },
+      {
+        "date": "2025-05-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-16.json",
+        "sha256": "7fcfba0129f5b16f7d1e3824398a81922763dfd84e156985c790ab9b7e78f974"
+      },
+      {
+        "date": "2025-05-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-17.json",
+        "sha256": "6153ec203468998b73e864b2bccf80bdfece5dc55bc4ad9850d2c3170f70757f"
+      },
+      {
+        "date": "2025-05-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-18.json",
+        "sha256": "c5e5068f174c011b4fb841e49b7c4219a61e7f90f6796437483e0e102248a48d"
+      },
+      {
+        "date": "2025-05-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-19.json",
+        "sha256": "d65be0d872e1cd72e942c09b872bf1e51e652e005a9b13d797f11f4717a52512"
+      },
+      {
+        "date": "2025-05-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-20.json",
+        "sha256": "4f3dc8deaf307d6beb20b2b092aa08f7b2f3c04e0278b0bda2eaa5a82d6d8793"
+      },
+      {
+        "date": "2025-05-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-21.json",
+        "sha256": "b5fcba6f9978390e51e703677b01205afad9e814a22062a783fb82468e204842"
+      },
+      {
+        "date": "2025-05-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-22.json",
+        "sha256": "2de4e201a1b8811a56b2a1e195b040e40fa220c5e700fcc967d5b6f4d4863b28"
+      },
+      {
+        "date": "2025-05-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-23.json",
+        "sha256": "5858eda43a2d720aa43c01b8f16c84a1f09abce870a04ec3b87a89723a2b6f82"
+      },
+      {
+        "date": "2025-05-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-24.json",
+        "sha256": "cbf758843f9be417433fd9035117082fdc49bf11c1d21d0a8a41468a0baefcf6"
+      },
+      {
+        "date": "2025-05-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-25.json",
+        "sha256": "2ecda817c15a806e4e483c4d278c2e7d17f121dfb4351c5a6915d74f79de6cde"
+      },
+      {
+        "date": "2025-05-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-26.json",
+        "sha256": "51b4da504746fdc417db0a2125ef6d3ea685229cad9081ee6dee5ca3d278965a"
+      },
+      {
+        "date": "2025-05-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-27.json",
+        "sha256": "08f722a12e25504ab1ee59297515d86f0655d2bda661dbc0beed9d6da183ffd2"
+      },
+      {
+        "date": "2025-05-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-28.json",
+        "sha256": "e33cf2b6c749f2a66998b3c5b3800696d26d1044a8c880f21d87fc27e5d36c85"
+      },
+      {
+        "date": "2025-05-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-29.json",
+        "sha256": "dfb247167e8062b42b751efaa111437f89e2988e04ccdc402eb133579631f8a9"
+      },
+      {
+        "date": "2025-05-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-30.json",
+        "sha256": "ec994ea98ffeda7042a608fc8d09c2a0da8cd65a6808d01b1c1b6be8645323e5"
+      },
+      {
+        "date": "2025-05-31",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-05-31.json",
+        "sha256": "16244f36853dfb4b9d066ea1aaccd2f17cbd021c9deb049f3a8c9619aa708146"
+      },
+      {
+        "date": "2025-06-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-01.json",
+        "sha256": "f1f4bcbe3eedf36642f970b364a93e2ae69cc25471b939a7c068f198273bd217"
+      },
+      {
+        "date": "2025-06-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-02.json",
+        "sha256": "73d8ff8d13437fc072124956d5089b2fd04b7d2cf5b885032ae6403bd338f735"
+      },
+      {
+        "date": "2025-06-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-03.json",
+        "sha256": "bb6be99528c211d06f15e0bc178dd44cbecacec3b2f7e5a33abb9da6e63dcfff"
+      },
+      {
+        "date": "2025-06-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-04.json",
+        "sha256": "631ad5a0bad1b64025bf1b21dff0a72892374c31dc2d0cfe518886d748784f5d"
+      },
+      {
+        "date": "2025-06-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-05.json",
+        "sha256": "55ff64db3df72723e438fcb72d8d6b8d7ed67d0da6516852f9ca594f77924d54"
+      },
+      {
+        "date": "2025-06-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-06.json",
+        "sha256": "04bdeada6d59eced598b8c9febd4ca97fd87dc43d1e5b6e8a466c0fceeda4244"
+      },
+      {
+        "date": "2025-06-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-07.json",
+        "sha256": "e0e11ea11a112d2bb30c5dcbd8d8d5582f42698512aad62c0e1fbc292aa3397f"
+      },
+      {
+        "date": "2025-06-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-08.json",
+        "sha256": "8b4a9e4639d9e521b77b313f92cbf0d089feaced907e0d11e0985a99aa18fd81"
+      },
+      {
+        "date": "2025-06-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-09.json",
+        "sha256": "394d54904151a3ec777f944ec8d90fa75bbdcf65b1bf2e92c835b5acc6d185a6"
+      },
+      {
+        "date": "2025-06-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-10.json",
+        "sha256": "e78793519ba7bb1ae5a2e139d089a8b027fa9a213e38beb3d233dfe4eb28f2dc"
+      },
+      {
+        "date": "2025-06-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-11.json",
+        "sha256": "1f1b216246a9b9297af2beb81967ae708866a5a6beba2077569adebec1b8ac8b"
+      },
+      {
+        "date": "2025-06-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-12.json",
+        "sha256": "31ffe8976928bc27ac493c8767065a966f1d1e2012bc4b9f704f0795beb3ecff"
+      },
+      {
+        "date": "2025-06-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-13.json",
+        "sha256": "b2da70644b406d294e85e8bcbfc67f1c1aea17a3fd897b4ea3fd8a3fdf505a83"
+      },
+      {
+        "date": "2025-06-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-14.json",
+        "sha256": "ae2ce6d04a69cfdc8ff81e03b24bfda46747f81368a17c248d9a19e55dc6dd48"
+      },
+      {
+        "date": "2025-06-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-15.json",
+        "sha256": "fad7d14f5ea95e4c3ea09833276a75ace900b79e43f7c2ed76fbd6c366cfacf2"
+      },
+      {
+        "date": "2025-06-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-16.json",
+        "sha256": "8d1158dfe3c634af9532ef8aa4c4c429f81a64bfc92c42bcce5d049a8232ca43"
+      },
+      {
+        "date": "2025-06-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-17.json",
+        "sha256": "73c7085242309a1213281c95531278194d4db365ae94bd86b46eb6935cd26f80"
+      },
+      {
+        "date": "2025-06-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-18.json",
+        "sha256": "a358dea34eca8dcc51a3112217bb3f00b01799adede1f962f8e0ddb1f772b0f9"
+      },
+      {
+        "date": "2025-06-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-19.json",
+        "sha256": "5d2779385057469e9a11766130e7129fb76f1656745847f60ab4c61f9adc4cdd"
+      },
+      {
+        "date": "2025-06-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-20.json",
+        "sha256": "dea00ec8aef12a5158113ad7a44d68b0d7f28d4ca083d2299135040c7e37cb02"
+      },
+      {
+        "date": "2025-06-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-21.json",
+        "sha256": "fce53bd009552d8b2680943e60a33482a76ab9d8ff196f5378e62bf8024d76d3"
+      },
+      {
+        "date": "2025-06-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-22.json",
+        "sha256": "50e4670ed267009ccdc70095f8d1ef69ed5c3997ef8cd82b90cdcb9661419ed1"
+      },
+      {
+        "date": "2025-06-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-23.json",
+        "sha256": "c93a93b420fe0a48c8d30d11796936ab974d9b826df86273f1dc85bdc0e12f9b"
+      },
+      {
+        "date": "2025-06-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-24.json",
+        "sha256": "fa5731d48c660305ae8338b1b226dfcc844d987b6a101ed3833410db1b199842"
+      },
+      {
+        "date": "2025-06-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-25.json",
+        "sha256": "172ed19030f1be718ae7878b7dafc4c793af7831a4fc400e998456cf219c655c"
+      },
+      {
+        "date": "2025-06-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-26.json",
+        "sha256": "e86f69dd566c64b71becceaac28cf2aeaac68b44a4fa3ca5b66011b9c41446f7"
+      },
+      {
+        "date": "2025-06-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-27.json",
+        "sha256": "103462bf0f26a335dcc9b2fcc71a3c86c7da39bf79a322dae175aeb4308591b8"
+      },
+      {
+        "date": "2025-06-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-28.json",
+        "sha256": "d52f84bb54bb8270d130c62e182f90ae42e2dd34389927f3f378af004ac59770"
+      },
+      {
+        "date": "2025-06-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-29.json",
+        "sha256": "01cf70e0f6e95e1f3108effd7c088b109d761da818556959b61cd3ad0aa41b06"
+      },
+      {
+        "date": "2025-06-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-06-30.json",
+        "sha256": "d9263ad6dd3855ba1be90082cd64d63455a1caa00b45ad5cd666efe36e70052e"
+      },
+      {
+        "date": "2025-07-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-01.json",
+        "sha256": "11a3d805cdd0f3cb8ed7ff948f41f351dab7fa088b4880f6a12a440c80afc0fb"
+      },
+      {
+        "date": "2025-07-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-02.json",
+        "sha256": "f79bdc9d03a5dfe16a2ee3dd5bbeef12b7f101905895a39841fe64bda77238be"
+      },
+      {
+        "date": "2025-07-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-03.json",
+        "sha256": "558b8679f9ccc7e610a7b4503bc6c935e763dffc8f1ba6abcd8893056554830c"
+      },
+      {
+        "date": "2025-07-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-04.json",
+        "sha256": "5a975eb9fd36a3e17c66ebd97aef75ee962737610a865cdfe4f5a60ceebe7728"
+      },
+      {
+        "date": "2025-07-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-05.json",
+        "sha256": "aef8ec30577036f3ae78448638ad48c7835c669005caad21a98856e0c8a8b651"
+      },
+      {
+        "date": "2025-07-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-06.json",
+        "sha256": "c1886e5bf1bbb9371c5df6ed261b1590aafb9bd9a649e6ab7289b333a41c232d"
+      },
+      {
+        "date": "2025-07-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-07.json",
+        "sha256": "2689cc4850fd8bc66f4d2a2cabba3234ef1d837170e17a503d0c1ee78fd85a65"
+      },
+      {
+        "date": "2025-07-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-08.json",
+        "sha256": "5baff90efa7ed50b8589f1e40a5f3af5ea0d1d6aa8f580534801507eda224d7d"
+      },
+      {
+        "date": "2025-07-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-09.json",
+        "sha256": "637e4840339f7b7cd138d260f29de4f378e7a1c347ee41da853d9be906cffc06"
+      },
+      {
+        "date": "2025-07-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-10.json",
+        "sha256": "4ffbeb2b8e7de3d23028a22a9c621bbf84e6f3a2f0b61b2eb87cda5b933f57d6"
+      },
+      {
+        "date": "2025-07-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-11.json",
+        "sha256": "b7d081d3c05d68fe0f6721d8428494d6f4babcee68e7ab07c033c5f257f475d0"
+      },
+      {
+        "date": "2025-07-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-12.json",
+        "sha256": "ddbb72e03def19a817c596b21d66289199e4f5a6d72cd059e589c0981a513cfc"
+      },
+      {
+        "date": "2025-07-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-13.json",
+        "sha256": "7921a4f65237babf6505471f312d92f99b736370eb76f7a45d70d7d56e81974f"
+      },
+      {
+        "date": "2025-07-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-14.json",
+        "sha256": "3e19bb82f0542d66ae8fb772df1b344238ad445444024a20f3a8d4d0af004c07"
+      },
+      {
+        "date": "2025-07-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-15.json",
+        "sha256": "2c03939ae782d5b34e1be15f082cc640aa10f11a5a8e465fad8b1dc6afd47a66"
+      },
+      {
+        "date": "2025-07-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-16.json",
+        "sha256": "7eb9f6dff08ca28a5f0fb38b0127f931856378f1e02d8d2e520f2dfdf14d1416"
+      },
+      {
+        "date": "2025-07-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-17.json",
+        "sha256": "4534f48341675d19c7a73c4b13f82e4602c92e416de2b54f5c05202f7771f5c3"
+      },
+      {
+        "date": "2025-07-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-18.json",
+        "sha256": "d13a2a96f05e02d39953f60ff96fa84f7ff6f04d6f98fe0bd50d830d530c7a93"
+      },
+      {
+        "date": "2025-07-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-19.json",
+        "sha256": "91cf73590afaf4dd973137d9bd8e9b6c9ba07c675f38f1d71317c735ae183fb4"
+      },
+      {
+        "date": "2025-07-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-20.json",
+        "sha256": "2a44ede972a021c7b367316b4ff2264df8f24dbb677644cfd68ecc734f016b81"
+      },
+      {
+        "date": "2025-07-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-21.json",
+        "sha256": "c5c4c80728a2da7f9ed047b4f63461ab4c1db702b8c6ef8a05d1d0269ad9b402"
+      },
+      {
+        "date": "2025-07-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-22.json",
+        "sha256": "d79249ffbfe584948df280b8f73d1eaf9e7046c442026037d433c9fdd9d4c515"
+      },
+      {
+        "date": "2025-07-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-23.json",
+        "sha256": "60e6e225f8b2ba34a29ca036a202ee2a1eefc650411aa7e6994432f5c98505e4"
+      },
+      {
+        "date": "2025-07-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-24.json",
+        "sha256": "cabe54a9b4a3126cb43e15faa0e5f1dc4339e7eeb64985d7f9f41e82cfa61db3"
+      },
+      {
+        "date": "2025-07-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-25.json",
+        "sha256": "4a775056ebed0fbd225377e27feef6bfe1b2faa62b120004bce379815e5c56db"
+      },
+      {
+        "date": "2025-07-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-26.json",
+        "sha256": "58e76529e4b276dd48a1a769a7926786252b89bc3f9b28cd92603bdd41d115e9"
+      },
+      {
+        "date": "2025-07-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-27.json",
+        "sha256": "06683fb6238b54044e33da018fe8bd20d49d8e861c979f4ac2e6532f66879831"
+      },
+      {
+        "date": "2025-07-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-28.json",
+        "sha256": "5c0d5fb8738844ada0a738faa1e61dab4381d6544fb532e29f42f75f96a0b1b5"
+      },
+      {
+        "date": "2025-07-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-29.json",
+        "sha256": "9dc2128cc9d4f98630698023ba6336b8b63b46567682320e2fff9597e12ecafc"
+      },
+      {
+        "date": "2025-07-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-30.json",
+        "sha256": "a0b3310af458192d84560b8526ec6650e09a036ead97cfa015c609ea2fcae13f"
+      },
+      {
+        "date": "2025-07-31",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-07-31.json",
+        "sha256": "520635124afb740b8e657c694403cc04793bbbf4a6d6247e7c73f750fe4e929a"
+      },
+      {
+        "date": "2025-08-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-01.json",
+        "sha256": "1fa16ea4e757213862ca0d1749b12c6cc9cd443bd0ffaf5e4c018b9763e2b6fb"
+      },
+      {
+        "date": "2025-08-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-02.json",
+        "sha256": "6970606b0a009e23ae5fa77b4137f977af3d488542d4c2b1a100db63c091309b"
+      },
+      {
+        "date": "2025-08-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-03.json",
+        "sha256": "910a76efc932dadc51a4d86adf2f79c03856d9b7e0722b7f6a484f979359b380"
+      },
+      {
+        "date": "2025-08-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-04.json",
+        "sha256": "69498bf0c997df755cca9c3d73c41700e79592e8124e789cad9017e8e756b251"
+      },
+      {
+        "date": "2025-08-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-05.json",
+        "sha256": "0059344847933c4fcc18395afe15d94eee63ca8c94ed548ed3c784d414c008ae"
+      },
+      {
+        "date": "2025-08-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-06.json",
+        "sha256": "6a8368ba1428c11684d340c6bbc21d85d240e01884b902ab1e51ff0925ce9d8b"
+      },
+      {
+        "date": "2025-08-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-07.json",
+        "sha256": "ee924eb4d750985723438dd425e6bb4006baee0801e0bc77fbbb067149515d3b"
+      },
+      {
+        "date": "2025-08-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-08.json",
+        "sha256": "9050d556861f91bf0004bbde41b59bcf4f812aa67be304ae7a016492a1272d88"
+      },
+      {
+        "date": "2025-08-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-09.json",
+        "sha256": "4e2b68130ce96d6aadfecfd4d47a38a205b47c5a817ac263d62ed5bbb1acd2cf"
+      },
+      {
+        "date": "2025-08-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-10.json",
+        "sha256": "b1e1d5508d75a5018638b96593361da199729623088b2ff2b6b335d333419110"
+      },
+      {
+        "date": "2025-08-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-11.json",
+        "sha256": "b79918bb40f832de09fb4c3cf40418091ede78f743911668f8fd81c0aa7c3642"
+      },
+      {
+        "date": "2025-08-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-12.json",
+        "sha256": "a54b456f0c5a731dd821b2f19f06b3c8d45b1bcdd63e66bcf4fc4d854fd21787"
+      },
+      {
+        "date": "2025-08-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-13.json",
+        "sha256": "258268c4a29914e68974f12c8f808e13f8ab270e65f55a4fcb278b91abb184ec"
+      },
+      {
+        "date": "2025-08-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-14.json",
+        "sha256": "01d1178768d016ec2f407e010a73eb2d59ad273af68c265e526cdf172aa42de2"
+      },
+      {
+        "date": "2025-08-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-15.json",
+        "sha256": "f30162ce01e052969017ac9cc633f1ed01d4cd6ef51165d05a97b86d99a53357"
+      },
+      {
+        "date": "2025-08-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-16.json",
+        "sha256": "9bb04704cfeee6ed8f9760bcb00098e6706b8fa42786dba9f73d93a8d55c71c5"
+      },
+      {
+        "date": "2025-08-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-17.json",
+        "sha256": "e4f2578f440d6fa5d311f01d84f59320190e4126d02872363e8273f73e4105c2"
+      },
+      {
+        "date": "2025-08-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-18.json",
+        "sha256": "4698906cc9b027466b7f0f29e0b00f1d8d8549c4291ce9e23c0a1281741eb7ae"
+      },
+      {
+        "date": "2025-08-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-19.json",
+        "sha256": "2f5849989828fc67956d6f526e25cae2a2ba98892ae8bdf59aaf4d1253e405e4"
+      },
+      {
+        "date": "2025-08-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-20.json",
+        "sha256": "6c1f35413d185981c8d3ab921938104e1267214c37c4958ddf9b8eb70d88e62e"
+      },
+      {
+        "date": "2025-08-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-21.json",
+        "sha256": "5194448018886bcdbbf2c7c0d612ee84382f5407daa60d4dca601f7509e56286"
+      },
+      {
+        "date": "2025-08-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-22.json",
+        "sha256": "9e977035550c35d7d3e8242390e11e27697a74c8cff975e531e42ac493d25ad4"
+      },
+      {
+        "date": "2025-08-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-23.json",
+        "sha256": "aa94afe1359c51a57a12826b44f7ed0799a12466671b85cd8bfb37ccbc710150"
+      },
+      {
+        "date": "2025-08-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-24.json",
+        "sha256": "906407ed194a8d205bc1a45faff2cece3025a9b2051aa65a76ff089391a4ac2f"
+      },
+      {
+        "date": "2025-08-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-25.json",
+        "sha256": "4d63feca69962e557dc09ca65be5734a51496a52e0ca48654225c042793b1d0e"
+      },
+      {
+        "date": "2025-08-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-26.json",
+        "sha256": "beaa9ead3af9dd75cddf650b43aa727e08e22c8cbcf7e18f6f980f86507d7682"
+      },
+      {
+        "date": "2025-08-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-27.json",
+        "sha256": "c885c168dcb81f70fe301598360f80caf537cd5a9eee62b59bf57a12dc3bf5a3"
+      },
+      {
+        "date": "2025-08-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-28.json",
+        "sha256": "64ecc7e7fe18bf7aeddb7401a4fb9a9a890aed85ebfda7f21645e825a1eb8ce8"
+      },
+      {
+        "date": "2025-08-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-29.json",
+        "sha256": "d886cb5ec5d6f0d7d6bd2b8ff0dd9f5849fb3e3bc311a5cd0dd7615f015892c1"
+      },
+      {
+        "date": "2025-08-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-30.json",
+        "sha256": "832bc177008e07f43d034675cc1ab045bf8fdb78e11aa058405a48bb04a9ae55"
+      },
+      {
+        "date": "2025-08-31",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-08-31.json",
+        "sha256": "d4536611a52439cd9b44a29d59f0a7cdb3b7d03e1f7be24ffecfb108ad889b31"
+      },
+      {
+        "date": "2025-09-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-01.json",
+        "sha256": "a7a268cb068c05bc89723f423370f599e1e8ec06e899d5e5d68e09e472bdbe53"
+      },
+      {
+        "date": "2025-09-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-02.json",
+        "sha256": "a6c4e642ec31d5393ab853bb76c7584139102ad54d43d6e0d0b760f790141292"
+      },
+      {
+        "date": "2025-09-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-03.json",
+        "sha256": "e9bceab210d2e0ed58ff82441c8bb3575b941c12f31302e2448f252b04c58c5a"
+      },
+      {
+        "date": "2025-09-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-04.json",
+        "sha256": "0fe3a7b15e454e5e9f9c86d24713cbb91b93b1b50b8f4d71d51d67d8cf66ed59"
+      },
+      {
+        "date": "2025-09-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-05.json",
+        "sha256": "1b5c20150ce10feecedf714bf8d9e24c0dab0be959145fb31102030899ad8c47"
+      },
+      {
+        "date": "2025-09-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-06.json",
+        "sha256": "0c6461bcf12cdf5faf19197af6654f0ccd4cc1a94f2234f492c68b9e5f244f1d"
+      },
+      {
+        "date": "2025-09-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-07.json",
+        "sha256": "f47946956a98400200c686aac87a032766e99908d6d9a4cbdd80dd421683a2d6"
+      },
+      {
+        "date": "2025-09-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-08.json",
+        "sha256": "3fdfc4d8c8fb9a84927c04e96ff2f83cd3b2dace8cedfd8c699a60dda67d8acc"
+      },
+      {
+        "date": "2025-09-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-09.json",
+        "sha256": "5564cf7b9dd30c51898529cbaba21e76d02b07a9de713afff87cc06652e24a36"
+      },
+      {
+        "date": "2025-09-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-10.json",
+        "sha256": "d1a8153bc375bda114fb3ed17050a8c561bcd849cb49034948db0ba37c6f7282"
+      },
+      {
+        "date": "2025-09-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-11.json",
+        "sha256": "ecf048e5104e4f5d1264490a850e5d7363507e30e09cff0098bbc88287af3d3b"
+      },
+      {
+        "date": "2025-09-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-12.json",
+        "sha256": "5618ffaf9600ad6580e9e433a12ec3c08b3e813b60d5424f6fc20210af7405dc"
+      },
+      {
+        "date": "2025-09-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-13.json",
+        "sha256": "71f56454119f871c39fbbead56080086bc4267822f5875627077696e72d37c02"
+      },
+      {
+        "date": "2025-09-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-14.json",
+        "sha256": "03fb142cad2a89aff5b970f02819ee767ed7b57db77de9eb7a50ba4985678645"
+      },
+      {
+        "date": "2025-09-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-15.json",
+        "sha256": "8420e2a422d0c9b36eec4baa1e38fa6ea4a879d7c365cfd215561874b9ff7920"
+      },
+      {
+        "date": "2025-09-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-16.json",
+        "sha256": "bd430229a0e04980d8af1c70f89f8ee6fdac74e499b6410958ec2db6dcfde316"
+      },
+      {
+        "date": "2025-09-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-17.json",
+        "sha256": "d2abcb4eefc9b86c597e09de21180a1f799f585b2d9823e44ca690de60c79069"
+      },
+      {
+        "date": "2025-09-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-18.json",
+        "sha256": "5ff113f0d699045c799ea56536e7443a7d2f4e02ea0ea79a53f4ddd456ba960b"
+      },
+      {
+        "date": "2025-09-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-19.json",
+        "sha256": "a8726028b57677d51041b0391e48179bd6f1cf84d4529ff02af4440715be2a98"
+      },
+      {
+        "date": "2025-09-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-20.json",
+        "sha256": "f6a9e9fc5c1086ab9c8ae49995b4170c4a88e3e912c7343ba99cedb66bbaa11f"
+      },
+      {
+        "date": "2025-09-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-21.json",
+        "sha256": "e9fb3e7217400f929f2a90805719b297876b5b5b755fd880b299af9d3aac3228"
+      },
+      {
+        "date": "2025-09-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-22.json",
+        "sha256": "f02853970146779cdf3fc74de097431a68b6397a5347f5f1a4aadfd52cebcac9"
+      },
+      {
+        "date": "2025-09-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-23.json",
+        "sha256": "a4a4cfc4b6e636441510c36d3cec81fb37c0cdf9c12de97b19f5bd1f9816bcce"
+      },
+      {
+        "date": "2025-09-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-24.json",
+        "sha256": "ee9629437f9373075ad90c81382e829ece70a8428694a5fbbd7690bcb4a3cd12"
+      },
+      {
+        "date": "2025-09-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-25.json",
+        "sha256": "e22f6c1dc43582a0f85aea4138b9a4a57b4cea4413a92ca0bbaa4a007fd47c26"
+      },
+      {
+        "date": "2025-09-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-26.json",
+        "sha256": "588db718a4714c768cebe7e46ca1e5fe4fed09412f2f4b2a4089f6d1104716d0"
+      },
+      {
+        "date": "2025-09-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-27.json",
+        "sha256": "35c504617c20ec5eb1e947794252b000f63838c777412abd802b04ffba310945"
+      },
+      {
+        "date": "2025-09-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-28.json",
+        "sha256": "8cb890eda44d717a93bd80442c108c2ed524f2749e9b17faff730ea520815bb0"
+      },
+      {
+        "date": "2025-09-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-29.json",
+        "sha256": "66b382ebc3694f13fb77b15fb7aeca0b663bdb726de42567c3568378d81c9b0b"
+      },
+      {
+        "date": "2025-09-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-09-30.json",
+        "sha256": "36eaea401212a313e41070637c2abe8919dc52e6821200fd1c975f71b79ceb7c"
+      },
+      {
+        "date": "2025-10-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-01.json",
+        "sha256": "3f23c78d00ef38abb5935240bb184b6bb61bbc5a84f048a005a536ff000d1b7b"
+      },
+      {
+        "date": "2025-10-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-02.json",
+        "sha256": "6837388d2ca8051486690b875bc9a117275389ea189afdf639d560bb7a7465ec"
+      },
+      {
+        "date": "2025-10-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-03.json",
+        "sha256": "e281dd911ce8b6b8d9fee9e39da1fb0341888f52ceb54ef11f20fa7d54041db0"
+      },
+      {
+        "date": "2025-10-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-04.json",
+        "sha256": "1e5398c1c1971e17e3fad17df6ded0528ff00743001326ad3f43bd9286181046"
+      },
+      {
+        "date": "2025-10-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-05.json",
+        "sha256": "98e37dc9bdc8691322f494bca1ae2497b732a0c740cdc5b64b7cac038121d142"
+      },
+      {
+        "date": "2025-10-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-06.json",
+        "sha256": "8135f180ab0f1a211bf8ccaa12312ff6e1a934189b717565d8b0a9861329d120"
+      },
+      {
+        "date": "2025-10-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-07.json",
+        "sha256": "e0d5227462beb27c2e5cf45b4d6c46c732e372f253e7daf796a29daf183a74bc"
+      },
+      {
+        "date": "2025-10-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-08.json",
+        "sha256": "b44ee056284813a3cc7beb70f583398afcf9f38338f8ce89d8c64e32568d5ef1"
+      },
+      {
+        "date": "2025-10-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-09.json",
+        "sha256": "471f0a2532be8ec01d022024da1b11ffa3ef25d166136fb65519809395d587ef"
+      },
+      {
+        "date": "2025-10-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-10.json",
+        "sha256": "065ebdcc434a6b6ad4bc08bd87c1634d4390a3d36dc809e6702bf5415ea47283"
+      },
+      {
+        "date": "2025-10-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-11.json",
+        "sha256": "373a9647ff587e03f0c0c82a86ae65e21d02f128a3871d494bdf4bde4019d72c"
+      },
+      {
+        "date": "2025-10-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-12.json",
+        "sha256": "9b27bb0a43dd0489be15755cd739408a32cb6aeeb63ced672fb850048a4509b5"
+      },
+      {
+        "date": "2025-10-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-13.json",
+        "sha256": "6b0bd13ad00f86ccb28e340b4814999b18f5b9ddbbee0ae69698213b77d29445"
+      },
+      {
+        "date": "2025-10-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-14.json",
+        "sha256": "8aaeb00382ed6a0d0479060841597f22cc167e99587e919c54c6097f7ee33913"
+      },
+      {
+        "date": "2025-10-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-15.json",
+        "sha256": "80b75e781e1d580c9c8962a94533e123e9a3b745bb491589f35c7cc390773560"
+      },
+      {
+        "date": "2025-10-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-16.json",
+        "sha256": "2b6ef7e552310caa356f03146627cb858d765fd48248e7d738f60abf845be29e"
+      },
+      {
+        "date": "2025-10-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-17.json",
+        "sha256": "495c9396d4b331e7cec3007415f24f3bb20e77d44024090334f836fa7a79b26b"
+      },
+      {
+        "date": "2025-10-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-18.json",
+        "sha256": "96ddfb4d71751d932ee72100327a64085ba8946d9873dc04b2e9cc97e14e16d4"
+      },
+      {
+        "date": "2025-10-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-19.json",
+        "sha256": "9bd39f0fa64b4dc9b07c1bd00622c44bca7de3a1da5949b8ab5a99f9ce8dad50"
+      },
+      {
+        "date": "2025-10-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-20.json",
+        "sha256": "948de2f2669d7ab63a0f11401bb33a6c4d1b2f321c3d5920d2480d3fa4afd7cf"
+      },
+      {
+        "date": "2025-10-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-21.json",
+        "sha256": "eaa935afe50cbdd2465818d26861e6798ccba1d56641e250fea5dbcd8b838934"
+      },
+      {
+        "date": "2025-10-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-22.json",
+        "sha256": "bed4f0bbbac66437ef55e4fda1fa6c1e5679b78ccf3ed7064a193465ac845ec6"
+      },
+      {
+        "date": "2025-10-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-23.json",
+        "sha256": "6426c3047796ce5c1295c36c66355e299aa8736f198581980d9e416c22baa8de"
+      },
+      {
+        "date": "2025-10-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-24.json",
+        "sha256": "8683e27cf9cc839044c62044ca5058c4b05620b681698e378cf3e5500e1ab04a"
+      },
+      {
+        "date": "2025-10-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-25.json",
+        "sha256": "1d6f0bc4666c06aacc42d0c6f81e0859a6aab5e6a409403c2e4738491031b110"
+      },
+      {
+        "date": "2025-10-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-26.json",
+        "sha256": "fa0455d65f0689889ff0dc8cdd0a829605bc4d67b2fcfb6c01b48aa8639bfdf5"
+      },
+      {
+        "date": "2025-10-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-27.json",
+        "sha256": "3b2045c38ef021b8bd6ab203a639f1070b44086a32ae06e8f9e4a4627feeff5c"
+      },
+      {
+        "date": "2025-10-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-28.json",
+        "sha256": "69a7fed147748258d1f189ae33c34ed5175d4042ab13709b14e202dde52303c4"
+      },
+      {
+        "date": "2025-10-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-29.json",
+        "sha256": "d53ae7de89e45d27cd9a9c1601ff8d0b3808c55c1a7d8f0df7ed26183590514d"
+      },
+      {
+        "date": "2025-10-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-30.json",
+        "sha256": "a372f3c437306866b3492207f9f4164dc618b99ccbc9a6760f195e63592e26e1"
+      },
+      {
+        "date": "2025-10-31",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-10-31.json",
+        "sha256": "32c7bf555b1377e52044d7bdd5e552ad2120d2d9ecf1a8d79e14a8ac573c2d82"
+      },
+      {
+        "date": "2025-11-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-01.json",
+        "sha256": "f187edbcaf7c449cbf3e4adf5df730a06e911380230c632e09d27be7cdd3d1ac"
+      },
+      {
+        "date": "2025-11-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-02.json",
+        "sha256": "f3d0da358a5b71108eb907918d3398777ae0537489c3d8cb3d5fdce524ec2d78"
+      },
+      {
+        "date": "2025-11-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-03.json",
+        "sha256": "a16efac707b58e3325b4e3b907040f05cba0facca097db694f711b921fc025e0"
+      },
+      {
+        "date": "2025-11-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-04.json",
+        "sha256": "d368cf7e11c902c94422913ad718eb206e5993ec27d2cc8e89221932bd9c4553"
+      },
+      {
+        "date": "2025-11-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-05.json",
+        "sha256": "85baf5fc4e3331e1c98957ffb5cec2f40121b0c73c2a92e924f6dd98a2e09e07"
+      },
+      {
+        "date": "2025-11-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-06.json",
+        "sha256": "a38585ddf468afdcd1a02ebcdd1f3901245c4c942344d8a9763ef4df5422dabb"
+      },
+      {
+        "date": "2025-11-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-07.json",
+        "sha256": "0cce04b3c6419e59d964d86b6d63f1e5b8fd7259d48b4c678853a6c1024eb384"
+      },
+      {
+        "date": "2025-11-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-08.json",
+        "sha256": "75cc3f1a58743592bcb1d97f1c9c741621f7b458a1592edd737203d57a15de5e"
+      },
+      {
+        "date": "2025-11-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-09.json",
+        "sha256": "5d7c7c8839c15495db0682962b14e8dd94a7417a22bb62a5fa19198570cdd6df"
+      },
+      {
+        "date": "2025-11-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-10.json",
+        "sha256": "f66206ad9e03ee883e54cfb76ddc151c6638ef0518c3d6cf849b28e7c0cdf784"
+      },
+      {
+        "date": "2025-11-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-11.json",
+        "sha256": "552b6bdf6680e82974c58847e6e5ff7aeb5aeb725ad747db85918776e57c1fe6"
+      },
+      {
+        "date": "2025-11-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-12.json",
+        "sha256": "1474d56526fc4feeea4064d277369dd750f0ca2c93463626631d491b17723672"
+      },
+      {
+        "date": "2025-11-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-13.json",
+        "sha256": "310100c3c9344afa5857e4c09ae155272bc8ad53d7bd80e5f8e5e49795e20793"
+      },
+      {
+        "date": "2025-11-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-14.json",
+        "sha256": "1f508394086fd3bf9bc04b3f2c85ae53308bab0ff3e13ea1e89dfa4850021255"
+      },
+      {
+        "date": "2025-11-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-15.json",
+        "sha256": "c1c2496be985213ef8ef2e9450ded79767080c377ca06e7560e7188a395bfd5a"
+      },
+      {
+        "date": "2025-11-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-16.json",
+        "sha256": "ca6a174afbd35fbf5b2750980c0001bb11c9b501f9f8bd825a82ec3033db5140"
+      },
+      {
+        "date": "2025-11-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-17.json",
+        "sha256": "62942c33ba61027c52bcb88588787093ca55ddcd2356c76a69a28b9ca16dba0b"
+      },
+      {
+        "date": "2025-11-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-18.json",
+        "sha256": "b5984428a641196fc6594aa5096d57c1c792d24c431c3fa59479770e6957adcd"
+      },
+      {
+        "date": "2025-11-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-19.json",
+        "sha256": "170fd00a1b3249d369013422b9fd9f923f9eef33e5281707d43768ee747be8d2"
+      },
+      {
+        "date": "2025-11-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-20.json",
+        "sha256": "a702a49483812e7593f06b906d6052f16eb4fda7a813301cef0d2bf21ce25877"
+      },
+      {
+        "date": "2025-11-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-21.json",
+        "sha256": "2295340ad7d3e656f8661ef23f0638b356c45cc64e97d4f3535f66b08a8b772f"
+      },
+      {
+        "date": "2025-11-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-22.json",
+        "sha256": "4b32d13fa08833abca472483d2c69b05f13c1c22da3806c158f719e464563bec"
+      },
+      {
+        "date": "2025-11-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-23.json",
+        "sha256": "f411cac9b0a4756bc56b5f3e69b5043bbdfb7393749c4c40a3aa7ea6c89e967e"
+      },
+      {
+        "date": "2025-11-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-24.json",
+        "sha256": "70834efb4434bf4beaa1981b18922cd8b5e72b46e09a645fd1d218efe85f67e4"
+      },
+      {
+        "date": "2025-11-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-25.json",
+        "sha256": "5b697bb11ad7364c4269ab8b1bcea6cff734293cedc043b3375b6da707133bbe"
+      },
+      {
+        "date": "2025-11-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-26.json",
+        "sha256": "548475a4c23603eabf260320f28ab1336fafa1497d6ba4d4745a7232c719e2d1"
+      },
+      {
+        "date": "2025-11-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-27.json",
+        "sha256": "054be7cd78eb9dd6549482454661d71617b04c5034e8a3598794120932e09ce3"
+      },
+      {
+        "date": "2025-11-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-28.json",
+        "sha256": "a238612dea3f26ee5149ea922a60ebe4bab2bc92f95bd821d730c3b43ddbae49"
+      },
+      {
+        "date": "2025-11-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-29.json",
+        "sha256": "08369cf251ab63fa83d19e824a16c36a52ddbb736ba25033c901687bc9f19882"
+      },
+      {
+        "date": "2025-11-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-11-30.json",
+        "sha256": "91c13b184a0d9180b85a57087f362e030249819d3112fe10a5020f6f71ffed73"
+      },
+      {
+        "date": "2025-12-01",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-01.json",
+        "sha256": "d4c28fb22f6f266bd6a50bbb88a669b706d4627bdfaf659e7204517efd071abd"
+      },
+      {
+        "date": "2025-12-02",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-02.json",
+        "sha256": "87cf3df25b54610ac7327b0679ce3279c9545582dafee5e7c0f51c659de29398"
+      },
+      {
+        "date": "2025-12-03",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-03.json",
+        "sha256": "7110c79e36e8a8a83b889e72104bfd5950995e805b19fd183f892d6dce0569e6"
+      },
+      {
+        "date": "2025-12-04",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-04.json",
+        "sha256": "146f46c102e0f5d9805e0e44db156c9d96fd03d18d1e52097339d48570604233"
+      },
+      {
+        "date": "2025-12-05",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-05.json",
+        "sha256": "3053240fc4ff86fc1287e86ae6d10a0f08a42c718da20c9a8c523fb4a9d00c5c"
+      },
+      {
+        "date": "2025-12-06",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-06.json",
+        "sha256": "fc3b8f10d498368b77f991ceb70ca85c2ee5f3c19a97b2cda42242ea0322a386"
+      },
+      {
+        "date": "2025-12-07",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-07.json",
+        "sha256": "c16e2c8b3a37848e5d1ecd7af1aa0cab11ff94a55838c1145f4deb1ce768804f"
+      },
+      {
+        "date": "2025-12-08",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-08.json",
+        "sha256": "60670f04f6af57bc1aa1e9b39ac1015084699bbccc81840834b4b4988051e230"
+      },
+      {
+        "date": "2025-12-09",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-09.json",
+        "sha256": "4f72df9f9c2e456be128611564bb3e684daea09178d23cd790753af99ed27c8f"
+      },
+      {
+        "date": "2025-12-10",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-10.json",
+        "sha256": "cf4045e6971c98c8936390d798fdbdab5f6e17643b7bb42b30501260fccfb2ec"
+      },
+      {
+        "date": "2025-12-11",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-11.json",
+        "sha256": "9b3071f8227b9cc9505c44db4ea9797e9c2b3a4f6b302786c604f53bff77286c"
+      },
+      {
+        "date": "2025-12-12",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-12.json",
+        "sha256": "28677c712bc20a2694a38524199498a0236beb3c282bb7325d64ae0ecca107c7"
+      },
+      {
+        "date": "2025-12-13",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-13.json",
+        "sha256": "2b2410ed0d34672bb19947adc0d28de0b7fed98c6338445f2839afd0dd37ac20"
+      },
+      {
+        "date": "2025-12-14",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-14.json",
+        "sha256": "ae7e37c101e23583966b1c2739ee506c39d2bdb2453fa9c55ba3aba8b3f4c063"
+      },
+      {
+        "date": "2025-12-15",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-15.json",
+        "sha256": "460e6b0261948a98f74bc2ca3b6bd8dcb093001fedc8094a4020e5186240162d"
+      },
+      {
+        "date": "2025-12-16",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-16.json",
+        "sha256": "c739cadf8fba263fda7e1be9e0ea9980452a2948fe9b14513f021cb5bf8ab718"
+      },
+      {
+        "date": "2025-12-17",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-17.json",
+        "sha256": "2c84ef2c9959ae4970363b42f577b18691ff33313f1bd7b55599eb25293b36dc"
+      },
+      {
+        "date": "2025-12-18",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-18.json",
+        "sha256": "ba3c4fa3ede563e5a115e8436898b0bb9bfb8f9997ebacf789e56ffdcc558e85"
+      },
+      {
+        "date": "2025-12-19",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-19.json",
+        "sha256": "4d77f50a9106ece63e6e8bcd72e3bf9ea6491ffc10d4024ca1fe9ebfca780660"
+      },
+      {
+        "date": "2025-12-20",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-20.json",
+        "sha256": "10bec6ff52ab83656bc155c88e642aefb9112e716cc15ab6a62d2d1b2ce1c442"
+      },
+      {
+        "date": "2025-12-21",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-21.json",
+        "sha256": "e3727dac7ec0dfc9ffc8c6a98056418c4b659a7da475842e6c8ce9c9a920834f"
+      },
+      {
+        "date": "2025-12-22",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-22.json",
+        "sha256": "466f27139a218ac2aa22dcd76a537140754dd2d480eb17d8fe5f286eaf700ae2"
+      },
+      {
+        "date": "2025-12-23",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-23.json",
+        "sha256": "fac14ea0ee5a304943ddbf8eb2e25994114fec6cc9c8711fb270c7701a38fb26"
+      },
+      {
+        "date": "2025-12-24",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-24.json",
+        "sha256": "4d321530b3c031ef6151c60efbe54012a47c173ba1cf5a8a77db6149e6bf3b29"
+      },
+      {
+        "date": "2025-12-25",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-25.json",
+        "sha256": "1466171cbc789220d1c00af549bdcc780e964551034ea23bd99211f11bb93bcf"
+      },
+      {
+        "date": "2025-12-26",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-26.json",
+        "sha256": "0dc8e279b9d411ba4a546381e8c3d08131c602bab0af79c3e2af9d2e29fa2dca"
+      },
+      {
+        "date": "2025-12-27",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-27.json",
+        "sha256": "5fedf39d2d23b458b428795877d931985d6fee4914e1ef8dbfa905048c2d91da"
+      },
+      {
+        "date": "2025-12-28",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-28.json",
+        "sha256": "68bab9345c9c591cec7d1595e17a49c60f01187b6cdefc1ce23179572dcc83a5"
+      },
+      {
+        "date": "2025-12-29",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-29.json",
+        "sha256": "a65cc7c296679c3f486e0152a154c38c8f5b4fcc1b891f748429db94758a82c2"
+      },
+      {
+        "date": "2025-12-30",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-30.json",
+        "sha256": "020cb7809b870bf7d4a164f0918d48bbfd55947dc8be21ed73f209d9474b4695"
+      },
+      {
+        "date": "2025-12-31",
+        "load_predictor": "load_lgb_1",
+        "q2_audit": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/daily_audit/2025-12-31.json",
+        "sha256": "c99e7faabe9312633bae7a3f5756be8409350fc4523b6ce79404460f3b4971c8"
+      }
+    ],
+    "files": {
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件1.xlsx": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/shadows/shape.json": "25e4640dc8a3ac8e8db669e4d5c25df0aec7a25560aadef4c313221248204289",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/shadows/frozen_lightgbm.json": "2a086f9cd9928bff4e208f2e29f41514c016bbb23757faf82924b513b6d95149",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/shadows/load_week.dat": "70121be93b28f78274a72aa908d842394ccfeedbe954a3bea23feee2ce54409b",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/shadows/load_lgb_0.dat": "408882bf7688a499947662d6f03ed324f3312deef1242f58225c761ed72e3740",
+      "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/shadows/load_lgb_1.dat": "fed06e8d7d29e1476664558397da6540c195899f14b0f142ae14c53e2e377b6a"
+    },
+    "cold_start": "Jan1-Jan7 no load forecast/storage; Jan8-Jan31 seasonal; Q2 daily load identity thereafter",
+    "units": "power kW; all optimization and replay energies kWh",
+    "right_endpoint": true,
+    "jan1_0000_pv": "missing; never filled with future observation"
+  },
+  "production_code_sha256": {
+    "q4/__init__.py": "af2ad42a63eb91042591eb9420e9e74bb75a2602d860efef898f8ba2e1ba09ee",
+    "q4/config.py": "274e6e80c68615551aa72213214f650d68269276fe5acae17a0316fa26fb62af",
+    "q4/data.py": "36017edfaeb29aa74adecfc665cb44c104da150a0c81be97ced6f5eb9f397fa5",
+    "q4/diagnostics.py": "d9a880e338e81674dd11d10ef8717d4ab31e555724c95c354927691ecb736aba",
+    "q4/export.py": "c9c465fcc8b3c832eaf18a247480d46858453c40c933ccf4d3e23a93195450ae",
+    "q4/optimization.py": "aa32fbf88850ec8d6bfe5a6705b405e0d3b398b4ada991a2a89098ceac7f38ee",
+    "q4/physics.py": "3fd0bed219d85ed847fec4101a9a6d82d914c9c1c838a13b029c0752643f83e1",
+    "q4/price.py": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+    "q4/rolling.py": "a32f21b8bf96b8c01448afb842d92885195188aa62cfa782027d6f7e29e8c382",
+    "q4/run.py": "eed3e7d5e164688535dc32bf7380d79229bc25755145180690445a93c3126640",
+    "q4/scenarios.py": "9caf29784c716f6fd98da580834c7b59515085f014dcd35eb96d43cb17879887",
+    "q4/traceability.py": "7755d1cb1aad0de9257d5ed42e5ea282b69e49e41721f5ba6d516e18d48a5696",
+    "q4/vertical_slice.py": "2f835f65cc39cc5eb4a48f3141685f52e84cfe8de6b0425f0bd60e5931d9683a",
+    "q3/data.py": "787cb1e2eef6a2994100179df66f38597e1b7c5b08f7e709841e78ff16191eaf",
+    "q3/config.py": "f89cd39b2295bb5b7da9761543151cf04d2aeb220b322fa2a0d14bc6394ccd2a",
+    "q2/data.py": "b7259d5762c83d9dcba2686ff0b3749e1b072323f5f81f072f6ffcdef3992cb0",
+    "q2/forecast.py": "7893f22f175a3a5dabcef6464ceecd74f97cf877542a972b268617c875d57ae2",
+    "q2/protocol.py": "a01e4a49e0d19e1bd751159aede4fd1cf5d13143103b2799658dc8da89ebbc27",
+    "q2/policy.py": "a0794ae68696d4e251d7edab589bceee7d87a08c20ea617c5b14557c325bb11f"
+  },
+  "attachment4": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/docs/CUMCM2026Problems/C题/附件/附件4.xlsx",
+  "attachment4_sha256": "20e9c93aeab5e8e21ae4dd15587f9e190f7408692504c1319598461cd654fe71",
+  "price_code_sha256": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+  "price_model": {
+    "information_boundary": "daily origin uses only days strictly before origin; day+1 is recursive",
+    "feature_count": 17,
+    "selected_alpha": 0.0001,
+    "selected_l1_ratio": 0.9,
+    "tuning": [
+      {
+        "alpha": 0.0001,
+        "l1_ratio": 0.1,
+        "mae": 0.03963432525851994,
+        "rmse": 0.0494536024450721
+      },
+      {
+        "alpha": 0.0001,
+        "l1_ratio": 0.5,
+        "mae": 0.03484461186566465,
+        "rmse": 0.04352355042829101
+      },
+      {
+        "alpha": 0.0001,
+        "l1_ratio": 0.9,
+        "mae": 0.0345402970827273,
+        "rmse": 0.04340977506817668
+      },
+      {
+        "alpha": 0.001,
+        "l1_ratio": 0.1,
+        "mae": 0.03454743983628537,
+        "rmse": 0.043495244905446366
+      },
+      {
+        "alpha": 0.001,
+        "l1_ratio": 0.5,
+        "mae": 0.03487307626365242,
+        "rmse": 0.04395497507858702
+      },
+      {
+        "alpha": 0.001,
+        "l1_ratio": 0.9,
+        "mae": 0.034863194264557085,
+        "rmse": 0.04397425558533579
+      },
+      {
+        "alpha": 0.01,
+        "l1_ratio": 0.1,
+        "mae": 0.03488764014728108,
+        "rmse": 0.04401926720881087
+      },
+      {
+        "alpha": 0.01,
+        "l1_ratio": 0.5,
+        "mae": 0.03571451913960436,
+        "rmse": 0.04534926672566235
+      },
+      {
+        "alpha": 0.01,
+        "l1_ratio": 0.9,
+        "mae": 0.036828776474593115,
+        "rmse": 0.04700310950877739
+      }
+    ],
+    "elastic_net_mae": 0.041927783193341644,
+    "elastic_net_rmse": 0.056230006711715644,
+    "seasonal_mae": 0.04715118305056554,
+    "seasonal_rmse": 0.06534801504178886
+  },
+  "price_forecasts_array_sha256": "c111c21ec468fb17b7c9eb1781ff956040bdc583ca16e233c5cedd8d7c2257c0",
+  "q2_frozen_dispatch_sha256": "40238bfb65e12a4958b28f514e0ae74bab63536341031434bb5da9e561821564",
+  "net_forecast": "Q2 selected rolling-OOS load + attachment3 forecast-origin PV",
+  "q4_2_second_day_pv": "target-day minus 7 days actual PV, available at current 0:00",
+  "information_boundary": "future actual load/PV/price used only by replay and residuals after realization"
+}

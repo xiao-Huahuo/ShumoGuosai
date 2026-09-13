@@ -1,0 +1,6 @@
+test_current_q43_receipt_recovery (src.q4.test_q4.Q4Tests.test_current_q43_receipt_recovery) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.539s
+
+OK

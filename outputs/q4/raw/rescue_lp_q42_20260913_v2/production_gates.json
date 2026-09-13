@@ -1,0 +1,50 @@
+{
+  "mode": "4-2",
+  "baseline": {
+    "source": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/dispatch.csv",
+    "sha256": "40238bfb65e12a4958b28f514e0ae74bab63536341031434bb5da9e561821564",
+    "C_realized": 14941642.192579934,
+    "E_emergency": 130262.4270849516,
+    "grid": 21654307.821422793,
+    "initial_soc": 6000.0,
+    "method": "frozen_Q2_policy_repriced_attachment4"
+  },
+  "metrics": {
+    "C_realized": 15747788.863874804,
+    "baseline_cost": 14941642.192579934,
+    "cost_ratio": 1.0539530167370228,
+    "economic_pass": true,
+    "soc_upper_fraction": 0.19018213572854292,
+    "soc_lower_fraction": 0.1188248502994012,
+    "storage_pass": true,
+    "soc_min": 1199.9999999997945,
+    "soc_max": 10800.000000000011,
+    "soc_final": 9450.000000000004,
+    "E_emergency": 225858.57219393802,
+    "grid": 23011797.174085528,
+    "called": 21122793.512224667,
+    "unused": 1889003.6618608623,
+    "unused_ratio": 0.08208848911584107,
+    "charge": 7061329.161644502,
+    "discharge": 5716571.620932046,
+    "storage_throughput": 12777900.782576548,
+    "spill": 2064705.048739486
+  },
+  "solver_nodes": 334,
+  "certified_nodes": 334,
+  "limited_nodes": 0,
+  "fallback_nodes": 0,
+  "max_balance_error": 1.1368683772161603e-13,
+  "max_solver_seconds": 5.411287541995989,
+  "mean_solver_seconds": 2.3121891515724213,
+  "variables_range": [
+    15009,
+    18473
+  ],
+  "constraints_range": [
+    10064,
+    12516
+  ],
+  "dispatch_sha256": "79dac9928f9e8476e13bd0e6d72987485fcdcdfab0aa3da8a5caee4f229c693a",
+  "passed": true
+}

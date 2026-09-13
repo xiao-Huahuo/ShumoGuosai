@@ -1,0 +1,11 @@
+{
+  "at": "2026-09-12T01:10:41.852896+00:00",
+  "queue_started": "2026-09-11T17:02:13.346757+00:00",
+  "source": "committed_daily_audits_and_filesystem_completion_timestamps",
+  "completed_rows": 357,
+  "candidate_rows": 726,
+  "solver_time_scope": "only_the_final_committed_attempt_plus_its_embedded_original_failure; excludes_earlier_aborted_attempts_and_isolated_diagnostics",
+  "wall_interval_scope": "time_between_audit_file_writes; includes_solver_preparation_retries_repair_and_queue_wait; first_overnight_day_from_queue_start",
+  "not_cpu_time": true,
+  "daily_table_inputs_verified_against_committed_manifest": true
+}

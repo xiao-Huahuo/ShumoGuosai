@@ -1,0 +1,93 @@
+{
+  "full_run_started": false,
+  "config": {
+    "scenarios": 20,
+    "tail": 2,
+    "unconditional": false,
+    "terminal_scale": 1.0,
+    "interpolation": "linear",
+    "feedback": "aggregate",
+    "settlement": "final",
+    "nodes": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "deterministic": false,
+    "seconds": 15.0,
+    "gap": 0.0,
+    "fd_delta": 100.0,
+    "fd_base": 6000.0,
+    "fd_days": 28
+  },
+  "preparation_seconds": 0.7718955419986742,
+  "elapsed_seconds": 191.8482664589974,
+  "samples": 12,
+  "certified_samples": 0,
+  "limited_samples": 12,
+  "median_node_seconds": 15.314987250501872,
+  "p90_node_seconds": 15.373223162192152,
+  "projections": [
+    {
+      "scope": "main_warmup_and_formal",
+      "solve_count": 1432,
+      "median_hours": 6.091961595199634,
+      "p90_hours": 6.115126546738656,
+      "max_sample_hours": 6.131630762733467
+    },
+    {
+      "scope": "FIV_18h_comparisons",
+      "solve_count": 2004,
+      "median_hours": 8.525342902779375,
+      "p90_hours": 8.557760893620298,
+      "max_sample_hours": 8.580857575780634
+    },
+    {
+      "scope": "OUV_extra_three_update_sets",
+      "solve_count": 2148,
+      "median_hours": 9.13794239279945,
+      "p90_hours": 9.172689820107983,
+      "max_sample_hours": 9.197446144100201
+    },
+    {
+      "scope": "M0",
+      "solve_count": 1432,
+      "median_hours": 6.091961595199634,
+      "p90_hours": 6.115126546738656,
+      "max_sample_hours": 6.131630762733467
+    },
+    {
+      "scope": "nine_sensitivities_with_FIV_and_OUV",
+      "solve_count": 50256,
+      "median_hours": 213.79722201700613,
+      "p90_hours": 214.61019534420245,
+      "max_sample_hours": 215.18941034352872
+    }
+  ],
+  "diagnostics": {
+    "hourly_block_mae": [
+      {
+        "hour": 6,
+        "old_absolute_error": 348.9880742009132,
+        "new_absolute_error": 153.47299155251142
+      },
+      {
+        "hour": 12,
+        "old_absolute_error": 224.4303000913242,
+        "new_absolute_error": 68.35287292237443
+      },
+      {
+        "hour": 18,
+        "old_absolute_error": 0.002157625570776256,
+        "new_absolute_error": 0.00032789954337899554
+      }
+    ],
+    "font": "Heiti TC",
+    "year_end_missing_targets": 36,
+    "future_targets_filled": false
+  },
+  "initial_state": "Each timing day starts at6000; intra-day SOC continuous; not formal warmup state",
+  "caveat": "Censored solves make exact-optimum completion time unknown. Projections are observed-budget CPU planning, not guaranteed completion; FD/preparation/M2/stress and IO are extra.",
+  "hardware_contention": "Other Q2 jobs may be active; sequential single-thread Q3 sample only"
+}

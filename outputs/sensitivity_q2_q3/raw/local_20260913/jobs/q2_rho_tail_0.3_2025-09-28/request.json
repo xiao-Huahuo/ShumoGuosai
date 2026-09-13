@@ -1,0 +1,11 @@
+{
+  "id": "q2_rho_tail_0.3_2025-09-28",
+  "question": "q2",
+  "parameter": "rho_tail",
+  "value": 0.3,
+  "date": "2025-09-28",
+  "role": "高系统压力日",
+  "status": "pending",
+  "started_at": 1789277485.417249,
+  "signature": "10654389ce0225fc6c608ac7943d46b22e25e078ed7a11e06fee1f179e143fb8"
+}

@@ -1,0 +1,28 @@
+experiment,complete,completed_days,total_cost_yuan,emergency_kwh,reason
+structure_separate,True,334,16000660.371390494,802580.80356034148,已完成
+structure_direct_net,True,334,16794912.802022271,944017.15573298756,已完成
+deterministic,False,0,,,排队等待工作位或主结果依赖
+rigid,False,0,,,排队等待工作位或主结果依赖
+predictor_week_mean7,False,0,,,排队等待工作位或主结果依赖
+predictor_week_dhr,False,0,,,排队等待工作位或主结果依赖
+predictor_lgb_mean7,False,0,,,排队等待工作位或主结果依赖
+predictor_lgb_dhr,False,0,,,排队等待工作位或主结果依赖
+window_28,False,0,,,排队等待工作位或主结果依赖
+window_56,False,32,,,排队等待工作位或主结果依赖；历史记录：主方案3月10日所有K均未达预注册门槛；停止独立敏感性以先处理主流程计算阻塞，前缀保留可续算
+window_84,False,0,,,排队等待工作位或主结果依赖
+window_expanding,False,0,,,排队等待工作位或主结果依赖
+horizon_1,False,82,,,排队等待工作位或主结果依赖；历史记录：未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布
+horizon_2,False,35,,,计算中；历史记录：未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布
+horizon_3,False,71,,,排队等待工作位或主结果依赖；历史记录：未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布
+scenario_10,False,0,,,排队等待工作位或主结果依赖
+scenario_20,False,0,,,排队等待工作位或主结果依赖
+scenario_40,False,0,,,排队等待工作位或主结果依赖
+minimum_14,False,0,,,排队等待工作位或主结果依赖
+minimum_21,False,0,,,排队等待工作位或主结果依赖
+minimum_28,False,0,,,排队等待工作位或主结果依赖
+initial_1200,False,0,,,排队等待工作位或主结果依赖
+initial_6000,False,0,,,排队等待工作位或主结果依赖
+initial_8482.77,False,0,,,排队等待工作位或主结果依赖
+initial_10800,False,0,,,排队等待工作位或主结果依赖
+oracles,False,0,,,排队等待工作位或主结果依赖
+richer_soc,False,0,,,排队等待工作位或主结果依赖

@@ -1,0 +1,291 @@
+"""已验证结果与待完成项分开展示；支持长回放期间生成明确标注的进度快照。"""
+
+import argparse
+import html
+import json
+from pathlib import Path
+import sys
+import os
+import subprocess
+
+import numpy as np
+import pandas as pd
+
+from data import ROOT, sha256, write_csv, write_json
+from dispatch import load_prepared
+from export_dispatch import summary, validate_dispatch
+from final_diagnostics import descriptive_corrections, dhr_residual_stability
+from final_traceability import build as build_traceability
+from protocol import PROTOCOL
+from execution import execution_settings
+
+
+def read_json(path, default=None):
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else ({} if default is None else default)
+
+
+def visual_review_current(output):
+    review = read_json(output/"figures/visual_acceptance.json")
+    names = read_json(output/"figures/manifest.json").get("figures", [])
+    hashes = review.get("reviewed_png_sha256", {})
+    return bool(names and review.get("source_sha256") == sha256(ROOT/"src/plots/q2_dispatch.py")
+                and set(names) == set(hashes)
+                and all((output/f"figures/{name}.png").exists()
+                        and sha256(output/f"figures/{name}.png") == hashes[name] for name in names))
+
+
+def validation_sources():
+    paths = list((ROOT/"src/q2").glob("*.py"))+[ROOT/"src/plots/q2_dispatch.py", ROOT/"src/plots/common.py"]
+    return {str(p.relative_to(ROOT)): sha256(p) for p in paths}
+
+
+def verify_code(run_path):
+    before = validation_sources()
+    log = run_path/"raw/final_tests.txt"
+    environment = {**os.environ, "Q2_GENERATION": str(ROOT/"outputs/q2_current"),
+                   "OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1", "MPLBACKEND": "Agg"}
+    with log.open("w", encoding="utf-8") as stream:
+        tested = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "src/q2", "-p", "test_*.py", "-v"],
+                                cwd=ROOT, env=environment, stdout=stream, stderr=subprocess.STDOUT)
+    complete = tested.returncode == 0 and before == validation_sources()
+    write_json(run_path/"raw/test_manifest.json", {"complete": complete, "source_sha256": before,
+                                                 "exit_code": tested.returncode, "log_sha256": sha256(log)})
+    (ROOT/"docs/2/revision_work/tests.txt").write_text(log.read_text(encoding="utf-8"), encoding="utf-8")
+    if not complete:
+        raise ValueError("当前源码测试失败或测试期间源码改变，不能发布正式结果")
+
+
+def solver_table(directory):
+    rows = []
+    records = []
+    for p in sorted((directory/"daily_audit").glob("*.json")):
+        audit = read_json(p)
+        if "original_budget_failure" in audit:
+            records.append((p, p.stem, audit["original_budget_failure"], "original_budget_failed"))
+        records.append((p, p.stem, audit, "supplemental" if "supplemental_solver_seconds" in audit else "original"))
+    failed = read_json(directory/"run_status.json")
+    if failed.get("failed_date") and failed.get("solver_details"):
+        records.append((directory/"run_status.json", failed["failed_date"][:10], failed["solver_details"], "failed_attempt"))
+    for path, date, audit, budget in records:
+        for k in ("1", "2", "3"):
+            if k not in audit:
+                continue
+            entry = audit[k]
+            entry = entry.get("error", entry)
+            candidates = entry.get("candidates", {str(entry.get("S", 1)): {"solver": entry.get("selected_solver", {})}})
+            for s, candidate in candidates.items():
+                solver = candidate["solver"]
+                before, after = solver.get("before_presolve", {}), solver.get("after_presolve", {})
+                rows.append({"date": date, "execution_budget": budget, "K": int(k), "M": entry.get("M"), "S": int(s),
+                             "selected": int(k) == audit.get("selected_K") and int(s) == entry.get("S"),
+                             "status": solver.get("status"), "reliable": solver.get("reliable", False),
+                             "objective_yuan": solver.get("objective"), "lower_bound_yuan": solver.get("dual_bound", solver.get("lower_bound")),
+                             "gap": solver.get("mip_gap"), "requested_gap": solver.get("requested_gap", PROTOCOL["solver_gap"]),
+                             "seconds": solver.get("solve_seconds"),
+                             "continuous_before": before.get("continuous", solver.get("continuous_variables")),
+                             "binary_before": before.get("binary", solver.get("binary_variables")),
+                             "constraints_before": before.get("constraints", solver.get("constraints")),
+                             "continuous_after": after.get("continuous"), "binary_after": after.get("binary"),
+                             "constraints_after": after.get("constraints"), "solver": solver.get("solver"),
+                             "version": solver.get("solver_version"), "audit_file": str(path.relative_to(ROOT))})
+    return pd.DataFrame(rows)
+
+
+def collect(run_path):
+    _, _, _, _, _ = load_prepared(run_path)
+    output, main = run_path/"processed", run_path/"processed/main"
+    # 只读取已提交CSV快照，正在写入的未提交事务不会被当作验收依据。
+    manifest_before = (main/"checkpoint.json").read_bytes() if (main/"checkpoint.json").exists() else None
+    frame = pd.read_csv(main/"dispatch.csv", parse_dates=["date", "timestamp"], float_precision="round_trip") if (main/"dispatch.csv").exists() else None
+    main_state = read_json(main/"run_status.json")
+    complete = bool(main_state.get("complete"))
+    real = summary(frame) if frame is not None else {"days": 0}
+    if frame is not None:
+        validate_dispatch(frame, full_period=complete)
+    if manifest_before is not None and manifest_before != (main/"checkpoint.json").read_bytes():
+        raise ValueError("读取期间检查点更新，请重新生成报告")
+    solves = solver_table(main)
+    if not solves.empty:
+        write_csv(output/"solver_records.csv", solves)
+        stats = solves.groupby(["K", "S"], as_index=False, dropna=False).agg(
+            attempted=("reliable", "size"), reliable=("reliable", "sum"),
+            mean_seconds=("seconds", "mean"), max_seconds=("seconds", "max"),
+            max_gap=("gap", "max"), mean_continuous_before=("continuous_before", "mean"),
+            max_binary_before=("binary_before", "max"), max_constraints_before=("constraints_before", "max"),
+            max_binary_after=("binary_after", "max"), max_constraints_after=("constraints_after", "max"))
+        write_csv(output/"solver_resource_summary.csv", stats)
+    daily = pd.read_csv(main/"daily.csv") if (main/"daily.csv").exists() else pd.DataFrame()
+    limits = int(daily.computational_limited.sum()) if not daily.empty else 0
+    supplemental_days = sum("supplemental_solver_seconds" in read_json(p) for p in (main/"daily_audit").glob("*.json"))
+    calibration_path = main/"calibration.csv"
+    if calibration_path.exists():
+        calibration = pd.read_csv(calibration_path)
+        calibration["month"] = pd.to_datetime(calibration.origin).dt.month
+        groups = calibration.groupby(["horizon", "nominal", "month"], as_index=False)[["covered_intervals", "n"]].sum()
+        groups["picp"] = groups.covered_intervals/groups.n
+        write_csv(output/"scenario_calibration_summary.csv", groups)
+    initial = read_json(output/"warm_start.json").get("feb1_baseline_soc")
+    required = ["structure_separate", "structure_direct_net", "deterministic", "rigid",
+                *[f"predictor_{load}_{pv}" for load in ("week", "lgb") for pv in ("mean7", "dhr")],
+                "window_28", "window_56", "window_84", "window_expanding", "horizon_1", "horizon_2", "horizon_3",
+                "scenario_10", "scenario_20", "scenario_40", "minimum_14", "minimum_21", "minimum_28",
+                *[f"initial_{s:g}" for s in sorted({s for s in (1200., 6000., initial, 10800.) if s is not None})], "oracles", "richer_soc"]
+    experiments = []
+    queue_jobs = read_json(run_path/"raw/full_run_state.json").get("jobs", {})
+    for name in required:
+        path = output/"experiments"/name
+        status = read_json(output/f"experiments/status/{name}.json")
+        record = read_json(path/"summary.json")
+        finished = bool(status.get("complete"))
+        if name.startswith("structure_") and record.get("days") == 334:
+            finished = True
+        partial_days = len(pd.read_csv(path/"daily.csv")) if (path/"daily.csv").exists() else 0
+        reason = status.get("reason", "已完成" if finished else "尚未完成真实验收")
+        phase = queue_jobs.get(name, {}).get("status")
+        if not finished and phase in ("running", "pending"):
+            reason = "计算中" if phase == "running" else "排队等待工作位或主结果依赖"
+            if status.get("reason"):
+                reason += "；历史记录："+status["reason"]
+        experiments.append({"experiment": name, "complete": finished, "completed_days": record.get("days", partial_days),
+                            "total_cost_yuan": record.get("total_cost_yuan") if finished else None,
+                            "emergency_kwh": record.get("emergency_kwh") if finished else None,
+                            "reason": reason})
+    write_csv(output/"experiment_comparison.csv", pd.DataFrame(experiments))
+    accepted_experiments = {r["experiment"] for r in experiments if r["complete"]}
+    def state(accepted, reason, *artifacts):
+        return {"accepted": bool(accepted), "reason": reason, "artifacts": list(artifacts)}
+    evidence = {
+        "prepare": state(True, "原始附件逐值回读及完整准备库摘要核验通过", "raw/prepared_manifest.json", "inputs/processed/quality_checks.csv"),
+        "forecast": state((output/"experiments/forecast_metrics.csv").exists(), "351个影子origin完成；1月冻参；全年误差仅为事后诊断", "raw/shadows/frozen_lightgbm.json", "processed/experiments/forecast_metrics.csv"),
+        "warm": state(initial is not None, "1月8—31日因果预热已计算；该SOC不是可识别的真实1月末状态", "processed/warm_start.json"),
+        "main": state(complete, f"主回放已完成{real['days']}/334日；计算受限{limits}日", "processed/main/run_status.json", "processed/main/dispatch.csv"),
+        "compute": state(complete and limits == 0, f"逐候选求解证书已保存；完整全年稳定可靠尚需验收，计算受限{limits}日", "processed/solver_records.csv", "processed/solver_resource_summary.csv"),
+        "export": state(complete and (main/"result2.xlsx").exists(), "仅完整334日通过物理/模板回读后导出result2；合成模板测试不代表正式结果", "processed/main/template_audit.json"),
+        "diagnostic": state(visual_review_current(output), "新增图必须与实际目视版本的PNG摘要匹配；重绘后的不同图不能沿用旧验收", "processed/pv_local_residual_correlations.csv", "processed/seasonal_difference_variance.csv", "processed/figures/manifest.json"),
+        "scenarios": state(complete, "联合origin×horizon历史块及物理投影已测试；全年场景审计随主回放完成", "processed/main/daily_audit", "processed/main/calibration.csv"),
+        "calibration": state(complete, "覆盖率按horizon和月份汇总；低覆盖必须如实报告，不能视作预设覆盖保证", "processed/scenario_calibration_summary.csv"),
+        "quantile": state((output/"experiments/no_storage_quantile.csv").exists(), "离散80%分位全局最优手算/退化MILP测试及334日无储能实算完成", "processed/experiments/no_storage_quantile.csv"),
+        "optional_cvar": state(False, "可选扩展有求解入口，未执行；不进入风险中性主结果"),
+    }
+    groups = {"structure": ["structure_separate", "structure_direct_net"],
+              "predictor_economics": [f"predictor_{load}_{pv}" for load in ("week", "lgb") for pv in ("mean7", "dhr")],
+              "scenario_sensitivity": [f"window_{w}" for w in (28, 56, 84, "expanding")]+[f"scenario_{s}" for s in (10, 20, 40)],
+              "minimums": [f"minimum_{m}" for m in (14, 21, 28)],
+              "initials": [r["experiment"] for r in experiments if r["experiment"].startswith("initial_")],
+              "horizons": [f"horizon_{k}" for k in (1, 2, 3)], "ablations": ["deterministic", "rigid"],
+              "richer": ["richer_soc"], "oracles": ["oracles"], "experiments": required}
+    for key, names in groups.items():
+        pending = [name for name in names if name not in accepted_experiments]
+        evidence[key] = state(not pending, "真实实验已完成" if not pending else "待完成："+"、".join(pending), "processed/experiment_comparison.csv")
+    evidence["warm_and_initials"] = evidence["initials"]
+    evidence["forecast_and_main"] = evidence["main"]
+    tested = read_json(run_path/"raw/test_manifest.json")
+    current_tests = tested.get("complete", False) and tested.get("source_sha256") == validation_sources()
+    evidence["tests"] = state(current_tests, "当前源码测试摘要通过" if current_tests else "当前源码测试摘要尚待生成或已改变", "raw/test_manifest.json", "raw/final_tests.txt")
+    evidence["all"] = state(complete and not limits and len(accepted_experiments) == len(required)
+                            and current_tests and evidence["diagnostic"]["accepted"],
+                            "所有必需条件同时验收；当前不得用局部结果宣称整体通过", "processed/acceptance.json")
+    audit = {"main": real, "main_complete": complete, "computational_limited_days": limits,
+             "supplemental_days": supplemental_days, "execution": main_state.get("execution", {}),
+             "original_budget_all_passed": complete and not limits and not supplemental_days,
+             "failed_date": main_state.get("failed_date"), "failure_reason": main_state.get("reason"),
+             "main_full_year_success_rate": real["days"]/334 if complete else None,
+             "observed_candidate_success_rate": float(solves.reliable.mean()) if not solves.empty else None,
+             "observed_attempted_dates": int(solves.date.nunique()) if not solves.empty else 0,
+             "full_year_all_candidates_reliable_day_rate": (334-limits)/334 if complete else None,
+             "selected_policy_physics_valid": frame is not None, "mandatory_experiments_complete": len(accepted_experiments) == len(required),
+             "completed_experiments": len(accepted_experiments), "required_experiments": len(required), "evidence": evidence,
+             "all_accepted": evidence["all"]["accepted"]}
+    write_json(output/"acceptance.json", audit)
+    build_traceability(output, evidence)
+    return audit, experiments
+
+
+def render(run_path, audit, experiments):
+    output = run_path/"processed"
+    main, done = audit["main"], audit["main_complete"]
+    state = "主回放完整；其他验收见下表" if done else (
+        f"主回放在{audit['failed_date'][:10]}因计算限制停止 · 不构成完整正式结果"
+        if audit.get("failed_date") else "计算中 · 不构成完整正式结果")
+    cards = [("真实回放", f"{main['days']} / 334 日"), ("必需实验", f"{audit['completed_experiments']} / {audit['required_experiments']}"),
+             ("计算受限日", str(audit["computational_limited_days"]))]
+    content = ''.join(f'<div class="card"><span>{label}</span><strong>{value}</strong></div>' for label, value in cards)
+    body = '<p>执行依据为用户指定的新方案。初始工程数值设置在正式回测前冻结：Mmin=14，窗口28→56→84→expanding，候选K=1/2/3，M≤40全保留，M&gt;40比较10/20/40个真实历史代表块，gap≤1%，SCIP每次求解120秒。2月1日基准SOC来自因果预热，不解释为已识别的真实状态。区间内控制以实时测量为基础；10分钟总量仅是离散聚合近似。</p>'
+    precision = execution_settings(run_path)
+    current_gap = precision.get("solver_gap", PROTOCOL["solver_gap"])
+    if precision:
+        body += f'<p><strong>用户授权精度修订：</strong>后续单次优化gap门槛为{current_gap:.0%}，此前各精度阶段已完成的结果按原策略和末SOC保留。各实验切换日期及旧执行设置单独记录；不是从第一天采用新停止规则的重跑，亦不代表全年电费或预测误差为{current_gap:.0%}。物理约束、场景及稳定性门槛不变。<a href="../raw/solver_precision_revision.json">修订与选择依据</a></p>'
+    execution = read_json(run_path/"raw/full_run_execution.json")
+    if execution:
+        budget = execution["execution"]["rescue_seconds"]
+        body += f'<p><strong>补充执行预算：</strong>用户授权整日候选全部受限时追加每次{budget:g}秒计算，当前gap为{current_gap:.0%}；主回放已使用补算{audit["supplemental_days"]}日。原120秒失败记录保留，补算成功不改写为原预算通过。<a href="../raw/full_run_execution.json">执行记录</a> · <a href="progress.html">实时进度</a></p>'
+    if (run_path/"raw/supplemental_solver_revision.json").exists():
+        body += '<p>后续补算采用经独立等价检查的HiGHS物理边界线性MILP，并逐步回放核对min/max响应。求解路线按当次执行设置选择；两种编码目标、策略类、场景相同，均遵循当次执行精度。<a href="../raw/supplemental_solver_revision.json">补算求解实现记录</a></p>'
+    if (run_path/"raw/base_solver_revision.json").exists():
+        body += f'<p>当前{current_gap:.0%}执行的自由单段策略在LP证书不足时，首次120秒直接采用已验证的等价HiGHS MILP；整日所有候选仍失败时才补充900秒。固定策略与三段SOC仍保留原生入口。历史失败不改写。<a href="../raw/base_solver_revision.json">首轮求解路线与验证</a></p>'
+    if (run_path/"raw/charge_dominance_revision.json").exists():
+        body += '<p>单段补算还采用充电上限支配性预处理：在本模型中，提高充电上限使逐步SOC不减、紧急购电不增，因此可固定为题设上限而保持最优费用不变。固定策略回放和三段SOC诊断保持各自原参数。<a href="../raw/charge_dominance_revision.json">证明与验证记录</a></p>'
+    if (run_path/"raw/branch_cuts_revision.json").exists():
+        body += '<p>精确反馈线性编码增加原分支已隐含的四条约束，以加强求解下界；所有原可行策略仍保留，目标、场景不变，精度按当次执行设置。<a href="../raw/branch_cuts_revision.json">分支约束证明与验证</a></p>'
+    if (run_path/"raw/monotone_charge_revision.json").exists():
+        body += '<p>自由单段策略的后续补算采用单调充电下界：允许场景轨迹少充电，但放电仍遵守原反馈；执行时用同一共享策略恢复原最大允许充电响应。原反馈逐步SOC不减、紧急购电和总费用不增，因此该模型与原模型最优费用相同，其全局下界用于当次精度证书。实际执行始终采用原min/max反馈，少充轨迹从不执行；原轨迹差异、线性可行性、整数性和单调投影分别核验。固定策略与三段SOC仍用精确反馈。<a href="../raw/monotone_charge_revision.json">证明及正式实例验证</a></p>'
+    body += '<p>精确反馈策略的可行上界与自由响应LP全局下界共同证明误差门槛；LP自由响应从不执行。必要时继续求解原生indicator MILP。三段SOC扩展也用真实半开区间回放核验，不能用完美信息Oracle替代同信息策略比较。</p>'
+    if main['days']:
+        body += f"<p>已完成区间：{main['start']}—{main['end']}。该区间真实费用 {main['total_cost_yuan']:,.2f} 元，紧急购电 {main['emergency_kwh']:,.2f} kWh；紧急购电同时充电的时段数为 {main['charge_with_emergency_intervals']}。</p>"
+    figures = read_json(output/"figures/manifest.json").get("figures", [])
+    images = ''.join(f'<figure><img src="figures/{html.escape(name)}.png" alt="{html.escape(name)}"><figcaption>{html.escape(name)} · <a href="figures/{html.escape(name)}.svg">SVG</a></figcaption></figure>' for name in figures)
+    descriptive = []
+    original_figures = ROOT/"outputs/processed/q2/figures"
+    for item in read_json(ROOT/"outputs/q2/raw/figure_manifest.json", []):
+        name = item["name"]
+        if name in ("seasonal_moments", "daily_peaks"):
+            continue
+        path = original_figures/f"{name}.png"
+        if path.exists():
+            link = os.path.relpath(path, output)
+            descriptive.append(f'<figure><img src="{html.escape(link)}" alt="{html.escape(name)}"><figcaption>{html.escape(item["caption"])} · 全年事后描述，不用于历史选模</figcaption></figure>')
+    images += '<h2>保留的数据结构诊断</h2><p>原始光伏高相关主要反映昼夜形状，不能直接当作随机幅度可预测性的证明。星期分组不强加光伏星期驱动；频谱不用于反向选择早期模型阶数。季节差分的方差压缩见上方新图。</p>'+''.join(descriptive)
+    links = [("逐源行/句子追溯CSV", "source_sentence_traceability.csv"), ("求解器逐候选记录", "solver_records.csv"),
+             ("计算规模与时间", "solver_resource_summary.csv"), ("场景覆盖率", "scenario_calibration_summary.csv"),
+             ("实验进度CSV", "experiment_comparison.csv"), ("真实执行CSV", "main/dispatch.csv"),
+             ("预测误差CSV", "experiments/forecast_metrics.csv"), ("无储能80%分位检验", "experiments/no_storage_quantile.csv")]
+    nav = ''.join(f'<a href="{path}">{label}</a>' for label, path in links if (output/path).exists())
+    table = pd.DataFrame(experiments).rename(columns={"experiment":"实验", "complete":"已完成", "completed_days":"完成日数", "total_cost_yuan":"全期费用/元", "emergency_kwh":"紧急购电/kWh", "reason":"状态说明"}).to_html(index=False, na_rep="待完成", border=0, float_format=lambda v:f"{v:,.2f}")
+    document = f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第二问 · 最终方案执行与验收</title><style>
+body{{margin:0;background:#f3f5f7;color:#172c3b;font:16px/1.75 system-ui,-apple-system,sans-serif}}main{{max-width:1160px;margin:40px auto;padding:0 24px}}h1{{font-size:30px;margin-bottom:8px}}.state{{color:#8a4812}}.cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}}.card{{background:white;padding:20px;border:1px solid #dbe2e8;border-radius:12px}}.card span{{display:block;color:#516777}}.card strong{{display:block;font-size:28px;color:#155b7a}}nav{{display:flex;flex-wrap:wrap;gap:12px 22px;padding:20px 0}}a{{color:#126588}}figure{{margin:24px 0;padding:16px;background:white;border-radius:12px}}img{{width:100%;height:auto}}figcaption{{color:#637786;font-size:14px}}.table{{overflow:auto;background:white;padding:16px;border-radius:12px}}table{{border-collapse:collapse;font-size:14px;width:100%;white-space:nowrap}}th,td{{padding:9px 14px;text-align:left;border-bottom:1px solid #e3e8ec}}footer{{font-size:14px;color:#627381;margin:30px 0}}@media(max-width:600px){{main{{margin:20px auto;padding:0 14px}}h1{{font-size:25px}}.cards{{grid-template-columns:1fr}}figure{{padding:4px}}}}
+</style><main><h1>第二问 · 最终方案执行与验收</h1><div class="state">{state}</div><div class="cards">{content}</div>{body}<nav>{nav}</nav><h2>必需实验的真实状态</h2><div class="table">{table}</div><h2>预测、场景与真实回放</h2>{images}<footer>全部全年预测统计均为事后评价，不回流历史决策。未完成指标显示“待完成”，不填零、不推算全年费用。完整验收条件见 acceptance.json；新方案原文保持不变。</footer></main></html>'''
+    (output/"report.html").write_text(document, encoding="utf-8")
+    pending = [r["experiment"] for r in experiments if not r["complete"]]
+    markdown = f"# 第二问最终方案执行状态\n\n{state}。主回放{main['days']}/334日，计算受限{audit['computational_limited_days']}日；必需实验{audit['completed_experiments']}/{audit['required_experiments']}。\n\n假设与预注册：完整日j<d、因果预热初态、10分钟聚合运行近似；初始数值容差/求解预算见raw/protocol.json；已启用的用户精度修订见raw/solver_precision_revision.json。可行策略与全局LP下界证书不改变策略类。\n\n未完成实验：{'、'.join(pending) or '无'}。\n\n逐句追溯：source_sentence_traceability.csv。真实费用仅在相同完整区间比较，不将部分日期外推为全年。详见report.html与acceptance.json。\n"
+    (output/"report.md").write_text(markdown, encoding="utf-8")
+
+
+def generate(run_path):
+    run_path = Path(run_path).resolve()
+    frame = pd.read_csv(run_path/"inputs/processed/timeseries.csv")
+    descriptive_corrections(frame, run_path/"processed")
+    dhr_residual_stability(frame, run_path/"raw/shadows", run_path/"processed")
+    from experiments import scenario_audit
+    store, _, actual, dates, prices = load_prepared(run_path)
+    experiments = run_path/"processed/experiments"
+    directories = sorted(experiments.iterdir()) if experiments.exists() else []
+    for directory in [run_path/"processed/main", *directories]:
+        if directory.is_dir():
+            scenario_audit(store, actual, dates, prices, directory)
+    sys.path.insert(0, str(ROOT/"src/plots"))
+    from q2_dispatch import create
+    create(run_path)
+    audit, experiments = collect(run_path)
+    render(run_path, audit, experiments)
+    print(json.dumps({key: value for key, value in audit.items() if key != "evidence"}, ensure_ascii=False), flush=True)
+    return audit
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--run-dir", type=Path, required=True)
+    parser.add_argument("--verify", action="store_true", help="运行当前源码测试并保存源码摘要门禁")
+    args = parser.parse_args()
+    if args.verify:
+        verify_code(args.run_dir.resolve())
+    generate(args.run_dir)

@@ -1,0 +1,85 @@
+{
+  "version": "q2-solver-gap-3pct-20260912",
+  "created_at": "2026-09-12T04:22:31.585751+00:00",
+  "solver_gap": 0.03,
+  "previous_solver_gap": 0.02,
+  "parent_protocol_sha256": "25017183dced59d3ba948c67b11be61ee4da1d767be71b3a04b3ecc6ebd3c26c",
+  "plan_sha256": "69a31915a1fdca5b2ef74d4c4165a612d1e3ec87f2171f4c7d714a2efaa947ae",
+  "authorization": "用户明确授权：那就换成3%，继续跑。此次仅切换正式MIP gap至3%，其他报价文本建议不自动采用。",
+  "previous_precision_revision_sha256": "fb857ad26bffed71da5abfd9e8f963fe4c30c3680432e25719a30cc35ce72896",
+  "previous_precision_revision_archive": "raw/solver_precision_revision_fb857ad26bff.json",
+  "previous_execution_files_sha256": {
+    "full_run_execution_fb857ad26bff.json": "b78b0cc6a4b2430bf1cffb56143fff8e1d2f149cdc15fe895ffffc0cc5b1bac7",
+    "full_run_execution.json": "e4c07495921943de9e3c00be03a94f1bdbc3b9c029446fcea275225c89cc9155"
+  },
+  "transition_archive": "raw/precision_transition_3pct_20260912T042229Z",
+  "switch_checkpoints": {
+    "main": {
+      "completed_days": 109,
+      "last_date": "2025-05-20",
+      "next_date": "2025-05-21",
+      "final_soc": 8926.355625060722,
+      "checkpoint_sha256": "1ff73daaeb59149334e0cdbe09ba1925195a1ad53e5a9bad809087954983287e",
+      "saved_prefix_directory": "raw/precision_transition_3pct_20260912T042229Z/main"
+    },
+    "horizon_1": {
+      "completed_days": 132,
+      "last_date": "2025-06-12",
+      "next_date": "2025-06-13",
+      "final_soc": 2732.2815168383518,
+      "checkpoint_sha256": "0f95a79e73d943104bc3d186dde8fe4813f8274bb4b32ac45cd750aa8349b44a",
+      "saved_prefix_directory": "raw/precision_transition_3pct_20260912T042229Z/horizon_1"
+    },
+    "horizon_2": {
+      "completed_days": 93,
+      "last_date": "2025-05-04",
+      "next_date": "2025-05-05",
+      "final_soc": 7537.187644480507,
+      "checkpoint_sha256": "497ee1534830845dfc4a01adf46c65bd6de54efcefab37bc9a6e086f898049d9",
+      "saved_prefix_directory": "raw/precision_transition_3pct_20260912T042229Z/horizon_2"
+    },
+    "horizon_3": {
+      "completed_days": 91,
+      "last_date": "2025-05-02",
+      "next_date": "2025-05-03",
+      "final_soc": 1581.0258364579151,
+      "checkpoint_sha256": "09de19738b0669262d0aed355e837601393269348001d7ff19df6363f0fed8f1",
+      "saved_prefix_directory": "raw/precision_transition_3pct_20260912T042229Z/horizon_3"
+    },
+    "predictor_week_mean7": {
+      "completed_days": 5,
+      "last_date": "2025-02-05",
+      "next_date": "2025-02-06",
+      "final_soc": 8285.753049423445,
+      "checkpoint_sha256": "21867e84a1d0bcabc5eabbfa9c4e7af813e51d5afb6fb5e16556809c5da865fd",
+      "saved_prefix_directory": "raw/precision_transition_3pct_20260912T042229Z/predictor_week_mean7"
+    },
+    "window_56": {
+      "completed_days": 32,
+      "last_date": "2025-03-04",
+      "next_date": "2025-03-05",
+      "final_soc": 7858.341944000581,
+      "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296",
+      "saved_prefix_directory": "raw/precision_transition_3pct_20260912T042229Z/window_56"
+    }
+  },
+  "selection_basis": {
+    "existing_benchmark": "raw/solver_diagnostics/precision_sweep_20260912_112216/benchmark.json",
+    "benchmark_sha256": "117a5e17272c88cdf505c196e0b7d046de68caf45e9f2ee4f43e5aa3f6a52360",
+    "formal_gap_selected_by_user": 0.03,
+    "no_new_precision_benchmarks": true
+  },
+  "unchanged": {
+    "base_solver_seconds": 120,
+    "supplemental_solver_seconds": 900,
+    "workers": 2,
+    "physical_constraints": true,
+    "forecast_library": true,
+    "history_information_boundary": true,
+    "scenario_and_horizon_selection": true,
+    "stability_thresholds": true
+  },
+  "interpretation": "past_1pct_and_2pct_policy_prefixes_preserved_future_3pct_stopping_rule_not_uniform_from_start_counterfactual",
+  "original_failure_records_preserved": true,
+  "future_runtime_guarantee": false
+}

@@ -1,0 +1,112 @@
+4-3 2025-02-01 SOC=4323.619 committed
+4-3 2025-02-02 SOC=1375.844 committed
+4-3 2025-02-03 SOC=1418.520 committed
+4-3 2025-02-04 SOC=1376.557 committed
+4-3 2025-02-05 SOC=1317.763 committed
+4-3 2025-02-06 SOC=1200.000 committed
+4-3 2025-02-07 SOC=1292.226 committed
+4-3 2025-02-08 SOC=4373.300 committed
+4-3 2025-02-09 SOC=1372.267 committed
+4-3 2025-02-10 SOC=1391.753 committed
+4-3 2025-02-11 SOC=1397.015 committed
+4-3 2025-02-12 SOC=1303.537 committed
+4-3 2025-02-13 SOC=1200.000 committed
+4-3 2025-02-14 SOC=1272.354 committed
+4-3 2025-02-15 SOC=4985.200 committed
+4-3 2025-02-16 SOC=1232.047 committed
+4-3 2025-02-17 SOC=1303.721 committed
+4-3 2025-02-18 SOC=1287.699 committed
+4-3 2025-02-19 SOC=1269.518 committed
+4-3 2025-02-20 SOC=1200.000 committed
+4-3 2025-02-21 SOC=1296.345 committed
+4-3 2025-02-22 SOC=1433.847 committed
+4-3 2025-02-23 SOC=1339.029 committed
+4-3 2025-02-24 SOC=1285.593 committed
+4-3 2025-02-25 SOC=1305.226 committed
+4-3 2025-02-26 SOC=1317.123 committed
+4-3 2025-02-27 SOC=1200.153 committed
+4-3 2025-02-28 SOC=1279.705 committed
+4-3 2025-03-01 SOC=3300.000 committed
+4-3 2025-03-02 SOC=1390.628 committed
+4-3 2025-03-03 SOC=1380.512 committed
+4-3 2025-03-04 SOC=1353.872 committed
+4-3 2025-03-05 SOC=1489.306 committed
+4-3 2025-03-06 SOC=1386.103 committed
+4-3 2025-03-07 SOC=1263.820 committed
+4-3 2025-03-08 SOC=2084.447 committed
+4-3 2025-03-09 SOC=1442.954 committed
+4-3 2025-03-10 SOC=1470.673 committed
+4-3 2025-03-11 SOC=1370.456 committed
+4-3 2025-03-12 SOC=1356.208 committed
+4-3 2025-03-13 SOC=1200.000 committed
+4-3 2025-03-14 SOC=1275.186 committed
+4-3 2025-03-15 SOC=1442.163 committed
+4-3 2025-03-16 SOC=1246.634 committed
+4-3 2025-03-17 SOC=1200.000 committed
+4-3 2025-03-18 SOC=1206.946 committed
+4-3 2025-03-19 SOC=1200.000 committed
+4-3 2025-03-20 SOC=1200.000 committed
+4-3 2025-03-21 SOC=1377.023 committed
+4-3 2025-03-22 SOC=1315.640 committed
+4-3 2025-03-23 SOC=1256.384 committed
+4-3 2025-03-24 SOC=1273.368 committed
+4-3 2025-03-25 SOC=1222.120 committed
+4-3 2025-03-26 SOC=1200.000 committed
+4-3 2025-03-27 SOC=1200.000 committed
+4-3 2025-03-28 SOC=1272.454 committed
+4-3 2025-03-29 SOC=2022.627 committed
+4-3 2025-03-30 SOC=1219.075 committed
+4-3 2025-03-31 SOC=1208.558 committed
+4-3 2025-04-01 SOC=1226.516 committed
+4-3 2025-04-02 SOC=1279.549 committed
+4-3 2025-04-03 SOC=1230.884 committed
+4-3 2025-04-04 SOC=1295.450 committed
+4-3 2025-04-05 SOC=2939.057 committed
+4-3 2025-04-06 SOC=1334.413 committed
+4-3 2025-04-07 SOC=1336.212 committed
+4-3 2025-04-08 SOC=1337.660 committed
+4-3 2025-04-09 SOC=1366.182 committed
+4-3 2025-04-10 SOC=1227.230 committed
+4-3 2025-04-11 SOC=1244.721 committed
+4-3 2025-04-12 SOC=2987.161 committed
+4-3 2025-04-13 SOC=1241.855 committed
+4-3 2025-04-14 SOC=1248.656 committed
+4-3 2025-04-15 SOC=1275.182 committed
+4-3 2025-04-16 SOC=1228.999 committed
+4-3 2025-04-17 SOC=1200.802 committed
+Traceback (most recent call last):
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/rolling.py", line 253, in run_period
+    frame, audit = runner(data, day, state["soc"], config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/rolling.py", line 132, in run_day_q43
+    solution = solve(scenarios, soc, config, reference=reference, today=144 - hour * 6)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/optimization.py", line 224, in solve
+    raise LimitedSolve(result)
+src.q4.optimization.LimitedSolve: 节点未取得可信LP最优解：Optimal
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/run.py", line 74, in <module>
+    main()
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/run.py", line 66, in main
+    frame = run_period(data, mode, config, arguments.output, end=arguments.end)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/rolling.py", line 255, in run_period
+    write_json(output / "failures" / f"{date}.json", error.audit)
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/config.py", line 81, in write_json
+    json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/json/encoder.py", line 398, in _iterencode_dict
+    yield _floatstr(value)
+          ^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/json/encoder.py", line 240, in floatstr
+    raise ValueError(
+ValueError: Out of range float values are not JSON compliant: inf

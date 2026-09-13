@@ -1,0 +1,11 @@
+{
+  "id": "q2_rho_tail_0.1_2025-09-17",
+  "question": "q2",
+  "parameter": "rho_tail",
+  "value": 0.1,
+  "date": "2025-09-17",
+  "role": "常规日",
+  "status": "pending",
+  "started_at": 1789277298.3137448,
+  "signature": "d0a41348fe22d6e2b7eb9000d825a9f22f46af7f9fa1a385cad84eb8379d87d6"
+}

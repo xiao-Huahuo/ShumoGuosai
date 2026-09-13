@@ -1,0 +1,12 @@
+{
+  "id": "q3_S_tail_4_2025-07-01",
+  "question": "q3",
+  "parameter": "S_tail",
+  "value": 4,
+  "date": "2025-07-01",
+  "role": "高调整成本日",
+  "status": "pending",
+  "optional": true,
+  "started_at": 1789278109.229462,
+  "signature": "3e472f31427a47ee981ffcd54f0777337ca13f2d8501c587fc5767e7690cf8a7"
+}

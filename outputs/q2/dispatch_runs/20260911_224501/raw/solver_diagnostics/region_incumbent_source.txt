@@ -1,0 +1,57 @@
+"""固定当前反馈分支的局部LP，仅搜索原策略可行上界，绝不提供全局下界。"""
+
+import time
+
+import numpy as np
+from pyscipopt import SCIP_PARAMSETTING
+
+from optimization import build_model
+from policy import E_MIN, E_MAX, ETA_C, ETA_D, PHYSICAL_TOL, Policy, replay
+
+
+def improve_region(policy, net, prices, weights, initial_soc, *, seconds=90):
+    if policy.charge_cap.ndim != 1:
+        raise ValueError("当前分支局部LP只用于单段主策略")
+    started = time.perf_counter()
+    model, variables = build_model(net, prices, weights, initial_soc)
+    initial_cost = float(prices@policy.grid)
+    for s, path in enumerate(net):
+        response = replay(policy, path, initial_soc)
+        initial_cost += float(5*weights[s]*(prices@response["emergency"]))
+        previous = initial_soc
+        for t, n in enumerate(path):
+            x = n-policy.grid[t]
+            deficit = x >= 0
+            z, lr, lc = variables["branches"][s][t]
+            rmin = np.argmin([policy.discharge_cap[t], max(x, 0), ETA_D*(previous-E_MIN)])
+            cmin = np.argmin([policy.charge_cap[t], max(-x, 0), (E_MAX-previous)/ETA_C])
+            fixed = [(z, int(deficit))]
+            fixed += [(v, int(deficit and k == rmin)) for k, v in enumerate(lr)]
+            fixed += [(v, int(not deficit and k == cmin)) for k, v in enumerate(lc)]
+            for variable, value in fixed:
+                model.chgVarLb(variable, value)
+                model.chgVarUb(variable, value)
+            previous = response["soc"][t]
+    model.setPresolve(SCIP_PARAMSETTING.FAST)
+    model.setIntParam("misc/usesymmetry", 0)
+    model.setRealParam("numerics/feastol", 1e-8)
+    model.setRealParam("limits/time", seconds)
+    model.optimize()
+    status = str(model.getStatus())
+    selected, cost, mapping_error = policy, initial_cost, None
+    if model.getNSols():
+        sol = model.getBestSol()
+        candidate = Policy(*[np.maximum([model.getSolVal(sol, v) for v in variables[key]], 0)
+                             for key in ("g", "cp", "rp")])
+        responses = [replay(candidate, path, initial_soc) for path in net]
+        raw = np.array([[[model.getSolVal(sol, v) for v in entry] for entry in row] for row in variables["response"]])
+        exact = np.array([np.array([row[key] for key in ("charge", "discharge", "emergency", "unused", "soc")]).T
+                          for row in responses])
+        mapping_error = float(np.max(np.abs(raw-exact)))
+        candidate_cost = float(prices@candidate.grid+sum(5*p*(prices@row["emergency"]) for p, row in zip(weights, responses)))
+        if mapping_error <= PHYSICAL_TOL and candidate_cost < initial_cost:
+            selected, cost = candidate, candidate_cost
+    model.freeProb()
+    return selected, {"status": status, "initial_cost": initial_cost, "candidate_cost": cost,
+                      "seconds": time.perf_counter()-started, "mapping_error_kwh": mapping_error,
+                      "role": "feasible_upper_bound_only_fixed_region_not_global_lower_bound"}

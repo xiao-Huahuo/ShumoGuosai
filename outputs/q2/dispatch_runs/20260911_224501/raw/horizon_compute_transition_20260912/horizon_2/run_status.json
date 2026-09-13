@@ -1,0 +1,43 @@
+{
+  "complete": false,
+  "settings": {
+    "horizon": 2
+  },
+  "start_index": 31,
+  "end_index": 365,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.03,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+    "precision_revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+    "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt"
+  },
+  "execution_history": [
+    {
+      "execution": {
+        "base_solver_seconds": 120.0,
+        "rescue_seconds": 900,
+        "rescue_trigger": "all_day_candidates_failed",
+        "gap": 0.01,
+        "interpretation": "supplementary_compute_not_retroactive_original_budget_success"
+      },
+      "completed_days": 78,
+      "next_date": "2025-04-20"
+    },
+    {
+      "execution": {
+        "base_solver_seconds": 120.0,
+        "rescue_seconds": 900,
+        "rescue_trigger": "all_day_candidates_failed",
+        "gap": 0.02,
+        "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+        "precision_revision_sha256": "fb857ad26bffed71da5abfd9e8f963fe4c30c3680432e25719a30cc35ce72896",
+        "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt"
+      },
+      "completed_days": 93,
+      "next_date": "2025-05-05"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "job": "main",
+  "attempt": "798ed97461784e4eaf6ffbdb54ddaa61",
+  "started": "2026-09-11T17:02:13.526317+00:00",
+  "pid": 7422,
+  "complete": false,
+  "error": "未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布",
+  "finished": "2026-09-11T19:57:37.399198+00:00",
+  "exit_code": 2
+}

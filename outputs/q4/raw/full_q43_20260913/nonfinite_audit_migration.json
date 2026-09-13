@@ -1,0 +1,8 @@
+{
+  "old_signature": "5ae147da3f55575f3486187cd52cebabeb98917e870f970f09111bedd2000d19",
+  "new_signature": "1640af886d69121ea6703ab7cc0c360ae56a224059a3775e8b9a3a77d3763ac3",
+  "days_verified": 30,
+  "reason": "serialize unavailable restricted solver lower bound as null while retaining conservative global lower bound 0; model and settings unchanged",
+  "receipt_hashes_verified": true,
+  "physical_replay_verified": true
+}

@@ -1,0 +1,11 @@
+{
+  "id": "q2_rho_tail_0.1_2025-06-02",
+  "question": "q2",
+  "parameter": "rho_tail",
+  "value": 0.1,
+  "date": "2025-06-02",
+  "role": "高紧急购电日",
+  "status": "pending",
+  "started_at": 1789277404.564189,
+  "signature": "3e4e43b324963bc76106abf92a63cf13e50cde3e60b16235f85a2e0314f7ed9d"
+}

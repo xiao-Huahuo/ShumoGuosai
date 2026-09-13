@@ -1,0 +1,53 @@
+{
+  "visual_review": "4张真实PNG逐图目视：中文完整、轴标签与单位清楚、无裁切或图例遮挡；DHR图残差非白噪声事实保留，不假称通过白噪声检验",
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "source_sha256": "874b2f04b47c21fdf9e386d2defb49bd73778a00d0c5ad69803f78a2d321ac32",
+  "reviewed_png_sha256": {
+    "forecast_horizons": "9c57db83559f4164698c299b2c4b8978771580a6b29c97f2f3083c31ed192f89",
+    "seasonal_variance": "138b0cdf3006288dd85a729953a644f2d0cc15d4930a854bec18d7fcb74cc84d",
+    "dhr_residuals": "b3157747169b60479a93bfcd421fda67dd5437496048b94d0a923d93594d9491",
+    "real_rollout": "5809760e79a7a9edabca84735236712bb533b071bc1e2d15e2f3b2b24cce09df"
+  },
+  "reviewed_main_snapshot_days": 73,
+  "final_review": "实际view_image目视73日主回放图：标题日期范围、费用/SOC单位、上下界、中文清楚；日末SOC变化真实保留，无裁切遮挡；其余3图与前次实际目视字节一致。",
+  "reviewed_at": "2026-09-11T22:08:18.273951+00:00",
+  "history": [
+    {
+      "visual_review": "4张真实PNG逐图目视：中文完整、轴标签与单位清楚、无裁切或图例遮挡；DHR图残差非白噪声事实保留，不假称通过白噪声检验",
+      "formats": [
+        "png",
+        "svg"
+      ],
+      "source_sha256": "874b2f04b47c21fdf9e386d2defb49bd73778a00d0c5ad69803f78a2d321ac32",
+      "reviewed_png_sha256": {
+        "forecast_horizons": "9c57db83559f4164698c299b2c4b8978771580a6b29c97f2f3083c31ed192f89",
+        "seasonal_variance": "138b0cdf3006288dd85a729953a644f2d0cc15d4930a854bec18d7fcb74cc84d",
+        "dhr_residuals": "b3157747169b60479a93bfcd421fda67dd5437496048b94d0a923d93594d9491",
+        "real_rollout": "4919bef9688936930e2671f1cb591e0fa3d74c59d1d6bc97601abd41c9957414"
+      },
+      "reviewed_main_snapshot_days": 71,
+      "final_review": "实际目视71日真实回放图：日期/费用/SOC单位与上下界清楚、中文完整，无裁切；3月后不同可靠K导致的日末SOC起伏如实保留。其余3张PNG与先前实际目视版本逐字节一致。",
+      "reviewed_at": "2026-09-11T20:58:53.122398+00:00"
+    },
+    {
+      "visual_review": "4张真实PNG逐图目视：中文完整、轴标签与单位清楚、无裁切或图例遮挡；DHR图残差非白噪声事实保留，不假称通过白噪声检验",
+      "formats": [
+        "png",
+        "svg"
+      ],
+      "source_sha256": "874b2f04b47c21fdf9e386d2defb49bd73778a00d0c5ad69803f78a2d321ac32",
+      "reviewed_png_sha256": {
+        "forecast_horizons": "9c57db83559f4164698c299b2c4b8978771580a6b29c97f2f3083c31ed192f89",
+        "seasonal_variance": "138b0cdf3006288dd85a729953a644f2d0cc15d4930a854bec18d7fcb74cc84d",
+        "dhr_residuals": "b3157747169b60479a93bfcd421fda67dd5437496048b94d0a923d93594d9491",
+        "real_rollout": "cd0131b9621909f374e2b5c77d5d1ef63ea06958da5d4461c2f2368eb2de3330"
+      },
+      "reviewed_main_snapshot_days": 72,
+      "final_review": "实际view_image目视72日主回放图：日期、真实费用与SOC单位完整，容量上下界可见，中文清楚，无裁切遮挡；不同可靠K导致的日末SOC起伏如实保留。其余3张PNG与前次真实目视版本逐字节相同。",
+      "reviewed_at": "2026-09-11T21:24:09.259273+00:00"
+    }
+  ]
+}

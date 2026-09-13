@@ -1,0 +1,11 @@
+{
+  "id": "q3_lambda_E_1.2_2025-08-25",
+  "question": "q3",
+  "parameter": "lambda_E",
+  "value": 1.2,
+  "date": "2025-08-25",
+  "role": "高预测更新日",
+  "status": "pending",
+  "started_at": 1789277639.536185,
+  "signature": "4570dec4a73c1fe81b55809dd8cb278d91ed5dffe5cd3c976450004cf47831bd"
+}

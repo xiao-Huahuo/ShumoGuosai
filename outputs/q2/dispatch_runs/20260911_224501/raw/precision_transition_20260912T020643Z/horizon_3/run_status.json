@@ -1,0 +1,15 @@
+{
+  "complete": false,
+  "settings": {
+    "horizon": 3
+  },
+  "start_index": 31,
+  "end_index": 365,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.01,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success"
+  }
+}

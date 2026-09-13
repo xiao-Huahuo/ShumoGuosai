@@ -1,0 +1,253 @@
+{
+  "date": "2025-05-25 00:00:00",
+  "solver_seconds": 120.0,
+  "details": {
+    "1": {
+      "selection": {
+        "pipeline": [
+          "load_lgb_1",
+          "pv_mean7"
+        ],
+        "origin_indices": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143
+        ],
+        "window_days": 28,
+        "common_scored_origins": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143
+        ],
+        "scores": {
+          "load_week|pv_mean7": {
+            "econ": 58.61968777703349,
+            "net_mae": 289.32217557752267,
+            "net_rmse": 400.2231409407019,
+            "load_mae": 159.87169774305556,
+            "load_rmse": 209.54002523657664,
+            "pv_mae": 184.00668898809522,
+            "pv_rmse": 340.1438628322361
+          },
+          "load_week|pv_dhr": {
+            "econ": 65.84320509751385,
+            "net_mae": 299.65790326205604,
+            "net_rmse": 413.34680171622733,
+            "load_mae": 159.87169774305556,
+            "load_rmse": 209.54002523657664,
+            "pv_mae": 203.62726316637875,
+            "pv_rmse": 351.6655917412359
+          },
+          "load_lgb_1|pv_mean7": {
+            "econ": 51.40278803398116,
+            "net_mae": 265.2583129995836,
+            "net_rmse": 381.65162953188144,
+            "load_mae": 129.05969209333307,
+            "load_rmse": 171.82865923382798,
+            "pv_mae": 184.00668898809522,
+            "pv_rmse": 340.1438628322361
+          },
+          "load_lgb_1|pv_dhr": {
+            "econ": 58.93691230097198,
+            "net_mae": 277.6177878889954,
+            "net_rmse": 395.8177993196666,
+            "load_mae": 129.05969209333307,
+            "load_rmse": 171.82865923382798,
+            "pv_mae": 203.62726316637875,
+            "pv_rmse": 351.6655917412359
+          }
+        },
+        "selection_uses_dispatch_cost": false,
+        "minimum_blocks": 14
+      },
+      "error": {
+        "M": 28,
+        "candidates": {
+          "28": {
+            "scenarios": {
+              "reduced": false,
+              "M": 28,
+              "S": 28,
+              "indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27
+              ],
+              "weights": [
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571,
+                0.03571428571428571
+              ]
+            },
+            "solver": {
+              "status": "Time limit reached",
+              "solver": "HiGHS_monotone_charge_bound_MILP",
+              "solver_version": "1.8.0",
+              "time_limit": 120.0,
+              "requested_gap": 0.02,
+              "solve_seconds": 120.17736799999693,
+              "reliable": false,
+              "continuous_variables": 36720,
+              "binary_variables": 12096,
+              "constraints": 76580,
+              "nodes": 0,
+              "dual_bound": 37194.98514890995,
+              "seed_verified": true,
+              "seed_refinement": {
+                "before_dominance": {
+                  "rounds": 3,
+                  "seconds": 1.1646323750028387,
+                  "initial_cost": 37968.20191716971,
+                  "candidate_cost": 37965.03940788005,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "after_dominance": {
+                  "rounds": 0,
+                  "seconds": 0.3083212080018711,
+                  "initial_cost": 37965.03940788005,
+                  "candidate_cost": 37965.03940788005,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "rounds": 3,
+                "seconds": 1.473086207995948,
+                "initial_cost": 37968.20191716971,
+                "candidate_cost": 37965.03940788005,
+                "role": "local_region_feasible_upper_bound_only"
+              },
+              "highs_primal_relative_gap_target": 0.0196078431372549,
+              "maximum_charge_cap_dominance_presolve": true,
+              "response_branch_valid_cuts": true,
+              "objective": 37965.03940788005,
+              "optimizer_objective": 37965.03940788005,
+              "mip_gap": 0.020703174255539858,
+              "monotone_charge_bound": true,
+              "raw_response_difference_kwh": 0.0,
+              "mapping_error_kwh": null,
+              "monotone_projection_error_kwh": 0.0,
+              "linear_feasibility_error": 1.8189894035458565e-12,
+              "integrality_error": 0.0,
+              "mapped_policy_cost_not_above_raw_objective": true,
+              "certificate_error_definition": "SOC_dominance_and_emergency_nonincrease",
+              "execution_role": "original_budget_equivalent_MILP_under_authorized_precision_revision"
+            },
+            "full_pool_first_day_emergency_cost": 2553.185081073577,
+            "scenario_first_day_emergency_cost": 2553.1850810735764,
+            "tail_quantiles": {
+              "0.8": {
+                "mean_absolute_error_kwh": 0.0,
+                "normalized_error": 0.0,
+                "positive_tail_underestimate_kwh": 0.0
+              },
+              "0.9": {
+                "mean_absolute_error_kwh": 0.0,
+                "normalized_error": 0.0,
+                "positive_tail_underestimate_kwh": 0.0
+              }
+            }
+          }
+        },
+        "computational_limited": false
+      }
+    }
+  }
+}

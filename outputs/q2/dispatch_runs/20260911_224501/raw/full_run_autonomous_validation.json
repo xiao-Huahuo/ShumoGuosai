@@ -1,0 +1,325 @@
+{
+  "at": "2026-09-12T00:34:56.684988+00:00",
+  "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+  "prepared_sources_and_library_hashes_verified": true,
+  "records": [
+    {
+      "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+      "days": 80,
+      "complete_physics_inputs_policy_soc_billing_verified": true,
+      "checkpoint_sha256": "d46f803c75adc8cc4bb3a429405ebe654e2504eb6787e5e8a802c09eabacf6ec"
+    },
+    {
+      "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+      "days": 85,
+      "complete_physics_inputs_policy_soc_billing_verified": true,
+      "checkpoint_sha256": "cdcccd59fc129f7ab18a01db873f2f3997411af7958b188391eef1a743af4a5b"
+    },
+    {
+      "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+      "days": 74,
+      "complete_physics_inputs_policy_soc_billing_verified": true,
+      "checkpoint_sha256": "b97ddf2e6f2004ec5751c4a3c47f7949493d0f40b807c0e0cd8574531ee59ed2"
+    },
+    {
+      "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+      "days": 77,
+      "complete_physics_inputs_policy_soc_billing_verified": true,
+      "checkpoint_sha256": "3f64ddb2706a701c1a0d8966a832fce710d6eb75d480ae1e7dd81d94936535a9"
+    },
+    {
+      "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+      "days": 32,
+      "complete_physics_inputs_policy_soc_billing_verified": true,
+      "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-09-11T18:05:47.842181+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 52,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 6,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 37,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T19:31:49.116904+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 6,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 52,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T21:42:24.056755+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "current_70_test_source_hashes_match": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 73,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "32442109a48f680ff452ae35bf496e1ca42aecb9a293114d148d12d075a9126f"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 82,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "75868ca87d236a0a79ed624806ede534f4aa099990dc941b48ed511c9b948764"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 6,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f163d594ecd313b8450cd42c42229e7766b8f47b76f0bbeed205464f25d2b802"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "7af8c46f1b601228f56a63ff7b18e40baa5e9af6847b21e810cacb199e656249"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T22:09:03.762580+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 73,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "32442109a48f680ff452ae35bf496e1ca42aecb9a293114d148d12d075a9126f"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 82,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "75868ca87d236a0a79ed624806ede534f4aa099990dc941b48ed511c9b948764"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 35,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "e58c5bf774c8d4922e6ada1ce44d3c1b9394cdd0af93190edf71abc60218b4ce"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "7af8c46f1b601228f56a63ff7b18e40baa5e9af6847b21e810cacb199e656249"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T22:28:22.170548+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 73,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "32442109a48f680ff452ae35bf496e1ca42aecb9a293114d148d12d075a9126f"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 85,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "cdcccd59fc129f7ab18a01db873f2f3997411af7958b188391eef1a743af4a5b"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 44,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "9bc57d1a189cf73f838eed744825785ee7d80a7a68c426e1c65fdd9a7b84774d"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "7af8c46f1b601228f56a63ff7b18e40baa5e9af6847b21e810cacb199e656249"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T23:04:16.152084+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 74,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "d7ff97584eb0b9a6b31b2924d7aa71f426f39b3966713dbae82a13be0d16ae81"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 85,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "cdcccd59fc129f7ab18a01db873f2f3997411af7958b188391eef1a743af4a5b"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 64,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f8eb09d81e3eaa2f9240b5828864093ac09f764e9fad45d6dfa40f7b92992e3e"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "7af8c46f1b601228f56a63ff7b18e40baa5e9af6847b21e810cacb199e656249"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T23:37:55.107118+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 75,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "a06ad4d3ed5f5953e9a624b48deb34910313e792540adf387b361dcbc3797a43"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 85,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "cdcccd59fc129f7ab18a01db873f2f3997411af7958b188391eef1a743af4a5b"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 73,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "3c7be65c44fd5564f4f6c3d1c909ac2a9835867403398b1e6c804f40127017e2"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 71,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "7af8c46f1b601228f56a63ff7b18e40baa5e9af6847b21e810cacb199e656249"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-11T23:53:18.890610+00:00",
+      "method": "only_verified_committed_bytes_copied_to_temporary_directory_before_read_checkpoint; never_recover_live_worker_files",
+      "prepared_sources_and_library_hashes_verified": true,
+      "records": [
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/main",
+          "days": 78,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "30ee3219e14c8794547cf977afbeee60912c194d0af30fc5993f2f37b2fdc6cd"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_1",
+          "days": 85,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "cdcccd59fc129f7ab18a01db873f2f3997411af7958b188391eef1a743af4a5b"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_2",
+          "days": 73,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "3c7be65c44fd5564f4f6c3d1c909ac2a9835867403398b1e6c804f40127017e2"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/horizon_3",
+          "days": 72,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "13d59a7fc20d6015e44a20fbefdcceb6b67161cccc237470c697e6d8922f9720"
+        },
+        {
+          "directory": "outputs/q2/dispatch_runs/20260911_224501/processed/experiments/window_56",
+          "days": 32,
+          "complete_physics_inputs_policy_soc_billing_verified": true,
+          "checkpoint_sha256": "f79568e3f631ed48fa7e001765593f5ea0238c8fd06d3c278cc4435b406a4296"
+        }
+      ]
+    }
+  ]
+}

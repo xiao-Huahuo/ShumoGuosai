@@ -1,0 +1,17 @@
+{
+  "main": {
+    "attempt": "3f0b01f618b64825bcca8df5c33076f2",
+    "receipt": "raw/full_run_receipts/main_3f0b01f618b64825bcca8df5c33076f2.json",
+    "exit_code": 0
+  },
+  "initial_8482.77": {
+    "attempt": "4577cc404b2143299de165afce2766c1",
+    "receipt": "raw/full_run_receipts/initial_8482.77_4577cc404b2143299de165afce2766c1.json",
+    "exit_code": 0
+  },
+  "window_28": {
+    "attempt": "8071c9ee52d44e8cb3500728e43bda39",
+    "receipt": "raw/full_run_receipts/window_28_8071c9ee52d44e8cb3500728e43bda39.json",
+    "exit_code": 0
+  }
+}

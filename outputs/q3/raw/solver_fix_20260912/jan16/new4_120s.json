@@ -1,0 +1,14 @@
+{
+  "method": "new4",
+  "seconds": 120.11638308300462,
+  "status": "Time limit reached",
+  "objective": 3348.742710263421,
+  "lower_bound": 3196.241487643002,
+  "gap": 0.045539844596906284,
+  "reliable": false,
+  "feasibility": 9.094947017729282e-13,
+  "integrality": 0.0,
+  "projection": 0.0,
+  "binaries": 3456,
+  "threads": 4
+}

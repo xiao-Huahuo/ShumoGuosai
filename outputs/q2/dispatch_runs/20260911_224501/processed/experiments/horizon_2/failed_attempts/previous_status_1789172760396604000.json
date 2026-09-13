@@ -1,0 +1,254 @@
+{
+  "complete": false,
+  "settings": {
+    "horizon": 2
+  },
+  "start_index": 31,
+  "end_index": 365,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.01,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success"
+  },
+  "failed_date": "2025-04-15 00:00:00",
+  "reason": "未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布",
+  "solver_details": {
+    "2": {
+      "selection": {
+        "pipeline": [
+          "load_lgb_1",
+          "pv_mean7"
+        ],
+        "origin_indices": [
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102
+        ],
+        "window_days": 28,
+        "common_scored_origins": [
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102
+        ],
+        "scores": {
+          "load_week|pv_mean7": {
+            "econ": 36.21973258504091,
+            "net_mae": 236.7441088697825,
+            "net_rmse": 344.50565547952766,
+            "load_mae": 125.06369184670783,
+            "load_rmse": 155.89636793732524,
+            "pv_mae": 159.6314799419459,
+            "pv_rmse": 304.871007528502
+          },
+          "load_week|pv_dhr": {
+            "econ": 44.90333395041445,
+            "net_mae": 233.3406386253702,
+            "net_rmse": 341.072833623962,
+            "load_mae": 125.06369184670783,
+            "load_rmse": 155.89636793732524,
+            "pv_mae": 163.3826742968207,
+            "pv_rmse": 302.66016445733544
+          },
+          "load_lgb_1|pv_mean7": {
+            "econ": 31.83264655596665,
+            "net_mae": 218.90170718021093,
+            "net_rmse": 329.9286354911916,
+            "load_mae": 100.7487413071687,
+            "load_rmse": 126.87851962349862,
+            "pv_mae": 159.6314799419459,
+            "pv_rmse": 304.871007528502
+          },
+          "load_lgb_1|pv_dhr": {
+            "econ": 40.7897793423543,
+            "net_mae": 217.29766001977504,
+            "net_rmse": 329.26546906254924,
+            "load_mae": 100.7487413071687,
+            "load_rmse": 126.87851962349862,
+            "pv_mae": 163.3826742968207,
+            "pv_rmse": 302.66016445733544
+          }
+        },
+        "selection_uses_dispatch_cost": false,
+        "minimum_blocks": 14
+      },
+      "error": {
+        "M": 27,
+        "candidates": {
+          "27": {
+            "scenarios": {
+              "reduced": false,
+              "M": 27,
+              "S": 27,
+              "indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26
+              ],
+              "weights": [
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035
+              ]
+            },
+            "solver": {
+              "status": "Time limit reached",
+              "solver": "HiGHS_physical_bound_linear_MILP",
+              "solver_version": "1.8.0",
+              "time_limit": 900,
+              "requested_gap": 0.01,
+              "solve_seconds": 900.1231317919955,
+              "reliable": false,
+              "continuous_variables": 39744,
+              "binary_variables": 54432,
+              "constraints": 139968,
+              "nodes": 0,
+              "dual_bound": 69435.04139205664,
+              "seed_verified": true,
+              "seed_refinement": {
+                "before_dominance": {
+                  "rounds": 25,
+                  "seconds": 18.20203420799953,
+                  "initial_cost": 70163.26791973005,
+                  "candidate_cost": 70137.22545713748,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "after_dominance": {
+                  "rounds": 2,
+                  "seconds": 1.77993620900088,
+                  "initial_cost": 70137.22545713748,
+                  "candidate_cost": 70136.89106630959,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "rounds": 27,
+                "seconds": 19.98212725000485,
+                "initial_cost": 70163.26791973005,
+                "candidate_cost": 70136.89106630959,
+                "role": "local_region_feasible_upper_bound_only"
+              },
+              "highs_primal_relative_gap_target": 0.009900990099009901,
+              "maximum_charge_cap_dominance_presolve": true,
+              "objective": 70136.89106630959,
+              "optimizer_objective": 70136.89106630959,
+              "mip_gap": 0.010108003972951399,
+              "mapping_error_kwh": 0.0,
+              "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+            },
+            "full_pool_first_day_emergency_cost": 606.3270976820371,
+            "scenario_first_day_emergency_cost": 606.3270976820371,
+            "tail_quantiles": {
+              "0.8": {
+                "mean_absolute_error_kwh": 0.0,
+                "normalized_error": 0.0,
+                "positive_tail_underestimate_kwh": 0.0
+              },
+              "0.9": {
+                "mean_absolute_error_kwh": 0.0,
+                "normalized_error": 0.0,
+                "positive_tail_underestimate_kwh": 0.0
+              }
+            }
+          }
+        },
+        "computational_limited": false
+      }
+    }
+  }
+}

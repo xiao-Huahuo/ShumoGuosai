@@ -1,0 +1,11 @@
+{
+  "id": "q2_beta_R_1.2_2025-09-28",
+  "question": "q2",
+  "parameter": "beta_R",
+  "value": 1.2,
+  "date": "2025-09-28",
+  "role": "高系统压力日",
+  "status": "pending",
+  "started_at": 1789277261.40433,
+  "signature": "d17a4e14f5b113264b3fa33fdc0485aafe7897a2df5c7c1e2dcee14da9740301"
+}

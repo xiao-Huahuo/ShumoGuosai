@@ -1,0 +1,14 @@
+{
+  "method": "new4",
+  "seconds": 164.321995374994,
+  "status": "Optimal",
+  "objective": 3348.742710263421,
+  "lower_bound": 3248.31330027855,
+  "gap": 0.029990183980712914,
+  "reliable": true,
+  "feasibility": 9.094947017729282e-13,
+  "integrality": 0.0,
+  "projection": 0.0,
+  "binaries": 3456,
+  "threads": 4
+}

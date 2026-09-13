@@ -1,0 +1,53 @@
+{
+  "status": "validated",
+  "records": [
+    {
+      "date": "2025-05-21",
+      "initial_soc": 8926.355625060722,
+      "legacy_wall_seconds": 76.28360287499527,
+      "legacy_K": 2,
+      "legacy_cost": 36607.3598084738,
+      "legacy_final_soc": 8917.222738756767,
+      "deferred_K1_wall_seconds": 66.0705608329954,
+      "deferred_K1_K": 2,
+      "deferred_K1_cost": 36607.3598084738,
+      "deferred_K1_final_soc": 8917.222738756767,
+      "same_policy_and_real_replay": true,
+      "saved_seconds": 10.21304204199987
+    },
+    {
+      "date": "2025-06-20",
+      "initial_soc": 7030.1860400849,
+      "legacy_wall_seconds": 157.18729812500533,
+      "legacy_K": 3,
+      "legacy_cost": 22650.953867666576,
+      "legacy_final_soc": 6234.273550818573,
+      "deferred_K1_wall_seconds": 31.9265054589996,
+      "deferred_K1_K": 3,
+      "deferred_K1_cost": 22650.953867666576,
+      "deferred_K1_final_soc": 6234.273550818573,
+      "same_policy_and_real_replay": true,
+      "saved_seconds": 125.26079266600573
+    },
+    {
+      "date": "2025-07-07",
+      "initial_soc": 6952.674617603735,
+      "legacy_wall_seconds": 10.263073125002848,
+      "legacy_K": 3,
+      "legacy_cost": 53896.509252431926,
+      "legacy_final_soc": 8307.94898684446,
+      "deferred_K1_wall_seconds": 8.487331834003271,
+      "deferred_K1_K": 3,
+      "deferred_K1_cost": 53896.509252431926,
+      "deferred_K1_final_soc": 8307.94898684446,
+      "same_policy_and_real_replay": true,
+      "saved_seconds": 1.7757412909995764
+    }
+  ],
+  "gap": 0.03,
+  "legacy_source_sha256": "802588aeb94a76a79ca1ef5ea4608877cc17ac6aefd38dcf5b69afbe45dff48a",
+  "new_rolling_source_sha256": "1521344e59cfd1581712e9896503b8e74d994c1df4003c67dc65ef204ff4abdf",
+  "same_current_worker_load_note": "paired isolated repeats while existing main and fixed-K2 workers continue",
+  "causal_inputs": "actual[:d]; same saved initial SOC for each pair",
+  "no_precision_sweep": true
+}

@@ -1,0 +1,47 @@
+从已验收的73日连续回放检查点续算
+2025-04-15 原预算全候选受限，追加900秒预算，gap仍为1%
+真实回放 2025-04-15 K=2 S=27 SOC=8298.566
+2025-04-16 原预算全候选受限，追加900秒预算，gap仍为1%
+真实回放 2025-04-16 K=3 S=26 SOC=8242.338
+2025-04-17 原预算全候选受限，追加900秒预算，gap仍为1%
+真实回放 2025-04-17 K=2 S=27 SOC=3037.115
+真实回放 2025-04-18 K=2 S=27 SOC=3284.941
+真实回放 2025-04-19 K=1 S=28 SOC=1645.627
+2025-04-20 原预算全候选受限，追加900秒预算，gap仍为1%
+真实回放 2025-04-20 K=1 S=28 SOC=1600.574
+真实回放 2025-04-21 K=1 S=28 SOC=1200.000
+真实回放 2025-04-22 K=1 S=28 SOC=1217.644
+2025-04-23 原预算全候选受限，追加900秒预算，gap仍为1%
+真实回放 2025-04-23 K=2 S=27 SOC=8482.674
+真实回放 2025-04-24 K=2 S=27 SOC=2188.914
+真实回放 2025-04-25 K=2 S=27 SOC=2396.549
+真实回放 2025-04-26 K=1 S=28 SOC=1200.000
+2025-04-27 原预算全候选受限，追加900秒预算，gap仍为1%
+Traceback (most recent call last):
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/rolling.py", line 258, in _run_rollout
+    if daily and old_execution.get("gap", PROTOCOL["solver_gap"]) > solver_gap:
+                                                               ^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/rolling.py", line 149, in make_day
+    results[k] = (policy, weights, net, point)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rolling.ComputationalLimit: 未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/full_run.py", line 150, in worker
+    try:
+         
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/dispatch.py", line 136, in run_main
+    result, _ = run_rollout(store, frozen, actual, dates, prices, initial, output/"main", rescue_seconds=rescue_seconds,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/rolling.py", line 221, in run_rollout
+    except BlockingIOError as error:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/rolling.py", line 266, in _run_rollout
+    atomic_json(output/"run_status.json", {"complete": False, **status_base})
+                                                               ^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/rolling.py", line 149, in make_day
+    results[k] = (policy, weights, net, point)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rolling.ComputationalLimit: 未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布

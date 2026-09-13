@@ -1,0 +1,529 @@
+{
+  "at": "2026-09-11T22:06:50.497873+00:00",
+  "reason": "apr24_HiGHS_900_gap_failure_repaired_with_four_original_feedback_valid_inequalities",
+  "old_supervisor_pid": 24634,
+  "preserved_workers": {
+    "main": {
+      "pid": 20150,
+      "attempt": "61e64d1b91184eea9c5f8ea1cb25f1b8"
+    },
+    "horizon_2": {
+      "pid": 25443,
+      "attempt": "7355f30e3eb84d199ad8b5f97d2c752b"
+    }
+  },
+  "previous_state": {
+    "started": "2026-09-11T17:02:13.346757+00:00",
+    "jobs": {
+      "main": {
+        "status": "running",
+        "attempt": "61e64d1b91184eea9c5f8ea1cb25f1b8",
+        "log": "raw/full_run_logs/main_61e64d1b91184eea9c5f8ea1cb25f1b8.log",
+        "receipt": "raw/full_run_receipts/main_61e64d1b91184eea9c5f8ea1cb25f1b8.json",
+        "started": "2026-09-11T20:27:24.334863+00:00",
+        "pid": 20150,
+        "completed_days": 73,
+        "rss_kib": 1141664,
+        "error": null,
+        "history": [
+          {
+            "attempt": "798ed97461784e4eaf6ffbdb54ddaa61",
+            "receipt": "raw/full_run_receipts/main_798ed97461784e4eaf6ffbdb54ddaa61.json",
+            "log": "raw/full_run_logs/main_798ed97461784e4eaf6ffbdb54ddaa61.log",
+            "status": "failed",
+            "finished": "2026-09-11T19:57:37.399198+00:00",
+            "exit_code": 2,
+            "error": "未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布"
+          }
+        ],
+        "repair": "supplemental_solver_revision.json"
+      },
+      "structure_separate": {
+        "status": "complete",
+        "attempt": "26d9939e37584b138e9f563850cab192",
+        "log": "raw/full_run_logs/structure_separate_26d9939e37584b138e9f563850cab192.log",
+        "receipt": "raw/full_run_receipts/structure_separate_26d9939e37584b138e9f563850cab192.json",
+        "started": "2026-09-11T17:02:13.350387+00:00",
+        "pid": 7423,
+        "completed_days": 334,
+        "finished": "2026-09-11T17:02:14.371177+00:00",
+        "error": null,
+        "exit_code": 0
+      },
+      "structure_direct_net": {
+        "status": "complete",
+        "completed_days": 334,
+        "attempt": "b4acf325761d41c3b484b89775d06399",
+        "log": "raw/full_run_logs/structure_direct_net_b4acf325761d41c3b484b89775d06399.log",
+        "receipt": "raw/full_run_receipts/structure_direct_net_b4acf325761d41c3b484b89775d06399.json",
+        "started": "2026-09-11T17:02:23.372181+00:00",
+        "pid": 7435,
+        "finished": "2026-09-11T17:02:24.631535+00:00",
+        "error": null,
+        "exit_code": 0
+      },
+      "forecast": {
+        "status": "complete",
+        "completed_days": "—",
+        "attempt": "24da22843f234408b647158415e52c0e",
+        "log": "raw/full_run_logs/forecast_24da22843f234408b647158415e52c0e.log",
+        "receipt": "raw/full_run_receipts/forecast_24da22843f234408b647158415e52c0e.json",
+        "started": "2026-09-11T17:02:33.395239+00:00",
+        "pid": 7441,
+        "finished": "2026-09-11T17:02:34.769189+00:00",
+        "error": null,
+        "exit_code": 0
+      },
+      "horizon_1": {
+        "status": "failed",
+        "completed_days": 82,
+        "attempt": "9e98c5a6acaf4e0cbad5bc549b65e275",
+        "log": "raw/full_run_logs/horizon_1_9e98c5a6acaf4e0cbad5bc549b65e275.log",
+        "receipt": "raw/full_run_receipts/horizon_1_9e98c5a6acaf4e0cbad5bc549b65e275.json",
+        "started": "2026-09-11T21:27:58.130633+00:00",
+        "pid": 23741,
+        "rss_kib": 1344032,
+        "error": "实验尚未完成：{'horizon_1': {'complete': False, 'reason': '未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布', 'details': {'1': {'selection': {'pipeline': ['load_lgb_1', 'pv_mean7'], 'origin_indices': [85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112], 'window_days': 28, 'common_scored_origins': [85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112], 'scores': {'load_week|pv_mean7': {'econ': 34.76776706994709, 'net_mae': 236.69052335955215, 'net_rmse': 343.4572271924209, 'load_mae': 126.01154360119047, 'load_rmse': 157.3387181720552, 'pv_mae': 159.55220660076532, 'pv_rmse': 302.21384402932915}, 'load_week|pv_dhr': {'econ': 43.484880520493576, 'net_mae': 232.7720234076697, 'net_rmse': 337.6472761277662, 'load_mae': 126.01154360119047, 'load_rmse': 157.3387181720552, 'pv_mae': 161.47131839770194, 'pv_rmse': 296.92939347299136}, 'load_lgb_1|pv_mean7': {'econ': 30.097911111997778, 'net_mae': 218.97177130268443, 'net_rmse': 329.28310638223775, 'load_mae': 101.08543362369242, 'load_rmse': 127.51964066573461, 'pv_mae': 159.55220660076532, 'pv_rmse': 302.21384402932915}, 'load_lgb_1|pv_dhr': {'econ': 39.07914311359894, 'net_mae': 216.6802372389446, 'net_rmse': 325.83574557712404, 'load_mae': 101.08543362369242, 'load_rmse': 127.51964066573461, 'pv_mae': 161.47131839770194, 'pv_rmse': 296.92939347299136}}, 'selection_uses_dispatch_cost': False, 'minimum_blocks': 14}, 'error': {'M': 28, 'candidates': {'28': {'scenarios': {'reduced': False, 'M': 28, 'S': 28, 'indices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], 'weights': [0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571]}, 'solver': {'status': 'Time limit reached', 'solver': 'HiGHS_physical_bound_linear_MILP', 'solver_version': '1.8.0', 'time_limit': 900, 'requested_gap': 0.01, 'solve_seconds': 900.0493008749982, 'reliable': False, 'continuous_variables': 20592, 'binary_variables': 28224, 'constraints': 72576, 'nodes': 68, 'dual_bound': 34481.640473004365, 'seed_verified': True, 'seed_refinement': {'before_dominance': {'rounds': 20, 'seconds': 5.667084000000614, 'initial_cost': 34845.03991689607, 'candidate_cost': 34826.70804887185, 'role': 'local_region_feasible_upper_bound_only'}, 'after_dominance': {'rounds': 1, 'seconds': 0.4690460419951705, 'initial_cost': 34826.70804887185, 'candidate_cost': 34826.67289577438, 'role': 'local_region_feasible_upper_bound_only'}, 'rounds': 21, 'seconds': 6.1362574999948265, 'initial_cost': 34845.03991689607, 'candidate_cost': 34826.67289577438, 'role': 'local_region_feasible_upper_bound_only'}, 'highs_primal_relative_gap_target': 0.009900990099009901, 'maximum_charge_cap_dominance_presolve': True, 'objective': 34826.67289577438, 'optimizer_objective': 34826.67289577438, 'mip_gap': 0.010006264726301057, 'mapping_error_kwh': 0.0, 'execution_role': 'supplemental_equivalent_physical_bound_MILP_after_original_budget_failure'}, 'full_pool_first_day_emergency_cost': 254.09571118140227, 'scenario_first_day_emergency_cost': 254.0957111814022, 'tail_quantiles': {'0.8': {'mean_absolute_error_kwh': 0.0, 'normalized_error': 0.0, 'positive_tail_underestimate_kwh': 0.0}, '0.9': {'mean_absolute_error_kwh': 0.0, 'normalized_error': 0.0, 'positive_tail_underestimate_kwh': 0.0}}}}, 'computational_limited': False}}}}}",
+        "history": [
+          {
+            "attempt": "e7ea42aa80344f81b9b7b79222b768d9",
+            "receipt": "raw/full_run_receipts/horizon_1_e7ea42aa80344f81b9b7b79222b768d9.json",
+            "log": "raw/full_run_logs/horizon_1_e7ea42aa80344f81b9b7b79222b768d9.log",
+            "status": "failed",
+            "finished": "2026-09-11T17:23:29.700713+00:00",
+            "exit_code": 2
+          },
+          {
+            "attempt": "a60a0a7e06184a31adea7b47efc6371a",
+            "receipt": "raw/full_run_receipts/horizon_1_a60a0a7e06184a31adea7b47efc6371a.json",
+            "log": "raw/full_run_logs/horizon_1_a60a0a7e06184a31adea7b47efc6371a.log",
+            "status": "failed",
+            "finished": "2026-09-11T20:27:16.033828+00:00",
+            "exit_code": 2,
+            "error": "实验尚未完成：{'horizon_1': {'complete': False, 'reason': '未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布', 'details': {'1': {'selection': {'pipeline': ['load_lgb_1', 'pv_mean7'], 'origin_indices': [77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], 'window_days': 28, 'common_scored_origins': [77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], 'scores': {'load_week|pv_mean7': {'econ': 35.53722870718301, 'net_mae': 238.25894693877552, 'net_rmse': 347.75081046597916, 'load_mae': 125.23155907738095, 'load_rmse': 155.91913768931389, 'pv_mae': 161.58966429280045, 'pv_rmse': 308.70087813907605}, 'load_week|pv_dhr': {'econ': 44.01155854144241, 'net_mae': 233.45524410837163, 'net_rmse': 341.624613150275, 'load_mae': 125.23155907738095, 'load_rmse': 155.91913768931389, 'pv_mae': 163.42850365079082, 'pv_rmse': 303.2276871911402}, 'load_lgb_1|pv_mean7': {'econ': 31.216937864019073, 'net_mae': 220.71925987949564, 'net_rmse': 333.7173784681765, 'load_mae': 100.8988515972323, 'load_rmse': 126.95932745568966, 'pv_mae': 161.58966429280045, 'pv_rmse': 308.70087813907605}, 'load_lgb_1|pv_dhr': {'econ': 40.09580257406301, 'net_mae': 217.99399938737338, 'net_rmse': 330.0166121772712, 'load_mae': 100.8988515972323, 'load_rmse': 126.95932745568966, 'pv_mae': 163.42850365079082, 'pv_rmse': 303.2276871911402}}, 'selection_uses_dispatch_cost': False, 'minimum_blocks': 14}, 'error': {'M': 28, 'candidates': {'28': {'scenarios': {'reduced': False, 'M': 28, 'S': 28, 'indices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], 'weights': [0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571, 0.03571428571428571]}, 'solver': {'status': 'Time limit reached', 'solver': 'HiGHS_physical_bound_linear_MILP', 'solver_version': '1.8.0', 'time_limit': 900, 'requested_gap': 0.01, 'solve_seconds': 900.0618169170011, 'reliable': False, 'continuous_variables': 20592, 'binary_variables': 28224, 'constraints': 72576, 'nodes': 91, 'dual_bound': 35882.86518344423, 'seed_verified': True, 'seed_refinement': {'rounds': 10, 'seconds': 2.7055149170009827, 'initial_cost': 36275.85296762959, 'candidate_cost': 36262.894947231114, 'role': 'local_region_feasible_upper_bound_only'}, 'highs_primal_relative_gap_target': 0.009900990099009901, 'objective': 36262.89494723112, 'optimizer_objective': 36262.89494723112, 'mip_gap': 0.010590842226340193, 'mapping_error_kwh': 0.0, 'execution_role': 'supplemental_equivalent_physical_bound_MILP_after_original_budget_failure'}, 'full_pool_first_day_emergency_cost': 310.16113006209895, 'scenario_first_day_emergency_cost': 310.1611300620989, 'tail_quantiles': {'0.8': {'mean_absolute_error_kwh': 0.0, 'normalized_error': 0.0, 'positive_tail_underestimate_kwh': 0.0}, '0.9': {'mean_absolute_error_kwh': 0.0, 'normalized_error': 0.0, 'positive_tail_underestimate_kwh': 0.0}}}}, 'computational_limited': False}}}}}"
+          }
+        ],
+        "repair": "charge_dominance_revision.json",
+        "finished": "2026-09-11T21:57:49.675159+00:00",
+        "exit_code": 2
+      },
+      "horizon_2": {
+        "status": "running",
+        "completed_days": 32,
+        "attempt": "7355f30e3eb84d199ad8b5f97d2c752b",
+        "log": "raw/full_run_logs/horizon_2_7355f30e3eb84d199ad8b5f97d2c752b.log",
+        "receipt": "raw/full_run_receipts/horizon_2_7355f30e3eb84d199ad8b5f97d2c752b.json",
+        "started": "2026-09-11T21:57:55.382364+00:00",
+        "pid": 25443,
+        "rss_kib": 1946208,
+        "finished": "2026-09-11T17:40:58.612784+00:00",
+        "error": null,
+        "exit_code": 2,
+        "history": [
+          {
+            "attempt": "129bc69020f74fed8f00dd1887d23c65",
+            "receipt": "raw/full_run_receipts/horizon_2_129bc69020f74fed8f00dd1887d23c65.json",
+            "log": "raw/full_run_logs/horizon_2_129bc69020f74fed8f00dd1887d23c65.log",
+            "status": "failed",
+            "finished": "2026-09-11T17:40:58.612784+00:00",
+            "exit_code": 2
+          }
+        ],
+        "repair": "supplemental_solver_revision.json"
+      },
+      "horizon_3": {
+        "status": "pending",
+        "completed_days": 71,
+        "attempt": "cc3411562751468a813db4b9e9f5c190",
+        "log": "raw/full_run_logs/horizon_3_cc3411562751468a813db4b9e9f5c190.log",
+        "receipt": "raw/full_run_receipts/horizon_3_cc3411562751468a813db4b9e9f5c190.json",
+        "started": "2026-09-11T17:41:05.175796+00:00",
+        "pid": 10500,
+        "rss_kib": 2253312,
+        "error": null,
+        "history": [
+          {
+            "status": "failed",
+            "completed_days": 71,
+            "attempt": "cc3411562751468a813db4b9e9f5c190",
+            "log": "raw/full_run_logs/horizon_3_cc3411562751468a813db4b9e9f5c190.log",
+            "receipt": "raw/full_run_receipts/horizon_3_cc3411562751468a813db4b9e9f5c190.json",
+            "started": "2026-09-11T17:41:05.175796+00:00",
+            "pid": 10500,
+            "rss_kib": 2253312,
+            "finished": "2026-09-11T21:27:57.218478+00:00",
+            "error": "实验尚未完成：{'horizon_3': {'complete': False, 'reason': '未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布', 'details': {'3': {'selection': {'pipeline': ['load_lgb_1', 'pv_mean7'], 'origin_indices': [74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99], 'window_days': 28, 'common_scored_origins': [74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99], 'scores': {'load_week|pv_mean7': {'econ': 37.023690864371375, 'net_mae': 240.06769745879123, 'net_rmse': 352.47452483686334, 'load_mae': 125.28799484508548, 'load_rmse': 156.51991044755457, 'pv_mae': 164.45595453678268, 'pv_rmse': 314.82776200781495}, 'load_week|pv_dhr': {'econ': 45.951940524486496, 'net_mae': 237.00783420001895, 'net_rmse': 349.442105428085, 'load_mae': 125.28799484508548, 'load_rmse': 156.51991044755457, 'pv_mae': 168.55734605633117, 'pv_rmse': 312.962181567849}, 'load_lgb_1|pv_mean7': {'econ': 33.20408227710697, 'net_mae': 222.42086192630086, 'net_rmse': 337.38806136768545, 'load_mae': 100.55870044707385, 'load_rmse': 126.85439570376705, 'pv_mae': 164.45595453678268, 'pv_rmse': 314.82776200781495}, 'load_lgb_1|pv_dhr': {'econ': 42.463046285260305, 'net_mae': 221.27929336442483, 'net_rmse': 337.2586785680263, 'load_mae': 100.55870044707385, 'load_rmse': 126.85439570376705, 'pv_mae': 168.55734605633117, 'pv_rmse': 312.962181567849}}, 'selection_uses_dispatch_cost': False, 'minimum_blocks': 14}, 'error': {'M': 26, 'candidates': {'26': {'scenarios': {'reduced': False, 'M': 26, 'S': 26, 'indices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], 'weights': [0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464, 0.038461538461538464]}, 'solver': {'status': 'timelimit', 'solve_seconds': 974.912539, 'wall_seconds': 980.8639239999975, 'before_presolve': {'continuous': 147312, 'binary': 78624, 'variables': 225936, 'constraints': 314496}, 'after_presolve': {'continuous': 137650, 'binary': 68728, 'variables': 206378, 'constraints': 280250}, 'solver': 'SCIP', 'solver_version': '10.0.2', 'mip_gap': 0.010870838448837647, 'dual_bound': 105619.97782916037, 'solutions': 2, 'requested_gap': 0.01, 'time_limit': 900, 'objective': 106768.15554511099, 'optimizer_objective': 106768.15554511096, 'mapping_error_kwh': 1.2164491636212915e-11, 'reliable': False, 'scip_mip_gap': 0.01087083844883737, 'external_lp_lower_bound': 104772.09598301243}, 'full_pool_first_day_emergency_cost': 418.81790174746675, 'scenario_first_day_emergency_cost': 418.81790174746675, 'tail_quantiles': {'0.8': {'mean_absolute_error_kwh': 0.0, 'normalized_error': 0.0, 'positive_tail_underestimate_kwh': 0.0}, '0.9': {'mean_absolute_error_kwh': 0.0, 'normalized_error': 0.0, 'positive_tail_underestimate_kwh': 0.0}}}}, 'computational_limited': False}}}}}",
+            "exit_code": 2
+          }
+        ],
+        "repair": "charge_dominance_revision.json"
+      },
+      "predictor_week_mean7": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "predictor_week_dhr": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "predictor_lgb_mean7": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "predictor_lgb_dhr": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "window_28": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "window_56": {
+        "status": "pending",
+        "completed_days": 32
+      },
+      "window_84": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "window_expanding": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "scenario_10": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "scenario_20": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "scenario_40": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "initial_1200": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "initial_6000": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "initial_8482.77": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "initial_10800": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "deterministic": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "rigid": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "minimum_14": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "minimum_21": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "minimum_28": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "oracles": {
+        "status": "pending",
+        "completed_days": "—"
+      },
+      "richer_soc": {
+        "status": "pending",
+        "completed_days": "—"
+      }
+    },
+    "status": "running",
+    "supervisor_pid": 24634,
+    "execution": {
+      "workers": 2,
+      "base_solver_seconds": 120.0,
+      "rescue_seconds": 900,
+      "gap": 0.01,
+      "trigger": "all_day_candidates_failed",
+      "model_changed": false,
+      "interpretation": "supplementary_compute_not_retroactive_original_budget_success"
+    },
+    "updated": "2026-09-11T22:06:47.310337+00:00",
+    "resource_policy": {
+      "queue_worker_rss_limit_kib": 10485760,
+      "memory_action": "stop_largest_owned_worker_preserve_committed_days",
+      "unreported_process_exit_attempts": 3
+    }
+  },
+  "failed_run_status": {
+    "complete": false,
+    "settings": {
+      "horizon": 1
+    },
+    "start_index": 31,
+    "end_index": 365,
+    "execution": {
+      "base_solver_seconds": 120.0,
+      "rescue_seconds": 900,
+      "rescue_trigger": "all_day_candidates_failed",
+      "gap": 0.01,
+      "interpretation": "supplementary_compute_not_retroactive_original_budget_success"
+    },
+    "failed_date": "2025-04-24 00:00:00",
+    "reason": "未获得满足预注册MIP gap及映射验收的策略；不得当正式解发布",
+    "solver_details": {
+      "1": {
+        "selection": {
+          "pipeline": [
+            "load_lgb_1",
+            "pv_mean7"
+          ],
+          "origin_indices": [
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112
+          ],
+          "window_days": 28,
+          "common_scored_origins": [
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112
+          ],
+          "scores": {
+            "load_week|pv_mean7": {
+              "econ": 34.76776706994709,
+              "net_mae": 236.69052335955215,
+              "net_rmse": 343.4572271924209,
+              "load_mae": 126.01154360119047,
+              "load_rmse": 157.3387181720552,
+              "pv_mae": 159.55220660076532,
+              "pv_rmse": 302.21384402932915
+            },
+            "load_week|pv_dhr": {
+              "econ": 43.484880520493576,
+              "net_mae": 232.7720234076697,
+              "net_rmse": 337.6472761277662,
+              "load_mae": 126.01154360119047,
+              "load_rmse": 157.3387181720552,
+              "pv_mae": 161.47131839770194,
+              "pv_rmse": 296.92939347299136
+            },
+            "load_lgb_1|pv_mean7": {
+              "econ": 30.097911111997778,
+              "net_mae": 218.97177130268443,
+              "net_rmse": 329.28310638223775,
+              "load_mae": 101.08543362369242,
+              "load_rmse": 127.51964066573461,
+              "pv_mae": 159.55220660076532,
+              "pv_rmse": 302.21384402932915
+            },
+            "load_lgb_1|pv_dhr": {
+              "econ": 39.07914311359894,
+              "net_mae": 216.6802372389446,
+              "net_rmse": 325.83574557712404,
+              "load_mae": 101.08543362369242,
+              "load_rmse": 127.51964066573461,
+              "pv_mae": 161.47131839770194,
+              "pv_rmse": 296.92939347299136
+            }
+          },
+          "selection_uses_dispatch_cost": false,
+          "minimum_blocks": 14
+        },
+        "error": {
+          "M": 28,
+          "candidates": {
+            "28": {
+              "scenarios": {
+                "reduced": false,
+                "M": 28,
+                "S": 28,
+                "indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27
+                ],
+                "weights": [
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571,
+                  0.03571428571428571
+                ]
+              },
+              "solver": {
+                "status": "Time limit reached",
+                "solver": "HiGHS_physical_bound_linear_MILP",
+                "solver_version": "1.8.0",
+                "time_limit": 900,
+                "requested_gap": 0.01,
+                "solve_seconds": 900.0493008749982,
+                "reliable": false,
+                "continuous_variables": 20592,
+                "binary_variables": 28224,
+                "constraints": 72576,
+                "nodes": 68,
+                "dual_bound": 34481.640473004365,
+                "seed_verified": true,
+                "seed_refinement": {
+                  "before_dominance": {
+                    "rounds": 20,
+                    "seconds": 5.667084000000614,
+                    "initial_cost": 34845.03991689607,
+                    "candidate_cost": 34826.70804887185,
+                    "role": "local_region_feasible_upper_bound_only"
+                  },
+                  "after_dominance": {
+                    "rounds": 1,
+                    "seconds": 0.4690460419951705,
+                    "initial_cost": 34826.70804887185,
+                    "candidate_cost": 34826.67289577438,
+                    "role": "local_region_feasible_upper_bound_only"
+                  },
+                  "rounds": 21,
+                  "seconds": 6.1362574999948265,
+                  "initial_cost": 34845.03991689607,
+                  "candidate_cost": 34826.67289577438,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "highs_primal_relative_gap_target": 0.009900990099009901,
+                "maximum_charge_cap_dominance_presolve": true,
+                "objective": 34826.67289577438,
+                "optimizer_objective": 34826.67289577438,
+                "mip_gap": 0.010006264726301057,
+                "mapping_error_kwh": 0.0,
+                "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+              },
+              "full_pool_first_day_emergency_cost": 254.09571118140227,
+              "scenario_first_day_emergency_cost": 254.0957111814022,
+              "tail_quantiles": {
+                "0.8": {
+                  "mean_absolute_error_kwh": 0.0,
+                  "normalized_error": 0.0,
+                  "positive_tail_underestimate_kwh": 0.0
+                },
+                "0.9": {
+                  "mean_absolute_error_kwh": 0.0,
+                  "normalized_error": 0.0,
+                  "positive_tail_underestimate_kwh": 0.0
+                }
+              }
+            }
+          },
+          "computational_limited": false
+        }
+      }
+    }
+  },
+  "validated_revision": "raw/branch_cuts_revision.json",
+  "no_model_forecast_gap_budget_change": true,
+  "new_launcher_pid": 25986
+}

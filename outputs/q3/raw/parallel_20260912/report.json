@@ -1,0 +1,25 @@
+{
+  "full_run_started": false,
+  "workers": 4,
+  "solver_threads_per_process": 1,
+  "jobs": 4,
+  "serial_wall_seconds": 33.65473279199796,
+  "parallel_wall_seconds_including_startup": 9.063911457997165,
+  "throughput_speedup": 3.713047391069129,
+  "worker_pids": [
+    72303,
+    72304,
+    72305,
+    72306
+  ],
+  "serial_FD_seconds": 1.878244082996389,
+  "parallel_FD_seconds_warm_pool": 0.5534607919980772,
+  "FD_speedup": 3.393635303804708,
+  "FD_coefficients_equal": true,
+  "max_worker_peak_rss_mib": 614.21875,
+  "all_replay_mapping_valid": true,
+  "precision": "gap=0 remains unchanged; timed-out policies are diagnostic only",
+  "interpretation": "throughput of four identical bounded jobs; not proof of equal final policies or annual optimal completion time",
+  "observed_objective_bound_gap_grid_equal": true,
+  "memory_note": "ru_maxrss is process lifetime high-water mark; serial parent previously ran native4-thread trials, not per-job memory."
+}

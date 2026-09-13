@@ -1,0 +1,16 @@
+{
+  "date": "2025-06-01",
+  "K": 2,
+  "horizon_hours": 48,
+  "S": 26,
+  "initial_soc": 9457.623025579944,
+  "realized_day_cost": 108831.7283490219,
+  "emergency_kwh": 12633.372085660829,
+  "end_soc": 7019.451414982834,
+  "solve_seconds": 0.894321708008647,
+  "gap": 0.029417403387447093,
+  "reliable": true,
+  "requested_gap": 0.03,
+  "threads": 1,
+  "shared_72h_input_sha256": "09b5317106b2abc4c81fb775f7da7ca9f12b2e5ee6b0c3176e43d4e8e6ab810b"
+}

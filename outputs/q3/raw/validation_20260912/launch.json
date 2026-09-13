@@ -1,0 +1,24 @@
+{
+  "pid": 85279,
+  "command": [
+    "/opt/homebrew/bin/uv",
+    "run",
+    "--offline",
+    "--with-requirements",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q3/requirements.txt",
+    "python",
+    "-m",
+    "src.q3.validation",
+    "--main-run",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_parallel_20260912",
+    "--output",
+    "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/validation_20260912",
+    "--scope",
+    "pending",
+    "--workers",
+    "4"
+  ],
+  "priority_nice": 10,
+  "model_computations_wait_for_main_complete": true,
+  "main_retargeted_without_changing_scope": true
+}

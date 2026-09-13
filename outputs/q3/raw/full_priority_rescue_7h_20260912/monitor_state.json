@@ -1,0 +1,11 @@
+{
+  "milestones_notified": [
+    25,
+    50,
+    75
+  ],
+  "last_notified_formal_days": 274,
+  "last_notified_at": "2026-09-12T18:31:48.316209Z",
+  "completion_validated_at": "2026-09-12T19:26:09Z",
+  "completion_validation": "pass"
+}

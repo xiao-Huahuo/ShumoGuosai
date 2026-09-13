@@ -1,0 +1,66 @@
+seed 36702.81827634054
+Running HiGHS 1.8.0 (git hash: 222cce7): Copyright (c) 2024 HiGHS under MIT licence terms
+Coefficient ranges:
+  Matrix [7e-02, 1e+04]
+  Cost   [7e-02, 1e+00]
+  Bound  [7e-02, 1e+04]
+  RHS    [7e-02, 1e+04]
+Assessing feasibility of MIP using primal feasibility and integrality tolerance of       1e-08
+Solution has               num          max          sum
+Col     infeasibilities      0            0            0
+Integer infeasibilities      0            0            0
+Row     infeasibilities      0            0            0
+Row     residuals            0            0            0
+Presolving model
+63762 rows, 43527 cols, 180007 nonzeros  0s
+56612 rows, 37175 cols, 201547 nonzeros  0s
+
+MIP start solution is feasible, objective value is 36688.5559354
+
+Solving MIP model with:
+   56612 rows
+   37175 cols (21334 binary, 0 integer, 0 implied int., 15841 continuous)
+   201547 nonzeros
+MIP-Timing:        0.31 - starting analytic centre calculation
+
+Src: B => Branching; C => Central rounding; F => Feasibility pump; H => Heuristic; L => Sub-MIP;
+     P => Empty MIP; R => Randomized rounding; S => Solve LP; T => Evaluate node; U => Unbounded;
+     z => Trivial zero; l => Trivial lower; u => Trivial upper; p => Trivial point
+
+        Nodes      |    B&B Tree     |            Objective Bounds              |  Dynamic Constraints |       Work      
+Src  Proc. InQueue |  Leaves   Expl. | BestBound       BestSol              Gap |   Cuts   InLp Confl. | LpIters     Time
+
+         0       0         0   0.00%   0               36688.555935     100.00%        0      0      0         0     0.3s
+         0       0         0   0.00%   36293.533042    36688.555935       1.08%        0      0      4     20753     3.0s
+         0       0         0   0.00%   36304.467905    36688.555935       1.05%    16706   3289    117     27765    10.3s
+         0       0         0   0.00%   36313.478034    36688.555935       1.02%    18838   5970    117     36124    16.9s
+         0       0         0   0.00%   36318.45004     36688.555935       1.01%    20249   7395    117     42499    23.5s
+         0       0         0   0.00%   36320.804347    36688.555935       1.00%    22415   8739    117     47981    29.3s
+         0       0         0   0.00%   36320.89188     36688.555935       1.00%    22528   8755    117     52844    35.6s
+         0       0         0   0.00%   36323.744783    36688.555935       0.99%    24063  10024    117     59328    42.8s
+         0       0         0   0.00%   36324.728474    36688.555935       0.99%    25864  11343    117     66517    50.5s
+         1       0         1 100.00%   36325.986372    36688.555935       0.99%    24984  11115    117     74785    60.4s
+
+Solving report
+  Status            Optimal
+  Primal bound      36688.5559354
+  Dual bound        36325.9863717
+  Gap               0.988% (tolerance: 0.99%)
+  P-D integral      3.29556931694
+  Solution status   feasible
+                    36688.5559354 (objective)
+                    0 (bound viol.)
+                    0 (int. viol.)
+                    0 (row viol.)
+  Timing            60.44 (total)
+                    0.00 (presolve)
+                    0.00 (solve)
+                    0.00 (postsolve)
+  Max sub-MIP depth 0
+  Nodes             1
+  Repair LPs        0 (0 feasible; 0 iterations)
+  LP iterations     74785 (total)
+                    0 (strong br.)
+                    54032 (separation)
+                    0 (heuristics)
+{'status': 'Optimal', 'solver': 'HiGHS_physical_bound_linear_MILP', 'solver_version': '1.8.0', 'time_limit': 600, 'requested_gap': 0.01, 'solve_seconds': 64.81236279099903, 'reliable': True, 'continuous_variables': 20592, 'binary_variables': 28224, 'constraints': 72576, 'nodes': 1, 'dual_bound': 36325.98637167591, 'seed_verified': True, 'seed_refinement': {'rounds': 10, 'seconds': 4.21989004200077, 'initial_cost': 36702.818276340535, 'candidate_cost': 36688.55593541688, 'role': 'local_region_feasible_upper_bound_only'}, 'highs_primal_relative_gap_target': 0.009900990099009901, 'objective': 36688.55593541688, 'optimizer_objective': 36688.55593541688, 'mip_gap': 0.009980997075517162, 'mapping_error_kwh': 0.0}

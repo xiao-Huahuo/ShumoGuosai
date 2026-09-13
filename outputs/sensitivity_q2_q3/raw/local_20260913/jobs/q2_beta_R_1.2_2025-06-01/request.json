@@ -1,0 +1,11 @@
+{
+  "id": "q2_beta_R_1.2_2025-06-01",
+  "question": "q2",
+  "parameter": "beta_R",
+  "value": 1.2,
+  "date": "2025-06-01",
+  "role": "高预测误差日",
+  "status": "pending",
+  "started_at": 1789277213.089793,
+  "signature": "a12bb28dc26b7f98d1b383896b127a0c5df104e36ee34d8ed7d5a7b7557f46fd"
+}

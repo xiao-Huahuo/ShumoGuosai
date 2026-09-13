@@ -1,0 +1,10 @@
+用户原句,实现与验收,源代码,实际证据,状态
+现在我们在弄第二问,复用冻结第二问模型/准备库,src/q2/benchmarks/precision_pair.py,raw/benchmark.json及source_sha256,通过
+你来对比一下,同输入同算法配对，1%/3%各两次,src/q2/benchmarks/precision_pair.py,raw/input_*.npz及independent_review.json,通过
+做一个小量测试,2真实日期，8日选策，24完整候选,src/q2/benchmarks/precision_pair.py,processed/summary.csv与candidates.csv,通过
+看看1%精度和3%精度之间的实际结果的对比,实际回放费用、紧急量、末SOC、选中K和同K优化目标,src/q2/benchmarks/precision_pair_report.py,processed/report.html前3表及raw/dispatch_*.csv,通过
+和运行时间对比,墙钟计时、重复原值、同日均值、失败单列,src/q2/benchmarks/precision_pair.py,processed/comparison.csv及summary.csv,通过
+列个表，用html给我,自包含HTML6张表、展开明细、CSV下载、实际浏览器验收,src/q2/benchmarks/precision_pair_report.py,processed/report.html与raw/ui_smoke.json,通过
+样本太少的话，往往会忽略一些困难日,明确2普通日期均走LP证书，不足以估计全任务提速,src/q2/benchmarks/precision_pair_report.py,report.html首屏与tail_review.json,结论已修正；分层实测未执行
+困难日的阻塞时长,完整48日补算分组，日期/累计时间占比及经验P95,src/q2/benchmarks/precision_pair_report.py:tail_evidence,tail_groups.csv及tail_days.csv,通过
+有时候是普通日的几十倍,121.22分钟/未补算均值3.77分钟=32.1倍，含重试修复等待,src/q2/benchmarks/precision_pair_report.py:tail_evidence,tail_review.json,通过

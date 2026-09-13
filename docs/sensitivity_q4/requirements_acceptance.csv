@@ -1,0 +1,432 @@
+source_line,requirement,section,status,implementation,evidence,acceptance
+1,# 问题四敏感性分析实验方案（时间受限版）,0,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::report::main,results.md,原方案标题完整保存
+3,## 1. 实验目标,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+5,问题四在问题二、问题三的基础上进一步引入实时波动电价，并同时考虑：,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+7,1. 未来实时电价不确定性；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+8,2. 净负荷不确定性；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+9,3. 电价与净负荷之间的联合不确定性；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+10,4. 储能跨时段耦合；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+11,5. Wasserstein 分布鲁棒优化。,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+13,因此，问题四的敏感性分析主要检验模型自行引入的“不确定性描述参数”和“鲁棒优化参数”是否稳定，而不修改题目给定的电价倍率、储能容量、效率等物理条件。,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+15,实验主要回答以下问题：,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+17,1. Wasserstein 鲁棒半径发生合理变化后，真实运行成本和紧急购电风险是否稳定；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+18,2. 价格与净负荷在联合距离中的相对权重变化后，主要结论是否改变；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+19,3. 历史残差窗口变化后，最终调度结果是否稳定；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+20,4. 场景规模增加后，经济结果是否已经基本收敛；,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+21,5. 问题 4-2 中的参数稳定性是否能够迁移到问题 4-3 的四时点滚动调度。,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+23,本实验不用于在测试数据上寻找“最优参数”，而用于证明正式结果不存在明显参数脆弱性。,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+25,---,1,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,results.md::实测讨论与论文表述,目标通过真实结果评估，不预设稳定性通过
+27,# 2. 敏感参数与实验优先级,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+29,结合正式模型，选择以下四类参数：,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+31,| 参数 | 基准 | 敏感性水平 | 优先级 |,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+32,|---|---:|---:|---|,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+33,| Wasserstein 半径 ρ | ρ* | 0.75ρ* / ρ* / 1.25ρ* | 必做 |,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+34,"| 联合距离权重 (ω_N, ω_p) | (0.5, 0.5) | (0.7,0.3) / (0.5,0.5) / (0.3,0.7) | 必做 |",2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+35,| 历史残差窗口 W | 当前正式值 | 56 / 84 / 112 日 | 可选 |,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+36,| 最大场景数 S_max | 当前正式值 | 0.75S* / S* / 1.25S* | 可选 |,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+38,其中：,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+40,- Wasserstein 半径直接控制分布鲁棒程度，是问题四最高优先级的敏感参数；,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+41,- 联合距离权重直接决定价格误差和净负荷误差在联合场景构造中的相对作用，与“价格—源荷联合不确定性”这一核心模型设计直接相关；,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+42,- 历史残差窗口用于验证历史分布估计是否依赖某个特定窗口长度；,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+43,- 场景规模主要用于验证数值稳定性与计算效率之间的关系。,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+45,---,2,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,daily_results.csv,rho三档/权重三档；W/S为可选且未执行
+47,# 3. 不进行扰动的参数,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+49,以下参数属于题目给定条件，不进行敏感性修改：,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+51,- 紧急购电价格为交易时刻价格的 5 倍；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+52,- 调整增购部分按交易价格的 1.5 倍支付；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+53,- 减购违约费用为交易价格的 50%；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+54,- 储能最大容量；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+55,- 储能上下限；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+56,- 最大充放电功率；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+57,- 充放电效率 90%；,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+58,- 附件 4 中的真实实时电价。,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+60,同时不在本阶段重新进行 Elastic Net 大规模超参数搜索。,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+62,价格预测模型已经通过严格时间顺序的历史训练与验证确定，本次敏感性分析主要针对最终随机优化与鲁棒调度层。,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+64,---,3,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::configure / inputs,baseline_hashes; inputs/frozen_forecasts.json,原配置/预测/物理与结算冻结
+66,# 4. 总体实验原则,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+68,采用：,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+70,> **代表日 + 单因素扰动（OFAT）**,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+72,进行敏感性分析。,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+74,每次只改变一个待分析参数，其余设置全部保持与正式基准模型一致，包括：,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+76,- 价格预测结果；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+77,- 净负荷预测结果；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+78,- 历史信息边界；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+79,- 初始真实 SOC；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+80,- 储能物理参数；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+81,- 成本结算方式；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+82,- 求解器；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+83,- optimality gap；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+84,- 随机种子；,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+85,- 真实回放方式。,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+87,正式基准结果已经存在时直接复用，不重复运行基准配置。,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+89,不重新运行全年 334 天。,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+91,---,4,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / freeze,cases/*/audit.json::experiment,仅一个配置字段变化；基准直接复用
+93,# 5. 代表日选择,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+95,## 5.1 Q4-2 代表日,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+97,选择 4 个代表日。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+99,日期必须由程序按照预先固定规则自动选择，不允许看到敏感性结果后人工挑选。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+101,建议所有日期从 6—12 月选择，使 56、84、112 日历史窗口都具有实际区别。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+103,| 工况 | 自动选择规则 | 目的 |,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+104,|---|---|---|,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+105,| 常规日 | 日总成本最接近全年中位数 | 检验普通状态 |,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+106,| 高价格波动日 | 当日电价标准差或 max-min 最大 | 检验价格风险 |,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+107,| 高联合风险日 | 价格—净负荷联合风险分数最高 | 检验联合尾部 |,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+108,| 高运行压力日 | 紧急购电量、总成本或峰值净负荷较高 | 检验极端状态 |,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+110,如果多个规则选中同一天，则后一个规则顺延选择该指标排名第二且尚未使用的日期。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+112,---,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+114,## 5.2 Q4-3 代表日,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+116,问题 4-3 每天包含：,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+118,```text,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+119,0:00,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+120,→ 6:00,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+121,→ 12:00,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+122,→ 18:00,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+124,四个滚动节点，计算成本明显高于 Q4-2。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+126,因此只选择 2 个代表日：,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+128,常规日；,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+129,高联合风险日或高调整成本日。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+131,Q4-3 只执行最核心的 Wasserstein 半径敏感性，不完整重复 Q4-2 的全部实验。,5,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::prepare,representatives.json; selection_metrics_4-2.csv; selection_metrics_4-3.csv,结果前固定规则，6-12月、去重、4/2日
+133,6. Q4-S1：Wasserstein 半径敏感性,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+134,6.1 实验目的,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+136,Wasserstein 半径 ρ 控制概率模糊集大小。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+138,较小的 ρ 更接近经验分布优化，较大的 ρ 允许更大的概率质量迁移，使优化模型更加关注有限样本造成的分布估计误差。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+140,这是问题四最核心的敏感参数。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+142,6.2 参数设置,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+144,定义：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+146,rho_test = k_rho * rho_base,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+148,测试：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+150,设置	k_rho,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+151,弱鲁棒	0.75,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+152,基准	1.00,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+153,强鲁棒	1.25,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+155,其余内容全部冻结。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+157,特别保持：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+159,同一历史联合残差池；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+160,同一联合场景；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+161,同一经验场景概率；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+162,同一初始 SOC；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+163,同一预测结果；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+164,同一求解器设置。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+166,只改变 Wasserstein 半径。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+168,6.3 Q4-2 记录指标,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+170,记录：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+172,真实结算总成本；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+173,正常计划购电费用；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+174,紧急购电量；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+175,紧急购电费用；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+176,当日最低 SOC；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+177,24:00 SOC；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+178,求解时间。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+179,6.4 Q4-3 额外指标,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+181,增加：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+183,调整购电量；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+184,调整费用。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+185,6.5 结果判断,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+187,主要判断：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+189,ρ 增大后模型是否更加稳健；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+190,紧急购电风险是否下降；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+191,普通购电成本是否适度增加；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+192,储能是否保留更多风险储备；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+193,Q4-3 调整行为是否发生明显异常；,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+194,ρ 在 ±25% 范围变化后主要结论是否发生反转。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+196,该实验不用于证明“ρ 越大越好”。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+198,真正需要证明的是：,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+200,正式调度结果在合理 Wasserstein 半径范围内具有稳定性。,6,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::freeze / run::selected_scenarios / metrics,solver_quality.csv; daily_results.csv,rho乘0.75/1.25且场景概率指纹不变
+202,7. Q4-S2：价格—净负荷联合距离权重敏感性,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+203,7.1 实验目的,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+205,正式模型采用标准化价格—净负荷联合轨迹距离。,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+207,基准为：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+209,omega_N = 0.5,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+210,omega_p = 0.5,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+212,该实验用于回答：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+214,模型结果是否依赖“净负荷和价格恰好各占 50% 权重”。,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+216,7.2 参数设置,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+218,测试：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+220,设置	ω_N	ω_p,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+221,净负荷偏重	0.7	0.3,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+222,基准	0.5	0.5,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+223,价格偏重	0.3	0.7,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+225,始终保证：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+227,omega_N + omega_p = 1,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+228,7.3 实现要求,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+230,该实验不能只改变优化目标中的某个系数。,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+232,因为 ω_N 与 ω_p 直接参与联合轨迹距离计算，因此每个配置必须重新执行：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+234,联合轨迹距离计算,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+235,→ 尾部保持 k-medoids 场景缩减,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+236,→ 场景概率重新计算,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+237,→ Wasserstein 距离构造,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+238,→ DRO 求解,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+239,→ 真实数据回放,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+241,否则不能构成真正的联合距离权重敏感性实验。,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+243,7.4 记录指标,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+245,记录：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+247,真实总成本；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+248,计划购电费用；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+249,紧急购电量；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+250,紧急购电费用；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+251,最低 SOC；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+252,24:00 SOC；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+253,求解时间。,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+254,7.5 结果判断,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+256,如果：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+258,"(0.7,0.3)",7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+259,"(0.5,0.5)",7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+260,"(0.3,0.7)",7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+262,三组设置下：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+264,总成本变化有限；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+265,紧急购电风险没有明显反转；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+266,储能运行状态保持正常；,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+268,则可以认为：,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+270,价格—净负荷联合不确定性建模的有效性并非由某一个精确的联合距离权重人为制造。,7,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::selected_scenarios,weight_reconstruction.csv; cases/4-2_weight*/audit.json,8项权重全流程重建，场景/概率均实际改变
+272,8. Q4-S3：历史残差窗口敏感性（可选）,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+273,8.1 参数设置,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+275,测试：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+277,W = 56 / 84 / 112 days,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+279,如果当前正式模型基准值不是 84 日，则保持：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+281,较短窗口 / 基准窗口 / 较长窗口,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+283,三档即可。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+285,8.2 实验意义,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+287,短窗口：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+289,更容易追踪近期季节状态；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+290,历史样本较少；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+291,分布估计方差可能较大。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+293,长窗口：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+295,样本数量更多；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+296,分布估计更稳定；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+297,可能混入较早季节状态。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+299,实验主要检验：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+301,正式结果是否高度依赖某一个特定历史窗口长度。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+303,8.3 记录指标,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+305,记录：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+307,真实总成本；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+308,紧急购电量；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+309,紧急购电费用；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+310,24:00 SOC；,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+311,求解时间。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+312,8.4 日期限制,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+314,窗口敏感性不要选择 2—4 月。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+316,如果当前历史不足 112 日，则：,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+318,W = 56 / 84 / 112,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+320,可能全部退化为“使用全部已有历史”，导致三组配置实际没有区别。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+322,因此该实验只使用 6 月以后代表日。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+324,时间不足时可以直接取消。,8,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选W
+326,9. Q4-S4：场景规模敏感性（可选）,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+327,9.1 参数设置,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+329,设正式最大场景数为：,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+331,S_base,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+333,测试：,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+335,S_max =,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+336,0.75 * S_base,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+337,1.00 * S_base,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+338,1.25 * S_base,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+340,不建议机械使用：,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+342,10 / 20 / 30,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+344,因为正式模型还包含高风险联合尾部轨迹的强制保留。,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+346,如果 S_max 太小，可能导致尾部轨迹占据过高比例，使实验不再只是单纯的场景数量变化。,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+348,因此要求：,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+350,最小 S_max 仍明显高于强制尾部保留场景数量。,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+352,9.2 记录指标,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+354,记录：,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+356,真实总成本；,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+357,紧急购电量；,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+358,紧急购电费用；,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+359,求解时间。,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+360,9.3 结果判断,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+362,如果随着场景规模增加：,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+364,总成本趋于稳定；,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+365,紧急购电结果趋于稳定；,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+366,求解时间明显增加；,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+368,则说明当前基准场景规模已经能够在数值稳定性和计算效率之间取得较合理的平衡。,9,optional_not_run,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,results.md::验收,依第19节停止，不执行可选S
+370,10. Q4-2 与 Q4-3 实验分工,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+372,为了严格控制运行时间，不要求 Q4-2 和 Q4-3 完整重复同一套敏感性实验。,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+374,10.1 Q4-2：主体敏感性分析,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+376,4 个代表日。,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+378,必做,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+379,Q4-S1: Wasserstein rho,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+380,Q4-S2: joint distance weights,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+381,可选,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+382,Q4-S3: residual window W,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+383,Q4-S4: scenario number S_max,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+384,10.2 Q4-3：迁移稳定性验证,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+386,只选择 2 个代表日。,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+388,只测试：,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+390,rho_multiplier =,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+391,0.75,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+392,1.00,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+393,1.25,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+395,用于验证四时点滚动模型同样不存在明显的鲁棒半径参数脆弱性。,10,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,Q42主体16变体，Q43四日变体16节点
+397,11. 最小运行方案,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+399,时间非常有限时，只执行以下内容。,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+401,11.1 Q4-2,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+403,4 个代表日。,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+405,实验 A,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+406,rho_multiplier =,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+407,0.75,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+408,1.00,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+409,1.25,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+410,实验 B,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+411,"(omega_N, omega_p) =",11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+412,"(0.7, 0.3)",11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+413,"(0.5, 0.5)",11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+414,"(0.3, 0.7)",11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+416,由于基准已经存在，每个参数实际上只需要新增两个配置。,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+418,新增计算量：,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+420,2 个参数,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+421,× 2 个非基准配置,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+422,× 4 个代表日,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+424,= 16 个 Q4-2 日级实验,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+425,11.2 Q4-3,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+427,选择：,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+429,1 个常规日,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+430,1 个高联合风险/高调整成本日,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+432,只运行：,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+434,rho_multiplier =,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+435,0.75,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+436,1.00,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+437,1.25,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+439,基准直接复用。,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+441,新增：,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+443,2 个非基准配置,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+444,× 2 个代表日,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+446,= 4 个 Q4-3 日级实验,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+448,由于每个 Q4-3 日期包含约 4 个滚动节点，因此大约对应：,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+450,4 × 4,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+451,≈ 16 个节点级重新优化,11,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run / baseline,verification.json,新增20日32节点，复用6日12节点
+452,12. 推荐运行顺序,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+454,严格按照以下顺序：,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+456,Q4-S1：Wasserstein 半径；,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+457,Q4-S2：联合距离权重；,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+458,Q4-3 小规模 Wasserstein 半径迁移验证；,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+459,若仍有充足时间，再运行历史窗口 W；,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+460,最后才考虑场景数 S_max。,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+462,优先级：,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+464,Wasserstein rho,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+465,>,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+466,joint distance weights,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+467,>,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+468,historical residual window W,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+469,>,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+470,scenario number S_max,12,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,run_q42.log; run_q43.log,按rho、权重、Q43顺序实际执行
+471,13. 敏感性分析与消融实验分离,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+473,问题四另外还存在以下实验：,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+475,价格与净负荷独立抽样,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+476,vs,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+477,同日联合 OOS 残差,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+478,经验期望优化,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+479,vs,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+480,Wasserstein DRO,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+481,Q4-3 无前缀条件更新,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+482,vs,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+483,联合前缀条件更新,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+485,这些属于消融实验，不是敏感性分析。,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+487,两类实验在论文中应分开。,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+489,消融实验回答：,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+491,这个模型模块是否有价值？,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+493,敏感性分析回答：,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+495,该模块的效果是否依赖某个特定参数？,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+497,不要将两类实验混入同一张敏感性分析表。,13,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,cases/*/audit.json::experiment,未混入消融，只动dro_scale/net_weight
+499,14. 统一评价指标,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+500,14.1 总成本变化率,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+501,delta_C =,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+502,(C_variant - C_base),14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+503,/,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+504,C_base,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+505,* 100%,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+506,14.2 紧急购电量变化率,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+507,delta_Q =,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+508,(Q_variant - Q_base),14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+509,/,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+510,Q_base,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+511,* 100%,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+513,如果基准紧急购电量为 0，则不计算百分比，直接报告绝对变化量。,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+515,14.3 Q4-3 调整费用变化,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+517,可以使用：,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+519,delta_Adjust =,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+520,Adjust_variant - Adjust_base,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+522,也可以报告相对变化率。,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+524,14.4 代表日聚合,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+526,正文只需要报告：,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+528,中位数；,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+529,最小值；,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+530,最大值。,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+532,不额外进行 bootstrap，以避免增加无必要的分析工作。,14,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::metrics / q4_report::aggregate,summary.csv; daily_results.csv,逐日变化率后聚合median/min/max；零分母留空
+534,15. Q4-2 结果表模板,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+535,参数	设置	总成本变化	紧急购电量	紧急购电费	最低 SOC	24:00 SOC	求解时间,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+536,ρ	0.75ρ*	待计算	待计算	待计算	待计算	待计算	待计算,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+537,ρ	ρ*	基准	基准	基准	基准	基准	基准,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+538,ρ	1.25ρ*	待计算	待计算	待计算	待计算	待计算	待计算,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+539,ω	0.7 / 0.3	待计算	待计算	待计算	待计算	待计算	待计算,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+540,ω	0.5 / 0.5	基准	基准	基准	基准	基准	基准,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+541,ω	0.3 / 0.7	待计算	待计算	待计算	待计算	待计算	待计算,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+543,如果时间允许，再增加 W 和 S_max 对应行。,15,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-2,Q42六组正式表，含计划费用和全部指定指标
+545,16. Q4-3 结果表模板,16,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-3,Q43三组正式表和调整费用/量
+546,Wasserstein 半径	总成本变化	调整费用	紧急购电量	24:00 SOC	求解时间,16,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-3,Q43三组正式表和调整费用/量
+547,0.75ρ*	待计算	待计算	待计算	待计算	待计算,16,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-3,Q43三组正式表和调整费用/量
+548,ρ*	基准	基准	基准	基准	基准,16,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-3,Q43三组正式表和调整费用/量
+549,1.25ρ*	待计算	待计算	待计算	待计算	待计算,16,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::table_text,results.md::Q4-3,Q43三组正式表和调整费用/量
+550,17. 论文结果解释原则,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+552,敏感性分析不要求参数改变以后所有数值完全不变。,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+554,真正需要验证的是：,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+556,总成本没有出现异常的大幅波动；,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+557,紧急购电风险没有突然失控；,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+558,SOC 没有出现明显异常；,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+559,Q4-3 调整行为没有发生异常跳变；,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+560,模型主要经济结论没有发生反转。,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+562,如果结果总体稳定，可写：,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+564,对 Wasserstein 鲁棒半径、价格—净负荷联合距离权重等核心参数进行合理范围扰动后，模型真实结算成本、紧急购电风险及储能运行状态均未出现明显异常变化，主要经济结论保持一致，表明波动电价下的联合鲁棒调度结果并非依赖某一精确参数取值，具有较好的参数稳健性。,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+566,如果随着 ρ 增大表现为普通购电略有增加、紧急购电风险降低，可写：,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+568,随着 Wasserstein 半径增大，模型逐渐采用更加稳健的购电与储能配置，以一定的常规购电成本为代价降低高价格状态下的紧急购电风险，体现了经济性与鲁棒性之间的合理权衡。,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+570,如果联合距离权重变化后结果仍然稳定，可写：,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+572,当价格误差和净负荷误差在联合距离中的相对权重发生合理变化时，模型主要经济结果和风险指标保持稳定，说明联合场景建模的有效性并非由特定的等权参数设置偶然产生。,17,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,费用稳定性局部支持；调整量稳定不支持，完整披露
+574,18. 最终执行清单,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+575,必做,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+576,Q4-2,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+578,4 representative days,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+580,A. Wasserstein sensitivity,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+581,rho_multiplier =,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+582,0.75,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+583,1.00,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+584,1.25,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+586,B. Joint-distance sensitivity,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+587,"(omega_N, omega_p) =",18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+588,"(0.7, 0.3)",18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+589,"(0.5, 0.5)",18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+590,"(0.3, 0.7)",18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+591,Q4-3,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+593,2 representative days,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+595,rho_multiplier =,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+596,0.75,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+597,1.00,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+598,1.25,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+599,可选,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+600,Q4-2,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+602,C. Residual-window sensitivity,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+603,W =,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+604,56,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+605,84,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+606,112,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+608,D. Scenario-number sensitivity,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+609,S_max =,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+610,0.75*S_base,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+611,S_base,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+612,1.25*S_base,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+614,只有必做实验全部完成且仍有充足时间时才继续。,18,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages / q4_report::verify,verification.json; daily_results.csv,三项必做全完；可选W/S未做
+616,19. 停止规则,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+618,完成以下三项后即可停止主体敏感性分析：,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+620,Q4-2 Wasserstein 半径敏感性；,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+621,Q4-2 联合距离权重敏感性；,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+622,Q4-3 两个代表日的 Wasserstein 半径迁移验证。,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+624,此时已经能够分别证明：,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+626,鲁棒程度不存在明显参数脆弱性；,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+627,联合场景距离不存在明显参数脆弱性；,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+628,四时点滚动调度能够保持相同的稳定性结论。,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+630,除非仍有明显剩余时间，否则不要继续扩参数，更不要重新运行多组全年结果。,19,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::run::stages,completed_4-2.json; completed_4-3.json,三项必做完成即停止，未扩参
+632,20. 最终原则,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+634,问题四敏感性分析的目的不是通过大量参数实验寻找测试集上的最低成本，而是以尽可能低的额外计算量证明：,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+636,价格—净负荷联合场景、Wasserstein 分布鲁棒优化以及四时点滚动调度的主要结论在合理参数扰动下仍然成立，模型不存在明显参数脆弱性。,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+638,在当前比赛时间预算下：,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+640,Q4-2：,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+641,rho + joint weights,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+643,Q4-3：,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+644,small-scale rho validation,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定
+646,已经足以形成论文中的正式敏感性分析。,20,verified_or_reported,src/sensitivity/q4_experiment.py; src/sensitivity/q4_report.py::q4_report::main,results.md::实测讨论与论文表述,不按测试成本挑参，未宣称全年/所有指标稳定

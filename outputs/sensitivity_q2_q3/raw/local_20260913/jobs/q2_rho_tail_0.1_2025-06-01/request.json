@@ -1,0 +1,11 @@
+{
+  "id": "q2_rho_tail_0.1_2025-06-01",
+  "question": "q2",
+  "parameter": "rho_tail",
+  "value": 0.1,
+  "date": "2025-06-01",
+  "role": "高预测误差日",
+  "status": "pending",
+  "started_at": 1789277366.534291,
+  "signature": "9977cb804b361607bbc7ebe019150bfd245aeedce24e1b2960fb2f73141a3819"
+}

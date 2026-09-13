@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 import numpy as np
 from openpyxl import load_workbook
-from src.q3.physics import Policy
+from .physics import DispatchPolicy as Policy
 from .config import Config, ROOT
 from .data import read_inputs, read_prices
 from .diagnostics import experiment_variants
@@ -19,7 +19,7 @@ from .traceability import generate
 class Q4Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.data = read_inputs(ROOT / "inputs/q4/processed")
+        cls.data = read_inputs(ROOT / "inputs/q4/rescue_processed")
 
     def test_actual_price_shape_alignment_and_reported_statistics(self):
         prices = read_prices(ROOT / "docs/CUMCM2026Problems/C题/附件/附件4.xlsx")
@@ -51,6 +51,88 @@ class Q4Tests(unittest.TestCase):
             self.data.q3.actual[day, hour * 6:] = actual
             self.data.actual_prices[day, hour * 6:] = prices
 
+    def test_scenarios_invariant_to_all_unavailable_future_data(self):
+        config=Config(bootstrap_repetitions=1)
+        day=100
+        for hour,length in ((0,288),(6,144),(12,144),(18,144)):
+            original=construct(self.data,day,hour,length,config)
+            cutoff=day*144+hour*6
+            actual=self.data.q3.actual.reshape(-1,2)
+            prices=self.data.actual_prices.reshape(-1)
+            saved_actual=actual[cutoff:].copy();saved_prices=prices[cutoff:].copy()
+            saved_forecasts=self.data.price.values[day+1:].copy()
+            saved_pv=self.data.q3.hourly[day,hour//6+1:].copy()
+            try:
+                actual[cutoff:]+=1e6;prices[cutoff:]+=1e6
+                self.data.price.values[day+1:]+=1e6
+                self.data.q3.hourly[day,hour//6+1:]+=1e6
+                checked=construct(self.data,day,hour,length,config)
+                for key in ('net','prices','weights','distance'):
+                    np.testing.assert_array_equal(getattr(original,key),getattr(checked,key))
+                self.assertEqual(original.radius,checked.radius)
+            finally:
+                actual[cutoff:]=saved_actual;prices[cutoff:]=saved_prices
+                self.data.price.values[day+1:]=saved_forecasts
+                self.data.q3.hourly[day,hour//6+1:]=saved_pv
+
+    def test_resume_receipts_without_reoptimization_and_tamper_rejection(self):
+        import json
+        import shutil
+        from unittest.mock import patch
+        from .rolling import run_period
+        source=ROOT/'outputs/q4/raw/rescue_lp_q42_20260913_v2'
+        if not (source/'state.json').exists():
+            self.skipTest('requires the already-computed production prefix')
+        state=json.loads((source/'state.json').read_text(encoding='utf-8'))
+        if state['signature'] != Config().signature():
+            self.skipTest('completed v2 prefix must not be resumed with revised audit code; v2 recovery already passed')
+        state['days']=state['days'][:3]
+        state['soc']=10800.0
+        with tempfile.TemporaryDirectory() as d:
+            output=Path(d)
+            for folder in ('days','audit'):
+                (output/folder).mkdir()
+                for date in ('2025-02-01','2025-02-02','2025-02-03'):
+                    suffix='.csv' if folder=='days' else '.json'
+                    shutil.copy2(source/folder/(date+suffix),output/folder/(date+suffix))
+            (output/'state.json').write_text(json.dumps(state),encoding='utf-8')
+            with patch('src.q4.rolling.run_day_q42',side_effect=AssertionError('must reuse receipts')):
+                frame=run_period(self.data,'4-2',Config(),output,end=34)
+            self.assertEqual(len(frame),432)
+            with (output/'days/2025-02-01.csv').open('a',encoding='utf-8') as stream:
+                stream.write('tampered')
+            with self.assertRaisesRegex(ValueError,'摘要变化'):
+                run_period(self.data,'4-2',Config(),output,end=34)
+
+    def test_current_q43_receipt_recovery(self):
+        import json
+        import shutil
+        from unittest.mock import patch
+        from .rolling import run_period
+        source=ROOT/'outputs/q4/raw/rescue_lp_q43_20260913_v3'
+        if not (source/'state.json').exists():
+            self.skipTest('requires computed Q43v3 prefix')
+        state=json.loads((source/'state.json').read_text(encoding='utf-8'))
+        self.assertEqual(state['signature'],Config().signature())
+        state['days']=state['days'][:3]
+        import pandas as pd
+        state['soc']=float(pd.read_csv(source/'days/2025-02-03.csv').soc.iloc[-1])
+        with tempfile.TemporaryDirectory() as d:
+            output=Path(d)
+            for folder in ('days','audit'):
+                (output/folder).mkdir()
+                for date in ('2025-02-01','2025-02-02','2025-02-03'):
+                    suffix='.csv' if folder=='days' else '.json'
+                    shutil.copy2(source/folder/(date+suffix),output/folder/(date+suffix))
+            (output/'state.json').write_text(json.dumps(state),encoding='utf-8')
+            with patch('src.q4.rolling.run_day_q43',side_effect=AssertionError('must reuse receipts')):
+                frame=run_period(self.data,'4-3',Config(),output,end=34)
+            self.assertEqual(len(frame),432)
+            with (output/'days/2025-02-01.csv').open('a',encoding='utf-8') as stream:
+                stream.write('tampered')
+            with self.assertRaisesRegex(ValueError,'摘要变化'):
+                run_period(self.data,'4-3',Config(),output,end=34)
+
     def test_joint_history_and_tail_reduction(self):
         config = Config(scenarios=10, bootstrap_repetitions=3, seconds=1, solver_threads=1)
         scenarios = construct(self.data, 60, 6, 144, config)
@@ -78,7 +160,7 @@ class Q4Tests(unittest.TestCase):
         reference = np.full(3, 100.0)
         np.testing.assert_allclose(adjustment_quantity(grid, reference), [75.0, -25.0, 0.0])
 
-    def test_dual_and_constraint_generation_agree(self):
+    def test_dual_and_watchdog_agree(self):
         net = np.array([[1000., 1200, 800, 500], [1300., 1400, 900, 700]])
         prices = np.array([[.5, .6, .8, 1.], [.6, .8, 1., 1.2]])
         scenarios = Scenarios(net, prices, np.array([.6, .4]), np.array([[0., 1.], [1., 0.]]), .1, {})
@@ -98,7 +180,7 @@ class Q4Tests(unittest.TestCase):
         self.assertTrue(required.issubset(variants))
 
     def test_workbook_roundtrip_and_partial_guard(self):
-        frame, _ = _cold_start(self.data, 0, 6000.0, "4-2")
+        frame, _ = _cold_start(self.data, 31, 6000.0, "4-2")
         config = Config(bootstrap_repetitions=1)
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)

@@ -1,0 +1,12 @@
+{
+  "soc_min": 1276.7729447655363,
+  "soc_max": 10800.0,
+  "soc_violation_count": 0,
+  "simultaneous_charge_discharge_count": 0,
+  "power_violation_count": 0,
+  "max_energy_balance_residual": 2.2737367544323206e-13,
+  "emergency_and_charge_count": 0,
+  "reserve_discharge_violation_count": 0,
+  "intervals_checked": 48096,
+  "overall_pass": true
+}

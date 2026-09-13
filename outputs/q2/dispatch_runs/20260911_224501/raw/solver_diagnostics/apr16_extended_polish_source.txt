@@ -1,0 +1,27 @@
+def diagnostic_polish(policy, net, initial_soc, objective, bounds, integer, constraints, indices):
+    """固定当前响应分支求局部LP，仅改善可行上界；它的最优值从不作全局下界。"""
+    started = time.perf_counter()
+    vector = linear_seed(policy, net, initial_soc, indices, len(objective))
+    initial_cost = float(objective@vector)
+    equality = constraints.lb == constraints.ub
+    rounds = 0
+    for _ in range(1000):
+        remaining = 30-(time.perf_counter()-started)
+        if remaining <= 0:
+            break
+        lo, hi = bounds.lb.copy(), bounds.ub.copy()
+        lo[integer == 1] = hi[integer == 1] = vector[integer == 1]
+        solved = linprog(objective, A_eq=constraints.A[equality], b_eq=constraints.ub[equality],
+                         A_ub=constraints.A[~equality], b_ub=constraints.ub[~equality], bounds=np.column_stack([lo, hi]),
+                         method="highs", options={"time_limit": remaining, "primal_feasibility_tolerance": 1e-8,
+                                                  "dual_feasibility_tolerance": 1e-8})
+        if not solved.success:
+            break
+        candidate = Policy(*[np.maximum(solved.x[indices[key]], 0) for key in ("g", "cp", "rp")])
+        updated = linear_seed(candidate, net, initial_soc, indices, len(objective))
+        if float(objective@updated) >= float(objective@vector)-1e-5:
+            break
+        policy, vector = candidate, updated
+        rounds += 1
+    return vector, {"rounds": rounds, "seconds": time.perf_counter()-started, "initial_cost": initial_cost,
+                    "candidate_cost": float(objective@vector), "role": "local_region_feasible_upper_bound_only"}

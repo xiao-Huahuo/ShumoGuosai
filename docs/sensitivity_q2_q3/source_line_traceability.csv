@@ -1,0 +1,281 @@
+source_line,section,text,implementation,evidence
+1,问题,# 问题 2 与问题 3 敏感性分析实验方案（时间受限版）,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+3,1.,## 1. 实验目的,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+5,1.,本实验不进行大规模全年参数搜索，而是在已有正式结果基础上，通过少量代表日的局部敏感性实验，检验问题 2 和问题 3 的主要结论是否依赖某个特定参数取值。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+7,1.,实验主要回答以下问题：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+9,1.,1. 参数在合理范围内扰动后，总购电成本是否保持稳定；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+10,1.,2. 紧急购电风险是否发生明显恶化；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+11,1.,3. 储能运行状态是否发生异常变化；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+12,1.,4. 模型的主要经济结论是否发生反转。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+14,1.,问题 2 当前已有实验主要集中于预测与场景覆盖、物理可行性以及经济结果评价，尚缺少独立的参数敏感性分析。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+16,1.,问题 3 已经设计了场景规模、尾部场景和终端储能价值等敏感性实验。本次不重新扩充实验体系，而是针对比赛剩余时间对实验规模进行压缩。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+18,1.,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+20,2.,## 2. 总体实验原则,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+22,2.,采用：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+24,2.,> **代表日 + 单因素扰动（OFAT）**,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+26,2.,的实验方式。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+28,2.,每次实验只改变一个参数，其余设置全部与正式基准模型保持一致，包括：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+30,2.,- 预测结果；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+31,2.,- 历史误差池；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+32,2.,- 初始 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+33,2.,- 随机种子；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+34,2.,- 求解器设置；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+35,2.,- optimality gap；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+36,2.,- 储能物理参数；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+37,2.,- 成本计算方式。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+39,2.1,### 2.1 不重新运行全年,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+41,2.1,正式评价区间共有 334 天。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+43,2.1,敏感性分析不重新运行全部 334 天，而是分别从问题 2 和问题 3 中选择 4 个具有代表性的日期进行局部重新求解。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+45,2.1,对于每个代表日：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+47,2.1,1. 读取正式基准回放中该日 0:00 的真实初始 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+48,2.1,2. 冻结该日之前已经形成的历史预测、误差池和其他可用信息；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+49,2.1,3. 只改变当前待分析参数；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+50,2.1,4. 重新求解该日；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+51,2.1,5. 与同一天的正式基准结果进行比较。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+53,2.1,因此，本实验的含义是：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+55,2.1,> 在相同历史状态和信息条件下，研究核心参数变化对当前决策结果的局部影响。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+57,2.1,该实验不重新构造新的全年 SOC 轨迹。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+59,2.1,已有基准结果直接复用，不重复运行基准配置。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+61,2.1,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+63,3.,# 3. 代表日选择,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+65,3.,问题 2 和问题 3 分别选择 4 个代表日。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+67,3.,所有日期均由程序按照预先固定的规则自动选择，不允许根据敏感性分析结果人工挑选。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+69,3.1,## 3.1 问题 2 代表日,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+71,3.1,| 类型 | 自动选择规则 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+72,3.1,|---|---|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+73,3.1,| 常规日 | 日总成本最接近全年中位数，且紧急购电量较低 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+74,3.1,| 高预测误差日 | 净负荷预测 MAE 最大或处于最高分位 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+75,3.1,| 高紧急购电日 | 当日紧急购电量最大 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+76,3.1,| 高系统压力日 | 当日峰值净负荷最高 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+78,3.1,若多个条件选择到同一个日期，则后一个条件顺延选择该指标排名第二且尚未被使用的日期。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+80,3.1,这样可以覆盖：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+82,3.1,- 正常运行；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+83,3.1,- 预测误差较大；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+84,3.1,- 紧急购电风险较高；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+85,3.1,- 系统供需压力较高。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+87,3.1,四类典型工况。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+89,3.1,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+91,3.2,## 3.2 问题 3 代表日,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+93,3.2,| 类型 | 自动选择规则 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+94,3.2,|---|---|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+95,3.2,| 常规日 | 日总成本最接近全年中位数 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+96,3.2,| 高预测更新日 | 0:00 与后续 6:00/12:00 新预报差异较大的日期 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+97,3.2,| 高调整成本日 | 当日 adjustment cost 最高或处于最高分位 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+98,3.2,| 高风险日 | 紧急购电量或峰值净负荷最高 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+100,3.2,这样可以覆盖：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+102,3.2,- 正常运行；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+103,3.2,- 新预报信息变化较大；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+104,3.2,- 调整购电较明显；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+105,3.2,- 极端供需风险。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+107,3.2,四类工况。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+109,3.2,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+111,4.,# 4. 问题 2 敏感性分析,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+113,4.,问题 2 的风险控制机制主要来自：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+115,4.,1. 历史不利尾部场景保留；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+116,4.,2. 动态 SOC 安全裕度。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+118,4.,模型中的 80% 临界分位来自题目规定的“紧急购电价格为正常购电价格的 5 倍”，属于模型理论结构，而不是人为调节得到的参数。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+120,4.,因此，不建议直接把 0.8 修改为 0.7 或 0.9。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+122,4.,本实验主要对最终形成的 SOC 安全裕度和尾部场景比例进行扰动。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+124,4.,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+126,4.1,## 4.1 Q2-S1：动态 SOC 安全裕度敏感性,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+128,4.1,正式模型计算得到动态 SOC 安全裕度 `R_t`。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+130,4.1,在敏感性实验中定义：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+132,4.1,`R_t(β) = β_R × R_t`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+134,4.1,设置：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+136,4.1,| 设置 | β_R |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+137,4.1,|---|---:|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+138,4.1,| 较弱安全保护 | 0.8 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+139,4.1,| 基准方案 | 1.0 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+140,4.1,| 较强安全保护 | 1.2 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+142,记录指标,### 记录指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+144,记录指标,每个代表日记录：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+146,记录指标,- 实际总购电成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+147,记录指标,- 计划购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+148,记录指标,- 紧急购电量；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+149,记录指标,- 紧急购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+150,记录指标,- 当日最低 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+151,记录指标,- 24:00 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+152,记录指标,- 求解时间。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+154,主要判断,### 主要判断,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+156,主要判断,重点观察：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+158,主要判断,1. β_R 增大以后，紧急购电风险是否下降；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+159,主要判断,2. 风险降低是否只需要付出有限的普通购电成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+160,主要判断,3. β_R 在 ±20% 范围变化以后，总购电成本是否剧烈变化；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+161,主要判断,4. 模型主要结论是否发生反转。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+163,主要判断,如果 β_R = 0.8、1.0、1.2 下主要经济结果总体稳定，则说明动态 SOC 安全裕度并不依赖某个精确参数值才能有效工作。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+165,主要判断,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+167,4.2,## 4.2 Q2-S2：尾部场景比例敏感性,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+169,4.2,保持总场景数 `S` 不变，只改变尾部场景比例。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+171,4.2,测试：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+173,4.2,| 设置 | ρ_tail |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+174,4.2,|---|---:|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+175,4.2,| 较弱尾部保护 | 10% |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+176,4.2,| 基准方案 | 20% |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+177,4.2,| 较强尾部保护 | 30% |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+179,4.2,主体场景和尾部场景的总数量始终保持不变。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+181,4.2,这样可以避免把：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+183,4.2,> 尾部风险保护增强,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+185,4.2,与：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+187,4.2,> 场景数量增加,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+189,4.2,两个因素混在一起。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+191,记录指标,### 记录指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+193,记录指标,记录：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+195,记录指标,- 实际总成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+196,记录指标,- 计划购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+197,记录指标,- 紧急购电量；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+198,记录指标,- 紧急购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+199,记录指标,- 最低 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+200,记录指标,- 24:00 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+201,记录指标,- 求解时间。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+203,实验目的,### 实验目的,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+205,实验目的,验证：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+207,实验目的,> 模型结果是否高度依赖恰好选择 20% 的尾部比例，以及显式保留高风险历史误差轨迹是否能够稳定降低高代价紧急购电风险。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+209,实验目的,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+211,4.3,## 4.3 Q2-S3：场景规模敏感性（可选）,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+213,4.3,本实验优先级低于前两项。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+215,4.3,只有 Q2-S1 和 Q2-S2 很快完成以后才运行。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+217,4.3,若正式模型基准场景数为：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+219,4.3,`S* = 20`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+221,4.3,则测试：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+223,4.3,`S = 10 / 20 / 30`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+225,记录指标,### 记录指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+227,记录指标,- 总购电成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+228,记录指标,- 紧急购电量；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+229,记录指标,- 紧急购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+230,记录指标,- 求解时间。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+232,实验目的,### 实验目的,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+234,实验目的,不是寻找测试期上的“最优场景数”，而是判断：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+236,实验目的,> 当前场景规模是否已经足够稳定。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+238,实验目的,如果 S=20 与 S=30 的经济结果基本一致，而求解时间明显增加，则说明继续增加场景数量的收益已经较小。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+240,实验目的,时间不足时直接取消该实验。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+242,实验目的,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+244,5.,# 5. 问题 3 敏感性分析,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+246,5.,问题 3 原模型已经设计了场景规模、尾部保持和终端储能价值等敏感性参数。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+248,5.,考虑计算时间，本次优先进行：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+250,5.,1. 场景数敏感性；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+251,5.,2. 终端储能价值敏感性。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+253,5.,尾部场景名额作为可选实验。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+255,5.,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+257,5.1,## 5.1 Q3-S1：随机场景数敏感性,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+259,5.1,测试：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+261,5.1,| 设置 | S |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+262,5.1,|---|---:|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+263,5.1,| 小场景集 | 10 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+264,5.1,| 基准方案 | 20 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+265,5.1,| 大场景集 | 30 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+267,5.1,其余所有参数保持不变。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+269,记录指标,### 记录指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+271,记录指标,- 实际总购电成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+272,记录指标,- 计划购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+273,记录指标,- 调整费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+274,记录指标,- 紧急购电量；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+275,记录指标,- 紧急购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+276,记录指标,- 24:00 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+277,记录指标,- 求解时间。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+279,主要判断,### 主要判断,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+281,主要判断,重点比较：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+283,主要判断,`S = 20`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+285,主要判断,和：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+287,主要判断,`S = 30`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+289,主要判断,之间的差异。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+291,主要判断,如果 S 从 20 增加到 30 后：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+293,主要判断,- 总成本变化已经较小；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+294,主要判断,- 紧急购电结果基本稳定；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+295,主要判断,- 调整费用基本稳定；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+296,主要判断,- 但计算时间明显增加；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+298,主要判断,则可以认为：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+300,主要判断,> S=20 已经能够在经济结果稳定性和计算效率之间取得较合理的折中。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+302,主要判断,不应表述为“S=20 是理论最优场景数”。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+304,主要判断,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+306,5.2,## 5.2 Q3-S2：终端储能价值敏感性,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+308,5.2,设正式模型终端储能价值系数为 `λ_E*`。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+310,5.2,测试：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+312,5.2,`λ_E = 0.8λ_E* / 1.0λ_E* / 1.2λ_E*`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+314,5.2,即：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+316,5.2,| 设置 | 系数 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+317,5.2,|---|---:|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+318,5.2,| 较低终端价值 | 0.8 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+319,5.2,| 基准方案 | 1.0 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+320,5.2,| 较高终端价值 | 1.2 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+322,记录指标,### 记录指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+324,记录指标,- 实际总成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+325,记录指标,- 调整费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+326,记录指标,- 紧急购电量；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+327,记录指标,- 紧急购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+328,记录指标,- 24:00 SOC；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+329,记录指标,- 求解时间。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+331,实验目的,### 实验目的,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+333,实验目的,判断：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+335,实验目的,> 问题 3 的经济结果是否依赖某个精确的 terminal value 才能够成立。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+337,实验目的,如果 λ_E 在 ±20% 范围变化以后：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+339,实验目的,- 总成本没有剧烈变化；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+340,实验目的,- 紧急购电风险没有明显反转；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+341,实验目的,- 主要经济结论保持一致；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+343,实验目的,则说明终端价值近似具有较好的参数稳健性。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+345,实验目的,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+347,5.3,## 5.3 Q3-S3：尾部场景名额敏感性（可选）,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+349,5.3,只有前两个实验完成以后仍有明显剩余时间才运行。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+351,5.3,测试：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+353,5.3,`S_tail = 0 / 2 / 4`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+355,5.3,其中：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+357,5.3,`S_tail = 2`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+359,5.3,为基准方案。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+361,比较指标,### 比较指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+363,比较指标,- 实际总成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+364,比较指标,- 紧急购电量；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+365,比较指标,- 紧急购电费用；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+366,比较指标,- 求解时间。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+368,比较指标,如果时间不足，该实验直接取消，不影响主体敏感性分析。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+370,比较指标,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+372,6.,# 6. 统一评价指标,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+374,6.,所有敏感性实验均相对于同一个代表日的基准结果计算变化。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+376,6.1,## 6.1 总成本相对变化,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+378,6.1,定义：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+380,6.1,`δ_C = (C_variant - C_base) / C_base × 100%`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+382,6.1,其中：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+384,6.1,- `C_variant`：参数扰动后的实际总成本；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+385,6.1,- `C_base`：相同日期基准模型的实际总成本。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+387,6.1,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+389,6.2,## 6.2 紧急购电量相对变化,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+391,6.2,定义：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+393,6.2,`δ_Q = (Q_variant - Q_base) / Q_base × 100%`,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+395,6.2,如果某个代表日基准紧急购电量为 0，则不计算百分比，直接报告紧急购电量的绝对变化。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+397,6.2,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+399,6.3,## 6.3 聚合统计,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+401,6.3,4 个代表日最终只需要报告：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+403,6.3,- 中位数；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+404,6.3,- 最小值；,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+405,6.3,- 最大值。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+407,6.3,不额外进行 bootstrap 或复杂统计检验，以减少不必要的计算和分析工作。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+409,6.3,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+411,7.,# 7. 问题 2 结果表模板,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+413,7.,| 参数 | 参数值 | 总成本变化 | 紧急购电量 | 紧急购电费 | 最低 SOC | 24:00 SOC | 求解时间 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+414,7.,|---|---:|---:|---:|---:|---:|---:|---:|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+415,7.,| β_R | 0.8 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+416,7.,| β_R | 1.0 | 基准 | 基准 | 基准 | 基准 | 基准 | 基准 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+417,7.,| β_R | 1.2 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+418,7.,| ρ_tail | 10% | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+419,7.,| ρ_tail | 20% | 基准 | 基准 | 基准 | 基准 | 基准 | 基准 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+420,7.,| ρ_tail | 30% | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+422,7.,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+424,8.,# 8. 问题 3 结果表模板,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+426,8.,| 参数 | 参数值 | 总成本变化 | 调整费用 | 紧急购电量 | 24:00 SOC | 求解时间 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+427,8.,|---|---:|---:|---:|---:|---:|---:|,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+428,8.,| S | 10 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+429,8.,| S | 20 | 基准 | 基准 | 基准 | 基准 | 基准 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+430,8.,| S | 30 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+431,8.,| λ_E | 0.8 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+432,8.,| λ_E | 1.0 | 基准 | 基准 | 基准 | 基准 | 基准 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+433,8.,| λ_E | 1.2 | 待计算 | 待计算 | 待计算 | 待计算 | 待计算 |,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+435,8.,正文不需要列出所有代表日的完整数据。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+437,8.,正文保留聚合结果即可，完整逐日结果如有需要可放入附录。,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+439,8.,---,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+441,9.,# 9. 计算预算,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+443,9.,最终核心方案只运行以下四组敏感性实验：,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+445,9.,```text,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+446,9.,Q2:,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+447,9.,1. beta_R = 0.8 / 1.0 / 1.2,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+448,9.,2. rho_tail = 10% / 20% / 30%,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+450,9.,Q3:,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+451,9.,3. S = 10 / 20 / 30,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json
+452,9.,4. lambda_E = 0.8 / 1.0 / 1.2,src/sensitivity/prepare.py;q2.py;q3.py;run.py;report.py,tests.txt;representatives.json;inputs/*/metadata.json;jobs/*/result.json

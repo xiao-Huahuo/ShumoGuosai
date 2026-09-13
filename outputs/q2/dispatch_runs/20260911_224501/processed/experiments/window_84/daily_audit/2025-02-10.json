@@ -1,0 +1,572 @@
+{
+  "2": {
+    "M": 25,
+    "candidates": {
+      "25": {
+        "scenarios": {
+          "reduced": false,
+          "M": 25,
+          "S": 25,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "weights": [
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04
+          ]
+        },
+        "solver": {
+          "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solver_version": "10.0.2",
+          "before_presolve": {
+            "continuous": 94464,
+            "binary": 50400,
+            "variables": 144864,
+            "constraints": 201600
+          },
+          "after_presolve": {
+            "continuous": 92835,
+            "binary": 48546,
+            "variables": 141381,
+            "constraints": 195486
+          },
+          "mip_gap": 0.012823513352006542,
+          "requested_gap": 0.03,
+          "objective": 105071.8243267389,
+          "dual_bound": 103741.49389462409,
+          "solve_seconds": 2.1699030000163475,
+          "mapping_error_kwh": 0.0,
+          "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+          "reliable": true,
+          "certificate": {
+            "lower_bound": 103741.49389462409,
+            "incumbent_cost": 105071.8243267389,
+            "certified_gap": 0.012823513352006542,
+            "seconds": 0.9340840830118395,
+            "variables": 36288,
+            "constraints": 14400,
+            "refinement": null,
+            "role": "lower_bound_only_never_free_recourse_execution"
+          },
+          "branch_and_bound_required": false,
+          "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+        },
+        "full_pool_first_day_emergency_cost": 1250.6412534900367,
+        "scenario_first_day_emergency_cost": 1250.6412534900367,
+        "tail_quantiles": {
+          "0.8": {
+            "mean_absolute_error_kwh": 0.0,
+            "normalized_error": 0.0,
+            "positive_tail_underestimate_kwh": 0.0
+          },
+          "0.9": {
+            "mean_absolute_error_kwh": 0.0,
+            "normalized_error": 0.0,
+            "positive_tail_underestimate_kwh": 0.0
+          }
+        }
+      }
+    },
+    "computational_limited": false,
+    "S": 25,
+    "selected_solver": {
+      "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+      "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+      "solver_version": "10.0.2",
+      "before_presolve": {
+        "continuous": 94464,
+        "binary": 50400,
+        "variables": 144864,
+        "constraints": 201600
+      },
+      "after_presolve": {
+        "continuous": 92835,
+        "binary": 48546,
+        "variables": 141381,
+        "constraints": 195486
+      },
+      "mip_gap": 0.012823513352006542,
+      "requested_gap": 0.03,
+      "objective": 105071.8243267389,
+      "dual_bound": 103741.49389462409,
+      "solve_seconds": 2.1699030000163475,
+      "mapping_error_kwh": 0.0,
+      "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+      "reliable": true,
+      "certificate": {
+        "lower_bound": 103741.49389462409,
+        "incumbent_cost": 105071.8243267389,
+        "certified_gap": 0.012823513352006542,
+        "seconds": 0.9340840830118395,
+        "variables": 36288,
+        "constraints": 14400,
+        "refinement": null,
+        "role": "lower_bound_only_never_free_recourse_execution"
+      },
+      "branch_and_bound_required": false,
+      "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+    },
+    "selection": {
+      "pipeline": [
+        "load_lgb_1",
+        "pv_mean7"
+      ],
+      "origin_indices": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "window_days": 84,
+      "common_scored_origins": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "scores": {
+        "load_week|pv_mean7": {
+          "econ": 43.194186094491336,
+          "net_mae": 212.47806965476192,
+          "net_rmse": 285.97641630392826,
+          "load_mae": 158.04292369444443,
+          "load_rmse": 197.1547764176428,
+          "pv_mae": 95.63776233333334,
+          "pv_rmse": 200.81692755961245
+        },
+        "load_week|pv_dhr": {
+          "econ": 50.07581775136155,
+          "net_mae": 208.49087823845986,
+          "net_rmse": 274.79259597020734,
+          "load_mae": 158.04292369444443,
+          "load_rmse": 197.1547764176428,
+          "pv_mae": 111.88792694649229,
+          "pv_rmse": 200.14079072112713
+        },
+        "load_lgb_1|pv_mean7": {
+          "econ": 39.05870093405102,
+          "net_mae": 189.17702030321522,
+          "net_rmse": 263.6103611058244,
+          "load_mae": 129.6529403766073,
+          "load_rmse": 163.3460753458951,
+          "pv_mae": 95.63776233333334,
+          "pv_rmse": 200.81692755961245
+        },
+        "load_lgb_1|pv_dhr": {
+          "econ": 46.676288239024046,
+          "net_mae": 187.63254697932507,
+          "net_rmse": 255.6001263063307,
+          "load_mae": 129.6529403766073,
+          "load_rmse": 163.3460753458951,
+          "pv_mae": 111.88792694649229,
+          "pv_rmse": 200.14079072112713
+        }
+      },
+      "selection_uses_dispatch_cost": false,
+      "minimum_blocks": 14
+    },
+    "first_day_expected_cost": 54337.447521194794
+  },
+  "3": {
+    "M": 24,
+    "candidates": {
+      "24": {
+        "scenarios": {
+          "reduced": false,
+          "M": 24,
+          "S": 24,
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "weights": [
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664,
+            0.041666666666666664
+          ]
+        },
+        "solver": {
+          "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+          "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+          "solver_version": "10.0.2",
+          "before_presolve": {
+            "continuous": 136080,
+            "binary": 72576,
+            "variables": 208656,
+            "constraints": 290304
+          },
+          "after_presolve": {
+            "continuous": 133684,
+            "binary": 69964,
+            "variables": 203648,
+            "constraints": 281522
+          },
+          "mip_gap": 0.011702162742108143,
+          "requested_gap": 0.03,
+          "objective": 158250.17079485548,
+          "dual_bound": 156419.72175480548,
+          "solve_seconds": 3.1038256250030827,
+          "mapping_error_kwh": 0.0,
+          "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+          "reliable": true,
+          "certificate": {
+            "lower_bound": 156419.72175480548,
+            "incumbent_cost": 158250.17079485548,
+            "certified_gap": 0.011702162742108143,
+            "seconds": 1.232708042007289,
+            "variables": 52272,
+            "constraints": 20736,
+            "refinement": null,
+            "role": "lower_bound_only_never_free_recourse_execution"
+          },
+          "branch_and_bound_required": false,
+          "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+        },
+        "full_pool_first_day_emergency_cost": 1046.7112117326328,
+        "scenario_first_day_emergency_cost": 1046.7112117326326,
+        "tail_quantiles": {
+          "0.8": {
+            "mean_absolute_error_kwh": 0.0,
+            "normalized_error": 0.0,
+            "positive_tail_underestimate_kwh": 0.0
+          },
+          "0.9": {
+            "mean_absolute_error_kwh": 0.0,
+            "normalized_error": 0.0,
+            "positive_tail_underestimate_kwh": 0.0
+          }
+        }
+      }
+    },
+    "computational_limited": false,
+    "S": 24,
+    "selected_solver": {
+      "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+      "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+      "solver_version": "10.0.2",
+      "before_presolve": {
+        "continuous": 136080,
+        "binary": 72576,
+        "variables": 208656,
+        "constraints": 290304
+      },
+      "after_presolve": {
+        "continuous": 133684,
+        "binary": 69964,
+        "variables": 203648,
+        "constraints": 281522
+      },
+      "mip_gap": 0.011702162742108143,
+      "requested_gap": 0.03,
+      "objective": 158250.17079485548,
+      "dual_bound": 156419.72175480548,
+      "solve_seconds": 3.1038256250030827,
+      "mapping_error_kwh": 0.0,
+      "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+      "reliable": true,
+      "certificate": {
+        "lower_bound": 156419.72175480548,
+        "incumbent_cost": 158250.17079485548,
+        "certified_gap": 0.011702162742108143,
+        "seconds": 1.232708042007289,
+        "variables": 52272,
+        "constraints": 20736,
+        "refinement": null,
+        "role": "lower_bound_only_never_free_recourse_execution"
+      },
+      "branch_and_bound_required": false,
+      "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+    },
+    "selection": {
+      "pipeline": [
+        "load_lgb_1",
+        "pv_mean7"
+      ],
+      "origin_indices": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "window_days": 84,
+      "common_scored_origins": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "scores": {
+        "load_week|pv_mean7": {
+          "econ": 43.75980083149175,
+          "net_mae": 212.29568659060845,
+          "net_rmse": 285.663112706173,
+          "load_mae": 158.92214476273148,
+          "load_rmse": 198.26262067461235,
+          "pv_mae": 94.75820758515212,
+          "pv_rmse": 199.44503363461098
+        },
+        "load_week|pv_dhr": {
+          "econ": 50.754290578871206,
+          "net_mae": 208.53902323953082,
+          "net_rmse": 275.1848524262466,
+          "load_mae": 158.92214476273148,
+          "load_rmse": 198.26262067461235,
+          "pv_mae": 111.75842271118773,
+          "pv_rmse": 199.8488572196855
+        },
+        "load_lgb_1|pv_mean7": {
+          "econ": 39.834465264961146,
+          "net_mae": 189.0753402469197,
+          "net_rmse": 263.5701498187508,
+          "load_mae": 130.0200541998216,
+          "load_rmse": 164.01038960801668,
+          "pv_mae": 94.75820758515212,
+          "pv_rmse": 199.44503363461098
+        },
+        "load_lgb_1|pv_dhr": {
+          "econ": 47.67861800690527,
+          "net_mae": 188.0285494678988,
+          "net_rmse": 256.31248245841795,
+          "load_mae": 130.0200541998216,
+          "load_rmse": 164.01038960801668,
+          "pv_mae": 111.75842271118773,
+          "pv_rmse": 199.8488572196855
+        }
+      },
+      "selection_uses_dispatch_cost": false,
+      "minimum_blocks": 14
+    },
+    "first_day_expected_cost": 54299.97714835469
+  },
+  "skipped_K1": {
+    "reason": "K2_or_K3_reliable_K1_cannot_change_selection"
+  },
+  "stability_48_72": {
+    "grid_relative": 0.005620928400128346,
+    "first_day_expected_cost_relative": 0.0006900624053253892,
+    "interpretation": "open_loop_first_day_stability_only"
+  },
+  "selected_K": 2,
+  "computational_limited": false,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.03,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+    "precision_revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+    "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt",
+    "horizon_evaluation": "K2_K3_then_K1_only_if_both_fail"
+  },
+  "source_sha256_at_rollout_start": {
+    "incumbent.py": "c98ac37e42fdd3df0a1686b729d40d7db09f1e536bac560fce97170faeeb11fe",
+    "test_dispatch.py": "c7a2a5f0dfe8cbc870bab5f861f0b591479a37952eb8343f6d756c4deb9221d5",
+    "scenarios.py": "94294629945afd8a97fe28c6c495106d233a54948c8f4eb937b5b3b7d1f26b35",
+    "test_baseline_reuse.py": "f40f4d36f372d0d6e2743df0d05f5c26ae3a30a087b9e466484db3a5c806af54",
+    "run.py": "09817c8d40857358c539c9cd68d66efcc134a044bc82c1ab7fb4f1101869ef4a",
+    "final_diagnostics.py": "a6faeaece292deb32486c2f828d86db51fb773e7d119354436dc92a0feabe538",
+    "forecast.py": "48694ce530fd85d83478fee6767af6b5e34421c466e87efbbfede2c2bd771a16",
+    "execution.py": "a7320573013508af6b2549d2310509670e14b4bf2ac41d94dd3498f8efb92bea",
+    "export_dispatch.py": "65da9d963ec45f12295179520427c318a0ca04a198cf62e1386d85c3903ad6d5",
+    "checkpoint.py": "bb5ca9bbc60ea8bdf9cd359cd0c10e40b9baef2558f156939964e210eb750902",
+    "diagnostics.py": "2bf985e1c02d115a5a26a2212c07ed01be40e6642e711de7ff5eb179d486d8e4",
+    "dispatch.py": "0679a5252ca59f04e45452ec5865159e40dacf5db7f0450830f32d84a98eb296",
+    "linear_policy.py": "fc12b9d47a6be303e9272e608ad965c30a515f775b6a2e8385b2db060ccedcc8",
+    "protocol.py": "07be4f8a6ef665a0e1ab7946824466ebbba35ac03266d917c9e1e8e97e68c832",
+    "relaxation.py": "5bf284f802e2271ac406a5446628fb2423ea865e421bc7ca2efb45c556fc8d26",
+    "test_forecast_dispatch.py": "7754088b16102dfdf6b6f1d2406ef6745fa48af383db199a53d57c7f4967437c",
+    "policy.py": "a5715a808f5d49e9350c6452d06192076a5c692c6c4eb33c4df9cbee194091a9",
+    "optimization.py": "e39539ef5dfb2074a6f61a252073d304559983f5da56d654509e290854704bda",
+    "test_linear_policy.py": "dcde4b08f7bd3fa79000c3f521d3040f313b2cc50dc80ca63d507fe2a1054bf2",
+    "rolling.py": "1521344e59cfd1581712e9896503b8e74d994c1df4003c67dc65ef204ff4abdf",
+    "full_run.py": "61da608462e86ba547fc1e252c16c1bcba9e4739f39b254e01e72f11aeb8b389",
+    "shadows.py": "e639ccb1f862ac7afcf5e3dc59b856360bf92acc759433fa44c3fe850b5f4117",
+    "test_execution.py": "720a707f96d7debb7020fd29d739d3ee606159449531048528bc2e0da66bcbfc",
+    "experiments.py": "eaf8dc37366c59a0de2da862c35eb66f3a0af63035f2a9d544f1d8ab7bcd8022",
+    "final_traceability.py": "05ec03eae9cf68cb1cd46939e42defb6355306d74775d59bac6b5b1e5bf90445",
+    "figures.py": "85dfceb206a09ff01b2381a60c7a639d3d5eb60ea8f0b56b5467bcb6527d3d06",
+    "final_report.py": "ee5adaa51d82bf14df9deff628a8f127eb05d28ff89cdc28ab79844bbc0ca21a",
+    "test_full_run.py": "9a2bc2a0b62c12684976c80c922723e40b786c2b1783c2d2e345441bdd44fec6",
+    "traceability.py": "400931afcb91e2f4949ace019551ca8f5cf3b2c22f7677188be39039bd72a826",
+    "baseline_reuse.py": "9552fd30b76f20f320de82556100f200b097d1bd699c5f05297c2fc816b7aed6",
+    "test_q2.py": "d68f7f655a6a232d85a698bec8b6cc2416c8a98ec8307e7ef0b64dd425394fd7",
+    "backtest.py": "7df9a78f93f2048648b4cc558b11f9d3ec99686dd68fdf8b9fd66a1a0ec21e64",
+    "report.py": "aacc0134157882be7c0343ffadf5bb281f11c0e21298c6960cad50905ec22a59",
+    "test_horizon_execution.py": "a7fd40e20e97f5605c0c95a06994d85286eb8de1006a1782778821e8cbbddeb7",
+    "data.py": "34a3c7b179ad064efd45180d68c614f19987dba946c8d4b8a909cc92f6241cbb",
+    "comparators.py": "0d8ec257896973ee719bef76b7ac32ca30858daa72308b91522c144744321cd5"
+  }
+}

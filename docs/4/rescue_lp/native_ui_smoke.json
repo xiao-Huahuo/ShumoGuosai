@@ -1,0 +1,27 @@
+{
+  "application": "WPS Office",
+  "file": "outputs/q4/raw/rescue_lp_vertical_20260913/4-2/smoke_result4-2.xlsx",
+  "sheets": [
+    "计划购电量",
+    "充放电量",
+    "紧急购电量"
+  ],
+  "AX_observed": true,
+  "screenshots_visually_checked": true,
+  "local_file_not_uploaded": true,
+  "values_unchanged": true,
+  "rendered_sheet_count": 7,
+  "q43": {
+    "application": "WPS Office",
+    "file": "outputs/q4/raw/rescue_lp_vertical_20260913/4-3/smoke_result4-3.xlsx",
+    "sheets": [
+      "计划购电量",
+      "调整购电量",
+      "充放电量",
+      "紧急购电量"
+    ],
+    "actual_AX_and_screenshots_verified": true,
+    "adjustment_06_slot_observed": true,
+    "local_file_not_uploaded": true
+  }
+}

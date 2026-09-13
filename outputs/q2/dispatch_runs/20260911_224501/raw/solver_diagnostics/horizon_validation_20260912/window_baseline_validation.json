@@ -1,0 +1,8 @@
+{
+  "checked_committed_days": 171,
+  "all_attempted_K_predictor_scores_points_and_blocks_match": true,
+  "seconds": 2.1617906659957953,
+  "future_days_not_assumed_equal": true,
+  "reuse_only_after_full_main_complete_and_all_days_rechecked": true,
+  "baseline_reuse_source_sha256": "9552fd30b76f20f320de82556100f200b097d1bd699c5f05297c2fc816b7aed6"
+}

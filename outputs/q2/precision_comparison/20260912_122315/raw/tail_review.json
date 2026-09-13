@@ -1,0 +1,54 @@
+{
+  "source_directory": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/processed/timing_audit",
+  "source_sha256": {
+    "daily_timing.csv": "ace6b54d7a29ce9df19b18d23afb8d673c12149c004c244e17b1b30d12e3688f",
+    "summary.json": "abe416bf384a882d1759037c195743aab0de8ef0ac18bc811779d2ebffa1c3d3",
+    "snapshot.json": "51d544f1eb87fb7f546738c632584fc62066952919fb6aa86dcbf6df138aa24a"
+  },
+  "historical_window": [
+    "2026-09-12T01:02:13.346757+08:00",
+    "2026-09-12T09:05:16.008050679+08:00"
+  ],
+  "supplemental_day_share_percent": 14.583333333333334,
+  "supplemental_time_share_percent": 67.96686132280428,
+  "max_to_non_supplemental_mean_ratio": 32.11840754041133,
+  "mean_to_median_ratio": 2.0545196900365443,
+  "groups": [
+    {
+      "group": "未触发整日补算",
+      "days": 41,
+      "day_share_percent": 85.41666666666667,
+      "wall_hours": 2.578904465555555,
+      "wall_share_percent": 32.03313867719572,
+      "mean_minutes": 3.7740065349593492,
+      "median_minutes": 4.6256119,
+      "p95_minutes": 5.6605262000000005,
+      "max_minutes": 6.585407933333333
+    },
+    {
+      "group": "触发整日补算",
+      "days": 7,
+      "day_share_percent": 14.583333333333334,
+      "wall_hours": 5.471834775277777,
+      "wall_share_percent": 67.96686132280429,
+      "mean_minutes": 46.901440930952376,
+      "median_minutes": 38.022947349999995,
+      "p95_minutes": 110.14011649499997,
+      "max_minutes": 121.21507995
+    },
+    {
+      "group": "全部已推进日",
+      "days": 48,
+      "day_share_percent": 100.0,
+      "wall_hours": 8.050739240833332,
+      "wall_share_percent": 100.0,
+      "mean_minutes": 10.063424051041665,
+      "median_minutes": 4.898188175,
+      "p95_minutes": 38.327349597499996,
+      "max_minutes": 121.21507995
+    }
+  ],
+  "historical_only_not_current_gap_speedup": true,
+  "current_unfinished_days_not_in_snapshot": true,
+  "scope": "audit_completion_intervals_including_retries_repairs_waits_not_pure_solver_seconds"
+}

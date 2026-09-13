@@ -1,0 +1,249 @@
+{
+  "date": "2025-05-04 00:00:00",
+  "solver_seconds": 120.0,
+  "details": {
+    "2": {
+      "selection": {
+        "pipeline": [
+          "load_lgb_1",
+          "pv_mean7"
+        ],
+        "origin_indices": [
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121
+        ],
+        "window_days": 28,
+        "common_scored_origins": [
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121
+        ],
+        "scores": {
+          "load_week|pv_mean7": {
+            "econ": 40.93869927446973,
+            "net_mae": 256.36454648368607,
+            "net_rmse": 374.005542699234,
+            "load_mae": 130.43526561213991,
+            "load_rmse": 167.07537348767238,
+            "pv_mae": 173.40428901381537,
+            "pv_rmse": 329.5083689090287
+          },
+          "load_week|pv_dhr": {
+            "econ": 49.230750154832755,
+            "net_mae": 257.1797238556533,
+            "net_rmse": 374.25681905157046,
+            "load_mae": 130.43526561213991,
+            "load_rmse": 167.07537348767238,
+            "pv_mae": 183.30915736901957,
+            "pv_rmse": 331.27024518408564
+          },
+          "load_lgb_1|pv_mean7": {
+            "econ": 36.036505361506045,
+            "net_mae": 237.88597671853253,
+            "net_rmse": 361.31238915881534,
+            "load_mae": 104.92772503645968,
+            "load_rmse": 138.05805112522393,
+            "pv_mae": 173.40428901381537,
+            "pv_rmse": 329.5083689090287
+          },
+          "load_lgb_1|pv_dhr": {
+            "econ": 44.930092777066164,
+            "net_mae": 241.3429948354036,
+            "net_rmse": 363.67491971002306,
+            "load_mae": 104.92772503645968,
+            "load_rmse": 138.05805112522393,
+            "pv_mae": 183.30915736901957,
+            "pv_rmse": 331.27024518408564
+          }
+        },
+        "selection_uses_dispatch_cost": false,
+        "minimum_blocks": 14
+      },
+      "error": {
+        "M": 27,
+        "candidates": {
+          "27": {
+            "scenarios": {
+              "reduced": false,
+              "M": 27,
+              "S": 27,
+              "indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26
+              ],
+              "weights": [
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035,
+                0.037037037037037035
+              ]
+            },
+            "solver": {
+              "status": "Time limit reached",
+              "solver": "HiGHS_monotone_charge_bound_MILP",
+              "solver_version": "1.8.0",
+              "time_limit": 120.0,
+              "requested_gap": 0.02,
+              "solve_seconds": 121.26537154099788,
+              "reliable": false,
+              "continuous_variables": 70848,
+              "binary_variables": 23328,
+              "constraints": 147717,
+              "nodes": 0,
+              "dual_bound": 70997.32872929602,
+              "seed_verified": true,
+              "seed_refinement": {
+                "before_dominance": {
+                  "rounds": 15,
+                  "seconds": 15.020696915998997,
+                  "initial_cost": 72727.72462211856,
+                  "candidate_cost": 72672.23714633254,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "after_dominance": {
+                  "rounds": 0,
+                  "seconds": 1.4466568749994622,
+                  "initial_cost": 72672.23714633254,
+                  "candidate_cost": 72672.23714633254,
+                  "role": "local_region_feasible_upper_bound_only"
+                },
+                "rounds": 15,
+                "seconds": 16.46772391700506,
+                "initial_cost": 72727.72462211856,
+                "candidate_cost": 72672.23714633254,
+                "role": "local_region_feasible_upper_bound_only"
+              },
+              "highs_primal_relative_gap_target": 0.0196078431372549,
+              "maximum_charge_cap_dominance_presolve": true,
+              "response_branch_valid_cuts": true,
+              "objective": 72672.23714633253,
+              "optimizer_objective": 72672.23714633254,
+              "mip_gap": 0.023591146977131026,
+              "monotone_charge_bound": true,
+              "raw_response_difference_kwh": 0.0,
+              "mapping_error_kwh": null,
+              "monotone_projection_error_kwh": 0.0,
+              "linear_feasibility_error": 1.8189894035458565e-12,
+              "integrality_error": 0.0,
+              "mapped_policy_cost_not_above_raw_objective": true,
+              "certificate_error_definition": "SOC_dominance_and_emergency_nonincrease",
+              "execution_role": "original_budget_equivalent_MILP_under_authorized_precision_revision"
+            },
+            "full_pool_first_day_emergency_cost": 2769.180074470662,
+            "scenario_first_day_emergency_cost": 2769.1800744706625,
+            "tail_quantiles": {
+              "0.8": {
+                "mean_absolute_error_kwh": 0.0,
+                "normalized_error": 0.0,
+                "positive_tail_underestimate_kwh": 0.0
+              },
+              "0.9": {
+                "mean_absolute_error_kwh": 0.0,
+                "normalized_error": 0.0,
+                "positive_tail_underestimate_kwh": 0.0
+              }
+            }
+          }
+        },
+        "computational_limited": false
+      }
+    }
+  }
+}

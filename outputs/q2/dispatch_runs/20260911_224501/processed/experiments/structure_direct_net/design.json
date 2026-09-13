@@ -1,0 +1,6 @@
+{
+  "direct_net": true,
+  "K": 2,
+  "uncertainty": "held_deterministic_for_structure_isolation",
+  "initial_soc": 8482.766385
+}

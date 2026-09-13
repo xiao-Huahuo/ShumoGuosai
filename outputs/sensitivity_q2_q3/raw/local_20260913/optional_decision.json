@@ -1,0 +1,7 @@
+{
+  "q2_S3": "not_applicable_formal_S26_not_S20",
+  "q3_S3_run": true,
+  "core_seconds": 713.9835839271545,
+  "seconds_to_18": 15714.992502,
+  "rule": "core<=3600s, no failed jobs, remaining>=1200s"
+}

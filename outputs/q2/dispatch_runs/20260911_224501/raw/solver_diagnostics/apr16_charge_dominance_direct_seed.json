@@ -1,0 +1,40 @@
+{
+  "date": "2025-04-16",
+  "initial_soc": 1462.9246853535594,
+  "net_sha256": "956a6f55d97aafccf4c12954e6fbe9a66d83f371fca720c823cb34204ec526e1",
+  "information_boundary": "history[:105]",
+  "uses_realized_target_day": false,
+  "source_sha256": {
+    "src/q2/linear_policy.py": "2cdaf37bfbf445cbaa968c093e1c04475be03b17c58e5f913dea5fcca2e5cc83",
+    "src/q2/rolling.py": "96e4e528472b77f854e8b141c19aca36fd32cba8cbbcf1ac0084fc60c0fd8b6a"
+  },
+  "solver": {
+    "status": "Time limit reached",
+    "solver": "HiGHS_physical_bound_linear_MILP",
+    "solver_version": "1.8.0",
+    "time_limit": 900,
+    "requested_gap": 0.01,
+    "solve_seconds": 900.0799642499987,
+    "reliable": false,
+    "continuous_variables": 20592,
+    "binary_variables": 28224,
+    "constraints": 72576,
+    "nodes": 2,
+    "dual_bound": 35907.63210372592,
+    "seed_verified": true,
+    "seed_refinement": {
+      "rounds": 14,
+      "seconds": 4.118962415999704,
+      "initial_cost": 36275.85296762959,
+      "candidate_cost": 36270.316633818424,
+      "role": "local_region_feasible_upper_bound_only"
+    },
+    "highs_primal_relative_gap_target": 0.009900990099009901,
+    "maximum_charge_cap_dominance_presolve": true,
+    "objective": 36270.316633818424,
+    "optimizer_objective": 36270.316633818424,
+    "mip_gap": 0.010100485853392476,
+    "mapping_error_kwh": 0.0,
+    "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+  }
+}

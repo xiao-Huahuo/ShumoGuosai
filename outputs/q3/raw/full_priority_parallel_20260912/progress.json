@@ -1,0 +1,20 @@
+{
+  "status": "stopped_by_user",
+  "phase": "main",
+  "worker_pid": null,
+  "attempt": 1,
+  "completed_days_including_warmup": 25,
+  "formal_days": 0,
+  "total_formal_days": 334,
+  "active_date": "2025-01-26",
+  "active_hour": "06",
+  "last_solver_gap": 0.07952327660370284,
+  "completed_slices": 8,
+  "node_reliable": false,
+  "checkpoint": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_parallel_20260912/main/nodes/2025-01-26/06/latest.json",
+  "soc": 9915.764085740733,
+  "updated_at": "2026-09-12T14:00:57.678014+00:00",
+  "main_result_ready": false,
+  "completed_sample_jobs": 0,
+  "sample_jobs_total": 36
+}

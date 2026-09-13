@@ -1,0 +1,5 @@
+def fixed_grid_build(*args, **kwargs):
+    objective, bounds, integer, constraints, indices = base_build(*args, **kwargs)
+    bounds.lb[indices["g"]] = seed.grid
+    bounds.ub[indices["g"]] = seed.grid
+    return objective, bounds, integer, constraints, indices

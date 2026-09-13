@@ -1,0 +1,86 @@
+"""诊断：把已验证的同一稀疏线性模型交给现有SCIP，实际输出仍为原反馈。"""
+import time
+import numpy as np
+from pyscipopt import Model, quicksum
+from policy import Policy, replay, PHYSICAL_TOL
+
+
+def solve_scip_matrix(builder, net, prices, weights, initial_soc, *, seed_policy=None,
+                      fixed_policy=None, time_limit=300, gap=.01, log=True):
+    started = time.perf_counter()
+    objective, bounds, integer, constraints, indices = builder.build_linear_policy(
+        net, prices, weights, initial_soc, fixed_policy=fixed_policy)
+    model = Model("same_monotone_charge_matrix")
+    if not log:
+        model.hideOutput()
+    variables = [model.addVar(name=f"v{i}", vtype="B" if flag else "C", lb=float(lo), ub=float(hi), obj=float(coef))
+                 for i, (flag, lo, hi, coef) in enumerate(zip(integer, bounds.lb, bounds.ub, objective))]
+    matrix = constraints.A.tocsr()
+    for row in range(matrix.shape[0]):
+        columns, values = matrix.indices[matrix.indptr[row]:matrix.indptr[row+1]], matrix.data[matrix.indptr[row]:matrix.indptr[row+1]]
+        expression = quicksum(float(value)*variables[int(column)] for column, value in zip(columns, values))
+        if constraints.lb[row] == constraints.ub[row]:
+            model.addCons(expression == float(constraints.ub[row]))
+        else:
+            if np.isfinite(constraints.lb[row]):
+                model.addCons(expression >= float(constraints.lb[row]))
+            if np.isfinite(constraints.ub[row]):
+                model.addCons(expression <= float(constraints.ub[row]))
+    model.setIntParam("misc/usesymmetry", 0)
+    model.setRealParam("limits/gap", gap)
+    model.setRealParam("numerics/feastol", 1e-8)
+    model.setIntParam("randomization/randomseedshift", 0)
+    if seed_policy is not None:
+        vector = builder.linear_seed(seed_policy, net, initial_soc, indices, len(objective))
+        activity = matrix@vector
+        error = max(float(np.max(bounds.lb-vector)), float(np.max(vector-bounds.ub)),
+                    float(np.max(constraints.lb-activity)), float(np.max(activity-constraints.ub)), 0.)
+        if error > PHYSICAL_TOL:
+            raise ValueError(f"SCIP初值与同一稀疏矩阵不符：{error}")
+        seed = model.createSol()
+        for variable, value in zip(variables, vector):
+            model.setSolVal(seed, variable, float(value))
+        if not model.addSol(seed):
+            raise ValueError("SCIP拒绝已独立核验的完整初值")
+    build_seconds = time.perf_counter()-started
+    model.setRealParam("limits/time", max(time_limit-build_seconds, .01))
+    model.optimize()
+    lower = float(model.getDualbound())
+    info = {"solver": "SCIP_same_monotone_charge_linear_matrix", "solver_version": ".".join(map(str, (
+                model.getMajorVersion(), model.getMinorVersion(), model.getTechVersion()))),
+            "status": str(model.getStatus()), "time_limit": time_limit, "requested_gap": gap,
+            "build_seconds": build_seconds, "solve_seconds": model.getSolvingTime(),
+            "wall_seconds": time.perf_counter()-started, "dual_bound": lower,
+            "nodes": model.getNNodes(), "binary_variables": int(integer.sum()),
+            "continuous_variables": int((integer == 0).sum()), "constraints": int(matrix.shape[0]),
+            "reliable": False, "monotone_charge_bound": fixed_policy is None}
+    if not model.getNSols():
+        model.freeProb()
+        return None, None, info
+    best = model.getBestSol()
+    vector = np.array([model.getSolVal(best, variable) for variable in variables])
+    policy = Policy(*[np.maximum(vector[indices[key]], 0) for key in ("g", "cp", "rp")])
+    responses = [replay(policy, path, initial_soc) for path in net]
+    raw = np.stack([vector[v] for v in indices["responses"]], axis=-1)
+    exact = np.array([np.array([r[key] for key in ("charge", "discharge", "emergency", "unused", "soc")]).T for r in responses])
+    raw_difference = float(np.max(np.abs(raw-exact)))
+    activity = matrix@vector
+    feasibility = max(float(np.max(bounds.lb-vector)), float(np.max(vector-bounds.ub)),
+                      float(np.max(constraints.lb-activity)), float(np.max(activity-constraints.ub)), 0.)
+    integrality = float(np.max(np.abs(vector[integer == 1]-np.rint(vector[integer == 1]))))
+    projection = max(float(np.max(raw[..., 4]-exact[..., 4])), float(np.max(exact[..., 2]-raw[..., 2])), 0.)
+    value = float(prices@policy.grid+sum(5*p*(prices@r["emergency"]) for p,r in zip(weights,responses)))
+    raw_cost = float(model.getObjVal())
+    error = projection if fixed_policy is None else raw_difference
+    relative_gap = max(value-lower, 0)/max(abs(lower), 1e-8)
+    valid = error <= PHYSICAL_TOL and feasibility <= PHYSICAL_TOL and integrality <= 1e-8 and value <= raw_cost+PHYSICAL_TOL
+    info.update(objective=value, optimizer_objective=raw_cost, mip_gap=relative_gap,
+                mapping_error_kwh=None if fixed_policy is None else raw_difference,
+                raw_response_difference_kwh=raw_difference, monotone_projection_error_kwh=projection,
+                linear_feasibility_error=feasibility, integrality_error=integrality,
+                mapped_policy_cost_not_above_raw_objective=value <= raw_cost+PHYSICAL_TOL,
+                reliable=bool(valid and lower <= value+PHYSICAL_TOL and relative_gap <= gap+1e-8))
+    model.freeProb()
+    if not valid:
+        raise ValueError(f"同矩阵SCIP解的原反馈投影或可行性验收失败：{info}")
+    return policy, responses, info

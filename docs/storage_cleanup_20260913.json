@@ -1,0 +1,261 @@
+{
+  "status": "completed",
+  "date": "2026-09-13",
+  "measurement": "File logical bytes and st_blocks*512, no symlink traversal; du includes directory blocks. Concurrent Q3 artifact creation is excluded from attributed savings.",
+  "before": {
+    ".DS_Store": {
+      "files": 1,
+      "logical_bytes": 8196,
+      "allocated_bytes": 12288
+    },
+    "TASK_STATE.md": {
+      "files": 1,
+      "logical_bytes": 155863,
+      "allocated_bytes": 159744
+    },
+    "README.md": {
+      "files": 1,
+      "logical_bytes": 84480,
+      "allocated_bytes": 86016
+    },
+    ".gitignore": {
+      "files": 1,
+      "logical_bytes": 75,
+      "allocated_bytes": 4096
+    },
+    "数学建模开发规范.md": {
+      "files": 1,
+      "logical_bytes": 11060,
+      "allocated_bytes": 12288
+    },
+    "AGENTS.md": {
+      "files": 1,
+      "logical_bytes": 4774,
+      "allocated_bytes": 8192
+    },
+    "对话": {
+      "files": 1,
+      "logical_bytes": 466870,
+      "allocated_bytes": 466944
+    },
+    "CLAUDE.md": {
+      "files": 1,
+      "logical_bytes": 4782,
+      "allocated_bytes": 8192
+    },
+    ".venv_sensitivity": {
+      "files": 10913,
+      "logical_bytes": 334479390,
+      "allocated_bytes": 363229184
+    },
+    "docs": {
+      "files": 380,
+      "logical_bytes": 11771387,
+      "allocated_bytes": 12677120
+    },
+    ".venv": {
+      "files": 8750,
+      "logical_bytes": 259082468,
+      "allocated_bytes": 280776704
+    },
+    ".git": {
+      "files": 902,
+      "logical_bytes": 18039163,
+      "allocated_bytes": 20488192
+    },
+    "outputs": {
+      "files": 43123,
+      "logical_bytes": 2404209306,
+      "allocated_bytes": 2505768960
+    },
+    "inputs": {
+      "files": 16,
+      "logical_bytes": 10186517,
+      "allocated_bytes": 10219520
+    },
+    "src": {
+      "files": 274,
+      "logical_bytes": 3355390,
+      "allocated_bytes": 3923968
+    }
+  },
+  "after": {
+    "TASK_STATE.md": {
+      "files": 1,
+      "logical_bytes": 156128,
+      "allocated_bytes": 159744
+    },
+    "README.md": {
+      "files": 1,
+      "logical_bytes": 85606,
+      "allocated_bytes": 86016
+    },
+    ".gitignore": {
+      "files": 1,
+      "logical_bytes": 113,
+      "allocated_bytes": 4096
+    },
+    "数学建模开发规范.md": {
+      "files": 1,
+      "logical_bytes": 11060,
+      "allocated_bytes": 12288
+    },
+    "AGENTS.md": {
+      "files": 1,
+      "logical_bytes": 4774,
+      "allocated_bytes": 8192
+    },
+    "对话": {
+      "files": 1,
+      "logical_bytes": 466870,
+      "allocated_bytes": 466944
+    },
+    "CLAUDE.md": {
+      "files": 1,
+      "logical_bytes": 4782,
+      "allocated_bytes": 8192
+    },
+    ".venv_sensitivity": {
+      "files": 9410,
+      "logical_bytes": 297271919,
+      "allocated_bytes": 322580480
+    },
+    "docs": {
+      "files": 378,
+      "logical_bytes": 11758335,
+      "allocated_bytes": 12656640
+    },
+    ".venv": {
+      "files": 7263,
+      "logical_bytes": 224373589,
+      "allocated_bytes": 242626560
+    },
+    ".git": {
+      "files": 919,
+      "logical_bytes": 18220788,
+      "allocated_bytes": 20721664
+    },
+    "outputs": {
+      "files": 23815,
+      "logical_bytes": 1630343786,
+      "allocated_bytes": 1704181760
+    },
+    "inputs": {
+      "files": 16,
+      "logical_bytes": 10186517,
+      "allocated_bytes": 10219520
+    },
+    "src": {
+      "files": 146,
+      "logical_bytes": 1383620,
+      "allocated_bytes": 1691648
+    }
+  },
+  "attributed_reclaimed_allocated_bytes_before_small_docs": 882655232,
+  "packages": [
+    {
+      "directory": "outputs/processed/deliverables/数学建模_全套结果_20260913_140811",
+      "archive": "outputs/processed/deliverables/数学建模_全套结果_20260913_140811.zip",
+      "archive_sha256": "d632d542467ac23d1e25933b15c530bf52964f5a09d054d5c393737e07a024f8",
+      "stats": {
+        "files": 7297,
+        "logical_bytes": 315532741,
+        "allocated_bytes": 334422016
+      }
+    },
+    {
+      "directory": "outputs/processed/deliverables/数学建模_问题2_问题3_问题4-2_结果包_20260913",
+      "archive": "outputs/processed/deliverables/数学建模_问题2_问题3_问题4-2_结果包_20260913.zip",
+      "archive_sha256": "026b00ca375c9fd923e50c03bf04e3762ade2599f2d519d8a7294a63621cf124",
+      "stats": {
+        "files": 32,
+        "logical_bytes": 45072460,
+        "allocated_bytes": 45150208
+      }
+    }
+  ],
+  "baseline": {
+    "directory": "outputs/history/q2_baselines/pre_tail_reserve_20260912/results",
+    "archive": "outputs/history/q2_baselines/pre_tail_reserve_20260912/results.tar.gz",
+    "stats": {
+      "files": 11977,
+      "logical_bytes": 582605697,
+      "allocated_bytes": 608092160
+    },
+    "archive_sha256": "c1c0a7b996719be6b269b80fd2ed25a57ee115effe48a88abc1380fc8fa13136",
+    "archive_bytes": 168248927,
+    "archive_allocated_bytes": 184987648,
+    "roundtrip_verified_files": 11977
+  },
+  "execution": {
+    "deleted_files": 22432,
+    "cache_files_removed": 3126,
+    "skipped_changed_caches": [
+      "outputs/history/q2_baselines/pre_tail_reserve_20260912/results/dispatch_runs/20260911_224501/deliverables/.DS_Store"
+    ],
+    "manifest": "outputs/history/cleanup_20260913.csv.gz",
+    "manifest_sha256": "fa2327332fad633c4de3901dbf435cc18f5821053e2107e2da9af15f01e102d0",
+    "manifest_bytes": 1128342,
+    "gross_removed_allocated_bytes": 1068773376,
+    "archive_allocated_bytes": 184987648
+  },
+  "unchanged_protected_nonlog_files_after_documentation": 24225,
+  "protected_mismatches": [],
+  "environment_import_smoke": {
+    "venv": "NumPy 2.5.3, pandas 3.0.5, SciPy 1.18.1, HiGHS 1.15.1: PASS",
+    "venv_sensitivity": "NumPy 2.3.5, pandas 2.2.3, SciPy 1.16.3, HiGHS 1.15.1, Matplotlib 3.10.8, PySCIPOpt 6.2.1: PASS"
+  },
+  "http_smoke": [
+    {
+      "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/",
+      "status": 200,
+      "content_length": "568"
+    },
+    {
+      "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/RESTORE.md",
+      "status": 200,
+      "content_length": "897"
+    },
+    {
+      "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/results.tar.gz",
+      "status": 200,
+      "content_length": "168248927"
+    },
+    {
+      "path": "outputs/.q1-runs/run-ie6fkatf/processed/report.html",
+      "status": 200,
+      "content_length": "68987"
+    },
+    {
+      "path": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/report.html",
+      "status": 200,
+      "content_length": "4648"
+    },
+    {
+      "path": "outputs/processed/sensitivity_q4/index.html",
+      "status": 200,
+      "content_length": "11789"
+    }
+  ],
+  "ui_smoke": {
+    "q2_gallery": "http://127.0.0.1:8767/",
+    "after_cleanup_reload": true,
+    "ax_headings": 6,
+    "screenshot_visually_inspected": true,
+    "archive_directory_browser_check": "旧8763服务ERR_EMPTY_RESPONSE；错误页导致后续导航失败。归档、恢复说明及报告改由临时本地服务HTTP 200验证，未声称归档目录GUI通过。"
+  },
+  "source_code_modified": false,
+  "regression_solver_run": false,
+  "retained": [
+    "Both Python environments",
+    "All formal numerical results and original inputs",
+    "Existing delivered ZIP bytes",
+    "Historical Q2 baseline source and original manifests",
+    "Unique historical runs and checkpoints",
+    "Concurrent Q3 figure package"
+  ],
+  "known_preexisting_issues": [
+    "outputs/q1_current, outputs/q2_current and inputs/processed are plain text instead of symlinks/directories; bytes preserved.",
+    "Existing localhost:8763 returned ERR_EMPTY_RESPONSE; no existing server was stopped or reconfigured."
+  ]
+}

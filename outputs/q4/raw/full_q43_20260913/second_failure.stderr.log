@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Projects\Python\ShumoGuosai\src\q4\run.py", line 69, in <module>
+    main()
+  File "D:\Projects\Python\ShumoGuosai\src\q4\run.py", line 63, in main
+    frame = run_period(data, mode, config, arguments.output, end=arguments.end)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\Python\ShumoGuosai\src\q4\rolling.py", line 231, in run_period
+    frame, audit = runner(data, day, state["soc"], config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\Python\ShumoGuosai\src\q4\rolling.py", line 132, in run_day_q43
+    solution = solve(scenarios, soc, config, reference=reference, today=144 - hour * 6)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\Python\ShumoGuosai\src\q4\optimization.py", line 382, in solve
+    vector, info, solver = _run_master(objective, bounds, integer, constraints, config, remaining, seed)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\Python\ShumoGuosai\src\q4\optimization.py", line 339, in _run_master
+    raise LimitedSolve({"status": solver.modelStatusToString(solver.getModelStatus()),
+src.q4.optimization.LimitedSolve: 节点未在预算内取得要求的gap证书

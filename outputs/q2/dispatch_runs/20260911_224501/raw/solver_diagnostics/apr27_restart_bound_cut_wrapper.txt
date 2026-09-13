@@ -1,0 +1,5 @@
+def certified_bound_build(*args, **kwargs):
+    objective, bounds, integer, constraints, indices = base_build(*args, **kwargs)
+    matrix = vstack([constraints.A, csr_matrix(-objective[None, :])], format="csc")
+    constraints = LinearConstraint(matrix, np.r_[constraints.lb, -np.inf], np.r_[constraints.ub, -known_lower])
+    return objective, bounds, integer, constraints, indices

@@ -1,0 +1,5 @@
+{
+  "status": "worker_exception",
+  "reliable": false,
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/optimization.py\", line 198, in _worker\n    connection.send(('ok', solve_dual(scenarios, initial, config, reference=reference, today=today)))\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/optimization.py\", line 130, in solve_dual\n    objective, bounds, integer, constraints, indices, offset = build_matrix(\n                                                               ^^^^^^^^^^^^^\n  File \"/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/optimization.py\", line 54, in build_matrix\n    raise ValueError('初始SOC或半径非法')\nValueError: 初始SOC或半径非法\n"
+}

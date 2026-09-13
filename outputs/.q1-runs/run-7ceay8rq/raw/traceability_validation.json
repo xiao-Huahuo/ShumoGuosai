@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "display_formulas": 154,
+  "mapping_rows": 162,
+  "source_sha256": "7d8599cd1e1efd9c6cd5cc873162c349ee2844580ceabf19b57095858cfd863e",
+  "coverage": "所有154个展示公式；源文纯说明公式注明作用；新增行内审查要求见review逐条验收表"
+}

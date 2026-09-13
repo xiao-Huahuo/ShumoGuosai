@@ -1,0 +1,227 @@
+{
+  "main": {
+    "start": "2025-02-01",
+    "end": "2025-04-14",
+    "days": 73,
+    "period": "evaluation_period_not_calendar_year",
+    "planned_cost_yuan": 2671415.463076398,
+    "emergency_cost_yuan": 105655.17471342777,
+    "total_cost_yuan": 2777070.6377898254,
+    "planned_grid_kwh": 4454843.685942339,
+    "emergency_kwh": 19142.403247243674,
+    "emergency_intervals": 383,
+    "emergency_events": 200,
+    "intervals_above_numerical_tolerance": 383,
+    "unused_kwh": 372159.38304102176,
+    "charge_kwh": 1422105.4810729867,
+    "discharge_kwh": 1152205.886957758,
+    "final_soc": 8148.936064290121,
+    "charge_with_emergency_intervals": 0
+  },
+  "main_complete": false,
+  "computational_limited_days": 34,
+  "supplemental_days": 2,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.01,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success"
+  },
+  "original_budget_all_passed": false,
+  "failed_date": null,
+  "failure_reason": null,
+  "main_full_year_success_rate": null,
+  "observed_candidate_success_rate": 0.7333333333333333,
+  "observed_attempted_dates": 73,
+  "full_year_all_candidates_reliable_day_rate": null,
+  "selected_policy_physics_valid": true,
+  "mandatory_experiments_complete": false,
+  "completed_experiments": 2,
+  "required_experiments": 27,
+  "evidence": {
+    "prepare": {
+      "accepted": true,
+      "reason": "原始附件逐值回读及完整准备库摘要核验通过",
+      "artifacts": [
+        "raw/prepared_manifest.json",
+        "inputs/processed/quality_checks.csv"
+      ]
+    },
+    "forecast": {
+      "accepted": true,
+      "reason": "351个影子origin完成；1月冻参；全年误差仅为事后诊断",
+      "artifacts": [
+        "raw/shadows/frozen_lightgbm.json",
+        "processed/experiments/forecast_metrics.csv"
+      ]
+    },
+    "warm": {
+      "accepted": true,
+      "reason": "1月8—31日因果预热已计算；该SOC不是可识别的真实1月末状态",
+      "artifacts": [
+        "processed/warm_start.json"
+      ]
+    },
+    "main": {
+      "accepted": false,
+      "reason": "主回放已完成73/334日；计算受限34日",
+      "artifacts": [
+        "processed/main/run_status.json",
+        "processed/main/dispatch.csv"
+      ]
+    },
+    "compute": {
+      "accepted": false,
+      "reason": "逐候选求解证书已保存；完整全年稳定可靠尚需验收，计算受限34日",
+      "artifacts": [
+        "processed/solver_records.csv",
+        "processed/solver_resource_summary.csv"
+      ]
+    },
+    "export": {
+      "accepted": false,
+      "reason": "仅完整334日通过物理/模板回读后导出result2；合成模板测试不代表正式结果",
+      "artifacts": [
+        "processed/main/template_audit.json"
+      ]
+    },
+    "diagnostic": {
+      "accepted": true,
+      "reason": "新增图必须与实际目视版本的PNG摘要匹配；重绘后的不同图不能沿用旧验收",
+      "artifacts": [
+        "processed/pv_local_residual_correlations.csv",
+        "processed/seasonal_difference_variance.csv",
+        "processed/figures/manifest.json"
+      ]
+    },
+    "scenarios": {
+      "accepted": false,
+      "reason": "联合origin×horizon历史块及物理投影已测试；全年场景审计随主回放完成",
+      "artifacts": [
+        "processed/main/daily_audit",
+        "processed/main/calibration.csv"
+      ]
+    },
+    "calibration": {
+      "accepted": false,
+      "reason": "覆盖率按horizon和月份汇总；低覆盖必须如实报告，不能视作预设覆盖保证",
+      "artifacts": [
+        "processed/scenario_calibration_summary.csv"
+      ]
+    },
+    "quantile": {
+      "accepted": true,
+      "reason": "离散80%分位全局最优手算/退化MILP测试及334日无储能实算完成",
+      "artifacts": [
+        "processed/experiments/no_storage_quantile.csv"
+      ]
+    },
+    "optional_cvar": {
+      "accepted": false,
+      "reason": "可选扩展有求解入口，未执行；不进入风险中性主结果",
+      "artifacts": []
+    },
+    "structure": {
+      "accepted": true,
+      "reason": "真实实验已完成",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "predictor_economics": {
+      "accepted": false,
+      "reason": "待完成：predictor_week_mean7、predictor_week_dhr、predictor_lgb_mean7、predictor_lgb_dhr",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "scenario_sensitivity": {
+      "accepted": false,
+      "reason": "待完成：window_28、window_56、window_84、window_expanding、scenario_10、scenario_20、scenario_40",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "minimums": {
+      "accepted": false,
+      "reason": "待完成：minimum_14、minimum_21、minimum_28",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "initials": {
+      "accepted": false,
+      "reason": "待完成：initial_1200、initial_6000、initial_8482.77、initial_10800",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "horizons": {
+      "accepted": false,
+      "reason": "待完成：horizon_1、horizon_2、horizon_3",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "ablations": {
+      "accepted": false,
+      "reason": "待完成：deterministic、rigid",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "richer": {
+      "accepted": false,
+      "reason": "待完成：richer_soc",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "oracles": {
+      "accepted": false,
+      "reason": "待完成：oracles",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "experiments": {
+      "accepted": false,
+      "reason": "待完成：deterministic、rigid、predictor_week_mean7、predictor_week_dhr、predictor_lgb_mean7、predictor_lgb_dhr、window_28、window_56、window_84、window_expanding、horizon_1、horizon_2、horizon_3、scenario_10、scenario_20、scenario_40、minimum_14、minimum_21、minimum_28、initial_1200、initial_6000、initial_8482.77、initial_10800、oracles、richer_soc",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "warm_and_initials": {
+      "accepted": false,
+      "reason": "待完成：initial_1200、initial_6000、initial_8482.77、initial_10800",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "forecast_and_main": {
+      "accepted": false,
+      "reason": "主回放已完成73/334日；计算受限34日",
+      "artifacts": [
+        "processed/main/run_status.json",
+        "processed/main/dispatch.csv"
+      ]
+    },
+    "tests": {
+      "accepted": true,
+      "reason": "当前源码测试摘要通过",
+      "artifacts": [
+        "raw/test_manifest.json",
+        "raw/final_tests.txt"
+      ]
+    },
+    "all": {
+      "accepted": false,
+      "reason": "所有必需条件同时验收；当前不得用局部结果宣称整体通过",
+      "artifacts": [
+        "processed/acceptance.json"
+      ]
+    }
+  },
+  "all_accepted": false
+}

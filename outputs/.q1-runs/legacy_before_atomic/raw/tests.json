@@ -1,0 +1,7 @@
+{
+  "tests_run": 8,
+  "passed": true,
+  "failures": 0,
+  "errors": 0,
+  "log": "test_all_actual_scenarios (__main__.Q1Acceptance.test_all_actual_scenarios) ... ok\ntest_analytical_arbitrage_case (__main__.Q1Acceptance.test_analytical_arbitrage_case) ... ok\ntest_corrupted_inputs_rejected (__main__.Q1Acceptance.test_corrupted_inputs_rejected) ... ok\ntest_corrupted_schedules_rejected (__main__.Q1Acceptance.test_corrupted_schedules_rejected) ... ok\ntest_csv_roundtrip_and_tamper_rejection (__main__.Q1Acceptance.test_csv_roundtrip_and_tamper_rejection) ... ok\ntest_curtailment_is_available_when_absorption_is_limited (__main__.Q1Acceptance.test_curtailment_is_available_when_absorption_is_limited) ... ok\ntest_export_csv_matches_all_variables_and_inputs (__main__.Q1Acceptance.test_export_csv_matches_all_variables_and_inputs) ... ok\ntest_time_and_unit_examples (__main__.Q1Acceptance.test_time_and_unit_examples) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.127s\n\nOK\n"
+}

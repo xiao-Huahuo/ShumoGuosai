@@ -1,0 +1,53 @@
+[
+  {
+    "K": 1,
+    "lower_bound": 19895.926766993434,
+    "incumbent_cost": 20057.943168096444,
+    "certified_gap": 0.008143194483998053,
+    "seconds": 1.176624792000439,
+    "variables": 12384,
+    "constraints": 4896,
+    "refinement": {
+      "method": "piecewise_gradient_incumbent_only",
+      "iterations": 100,
+      "termination": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+      "candidate_cost": 20057.943168096434,
+      "global_optimality_claim": false
+    },
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  {
+    "K": 2,
+    "lower_bound": 77011.38664954012,
+    "incumbent_cost": 77510.25295822613,
+    "certified_gap": 0.006477825298176174,
+    "seconds": 2.2928957080002874,
+    "variables": 23328,
+    "constraints": 9216,
+    "refinement": {
+      "method": "piecewise_gradient_incumbent_only",
+      "iterations": 100,
+      "termination": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+      "candidate_cost": 77510.25295822616,
+      "global_optimality_claim": false
+    },
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  {
+    "K": 3,
+    "lower_bound": 133612.95326435234,
+    "incumbent_cost": 134307.29589470365,
+    "certified_gap": 0.0051966715306229275,
+    "seconds": 3.396189166000113,
+    "variables": 32832,
+    "constraints": 12960,
+    "refinement": {
+      "method": "piecewise_gradient_incumbent_only",
+      "iterations": 100,
+      "termination": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+      "candidate_cost": 134307.29589470368,
+      "global_optimality_claim": false
+    },
+    "role": "lower_bound_only_never_free_recourse_execution"
+  }
+]

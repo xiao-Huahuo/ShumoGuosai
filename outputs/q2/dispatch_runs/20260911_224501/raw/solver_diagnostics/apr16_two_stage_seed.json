@@ -1,0 +1,19 @@
+{
+  "first": {
+    "rounds": 11,
+    "seconds": 5.244245041998511,
+    "initial_cost": 36275.85296762959,
+    "candidate_cost": 36262.88872421386,
+    "role": "local_region_feasible_upper_bound_only"
+  },
+  "second": {
+    "rounds": 5,
+    "seconds": 2.117907624997315,
+    "initial_cost": 36262.88872421386,
+    "candidate_cost": 36262.5394169701,
+    "role": "local_region_feasible_upper_bound_only"
+  },
+  "total_seconds": 7.362152666995826,
+  "candidate_cost": 36262.5394169701,
+  "scope": "initial_feasible_upper_only; all_MIP_branches_remain_free"
+}

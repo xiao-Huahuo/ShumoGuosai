@@ -1,0 +1,109 @@
+{
+  "records": [
+    {
+      "seed": "restart",
+      "cost": 36702.15778750147,
+      "gap_to_saved_scip_bound": 0.01121330698811301,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": 147,
+        "evaluations": 207,
+        "seconds": 1.1041627080012404,
+        "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "candidate_cost": 36702.15778750147,
+        "global_optimality_claim": false
+      }
+    },
+    {
+      "seed": "full_charge",
+      "cost": 36702.15778750147,
+      "gap_to_saved_scip_bound": 0.01121330698811301,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": 147,
+        "evaluations": 207,
+        "seconds": 1.1875249999975495,
+        "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "candidate_cost": 36702.15778750147,
+        "global_optimality_claim": false
+      }
+    },
+    {
+      "seed": "all_caps",
+      "cost": 36732.43381570372,
+      "gap_to_saved_scip_bound": 0.012047468368436225,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": 159,
+        "evaluations": 247,
+        "seconds": 1.415758791998087,
+        "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "candidate_cost": 36732.433815703735,
+        "global_optimality_claim": false
+      }
+    },
+    {
+      "seed": "quantile_0.5",
+      "cost": 36776.5482611189,
+      "gap_to_saved_scip_bound": 0.013262904106370463,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": 140,
+        "evaluations": 213,
+        "seconds": 1.1268022089971055,
+        "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "candidate_cost": 36776.5482611189,
+        "global_optimality_claim": false
+      }
+    },
+    {
+      "seed": "quantile_0.8",
+      "cost": 36773.73496015714,
+      "gap_to_saved_scip_bound": 0.01318539238660824,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": 217,
+        "evaluations": 335,
+        "seconds": 1.7839138339986675,
+        "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "candidate_cost": 36773.734960157126,
+        "global_optimality_claim": false
+      }
+    },
+    {
+      "seed": "quantile_0.9",
+      "cost": 36742.6114561534,
+      "gap_to_saved_scip_bound": 0.01232788145793472,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": 871,
+        "evaluations": 1339,
+        "seconds": 7.146583166999335,
+        "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "candidate_cost": 36742.61145615338,
+        "global_optimality_claim": false
+      }
+    }
+  ],
+  "base": {
+    "lower_bound": 36036.62248603538,
+    "incumbent_cost": 36702.81827634054,
+    "certified_gap": 0.018486632329745043,
+    "seconds": 2.8982786249980563,
+    "variables": 20304,
+    "constraints": 8064,
+    "refinement": {
+      "method": "piecewise_gradient_incumbent_only",
+      "iterations": 326,
+      "evaluations": 456,
+      "seconds": 2.455018292002933,
+      "termination": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "candidate_cost": 36702.818276340535,
+      "global_optimality_claim": false
+    },
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  "native_dual_bound": 36295.16891625805,
+  "initial_soc": 1409.291748014721,
+  "role": "diagnostic_not_executed"
+}

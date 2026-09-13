@@ -1,0 +1,28 @@
+test_actual_price_shape_alignment_and_reported_statistics (src.q4.test_q4.Q4Tests.test_actual_price_shape_alignment_and_reported_statistics) ... ok
+test_adjustment_settlement (src.q4.test_q4.Q4Tests.test_adjustment_settlement) ... ok
+test_dual_and_watchdog_agree (src.q4.test_q4.Q4Tests.test_dual_and_watchdog_agree) ... ok
+test_every_nonempty_source_line_is_mapped (src.q4.test_q4.Q4Tests.test_every_nonempty_source_line_is_mapped) ... ok
+test_experiment_matrix_covers_required_ablations (src.q4.test_q4.Q4Tests.test_experiment_matrix_covers_required_ablations) ... ok
+test_joint_history_and_tail_reduction (src.q4.test_q4.Q4Tests.test_joint_history_and_tail_reduction) ... ok
+test_physical_call_separation (src.q4.test_q4.Q4Tests.test_physical_call_separation) ... ok
+test_prefix_uses_realized_slots_only (src.q4.test_q4.Q4Tests.test_prefix_uses_realized_slots_only) ... ok
+test_price_forecast_metrics_and_causality (src.q4.test_q4.Q4Tests.test_price_forecast_metrics_and_causality) ... ok
+test_workbook_roundtrip_and_partial_guard (src.q4.test_q4.Q4Tests.test_workbook_roundtrip_and_partial_guard) ... ERROR
+
+======================================================================
+ERROR: test_workbook_roundtrip_and_partial_guard (src.q4.test_q4.Q4Tests.test_workbook_roundtrip_and_partial_guard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/test_q4.py", line 105, in test_workbook_roundtrip_and_partial_guard
+    audit = export_workbook(frame, output, "4-2", config, smoke=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/export.py", line 75, in export_workbook
+    validate_frame(frame, mode, config, full=not smoke)
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q4/rolling.py", line 194, in validate_frame
+    raise ValueError("回放含非有限值")
+ValueError: 回放含非有限值
+
+----------------------------------------------------------------------
+Ran 10 tests in 19.255s
+
+FAILED (errors=1)

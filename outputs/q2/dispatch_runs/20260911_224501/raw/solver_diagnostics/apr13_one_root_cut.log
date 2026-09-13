@@ -1,0 +1,27 @@
+feasible solution found by trysol heuristic after 1.0 seconds, objective value 3.669463e+04
+presolving:
+presolving (1 rounds: 1 fast, 1 medium, 1 exhaustive):
+ 7348 deleted vars, 12922 deleted constraints, 0 added constraints, 6246 tightened bounds, 0 added holes, 0 changed sides, 28 changed coefficients
+ 33873 implications, 7191 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 73724 variables (24396 bin, 0 int, 49328 cont) and 99974 constraints
+  12636 constraints of type <varbound>
+   7191 constraints of type <setppc>
+  52592 constraints of type <linear>
+  27555 constraints of type <indicator>
+Presolving Time: 0.98
+transformed 2/2 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+ 57.7s|     1 |     0 | 65798 |     - |   501M |   0 |  73k|  99k|  88k|   0 |  0 |   2 |   0 | 3.629288e+04 | 3.669463e+04 |   1.11%| unknown
+ 59.4s|     1 |     0 | 66886 |     - |   541M |   0 |  73k|  99k|  88k| 212 |  1 |   2 |   0 | 3.629288e+04 | 3.669463e+04 |   1.11%| unknown
+  102s|     1 |     0 | 89124 |     - |   560M |   0 |  73k|  99k|  88k| 212 |  1 |   3 |  23 | 3.629338e+04 | 3.669463e+04 |   1.11%| unknown
+  116s|     1 |     0 | 89444 |     - |   576M |   0 |  73k|  99k|  88k| 212 |  1 |   7 |  36 | 3.629338e+04 | 3.669463e+04 |   1.11%| unknown
+  131s|     1 |     0 | 89465 |     - |   576M |   0 |  73k|  99k|  88k| 212 |  1 |   7 |  51 | 3.629384e+04 | 3.669463e+04 |   1.10%| unknown
+  140s|     1 |     0 | 89465 |     - |   577M |   0 |  73k|  99k|  88k| 212 |  1 |   7 |  66 | 3.629384e+04 | 3.669463e+04 |   1.10%| unknown
+
+SCIP Status        : solving was interrupted [time limit reached]
+Solving Time (sec) : 151.84
+Solving Nodes      : 1
+Primal Bound       : +3.66946272229615e+04 (2 solutions)
+Dual Bound         : +3.62938438138302e+04
+Gap                : 1.10 %

@@ -1,0 +1,19 @@
+{
+  "status": "Optimal",
+  "solver": "HiGHS_physical_bound_linear_MILP",
+  "solver_version": "1.8.0",
+  "time_limit": 600,
+  "requested_gap": 0.01,
+  "solve_seconds": 190.44756908400086,
+  "reliable": true,
+  "continuous_variables": 20592,
+  "binary_variables": 28224,
+  "constraints": 72576,
+  "nodes": 1,
+  "dual_bound": 36345.512337213964,
+  "seed_verified": true,
+  "objective": 36702.81827634054,
+  "optimizer_objective": 36702.81827634054,
+  "mip_gap": 0.009830813108685617,
+  "mapping_error_kwh": 0.0
+}

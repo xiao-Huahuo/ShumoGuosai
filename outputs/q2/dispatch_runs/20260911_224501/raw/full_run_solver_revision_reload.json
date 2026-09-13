@@ -1,0 +1,13 @@
+{
+  "old_supervisor": 7949,
+  "launcher": 11571,
+  "preserved_workers": [
+    7422,
+    10500
+  ],
+  "requeued": [
+    "horizon_1",
+    "horizon_2"
+  ],
+  "at": "2026-09-11T17:57:41.076639+00:00"
+}

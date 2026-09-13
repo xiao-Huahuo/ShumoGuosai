@@ -1,0 +1,14 @@
+{
+  "sources_unchanged": true,
+  "all_17_cases_solved": true,
+  "lp_matches_milp": true,
+  "independent_balance": true,
+  "independent_state": true,
+  "original_power_and_state_limits": true,
+  "initial_and_terminal": true,
+  "independent_cost": true,
+  "fault_injection_detected": true,
+  "dual_capacity_finite_difference": true,
+  "utf8_no_bom_no_replacement": true,
+  "13_findings_present": true
+}

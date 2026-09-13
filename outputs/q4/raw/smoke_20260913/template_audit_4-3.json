@@ -1,0 +1,7 @@
+{
+  "mode": "4-3",
+  "smoke_only": true,
+  "days": 1,
+  "roundtrip_all_sheets": true,
+  "adjusted_quantity": "final_effective_absolute"
+}

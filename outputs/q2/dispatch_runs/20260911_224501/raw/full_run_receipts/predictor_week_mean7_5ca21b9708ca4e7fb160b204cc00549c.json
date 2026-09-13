@@ -1,0 +1,13 @@
+{
+  "job": "predictor_week_mean7",
+  "attempt": "5ca21b9708ca4e7fb160b204cc00549c",
+  "started": "2026-09-12T05:16:29.839567+00:00",
+  "pid": 56329,
+  "precision_execution": {
+    "solver_gap": 0.03,
+    "execution_revision": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec"
+  },
+  "complete": true,
+  "finished": "2026-09-12T06:14:51.277767+00:00",
+  "exit_code": 0
+}

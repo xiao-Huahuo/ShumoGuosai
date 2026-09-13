@@ -1,0 +1,31 @@
+{
+  "load": {
+    "mae_kw": 142.47659459726626,
+    "rmse_kw": 197.61172113918016,
+    "n": 48096
+  },
+  "pv": {
+    "mae_kw": 158.4636194006929,
+    "rmse_kw": 306.35950670350275,
+    "n": 48096
+  },
+  "net_load": {
+    "mae_kw": 248.5530105140439,
+    "rmse_kw": 363.5413065591671,
+    "n": 48096
+  },
+  "coverage": {
+    "PICP80": {
+      "value": 0.7886102794411177,
+      "covered_intervals": 37929,
+      "n": 48096,
+      "scope": "executed_first_day_scenarios"
+    },
+    "PICP90": {
+      "value": 0.8582626413838988,
+      "covered_intervals": 41279,
+      "n": 48096,
+      "scope": "executed_first_day_scenarios"
+    }
+  }
+}

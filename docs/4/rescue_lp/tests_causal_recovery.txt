@@ -1,0 +1,7 @@
+test_scenarios_invariant_to_all_unavailable_future_data (src.q4.test_q4.Q4Tests.test_scenarios_invariant_to_all_unavailable_future_data) ... ok
+test_resume_receipts_without_reoptimization_and_tamper_rejection (src.q4.test_q4.Q4Tests.test_resume_receipts_without_reoptimization_and_tamper_rejection) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 4.096s
+
+OK

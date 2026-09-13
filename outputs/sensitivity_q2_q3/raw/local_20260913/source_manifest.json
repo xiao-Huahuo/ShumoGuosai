@@ -1,0 +1,17 @@
+{
+  "original_plan_sha256": "866563d9481f002ba4feba69b1b7e113027d92f3f8d94b4df9ccac3838a3696f",
+  "approval": "用户明确确认Q3保持历史池不变，场景数改10/20/28",
+  "core_jobs": 32,
+  "baseline_not_recomputed": true,
+  "q2_frozen_S": 26,
+  "sources": {
+    "src/sensitivity/run.py": "2802937e431edbc0ea1212c64d507a821ffa153bf0e7f248ae88e432bf5fc423",
+    "src/sensitivity/test_sensitivity.py": "0709ac484ff166f6685d0ae69978329042aec1a25aead70318ebaccc4bb09a24",
+    "src/sensitivity/status_server.py": "2f50de481accf2c724d335482b16b2da04998ee873827c7a4cd6b5a9e62122e4",
+    "src/sensitivity/common.py": "48cd6b00a51d62de68a62dd86217e7e7a330e4d7e1e3b91320135c2015cf966f",
+    "src/sensitivity/q3.py": "39bbd94dd39f0cec641d8773153cea923a9d89a3a019263e7185968c128e0758",
+    "src/sensitivity/report.py": "6ebd70a8a4a4c169065d73fa20e51b4eb06ec0a90d5c073597136ee166c6f25a",
+    "src/sensitivity/prepare.py": "b93bdb3c78cb45b01f970c4a8e022c94784b9e4288803ba5f3731fdd788b81fc",
+    "src/sensitivity/q2.py": "640ae44c5d7219d45cf1a4a3cfbe6974f55db73bbe2b861d705c72c4252346df"
+  }
+}

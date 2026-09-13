@@ -1,0 +1,7 @@
+{
+  "complete": false,
+  "stage": "first_day_audit_serialization",
+  "error": "Object of type int64 is not JSON serializable",
+  "fixed_in": "rolling.make_day converts common_scored_origins to Python int",
+  "published_result": false
+}

@@ -1,8 +1,12 @@
 # README
 
-本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断；第三问入口为 `python -m src.q3.run`，[七小时比赛生产救援](docs/3/production_rescue/report.md)已完成：全年主轨迹实际用3小时18分39秒，正式结果334日、48,096行，[`result3.xlsx`](outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx)四表回读及全年物理验收通过，其中1,336个正式节点有847个取得3%证书，489个为经原物理与完整矩阵验证的限时可行解。第四问入口为 `python -m src.q4.run`，[第四问实现与全量状态](docs/4/implementation_report.md)；其复用第三问的 HiGHS 1.15.1 四线程等价物理矩阵，并以最坏分布约束生成求解有限支持 Wasserstein DRO，4-2已完成、4-3年度轨迹仍在计算。另一台电脑的outputs已经按“本机优先、只补外部独有文件”合并并通过[跨电脑合并验收](docs/output_merge_20260913.md)。常规结果表格使用CSV，比赛XLSX模板仅在完整真实回放验收后导出。
+本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断；第三问入口为 `python -m src.q3.run`，[七小时比赛生产救援](docs/3/production_rescue/report.md)已完成：全年主轨迹实际用3小时18分39秒，正式结果334日、48,096行，[`result3.xlsx`](outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx)四表回读及全年物理验收通过，其中1,336个正式节点有847个取得3%证书，489个为经原物理与完整矩阵验证的限时可行解。第四问入口为 `python -m src.q4.run`，[Q4连续LP紧急修复报告](docs/4/rescue_lp/report.md)：已停用旧二进制反馈MILP及limited/fallback正式输出，改用节点共同储能计划与Wasserstein直接对偶LP；Q42 v2已完成334日、全部Optimal并通过逐格终验（费用15747788.86元）；Q43 v3也已完成334日、1336节点全部Optimal（费用15427803.53元）；两工作簿通过逐格终验，正式结果及局限见修复报告。旧2046万元结果保留为失败基线，不用于提交。另一台电脑的outputs已经按“本机优先、只补外部独有文件”合并并通过[跨电脑合并验收](docs/output_merge_20260913.md)。常规结果表格使用CSV，比赛XLSX模板仅在完整真实回放验收后导出。
 
 当前第二问论文正式结果位于 `outputs/q2/dispatch_runs/20260912_tail_reserve_final/`：尾部场景分层、动态 SOC 安全裕度、2 月 1 日初始 SOC 6000 kWh、3% gap，334/334 日已完成并生成 `result2.xlsx`；物理/数值与界面验收通过。旧运行只作为 baseline，不代表当前论文结果。
+
+问题二与问题三的[代表日局部敏感性实验](docs/sensitivity_q2_q3/results.md)已完成：32项核心加8项可选Q3尾部实验，18项认证、22项限时可行；没有重新运行全年或重求解基准。Q3场景数经确认使用10/20/28，详细限制见报告。
+
+问题四的[代表日敏感性实验](docs/sensitivity_q4/results.md)已完成：20个新增日级实验、32节点全部Optimal，6个基准日复用。Q4-2半径费用变化−2.17%～+1.53%，联合权重−1.49%～+1.19%；Q4-3为−1.81%～+4.02%，高风险日调整量有明显参数响应。结论仅限代表日局部，W/S按停止规则未做。
 
 ### 项目目录树（持续维护）
 
@@ -14,8 +18,10 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 ├── AGENTS.md  # 代理执行规则、需求逐项验收及UTF-8要求
 ├── CLAUDE.md  # 项目协作与代码修改规则
 ├── 数学建模开发规范.md  # 建模、代码目录、结果审查、绘图及变更记录规范
-├── .gitignore  # 忽略本地技能、IDE配置、技能来源及根目录outputs计算输出
+├── .gitignore  # 忽略本地技能、IDE、outputs、虚拟环境、Python缓存与系统元数据
 ├── skills-lock.json  # 本地技能安装来源与版本锁定信息
+├── .venv/  # 主运行环境；保留已安装依赖，字节码缓存可自动重建
+├── .venv_sensitivity/  # 独立敏感性/绘图环境；版本与主环境不同，保留
 ├── docs/  # 题目资料、模型文档、使用说明和变更记录
 │   ├── 1/  # 第一问文档；按最终、交付、中间、清理候选四类管理
 │   │   ├── README.md  # 第一问逐文件分类说明与阅读导航
@@ -94,6 +100,8 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   │   └── E题.pdf  # E题原始题面PDF
 │   │   └── format2026.doc  # 随题提供的2026格式文件
 │   ├── CHANGE_HISTORY.md  # 按现状、实施方案、完成状态记录每次任务
+│   ├── storage_cleanup_20260913.md  # 体积归因、清理逐项验收、恢复命令与保留边界
+│   ├── storage_cleanup_20260913.json  # 清理前后字节数、归档SHA与实际验证收据
 │   ├── C题.md  # C题题面转写、各问要求与储能参数附录
 │   ├── 数学建模技能清单.md  # 本地技能分类、用途与选用参考
 │   ├── 2/  # 第二问最终修订方案、新实现记录与旧诊断阶段追溯
@@ -197,18 +205,61 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   │   ├── tests.txt  # 23原测试+9并行测试的完整日志
 │   │   │   └── ui_smoke.json  # 实际并行报告AX/截图检查
 │   │   └── file_inventory.csv  # 第三问逐文件清单与用途
+│   ├── sensitivity_q4/  # 第四问敏感性原方案、results.md、逐句验收CSV、verification.json、运行与界面收据
+│   ├── sensitivity_q2_q3/  # 两问代表日局部OFAT方案、执行协议与验收
+│   │   ├── 问题2与问题3敏感性分析实验方案_时间受限版.md  # 用户原文字节归档
+│   │   ├── execution_protocol.md  # 选日规则、S28确认、冻结口径与可选时间门槛
+│   │   ├── results.md  # 聚合结果、真实结论及未认证限制
+│   │   ├── interpretation.md  # 参数、风险与日末库存的论文表述建议
+│   │   ├── source_line_traceability.csv  # 原文280个非空行索引
+│   │   ├── requirements_acceptance.csv  # 27项要求到实现和实际证据
+│   │   ├── tests.txt  # 6项单因素与边界测试
+│   │   ├── independent_verification.txt  # 40项物理/输入/费用/SHA与聚合独立核验
+│   │   ├── final_acceptance.json  # 最终范围、正确性与解释限制
+│   │   └── ui_smoke.json  # 右侧40/40完成态AX与截图验证
 │   ├── 4/  # 第四问严格因果波动电价方案、实现与验收
-│   │   ├── Q4_问题四_严格因果波动电价_完整建模_最终修订版.md  # 用户原方案原样归档
+│   │   ├── Q4_问题四_严格因果波动电价_完整建模_最终修订版.md  # 与连续LP、共同储能计划、W56及Feb1边界同步的修订模型
 │   │   ├── task_plan.md  # 用户原句/模型要求到实现、验证和全量状态
 │   │   ├── notes.md  # 显式假设、计算取舍及实算偏差
-│   │   ├── optimization_equivalence.md  # 物理量拆分与Wasserstein约束生成等价性
+│   │   ├── optimization_equivalence.md  # 历史MILP等价证明，不适用于当前LP策略类
 │   │   ├── implementation_report.md  # 代码、计时、全量状态与未完成项
-│   │   ├── source_line_acceptance.csv  # 1377个非空方案源行到实现和测试映射
-│   │   ├── traceability_audit.json  # 逐源行映射完整性
+│   │   ├── source_line_acceptance.csv  # 当前1114个非空模型行到实现和公式测试映射
+│   │   ├── traceability_audit.json  # 源行索引及15个实际公式/失效路径断言
 │   │   ├── tests.txt  # 10项自动测试摘要
-│   │   └── ui_smoke.json  # 两套真实模板回填和逐值回读记录
+│   │   ├── ui_smoke.json  # 历史模板冒烟记录
+│   │   ├── formula_assertions.txt  # 当前15个核心数学与拒绝路径实际测试
+│   │   └── rescue_lp/  # 2026-09-13紧急修复、逐项验收、冻结源码和新计算报告
+│   │       ├── report.md  # 数学变更、测试、性能、完整全年结果与经济局限
+│   │       ├── requirements_acceptance.csv  # 49项修复/计算/发布及追加请求到代码与证据
+│   │       ├── Q4_Deep_Code_Review_and_Codex_Emergency_Fix.md  # 审查材料原件
+│   │       ├── 新备忘录.pdf  # 用户审查表原件，3页已核读
+│   │       ├── legacy_source/  # 修改前Q4源码与模型原件
+│   │       ├── legacy_hashes.json  # 1180个旧输出文件只读摘要
+│   │       ├── frozen_source_v2/  # Q42正式v2的20份依赖源码、模型及Python包版本
+│   │       ├── frozen_source_v3/  # Q43对偶审计修订后的完整源码签名快照
+│   │       ├── full_acceptance_4-2.json  # Q42全年334日/668SHA/Excel逐格终验
+│   │       ├── full_acceptance_4-3.json  # Q43全年1336节点/668SHA/四sheet逐格终验
+│   │       ├── final_acceptance.json  # 49项要求、旧文件不变、ZIP不变与最终验收
+│   │       ├── final_results.csv  # 两模式费用、紧急量、SOC与储能利用汇总
+│   │       ├── q42_elapsed.json  # 正式Q42实际15分34秒
+│   │       ├── q43_elapsed.json  # 正式Q43实际41分51秒
+│   │       ├── q42_baseline_tail_comparison.json  # 完整Q2与Q42真实费用分布后处理
+│   │       ├── dual_roundoff_diagnosis.txt  # Apr18/18无穷界乘子舍入误拒原始证据
+│   │       ├── dual_roundoff_reproducer.npz  # 原失败矩阵对偶向量及上下界回归样本
+│   │       ├── apr18_verified.json  # 相同矩阵Apr18四节点重新验证全Optimal
+│   │       ├── tests_all_v3.txt  # 26通过、1历史签名隔离跳过
+│   │       ├── test_recovery_v3.txt  # 当前Q43v3断点恢复与篡改拒绝通过
+│   │       ├── native_ui_smoke.json  # WPS本机两工作簿七个sheet实际AX/截图验收
+│   │       ├── visual_qa_formal/  # 正式工作簿渲染目视验收
+│   │       ├── baseline_reconciliation.json  # 完整Q2储备参数与审查漏参基准的独立重放差异
+│   │       ├── tests_all_v2.txt  # 23项测试通过
+│   │       ├── tests_causal_recovery.txt  # 未来数据不变性和断点/篡改测试2项通过
+│   │       ├── launches_v2.json  # v2两任务PID、命令、模型签名与环境
+│   │       ├── launch_q43_v3.json  # Q43当前PID、命令与签名
+│   │       └── visual_qa/  # 短回放7张工作表渲染图和sheet清单
 │   ├── output_merge_20260913.md  # 跨电脑outputs合并、编码、Q2 baseline与Q3最终结果验收
 │   └── plots/  # 论文图与集中管理的逐项验收记录
+│       ├── q3_paper_final/  # 第三问图方案、用户补充原文、逐图分析、数值/界面/ZIP验收
 │       ├── acceptance.md  # 18项需求、P0—P3、假设、数值与视觉验收
 │       ├── migration_verification.json  # 原15图PNG字节一致、128个原文件不变和49项测试结果
 │       ├── q1_tests.txt  # 迁移后Q1全部25项测试通过的完整日志
@@ -236,6 +287,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │       ├── q2_load_selection.csv  # 逐日继承Q2的负荷预测器
 │   │       └── source_manifest.json  # 原始输入/影子预测/每日决策的SHA
 │   ├── q4/  # 第四问附件4与严格因果价格预测缓存
+│   │   ├── rescue_processed/  # 当前LP专用预测缓存与完整Q2/Q3/价格来源摘要
 │   │   └── processed/
 │   │       ├── actual_prices.csv  # 附件4的365×144真实波动电价
 │   │       ├── price_forecasts.csv  # 每日0:00产生的严格因果未来48h价格中心
@@ -250,6 +302,14 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │           └── manifest.json  # 附件来源与SHA-256
 ├── outputs/  # 本机原始结果和整理后的交付结果；整体不纳入Git，跨设备另行同步
 │   ├── processed/  # 面向阅读、论文及交付的整理结果
+│   │   ├── sensitivity_q4/  # 已完成报告页、逐日结果、聚合表、32节点证书和权重重建表
+│   │   ├── sensitivity_q2_q3/  # 右侧进度页面与报告/CSV下载链接
+│   │   ├── deliverables/  # 用户请求的题目分文件夹交付包
+│   │   │   ├── 问题三科研图_蓝色渐变完整版_20260913/  # 3核心+4备选PNG/SVG、方案/CSV/图注/源码/README
+│   │   │   ├── 问题三科研图_蓝色渐变完整版_20260913.zip  # 第三问图组独立ZIP；FIV/OUV图按用户要求取消
+│   │   │   ├── 数学建模_全套结果_20260913_140811.zip  # 五问与实验全套结果，README与逐文件说明，7297成员校验通过
+│   │   │   ├── 数学建模_问题2_问题3_问题4-2_结果包_20260913.zip  # 三题合并ZIP，逐成员CRC和SHA验收通过
+│   │   │   └── 数学建模_问题2_问题3_问题4-2_结果包_20260913_打包验收.json  # 包尺寸、成员数与SHA
 │   │   ├── q3_monitor/  # 第三问实时进度服务静态资源
 │   │   │   ├── index.html  # 2秒刷新、PID存活、预热/正式与检查点
 │   │   │   └── server.log  # 看板服务错误记录
@@ -369,6 +429,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   │   ├── source_traceability.csv  # 254非空源行、265句到精确函数/测试行和产物的映射
 │   │   │   └── timeseries.csv  # 便于报告下载的清洗后长表副本，52560行
 │   │   └── figures/  # 集中图集；新论文图与项目原图导航
+│   │       ├── q3_paper_final_20260913/  # 第三问所有设计图、core核心图、data/、manifest和独立数值验收
 │   │       ├── index.html  # 全项目23组图预览与脚本入口
 │   │       └── q1/  # 第一问8张新论文图、12份数据CSV及图目CSV
 │   │           ├── 01_data_features.png  # 负荷、光伏与电价的日内变化特征；可选：背景说明；300dpi
@@ -514,15 +575,39 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │           ├── report.html  # 检验状态及只读审计
 │   │           ├── forecast/  # 已计算的误差CSV、PNG/SVG和相关性
 │   │           └── prepared/  # 检验专属预处理副本，避免写主任务输入
+│   ├── q4/raw/sensitivity_20260913/  # 预选日、输入与场景冻结、20项真实回放/audit/收据、完成状态
+│   ├── sensitivity_q2_q3/raw/local_20260913/  # 本次局部实验完整可复现结果
+│   │   ├── representatives.json  # 8代表日及原条件池容量
+│   │   ├── inputs/  # 各日冻结预测/历史池/SOC/lambda及基准回放
+│   │   ├── jobs/  # 40案例的输入、策略、真实轨迹、节点审计与SHA收据
+│   │   ├── runtime/  # 实际实验与后处理代码快照
+│   │   ├── daily_results.csv  # 40扰动+20复用基准条目
+│   │   ├── aggregate_results.csv  # 15个参数水平的四日中位数/最小/最大
+│   │   ├── solver_quality.csv  # 每节点上下界、相对/绝对gap与接受状态
+│   │   ├── report.md  # 局部结果及论文表述限制
+│   │   ├── independent_acceptance.json  # 完整独立数值验收
+│   │   └── status.json  # 右侧实时进度与完成态
 │   ├── q4/  # 第四问真实冒烟、诊断及两条年度滚动轨迹
 │   │   ├── processed/diagnostics/  # 附件统计、OOS依赖、消融和窗口标定
 │   │   └── raw/
 │   │       ├── smoke_20260913/  # 4-2/4-3真实日CSV、指标和模板回读
-│   │       ├── full_q42_20260913/  # 48h日前DRO逐日收据、审计和正式结果
-│   │       └── full_q43_20260913/  # 四节点DRO逐日收据、审计和正式结果
+│   │       ├── full_q42_20260913/  # 旧MILP失败基线，只读，禁止提交
+│   │       ├── full_q43_20260913/  # 旧MILP部分运行，只读，不再续算
+│   │       ├── rescue_lp_vertical_20260913/  # Q42三天/Q43两天、计时与smoke工作簿
+│   │       ├── rescue_lp_q42_20260913/  # LP v1浮点SOC误拒停止于13日，保留诊断
+│   │       ├── rescue_lp_q43_20260913/  # LP v1浮点SOC误拒停止于6日，保留诊断
+│   │       ├── rescue_lp_q42_20260913_v2/  # Q42正式334日已完成，result4-2.xlsx/门禁/四日paper_tables
+│   │       ├── rescue_lp_q43_20260913_v2/  # Q43因对偶审计舍入误拒停于76完整日，保留诊断
+│   │       └── rescue_lp_q43_20260913_v3/  # Q43正式334日已完成，result4-3.xlsx/门禁/四日paper_tables
 │   ├── q2_current/  # 第二问当前完整运行代原子指针；正式路径下逐文件列出
 │   └── history/  # 已清理运行代的轻量追溯记录和逐文件清理验收
-│       ├── q2_baselines/pre_tail_reserve_20260912/  # 本轮修改前78源码+11977结果的逐哈希完整baseline
+│       ├── q2_baselines/pre_tail_reserve_20260912/  # 旧baseline源码及原清单保留；11977结果无损压缩
+│       │   ├── source/  # 修改前78份源码快照，保留原字节
+│       │   ├── results.tar.gz  # 原results目录完整归档，11977文件逐SHA回读通过
+│       │   ├── baseline_manifest.csv  # 原逐文件清单，不改写历史哈希
+│       │   ├── baseline_summary.json  # 原快照摘要，不改写历史验收
+│       │   └── RESTORE.md  # 历史结果恢复方法与压缩包SHA
+│       ├── cleanup_20260913.csv.gz  # 本次22432文件原路径、动作、大小、SHA及恢复成员
 │       ├── run_records_20260911.tar.gz  # 59份旧运行清单、配置、验收及日志的压缩归档
 │       ├── cleanup_20260911.csv  # 429个清理文件的原路径、处理方式、大小与SHA-256
 │       └── cleanup_20260911.json  # 保留范围、清理前后体积及完整性检查结果
@@ -550,6 +635,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   ├── deliverables/  # 已提交结果的只读阶段导出
 │   │   │   └── export_partial.py  # 94日完整物理核验、Excel逐值回读及ZIP打包
 │   │   ├── benchmarks/  # 隔离性能测量，不改变正式任务配置
+│   │   │   ├── horizon_for_figure.py  # 图5-5用户批准的局部K同机计时对照
 │   │   │   ├── precision_pair.py  # 两真实日各两次的1%/3%完整选策、计时与策略存档
 │   │   │   ├── precision_pair_report.py  # 输入、策略与费用复核、48日长尾核查及HTML对照表
 │   │   │   └── precision_sweep.py  # 同日同算法的1%—5%精度与耗时比较
@@ -632,25 +718,52 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   ├── price.py  # 周季节Elastic Net滚动预测及LightGBM比较
 │   │   ├── data.py  # 附件4、Q2/Q3复用、24h/48h联合OOS残差
 │   │   ├── scenarios.py  # 前缀条件化、ESS、尾部medoids与bootstrap半径
-│   │   ├── physics.py  # 结算/调用量拆分及因果储能真实回放
-│   │   ├── optimization.py  # 直接对偶和最坏分布约束生成MILP
+│   │   ├── physics.py  # DispatchPolicy固定储能计划、结算/实际调用及物理回放
+│   │   ├── optimization.py  # 零整数共同储能LP、Wasserstein直接对偶、Optimal证书与硬超时
 │   │   ├── rolling.py  # 4-2/4-3滚动、SOC连续、文件锁与逐日续算
-│   │   ├── diagnostics.py  # 统计复现、OOS依赖、消融与敏感性配置
+│   │   ├── diagnostics.py  # 完整Q2基准、固定窗口声明、费用/储能/solver正式门禁
 │   │   ├── export.py  # CSV指标及两个比赛工作簿回填/回读
 │   │   ├── run.py  # prepare/diagnostics/smoke/benchmark/q42/q43入口
 │   │   ├── requirements.txt  # 复用第三问固定依赖
-│   │   ├── test_q4.py  # 数学、因果、场景、模板和逐源行10项测试
-│   │   └── traceability.py  # 方案每个非空源行到实现与验收映射
+│   │   ├── test_q4.py  # 原10项及未来信息边界、v2/v3断点恢复与篡改测试
+│   │   ├── test_rescue.py  # 15项LP、origin、tail、结算、边界、对偶舍入与失败日志回归
+│   │   ├── vertical_slice.py  # 正式设置Q42三天/Q43两天连续真实回放
+│   │   ├── rescue/  # 隔离的启动与独立终验辅助代码
+│   │   │   ├── launch_full.py  # 原v2全量启动记录，正式恢复使用run/resume.sh
+│   │   │   ├── launch_q43_v3.py  # Q43v3原始启动与冻结记录
+│   │   │   ├── check_apr18.py  # 原失败矩阵整日重新校验证据
+│   │   │   └── verify_full.py  # 全年节点/物理/SHA/Excel逐格及完成元数据独立验收
+│   │   └── traceability.py  # 逐源行索引及核心公式/失效路径实际执行断言
+│   ├── sensitivity/  # 问题2/3/4代表日局部实验，不修改正式主模型
+│   │   ├── q4_experiment.py  # Q4各正式冻结源码、预先选日、半径与完整权重重建、四节点回放和恢复
+│   │   ├── q4_report.py  # Q4独立验收、逐日/聚合CSV、审慎论文解读与HTML结果页
+│   │   ├── common.py  # 隔离目录、原子JSON、SHA、真实指标与零分母处理
+│   │   ├── prepare.py  # 预注册规则选日与条件池容量检查
+│   │   ├── q2.py  # 固定K3/S26，原模型R倍率与尾部比例局部重求解
+│   │   ├── q3.py  # 固定28条条件池，原节点预算及终端系数扰动
+│   │   ├── run.py  # 双工作进程、32核心与8可选任务、结果收据恢复
+│   │   ├── report.py  # 仅局部中位数/最小/最大、求解质量与真实结论
+│   │   ├── verify.py  # 独立OFAT、SOC/平衡/费用/哈希/聚合终验
+│   │   ├── status_server.py  # 本机8766只读进度API
+│   │   └── test_sensitivity.py  # 6项单因素和统计边界测试
 │   └── plots/  # 全部项目自写绘图代码的唯一维护目录；既有入口保持兼容
 │       ├── README.md  # 科研配色、必要性分类、统一命令和脚本职责说明
 │       ├── catalog.py  # 生成全项目23组图清单与总图集
 │       ├── common.py  # 中文字体、语义配色、费用色阶及300dpi PNG和SVG导出
+│       ├── q2_paper_data.py  # Q2六图同源数据和配对horizon统计
+│       ├── q2_paper_final.py  # Q2六图多强度蓝色科研排版与PNG/SVG输出
+│       ├── q2_paper_verify.py  # 图形元数据与原值/统计/SOC/局部K独立验收
 │       ├── figure_registry.csv  # 23组图的脚本、数据、PNG/SVG位置和必要性
 │       ├── q1_legacy.py  # 第一问原4组报告图的集中实现，外观保持一致
 │       ├── q1_paper.py  # 第一问8张论文图、配套CSV和按必要性排序的图集
 │       ├── q2.py  # 第二问原11张数据诊断图的集中实现
 │       ├── q2_dispatch.py  # 新最终方案预测步长、残差、方差及真实回放图
 │       ├── q3.py  # 第三问预报误差热图及运行级图目清单
+│       ├── q3_paper_data.py  # 第三问共同预测支持、正式执行与客观代表日数据
+│       ├── q3_paper_final.py  # 第三问蓝色科研扩展图
+│       ├── q3_paper_core.py  # 用户清单图6-1/6-2/6-3，宋体和Times、B/P/C机制
+│       ├── q3_paper_verify.py  # 原件哈希、数值、SOC、配对、图形元数据核验
+│       ├── q3_paper_package.py  # 3核心+4备选图与配套说明的ZIP导出和CRC/SHA检查
 │       ├── replot_existing.py  # 从已验收CSV和JSON重绘Q1或Q2原有图
 │       ├── run.py  # 统一命令，分别使用两问固定依赖环境
 │       └── verify.py  # 144/145时序、单位、收益、设备解、图形格式和集中化验收
@@ -706,3 +819,10 @@ uv run --with-requirements src/q2/requirements.txt python src/q2/run.py
 当前状态：尾部分层与动态 SOC reserve 正式回放 334/334 日完成，`result2.xlsx`、summary、物理验证、校准、四日论文表和 solver 统计均已生成。96 项当前源码测试、334 份逐日审计、三图目视与 HTML 链接检查通过。最终任务书取消的 27 项开发型全年实验不再运行或作为论文门槛。
 
 第二问1%/3%小量对比：[HTML表格](outputs/q2/precision_comparison/20260912_122315/processed/report.html) · [对照CSV](outputs/q2/precision_comparison/20260912_122315/processed/comparison.csv) · [验收](docs/2/revision_work/precision_pair_acceptance.md)。2个普通日期各档重复2次，全部24候选合格；新增历史48日长尾核查：7个补算日占68%推进时间，当前样本不足以估计全任务提速。正式仍为2%。
+
+
+问题二最新科研图：[蓝色渐变版图集](outputs/processed/figures/q2_paper_final_20260913/index.html) · [PNG/SVG及数据ZIP](outputs/processed/deliverables/问题二科研图_蓝色渐变版_20260913.zip)。图5-5为已确认的当前模型代表日局部对照，非全年。
+
+第三问科研图已完成：[最终方案](docs/plots/q3_paper_final/第三问科研图方案.md) · [图后分析](docs/plots/q3_paper_final/图后分析与论文插入建议.md) · [3核心+4备选图ZIP](outputs/processed/deliverables/问题三科研图_蓝色渐变完整版_20260913.zip)。用户取消FIV/OUV图6-4；其余核心图逐项完成，334日执行及333共同日预报对照，数值与视觉核验通过。
+
+2026-09-13存储清理：已移除两份经过ZIP逐文件校验的展开副本，将旧Q2 baseline结果无损压缩，并清除可再生缓存。正式结果、原始输入、源码、交付ZIP和两套运行环境保留；恢复方法与验证见[清理报告](docs/storage_cleanup_20260913.md)。

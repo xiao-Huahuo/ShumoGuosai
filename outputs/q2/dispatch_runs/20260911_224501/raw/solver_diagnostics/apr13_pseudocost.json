@@ -1,0 +1,11 @@
+{
+  "status": "timelimit",
+  "seconds": 300.03776,
+  "nodes": 56,
+  "dual_bound": 36292.88135909313,
+  "solutions": 2,
+  "role": "diagnostic_not_executed",
+  "objective": 36692.77580609702,
+  "mapping_error_kwh": 1.4551915228366852e-11,
+  "gap": 0.011018536749595893
+}

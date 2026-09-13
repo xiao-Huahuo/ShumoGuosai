@@ -1,0 +1,14 @@
+check,value,status,formal_days_checked,scope,tolerance
+能量平衡最大残差,,待正式数据,0,committed_prefix_only,1.0000000000000001e-05
+SOC递推最大残差,,待正式数据,0,committed_prefix_only,1.0000000000000001e-05
+SOC越界次数,,待正式数据,0,committed_prefix_only,0
+功率越界次数,,待正式数据,0,committed_prefix_only,0
+同时充放电次数,,待正式数据,0,committed_prefix_only,0
+跨日SOC最大残差,,待正式数据,0,committed_prefix_only,1.0000000000000001e-05
+费用重算最大残差,,待正式数据,0,committed_prefix_only,1.0000000000000001e-05
+场景权重异常次数,,待正式数据,0,committed_prefix_only,0
+未来历史轨迹次数,,待正式数据,0,committed_prefix_only,0
+负荷预测器不一致次数,,待正式数据,0,committed_prefix_only,0
+已执行购电与节点策略最大残差,,待正式数据,0,committed_prefix_only,1.0000000000000001e-05
+来源数据最大残差,,待正式数据,0,committed_prefix_only,1.0000000000000001e-05
+未达求解精度节点数,,待正式数据,0,committed_prefix_only,0

@@ -1,0 +1,8 @@
+{
+  "initial_soc_jan1": 6000.0,
+  "january_charge_kwh": 0.0,
+  "january_discharge_kwh": 0.0,
+  "prediction_history_days": 31,
+  "feb1_baseline_soc": 6000.0,
+  "interpretation": "paper_final_fixed_initialization_january_storage_inactive"
+}

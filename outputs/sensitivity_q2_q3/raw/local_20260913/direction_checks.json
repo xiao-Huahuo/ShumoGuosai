@@ -1,0 +1,354 @@
+[
+  {
+    "question": "q2",
+    "parameter": "beta_R",
+    "date": "2025-06-01",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      114398.94336305208,
+      107657.67091259602,
+      107803.85013233389
+    ],
+    "emergency": [
+      13899.003053964956,
+      12344.945096906928,
+      12436.099198329728
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "beta_R",
+    "date": "2025-06-02",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      86782.63287211806,
+      85389.0327737825,
+      84489.49833688562
+    ],
+    "emergency": [
+      8721.78099723544,
+      8467.009592709148,
+      8324.343213221257
+    ],
+    "emergency_nonincreasing": true,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "beta_R",
+    "date": "2025-09-17",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      42910.01969516369,
+      43522.128190536525,
+      43355.90532644499
+    ],
+    "emergency": [
+      20.285196444634835,
+      13.972450822524706,
+      20.285196444634835
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "beta_R",
+    "date": "2025-09-28",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      46978.73289479944,
+      47374.32157667292,
+      47495.869724531905
+    ],
+    "emergency": [
+      198.85869342886645,
+      223.90119071947447,
+      223.9011907194744
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "rho_tail",
+    "date": "2025-06-01",
+    "values": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "costs": [
+      115804.64489203651,
+      107657.67091259602,
+      112710.68036414817
+    ],
+    "emergency": [
+      14167.851582505511,
+      12344.945096906928,
+      12868.470338963252
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "rho_tail",
+    "date": "2025-06-02",
+    "values": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "costs": [
+      85766.27153738281,
+      85389.0327737825,
+      92550.30716714784
+    ],
+    "emergency": [
+      8606.182105900201,
+      8467.009592709148,
+      8685.097561566936
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "rho_tail",
+    "date": "2025-09-17",
+    "values": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "costs": [
+      42327.31338384632,
+      43522.128190536525,
+      42958.194548147934
+    ],
+    "emergency": [
+      11.96181102395849,
+      13.972450822524706,
+      10.65366304593988
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q2",
+    "parameter": "rho_tail",
+    "date": "2025-09-28",
+    "values": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "costs": [
+      46466.42880723448,
+      47374.32157667292,
+      47172.89475850246
+    ],
+    "emergency": [
+      188.02892119401872,
+      223.90119071947447,
+      172.04897130518123
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": true
+  },
+  {
+    "question": "q3",
+    "parameter": "lambda_E",
+    "date": "2025-03-12",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      38598.88690627083,
+      42545.51383288602,
+      42927.72482842269
+    ],
+    "emergency": [
+      44.268634217464935,
+      36.692355136844185,
+      46.924424884713815
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "lambda_E",
+    "date": "2025-07-01",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      75214.4099414201,
+      76675.12521431583,
+      76954.60597727358
+    ],
+    "emergency": [
+      5008.439928273339,
+      4555.273852394327,
+      4385.336248428141
+    ],
+    "emergency_nonincreasing": true,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "lambda_E",
+    "date": "2025-07-02",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      65243.17472319809,
+      68659.16341539874,
+      68363.61368508649
+    ],
+    "emergency": [
+      3644.470526051743,
+      3970.252093894562,
+      3642.978780086762
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "lambda_E",
+    "date": "2025-08-25",
+    "values": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "costs": [
+      49869.72534671135,
+      53699.04534065984,
+      53855.04518673904
+    ],
+    "emergency": [
+      21.06282862440071,
+      22.655337004360263,
+      21.06282862440071
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "S",
+    "date": "2025-03-12",
+    "values": [
+      10.0,
+      20.0,
+      28.0
+    ],
+    "costs": [
+      42632.13208877576,
+      42545.51383288602,
+      40282.10142523419
+    ],
+    "emergency": [
+      81.1527203036706,
+      36.692355136844185,
+      0.0
+    ],
+    "emergency_nonincreasing": true,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "S",
+    "date": "2025-07-01",
+    "values": [
+      10.0,
+      20.0,
+      28.0
+    ],
+    "costs": [
+      80349.07084135851,
+      76675.12521431583,
+      76364.34846923407
+    ],
+    "emergency": [
+      5886.397141250366,
+      4555.273852394327,
+      4319.3258539010985
+    ],
+    "emergency_nonincreasing": true,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "S",
+    "date": "2025-07-02",
+    "values": [
+      10.0,
+      20.0,
+      28.0
+    ],
+    "costs": [
+      72891.98870411032,
+      68659.16341539874,
+      68577.90137371412
+    ],
+    "emergency": [
+      4797.605843020281,
+      3970.252093894562,
+      3745.6427068401526
+    ],
+    "emergency_nonincreasing": true,
+    "all_certified": false
+  },
+  {
+    "question": "q3",
+    "parameter": "S",
+    "date": "2025-08-25",
+    "values": [
+      10.0,
+      20.0,
+      28.0
+    ],
+    "costs": [
+      52923.0988209249,
+      53699.04534065984,
+      51435.70842060582
+    ],
+    "emergency": [
+      0.0,
+      22.655337004360263,
+      21.06282862440071
+    ],
+    "emergency_nonincreasing": false,
+    "all_certified": false
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "paths": 400,
+  "periods": 144,
+  "all_physical_replays_valid": true,
+  "worst_soc_dominance_violation": 0.0,
+  "worst_emergency_nonincrease_violation": 0.0,
+  "scope": "fixed_single_band_policy_arbitrary_undercharging_not_discharge_recourse"
+}

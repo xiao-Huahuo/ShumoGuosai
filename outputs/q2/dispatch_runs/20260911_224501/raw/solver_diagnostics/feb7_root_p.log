@@ -1,0 +1,20 @@
+feasible solution found by trysol heuristic after 2.0 seconds, objective value 3.997925e+04
+presolving:
+presolving (1 rounds: 1 fast, 1 medium, 1 exhaustive):
+ 12706 deleted vars, 22252 deleted constraints, 0 added constraints, 9986 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 52234 implications, 11114 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 114878 variables (37900 bin, 0 int, 76978 cont) and 155156 constraints
+  19112 constraints of type <varbound>
+  11114 constraints of type <setppc>
+  82252 constraints of type <linear>
+  42678 constraints of type <indicator>
+Presolving Time: 2.07
+transformed 2/2 original solutions to the transformed problem space
+
+
+SCIP Status        : solving was interrupted [time limit reached]
+Solving Time (sec) : 30.08
+Solving Nodes      : 1
+Primal Bound       : +3.99792543110723e+04 (2 solutions)
+Dual Bound         : +0.00000000000000e+00
+Gap                : infinite

@@ -1,0 +1,11 @@
+{
+  "status": "stopped_by_user",
+  "supervisor_pid": 84996,
+  "history": [
+    {
+      "attempt": 1,
+      "pid": 85000,
+      "started_at": "2026-09-12T12:47:42.331687+00:00"
+    }
+  ]
+}

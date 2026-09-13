@@ -1,0 +1,112 @@
+{
+  "signature": "2f928e7b38c1bbd7f61bb564a858a0b3b02b280c314498cf45bafa0700070ad3",
+  "sources": "1e05e65b7aab854be8ebf6d9d2cac90c9f5f54006af99517e2a7ce90ad688eb8",
+  "days": [
+    {
+      "day": 0,
+      "hashes": {
+        "dispatch": "ce1d1129df2502cdb21f5310388ef6c82cea53da4fb89876bf00f73da168ba73",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 1,
+      "hashes": {
+        "dispatch": "545d530b674505d2abb78f08a44cf6abd68ddf0c089ac15a5a8e76c9a1687269",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 2,
+      "hashes": {
+        "dispatch": "3dbc306546fb64441a0c48a8141b9bba307958353d7905ce384deacd471b059a",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 3,
+      "hashes": {
+        "dispatch": "fd60b5b31cdebfa8622f0ae5100197533924651eca5ee7f79f45211c22128319",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 4,
+      "hashes": {
+        "dispatch": "9ec27d41a30813862c6d2090ea15599efd20ff6f3e51e8bd3e37da3bb66b9951",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 5,
+      "hashes": {
+        "dispatch": "ccd82b51bc12c547bca1ec5e523056ce7fdc8fd631b42760a4f53c3b83f7a7cb",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 6,
+      "hashes": {
+        "dispatch": "e667e1ccd83d58818d913357144d399e4b7e25725d2f8d81409e916964107b6f",
+        "audit": "24c07047c10f00effe8cd679686aa3fcc822ee16c94aa977d175f7d4ea81ea85",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 7,
+      "hashes": {
+        "dispatch": "65a47198c73fa365ad4a1da228e65d9086f55636d34fba760f8bca1515924ecf",
+        "audit": "7c581e4c2be769ce1b239dd4a329fde55d4b725727a332f6061881d9647e8eba",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 8,
+      "hashes": {
+        "dispatch": "2a379e1ff79941fae3cfd0817c7f9a09f3c18e65fa301fb81033017bcd0c94d3",
+        "audit": "1700bd3b425bce93dc8d24d0d976ea53cbd8791594392c8b6b635cb93822f690",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 9,
+      "hashes": {
+        "dispatch": "3e0434674664bfd7217cdc6937ccf6c79861382e862f4faf971b818a5eecb479",
+        "audit": "0d6a72a88b5f202a6485d9e7443e6f7823d9e4c13e669a67cb85f5f30b34a2d8",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 10,
+      "hashes": {
+        "dispatch": "66bc8fdbf007c79d57554dcfb139a55ca8d030da352900aa5ae9847f21e98cee",
+        "audit": "7f374db9af535e7b249e0dbef4bc7a6ae7f4fd9fbfe59eaa61ba79d1c1b43dc6",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 11,
+      "hashes": {
+        "dispatch": "81400998ab444900b6f7099a0fd7c8aa941effe659c8456a33d811290be938ef",
+        "audit": "a39d5f7198c73adbc82d9a198b612bea35ee38019c5abdb93b289b3c9f3f8431",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "day": 12,
+      "hashes": {
+        "dispatch": "d996d8a9246a059d37c9f6198cd68ac12c20110a0563486289bc4f138ef921a6",
+        "audit": "8d8dbddd868c23fcc5a6de9b53f11e6aa00379989fb006db4b8a0a3e5e1fd561",
+        "information": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    }
+  ],
+  "soc": 9668.805906785554,
+  "with_fiv": false
+}

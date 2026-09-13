@@ -1,0 +1,11 @@
+{
+  "complete": true,
+  "forecast_source_sha256": {
+    "data.py": "34a3c7b179ad064efd45180d68c614f19987dba946c8d4b8a909cc92f6241cbb",
+    "forecast.py": "48694ce530fd85d83478fee6767af6b5e34421c466e87efbbfede2c2bd771a16",
+    "shadows.py": "e639ccb1f862ac7afcf5e3dc59b856360bf92acc759433fa44c3fe850b5f4117",
+    "requirements.txt": "62f82877c641afb177a6693247dcfebab81e410460d7426776684c92e8f2fe16"
+  },
+  "cache_reused": true,
+  "source": "D:\\Projects\\Python\\ShumoGuosai\\outputs\\q2\\dispatch_runs\\20260911_224501"
+}

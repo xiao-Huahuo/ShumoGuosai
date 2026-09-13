@@ -1,0 +1,9 @@
+{
+  "old_signature": "83328995ffadad5e7c7ccb8d085d505db94e31a6cc26e0cd86de55223623f2de",
+  "new_signature": "5ae147da3f55575f3486187cd52cebabeb98917e870f970f09111bedd2000d19",
+  "days_verified": 29,
+  "mode": "4-3",
+  "reason": "when solver presolve consumes the 30-second budget, use the already full-matrix-certified deterministic seed as limited incumbent; mathematical model and all requested settings unchanged",
+  "receipt_hashes_verified": true,
+  "physical_replay_verified": true
+}

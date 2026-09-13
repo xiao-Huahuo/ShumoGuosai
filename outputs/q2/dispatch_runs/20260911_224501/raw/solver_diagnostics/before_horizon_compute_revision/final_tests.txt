@@ -1,0 +1,108 @@
+test_exact_indicator_mapping_fixed_random_paths (test_dispatch.PolicyTests.test_exact_indicator_mapping_fixed_random_paths) ... ok
+test_frozen_parameters_and_causal_prefix (test_dispatch.PolicyTests.test_frozen_parameters_and_causal_prefix) ... ok
+test_load_priority_and_soc_clipping (test_dispatch.PolicyTests.test_load_priority_and_soc_clipping) ... ok
+test_no_storage_optimizer_is_eighty_percent_quantile (test_dispatch.PolicyTests.test_no_storage_optimizer_is_eighty_percent_quantile) ... ok
+test_soc_piecewise_execution_boundary (test_dispatch.PolicyTests.test_soc_piecewise_execution_boundary) ... ok
+test_unfixed_policy_replay_matches_solver (test_dispatch.PolicyTests.test_unfixed_policy_replay_matches_solver) ... ok
+test_complete_origin_horizon_and_window_fallback (test_dispatch.ScenarioTests.test_complete_origin_horizon_and_window_fallback) ... ok
+test_no_bootstrap_below_forty_and_physical_projection (test_dispatch.ScenarioTests.test_no_bootstrap_below_forty_and_physical_projection) ... ok
+test_tail_protection_and_cluster_probability (test_dispatch.ScenarioTests.test_tail_protection_and_cluster_probability) ... ok
+test_weighted_quantile_uses_discrete_probability (test_dispatch.ScenarioTests.test_weighted_quantile_uses_discrete_probability) ... ok
+test_fixed_and_segmented_policies_retain_native_solver (test_execution.ExecutionTests.test_fixed_and_segmented_policies_retain_native_solver) ... ok
+test_gap_reaches_both_solvers_and_certificate_without_changing_scenarios (test_execution.ExecutionTests.test_gap_reaches_both_solvers_and_certificate_without_changing_scenarios) ... ok
+test_mismatched_unauthorized_or_nonfinite_revision_is_rejected (test_execution.ExecutionTests.test_mismatched_unauthorized_or_nonfinite_revision_is_rejected) ... ok
+test_relaxed_resume_preserves_old_day_and_records_new_gap_and_failures (test_execution.ExecutionTests.test_relaxed_resume_preserves_old_day_and_records_new_gap_and_failures) ... 真实回放 2025-02-01 K=1 S=1 SOC=6000.000
+2025-02-02 原预算全候选受限，追加900秒预算，gap为1%
+从已验收的1日连续回放检查点续算
+2025-02-02 原预算全候选受限，追加900秒预算，gap为2%
+真实回放 2025-02-02 K=1 S=1 SOC=6000.000
+真实回放 2025-02-03 K=1 S=1 SOC=6000.000
+从已验收的3日连续回放检查点续算
+ok
+test_revision_does_not_mutate_frozen_protocol_and_reaches_worker (test_execution.ExecutionTests.test_revision_does_not_mutate_frozen_protocol_and_reaches_worker) ... ok
+test_second_precision_transition_keeps_both_prior_prefixes (test_execution.ExecutionTests.test_second_precision_transition_keeps_both_prior_prefixes) ... 真实回放 2025-02-01 K=1 S=1 SOC=6000.000
+从已验收的1日连续回放检查点续算
+真实回放 2025-02-02 K=1 S=1 SOC=6000.000
+从已验收的2日连续回放检查点续算
+真实回放 2025-02-03 K=1 S=1 SOC=6000.000
+ok
+test_regenerated_plot_cannot_inherit_previous_visual_approval (test_forecast_dispatch.ArtifactAcceptanceTests.test_regenerated_plot_cannot_inherit_previous_visual_approval) ... ok
+test_deterministic_certificate_matches_exact_model (test_forecast_dispatch.ComparatorTests.test_deterministic_certificate_matches_exact_model) ... ok
+test_incumbent_gradient_matches_finite_differences_away_from_kinks (test_forecast_dispatch.ComparatorTests.test_incumbent_gradient_matches_finite_differences_away_from_kinks) ... ok
+test_lower_bound_is_not_executed_and_oracles_are_nested (test_forecast_dispatch.ComparatorTests.test_lower_bound_is_not_executed_and_oracles_are_nested) ... ok
+test_richer_gradient_uses_actual_half_open_soc_band (test_forecast_dispatch.ComparatorTests.test_richer_gradient_uses_actual_half_open_soc_band) ... ok
+test_richer_policy_contains_main_policy_at_soc_boundaries (test_forecast_dispatch.ComparatorTests.test_richer_policy_contains_main_policy_at_soc_boundaries) ... ok
+test_complete_template_roundtrip_and_partial_rejection (test_forecast_dispatch.ExportTests.test_complete_template_roundtrip_and_partial_rejection) ... ok
+test_cross_midnight_events_and_empty_events (test_forecast_dispatch.ExportTests.test_cross_midnight_events_and_empty_events) ... ok
+test_dhr_orders_and_diagnostics_use_fixed_dictionary (test_forecast_dispatch.ForecastTests.test_dhr_orders_and_diagnostics_use_fixed_dictionary) ... ok
+test_exact_eight_load_features_and_actual_candidate (test_forecast_dispatch.ForecastTests.test_exact_eight_load_features_and_actual_candidate) ... ok
+test_four_to_one_loss_and_lexicographic_selection (test_forecast_dispatch.ForecastTests.test_four_to_one_loss_and_lexicographic_selection) ... ok
+test_freezing_cannot_use_february_hyperparameter_performance (test_forecast_dispatch.ForecastTests.test_freezing_cannot_use_february_hyperparameter_performance) ... ok
+test_recursive_seasonal_uses_its_own_previous_prediction (test_forecast_dispatch.ForecastTests.test_recursive_seasonal_uses_its_own_previous_prediction) ... ok
+test_richer_cache_rejects_wrong_scenarios_and_changed_policy_bytes (test_forecast_dispatch.RicherCheckpointTests.test_richer_cache_rejects_wrong_scenarios_and_changed_policy_bytes) ... ok
+test_richer_interrupted_new_receipt_preserves_previous_complete_policy (test_forecast_dispatch.RicherCheckpointTests.test_richer_interrupted_new_receipt_preserves_previous_complete_policy) ... ok
+test_richer_policy_roundtrip_replays_and_checks_global_certificate (test_forecast_dispatch.RicherCheckpointTests.test_richer_policy_roundtrip_replays_and_checks_global_certificate) ... ok
+test_execution_cannot_call_optimizer_and_prefix_cannot_see_future (test_forecast_dispatch.RollingTests.test_execution_cannot_call_optimizer_and_prefix_cannot_see_future) ... ok
+test_failed_supplement_does_not_skip_date_or_erase_previous_day (test_forecast_dispatch.RollingTests.test_failed_supplement_does_not_skip_date_or_erase_previous_day) ... 真实回放 2025-02-01 K=1 S=1 SOC=6000.000
+2025-02-02 原预算全候选受限，追加900秒预算，gap为1%
+ok
+test_interrupted_csv_commit_recovers_complete_old_or_new_checkpoint (test_forecast_dispatch.RollingTests.test_interrupted_csv_commit_recovers_complete_old_or_new_checkpoint) ... ok
+test_interrupted_first_day_leaves_no_false_checkpoint (test_forecast_dispatch.RollingTests.test_interrupted_first_day_leaves_no_false_checkpoint) ... ok
+test_prepared_generated_data_tampering_is_rejected_before_loading (test_forecast_dispatch.RollingTests.test_prepared_generated_data_tampering_is_rejected_before_loading) ... ok
+test_real_selection_metadata_serializes_numpy_origin_indices (test_forecast_dispatch.RollingTests.test_real_selection_metadata_serializes_numpy_origin_indices) ... ok
+test_resume_replays_frozen_policy_and_rejects_corrupted_checkpoint (test_forecast_dispatch.RollingTests.test_resume_replays_frozen_policy_and_rejects_corrupted_checkpoint) ... 真实回放 2025-02-01 K=1 S=1 SOC=6000.000
+真实回放 2025-02-02 K=1 S=1 SOC=6000.000
+从已验收的2日连续回放检查点续算
+ok
+test_same_experiment_cannot_have_two_writers (test_forecast_dispatch.RollingTests.test_same_experiment_cannot_have_two_writers) ... ok
+test_supplementary_compute_only_after_entire_day_failed (test_forecast_dispatch.RollingTests.test_supplementary_compute_only_after_entire_day_failed) ... 真实回放 2025-02-01 K=1 S=1 SOC=6000.000
+2025-02-02 原预算全候选受限，追加900秒预算，gap为1%
+真实回放 2025-02-02 K=1 S=1 SOC=6000.000
+ok
+test_failed_main_keeps_independent_jobs_and_blocks_dependencies (test_full_run.FullRunTests.test_failed_main_keeps_independent_jobs_and_blocks_dependencies) ... ok
+test_failure_receipt_does_not_claim_success_or_prevent_next_job (test_full_run.FullRunTests.test_failure_receipt_does_not_claim_success_or_prevent_next_job) ... Traceback (most recent call last):
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/full_run.py", line 160, in worker
+    raise RuntimeError(f"实验尚未完成：{statuses}")
+RuntimeError: 实验尚未完成：{'horizon_1': {'complete': False}}
+ok
+test_memory_guard_only_stops_largest_verified_worker (test_full_run.FullRunTests.test_memory_guard_only_stops_largest_verified_worker) ... ok
+test_repeated_crash_isolated_after_three_attempts (test_full_run.FullRunTests.test_repeated_crash_isolated_after_three_attempts) ... ok
+test_restart_preserves_live_worker_and_requeues_only_interrupted_job (test_full_run.FullRunTests.test_restart_preserves_live_worker_and_requeues_only_interrupted_job) ... ok
+test_branch_cuts_preserve_complete_fixed_policy_trajectories (test_linear_policy.LinearPolicyTests.test_branch_cuts_preserve_complete_fixed_policy_trajectories) ... ok
+test_complete_causal_seed_satisfies_every_linear_row (test_linear_policy.LinearPolicyTests.test_complete_causal_seed_satisfies_every_linear_row) ... ok
+test_dominance_presolve_transforms_seed_but_preserves_fixed_policy (test_linear_policy.LinearPolicyTests.test_dominance_presolve_transforms_seed_but_preserves_fixed_policy) ... ok
+test_fixed_policy_cannot_invalidate_derived_activation_bounds (test_linear_policy.LinearPolicyTests.test_fixed_policy_cannot_invalidate_derived_activation_bounds) ... ok
+test_fixed_policy_exactly_matches_clipping_and_has_no_emergency_charging (test_linear_policy.LinearPolicyTests.test_fixed_policy_exactly_matches_clipping_and_has_no_emergency_charging) ... ok
+test_maximum_charge_cap_dominates_for_each_realized_step (test_linear_policy.LinearPolicyTests.test_maximum_charge_cap_dominates_for_each_realized_step) ... ok
+test_monotone_certificate_is_distinct_from_fixed_policy_exact_mapping (test_linear_policy.LinearPolicyTests.test_monotone_certificate_is_distinct_from_fixed_policy_exact_mapping) ... ok
+test_optima_match_indicator_model_at_three_initial_states (test_linear_policy.LinearPolicyTests.test_optima_match_indicator_model_at_three_initial_states) ... ok
+test_undercharging_matrix_paths_project_to_original_feedback_without_cost_increase (test_linear_policy.LinearPolicyTests.test_undercharging_matrix_paths_project_to_original_feedback_without_cost_increase) ... ok
+test_acf_and_pacf_computed_through_weekly_lags (test_q2.Q2Tests.test_acf_and_pacf_computed_through_weekly_lags) ... ok
+test_candidate_guard_rejects_full_year_information (test_q2.Q2Tests.test_candidate_guard_rejects_full_year_information) ... ok
+test_constant_series_not_reported_as_significant (test_q2.Q2Tests.test_constant_series_not_reported_as_significant) ... ok
+test_cross_midnight_emergency_is_one_contiguous_event (test_q2.Q2Tests.test_cross_midnight_emergency_is_one_contiguous_event) ... ok
+test_dispatch_metrics_plan_billing_and_fivefold_emergency (test_q2.Q2Tests.test_dispatch_metrics_plan_billing_and_fivefold_emergency) ... ok
+test_duplicate_and_missing_dates_rejected (test_q2.Q2Tests.test_duplicate_and_missing_dates_rejected) ... ok
+test_duplicate_missing_and_wrong_endpoints_rejected (test_q2.Q2Tests.test_duplicate_missing_and_wrong_endpoints_rejected) ... ok
+test_failed_publish_keeps_current_generation (test_q2.Q2Tests.test_failed_publish_keeps_current_generation) ... ok
+test_forecast_metrics_hand_calculation (test_q2.Q2Tests.test_forecast_metrics_hand_calculation) ... ok
+test_future_and_midnight_perturbation_cannot_change_prediction (test_q2.Q2Tests.test_future_and_midnight_perturbation_cannot_change_prediction) ... ok
+test_generated_artifacts_roundtrip (test_q2.Q2Tests.test_generated_artifacts_roundtrip) ... ok
+test_invalid_predictions_rejected (test_q2.Q2Tests.test_invalid_predictions_rejected) ... ok
+test_jump_review_preserves_spikes_and_uses_past_peers (test_q2.Q2Tests.test_jump_review_preserves_spikes_and_uses_past_peers) ... ok
+test_missing_and_nonfinite_rejected (test_q2.Q2Tests.test_missing_and_nonfinite_rejected) ... ok
+test_missing_sheet_rejected (test_q2.Q2Tests.test_missing_sheet_rejected) ... ok
+test_monthly_and_weekday_profiles_and_stability (test_q2.Q2Tests.test_monthly_and_weekday_profiles_and_stability) ... ok
+test_negative_physical_values_rejected (test_q2.Q2Tests.test_negative_physical_values_rejected) ... ok
+test_new_model_per_variable_per_day (test_q2.Q2Tests.test_new_model_per_variable_per_day) ... ok
+test_original_values_and_quality (test_q2.Q2Tests.test_original_values_and_quality) ... ok
+test_right_endpoint_and_calendar (test_q2.Q2Tests.test_right_endpoint_and_calendar) ... ok
+test_small_weekly_peak_alone_does_not_prioritize_multiseason_model (test_q2.Q2Tests.test_small_weekly_peak_alone_does_not_prioritize_multiseason_model) ... ok
+test_spectrum_known_daily_weekly_peaks_and_parseval (test_q2.Q2Tests.test_spectrum_known_daily_weekly_peaks_and_parseval) ... ok
+test_strict_midnight_and_334_folds (test_q2.Q2Tests.test_strict_midnight_and_334_folds) ... ok
+test_transforms_match_four_term_identity (test_q2.Q2Tests.test_transforms_match_four_term_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 79 tests in 9.745s
+
+OK

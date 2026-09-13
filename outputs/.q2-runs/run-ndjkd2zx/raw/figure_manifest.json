@@ -1,0 +1,125 @@
+[
+  {
+    "name": "timeseries_7d",
+    "caption": "1月1日起连续7天负荷、光伏与净负荷；净负荷保留负值。",
+    "source_csv": [
+      "timeseries.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "timeseries_30d",
+    "caption": "1月1日起连续30天负荷、光伏与净负荷；净负荷保留负值。",
+    "source_csv": [
+      "timeseries.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "annual_heatmaps",
+    "caption": "日期纵轴、日内时间横轴，原始365×144值，无插值；各变量使用独立且标明的色标。",
+    "source_csv": [
+      "timeseries.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "monthly_profiles",
+    "caption": "同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。",
+    "source_csv": [
+      "full_year_profiles.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "weekday_profiles",
+    "caption": "同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。",
+    "source_csv": [
+      "full_year_profiles.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "weekday_weekend",
+    "caption": "同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。",
+    "source_csv": [
+      "full_year_profiles.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "acf_pacf",
+    "caption": "计算全部1至2016阶；短滞后、3日与14日视图展示衰减及日/周结构。",
+    "source_csv": [
+      "full_year_acf_pacf.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "spectra",
+    "caption": "FFT周期图；两轴对数，仅正PSD可显示，零频不表示周期；完整频点与局部峰见CSV。",
+    "source_csv": [
+      "full_year_spectrum.csv",
+      "full_year_spectral_targets.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "monthly_stability",
+    "caption": "按月比较日/周相关、日峰谷差、标准差及均值；没有预设稳定性阈值。",
+    "source_csv": [
+      "full_year_monthly_stability.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "seasonal_moments",
+    "caption": "原始、日差分、周差分与日后周差分均使用单侧历史运算；均值稳定不能替代方差稳定。",
+    "source_csv": [
+      "full_year_transformed_monthly_moments.csv",
+      "full_year_stationarity_tests.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  },
+  {
+    "name": "daily_peaks",
+    "caption": "每个日期原始峰值及其首次右端点；并列峰值保留数量，不把全零日人为改值。",
+    "source_csv": [
+      "full_year_daily_statistics.csv"
+    ],
+    "font": "Heiti TC",
+    "png_dpi": 220,
+    "svg_text": "paths_for_portable_chinese",
+    "scope": "full_year_retrospective"
+  }
+]

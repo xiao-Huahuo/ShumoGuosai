@@ -1,0 +1,111 @@
+{
+  "version": "q2-tail-reserve-final-20260912",
+  "history_boundary": "source_date_before_origin",
+  "boundary_authority": "current_user_requests_exclusive_execution_of_new_plan_section_2.2.3_j_less_than_d",
+  "forecast_horizons": [
+    1,
+    2,
+    3
+  ],
+  "warm_horizon": 2,
+  "shadow_start": "2025-01-15",
+  "evaluation_start": "2025-02-01",
+  "minimum_blocks": 14,
+  "history_windows_days": [
+    28,
+    56,
+    84,
+    null
+  ],
+  "scenario_max": 40,
+  "scenario_candidates": [
+    10,
+    20,
+    40
+  ],
+  "tail_stratification": true,
+  "tail_fraction": 0.2,
+  "dynamic_soc_reserve": true,
+  "reserve_quantile": 0.8,
+  "evaluation_initial_soc_kwh": 6000.0,
+  "january_storage_operation": "inactive",
+  "solver_gap": 0.01,
+  "solver_seconds": 120.0,
+  "stability_objective_relative": 0.01,
+  "stability_grid_relative": 0.02,
+  "tail_quantile_relative": 0.05,
+  "full_pool_emergency_relative": 0.05,
+  "selection_relative_tolerance": 0.01,
+  "lightgbm_candidates": [
+    {
+      "num_leaves": 7,
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "max_depth": -1,
+      "min_child_samples": 20,
+      "reg_lambda": 1.0
+    },
+    {
+      "num_leaves": 15,
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "max_depth": -1,
+      "min_child_samples": 20,
+      "reg_lambda": 1.0
+    }
+  ],
+  "lightgbm_training_window": "expanding",
+  "lightgbm_freeze_metric": "January_h0_load_MAE",
+  "dhr_harmonics": [
+    3,
+    6
+  ],
+  "dhr_ar_orders": [
+    0,
+    1
+  ],
+  "dhr_ma_orders": [
+    0,
+    1
+  ],
+  "dhr_history_days": 28,
+  "dhr_order_rule": "BIC_then_AIC_then_lower_complexity",
+  "dhr_max_iterations": 100,
+  "dhr_difference_order": 0,
+  "selection_history": "common_complete_origins_in_selected_window",
+  "soc_segments": [
+    0,
+    0.3333333333333333,
+    0.6666666666666666,
+    1
+  ],
+  "specified_dates": [
+    "2025-03-20",
+    "2025-06-21",
+    "2025-09-23",
+    "2025-12-21"
+  ],
+  "high_variation_dates_count": 3,
+  "numerical_settings_origin": "implementation_preregistered_before_formal_backtest_not_problem_facts",
+  "protocol_sha256": "e038526ce4b4208bb8e644ee24704609391ac72fba770e3a1ce0a931717cdc93",
+  "plan_sha256": "59cbe60167a7281a9daa089453c4ae4a629e501859ec16e05dcf12de6a580270",
+  "task_sha256": "37f8dd6c3c4e639fdaffd70f75a70081650b62af22b589d0f62ccabcadf430e4",
+  "forecast_source_sha256": {
+    "data.py": "34a3c7b179ad064efd45180d68c614f19987dba946c8d4b8a909cc92f6241cbb",
+    "forecast.py": "48694ce530fd85d83478fee6767af6b5e34421c466e87efbbfede2c2bd771a16",
+    "shadows.py": "e639ccb1f862ac7afcf5e3dc59b856360bf92acc759433fa44c3fe850b5f4117",
+    "requirements.txt": "62f82877c641afb177a6693247dcfebab81e410460d7426776684c92e8f2fe16"
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "pandas": "2.2.3",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "statsmodels": "0.14.6",
+    "pyscipopt": "6.2.1",
+    "openpyxl": "3.1.5"
+  },
+  "prepared_cache_reused_from": "D:\\Projects\\Python\\ShumoGuosai\\outputs\\q2\\dispatch_runs\\20260911_224501",
+  "prepared_cache_source_manifest_sha256": "6f7e16d8def0d117d67596fd1869100486c30ce1fc4f869b865bcd309d9529ea"
+}

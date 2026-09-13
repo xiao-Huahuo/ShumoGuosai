@@ -1,0 +1,10 @@
+metric,status,value,reason
+load_mae_kw,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+load_rmse_kw,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+pv_mae_kw,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+pv_rmse_kw,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+net_load_mae_kw,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+net_load_rmse_kw,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+emergency_kwh,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+emergency_frequency,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型
+total_cost_yuan,not_computed_model_not_specified,,本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型

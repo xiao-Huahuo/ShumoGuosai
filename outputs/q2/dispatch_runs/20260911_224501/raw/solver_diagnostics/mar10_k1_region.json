@@ -1,0 +1,51 @@
+{
+  "initial_soc": 1233.36149372663,
+  "bound": {
+    "lower_bound": 44212.17450383771,
+    "incumbent_cost": 44726.490452927894,
+    "certified_gap": 0.011632903263908406,
+    "seconds": 7.494685165998817,
+    "variables": 20304,
+    "constraints": 8064,
+    "refinement": {
+      "method": "piecewise_gradient_incumbent_only",
+      "iterations": 1000,
+      "evaluations": 1308,
+      "seconds": 7.074758124999789,
+      "termination": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+      "candidate_cost": 44726.49045292789,
+      "global_optimality_claim": false
+    },
+    "role": "lower_bound_only_never_free_recourse_execution"
+  },
+  "records": [
+    {
+      "status": "optimal",
+      "initial_cost": 44726.4904529279,
+      "candidate_cost": 44723.5078848176,
+      "seconds": 2.884812457999942,
+      "mapping_error_kwh": 9.094947017729282e-12,
+      "role": "feasible_upper_bound_only_fixed_region_not_global_lower_bound",
+      "gap_to_global_lp": 0.011565442928745817
+    },
+    {
+      "status": "optimal",
+      "initial_cost": 44723.5078848176,
+      "candidate_cost": 44723.06094633752,
+      "seconds": 3.212885125001776,
+      "mapping_error_kwh": 5.4569682106375694e-12,
+      "role": "feasible_upper_bound_only_fixed_region_not_global_lower_bound",
+      "gap_to_global_lp": 0.011555333982848186
+    },
+    {
+      "status": "optimal",
+      "initial_cost": 44723.06094633752,
+      "candidate_cost": 44722.98800052464,
+      "seconds": 3.1117860000013025,
+      "mapping_error_kwh": 8.768097359279636e-12,
+      "role": "feasible_upper_bound_only_fixed_region_not_global_lower_bound",
+      "gap_to_global_lp": 0.01155368407954207
+    }
+  ],
+  "role": "diagnostic_only_not_executed"
+}

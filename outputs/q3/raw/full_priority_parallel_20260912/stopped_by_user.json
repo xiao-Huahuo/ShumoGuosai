@@ -1,0 +1,14 @@
+{
+  "status": "stopped_by_user",
+  "stopped_at": "2026-09-12T22:01:18+08:00",
+  "supervisor_pid": 84996,
+  "worker_pid": 85000,
+  "completed_days_including_warmup": 25,
+  "formal_days": 0,
+  "active_date": "2025-01-26",
+  "active_hour": "06",
+  "last_saved_gap": 0.07952327660370284,
+  "last_checkpoint": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_parallel_20260912/main/nodes/2025-01-26/06/latest.json",
+  "checkpoint_preserved": true,
+  "resume_command": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_parallel_20260912/resume.sh"
+}

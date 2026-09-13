@@ -1,0 +1,10 @@
+{
+  "total_runtime": 16078.24214470003,
+  "mean_daily_runtime": 48.138449535030034,
+  "median_daily_runtime": 22.15473844999906,
+  "max_daily_runtime": 1725.7826787000013,
+  "requested_mip_gap": 0.03,
+  "achieved_mip_gap_mean": 0.026874821975057524,
+  "achieved_mip_gap_max": 0.02999993837271141,
+  "days_completed": 334
+}

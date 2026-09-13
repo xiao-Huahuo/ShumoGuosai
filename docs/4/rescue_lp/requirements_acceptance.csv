@@ -1,0 +1,50 @@
+id,requirement,implementation,verification,status
+R01,正式q42/q43禁止limited,src/q4/run.py:settings;src/q4/rolling.py:run_period,test_formal_limited_forbidden_before_inputs_and_output,verified
+R02,fallback与warm start不得成为正式结果，标明solution_source,src/q4/optimization.py:solve_dual,test_limited_solver_rejected_even_with_allow_flag;production_gates,verified
+R03,停用Q3高维二进制MILP，连续变量数integer_count=0,src/q4/optimization.py:build_matrix,test_zero_integer_and_shared_storage_variables;各节点audit,verified
+R04,取消单轮耗尽预算的constraint generation，直接DRO dual,src/q4/optimization.py:build_matrix,test_positive_radius_matches_two_point_hand_worst_case,verified
+R05,储能从cap反馈改为节点共同charge/discharge计划并同步论文,src/q4/physics.py:DispatchPolicy;模型7.6.2/7.7.6,test_four_slot_hand_balance;vertical_summary.json,verified
+R06a,Q42的48h价格残差同一次forecast origin,src/q4/data.py:price_residual_path,test_residual_origin_48h_and_midnight,verified
+R06b,Q43的6/12/18跨午夜价格残差同一次forecast origin,src/q4/data.py:price_residual_path,test_residual_origin_48h_and_midnight,verified
+R06c,修改下一日自身预测不影响上一origin残差,src/q4/data.py:price_residual_path,test_residual_origin_48h_and_midnight,verified
+R06d,完整残差窗口必须在当前节点已实现,src/q4/data.py:joint_history,test_residual_origin_48h_and_midnight;test_scenarios_invariant_to_all_unavailable_future_data,verified
+R07,forced tail singleton质量锁定，普通样本仅聚普通medoids,src/q4/scenarios.py:_reduce,test_tail_never_absorbs_ordinary_mass,verified
+R08,删除虚假的窗口calibration，预设W56并同步文稿,src/q4/diagnostics.py:write_window_policy;模型7.4.2,test_window_is_declared_preset,verified
+R09,生产源码signature覆盖全部实际Q2/Q3输入处理传递依赖,"src/q4/config.py:production_sources,signature",frozen_source_v2/manifest.json;state.signature,verified
+R10,嵌入完整Q3 provenance和实际输入/预测哈希,src/q4/data.py:read_inputs,各run/source_manifest.json,verified
+R11,使用最终冻结Q2 run,src/q4/config.py:Q2_RUN,baseline_reconciliation.json;source_manifest.json,verified
+R12,Feb1正式初值SOC6000，无Jan优化warmup混入,src/q4/rolling.py:run_period;模型7.6.2,vertical真实SOC初值;state.formal_start_day,verified
+R13,独立worker硬超时，失败节点不正式提交,src/q4/optimization.py:solve;src/q4/rolling.py:run_period,test_hard_timeout_has_no_fallback;v1失败audit无日文件,verified
+R14,追溯升级到核心公式和变量实际断言,src/q4/traceability.py:generate,docs/4/formula_assertions.txt;traceability_audit.json,verified
+R15,缓存bootstrap transport矩阵，B如实记录,src/q4/scenarios.py:_transport_equalities,B=100保持;每节点construction_seconds与bootstrap_repetitions,verified
+R16,仅profiling必要时优化medoids，不引入额外实验,src/q4/scenarios.py:medoids,场景构造均约0.35s，保持既有medoids,retained_by_measurement
+R17,保留原子写入与每日SHA receipt,"src/q4/config.py:write_json,write_csv;src/q4/rolling.py:run_period",test_resume_receipts_without_reoptimization_and_tamper_rejection,verified
+M01,"节点g,c,r,E不随场景改变，只有x,h,w场景即时平衡",src/q4/optimization.py:build_matrix,test_zero_integer_and_shared_storage_variables,verified
+M02,SOC转移、1200..10800、CAP与c+r<=CAP,src/q4/physics.py:replay;src/q4/rolling.py:validate_frame,test_four_slot_hand_balance;test_soc_roundoff_at_both_boundaries,verified
+M03,实际调用<=购电额度，结算量与物理量区分,src/q4/physics.py:replay,test_physical_call_separation;test_four_slot_hand_balance,verified
+M04,Q42费用p*g+5p*h，48h只提交当天24h,src/q4/physics.py:scenario_costs;src/q4/rolling.py:run_day_q42,test_rho_zero_equals_hand_expected_cost;vertical Q42,verified
+M05,Q43增购1.5/减购返还0.5/不变/跨日不加调整罚,src/q4/optimization.py:build_matrix;src/q4/physics.py:adjustment_quantity,test_adjustment_matrix_three_cases_and_continuation;test_adjustment_settlement,verified
+M06,Q43四节点每次只提交6h并传递真实SOC,src/q4/rolling.py:run_day_q43,vertical Q43 2天8节点,verified
+M07,保留严格价格预测与同日价格-净负荷联合残差,src/q4/price.py;src/q4/data.py;src/q4/scenarios.py,test_price_forecast_metrics_and_causality;future mutation test,verified
+M08,Q43前缀只用当前已实现价格/净负荷,src/q4/data.py:prefix;src/q4/scenarios.py:_prefix_weights,test_prefix_uses_realized_slots_only;future mutation test,verified
+M09,微小epsilon去退化，不把同时充放电当经济策略,src/q4/optimization.py:solve_dual;模型7.6.2,"节点simultaneous_charge_removed;full verify min(c,r)",verified
+S1,1场景4时段手算物理平衡,src/q4/test_rescue.py,test_four_slot_hand_balance,verified
+S2,rho0与经验期望一致,src/q4/test_rescue.py,test_rho_zero_equals_hand_expected_cost,verified
+S3,3天Q42与2天Q43最小真实vertical slice,src/q4/vertical_slice.py,outputs/q4/raw/rescue_lp_vertical_20260913/vertical_summary.json,verified
+S4,小规模验证后立即334天全量计算,src/q4/rescue/launch_full.py,launches_v2.json;两正式run/state.json,verified
+G1,334/1336全部optimal，limited和fallback均0,src/q4/diagnostics.py:production_gates,两正式run/production_gates.json,verified
+G2,全年物理残差<=1e-6，SOC/CAP合法,src/q4/rolling.py:validate_frame;src/q4/rescue/verify_full.py,full_acceptance_4-2.json/full_acceptance_4-3.json,verified
+G3,完整Q2按附件4计价baseline，>15%禁止正式发布,"src/q4/diagnostics.py:baseline_metrics,sanity_metrics",test_baseline_alarm_and_storage_alarm;baseline_reconciliation.json,verified
+G4,SOC上界比例/unused/储能吞吐诊断,src/q4/diagnostics.py:sanity_metrics,test_baseline_alarm_and_storage_alarm;全年production_gates.metrics,verified
+G5,仅334天完整且所有gate通过才导出正式Excel,src/q4/export.py:export_workbook;src/q4/run.py:main,test_workbook_roundtrip_and_partial_guard;verify_full.py,verified
+P1,旧结果原样冻结，新输出目录禁止旧checkpoint续算,docs/4/rescue_lp/legacy_hashes.json;两*_v2目录,1180 SHA复核不变;launches_v2.json,verified
+P2,不使用限时解、不调MIPgap掩盖、不砍场景和联合DRO,src/q4/optimization.py;两run/state.config,S20/W56/B100/DRO1.0，全部LPOptimal,verified
+P3,不新增全年消融、参数扫描,src/q4/run.py正式入口;模型7.8,只存在q42/q43两个当前求解进程,verified
+P4,恢复源码/依赖/输入与运行版本可追溯,docs/4/rescue_lp/frozen_source_v2;各run/resume.sh,manifest20份文件和state.signature匹配,verified
+D1,最终报告包含修改文件、数学变更、保留机制、缺陷修复,docs/4/rescue_lp/report.md,逐项对照与模型文档,verified
+D2,最终报告包含规模、时间、测试、经济门禁、完整结果路径,docs/4/rescue_lp/report.md;verify_full.py,final_results.csv与两份full_acceptance JSON,verified
+D3,实际界面冒烟验证,CLI真实执行;7工作表渲染;CUA,真实CLI、7sheet渲染；WPS本机Q42三个sheet已实际AX/截图验证,verified
+E01,SOC边界浮点舍入不得误拒合法节点,src/q4/optimization.py:build_matrix,test_soc_roundoff_at_both_boundaries,verified
+E02,对偶无限界舍入残差与非有限失败日志处理,"src/q4/optimization.py:dual_bound,LimitedSolve",test_infinite_bound_roundoff_reproducer;test_failure_audit_remains_json_serializable;apr18_verified.json,verified
+U02,问题2/3/4-2各自文件夹合成ZIP交付,outputs/processed/deliverables/数学建模_问题2_问题3_问题4-2_结果包_20260913.zip,32成员CRC与SHA全检;打包验收JSON,verified
+U03,核实问题2/3是否做敏感性分析,docs/2/tail_reserve_work/acceptance.md;docs/3/production_rescue/report.md,已答复最终两题未做正式参数敏感性分析；Q2有少量求解精度比较,verified

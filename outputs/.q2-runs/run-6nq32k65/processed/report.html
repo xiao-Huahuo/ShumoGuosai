@@ -1,0 +1,7628 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C题第二问 · 时间序列结构诊断</title><style>
+body{font:16px/1.65 system-ui,sans-serif;color:#172b3a;background:#f5f7fa;margin:0;overflow-wrap:anywhere}main{max-width:1280px;margin:auto;padding:28px}
+h1{font-size:30px}h2{font-size:21px}a{color:#07588c}a:focus,summary:focus{outline:3px solid #d55e00}
+nav{padding:12px 0}figure,details,.intro{background:white;border:1px solid #d8e1e8;border-radius:8px;padding:18px;margin:20px 0}
+figure img{width:100%;height:auto}figcaption{font-size:14px}summary{cursor:pointer;font-weight:650}.table{overflow-x:auto}
+table{border-collapse:collapse;font-size:13px;white-space:nowrap}td,th{padding:7px;border-bottom:1px solid #d8e1e8;text-align:right}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}.badge{color:#704600;background:#fff4d7;padding:10px}
+</style><main><h1>C题第二问 · 时间序列结构诊断</h1>
+<p>365天 · 52,560点 · 10分钟 · 区间右端点 · 原始功率kW</p>
+<p class="badge">本方案为2.1预测前阶段。真实预测与购电策略尚未指定，评价数值未计算；全年图表为事后诊断。</p>
+<nav><a href="#timeseries_7d">timeseries_7d</a> · <a href="#timeseries_30d">timeseries_30d</a> · <a href="#annual_heatmaps">annual_heatmaps</a> · <a href="#monthly_profiles">monthly_profiles</a> · <a href="#weekday_profiles">weekday_profiles</a> · <a href="#weekday_weekend">weekday_weekend</a> · <a href="#acf_pacf">acf_pacf</a> · <a href="#spectra">spectra</a> · <a href="#monthly_stability">monthly_stability</a> · <a href="#seasonal_moments">seasonal_moments</a> · <a href="#daily_peaks">daily_peaks</a> · <a href="#data">CSV与指标</a></nav>
+<section class="intro"><p><strong>附件2核验通过：</strong>365天、每日144段，无缺失、负值、重复或时间断点；原始负荷与光伏逐值保留。</p>
+<p>负荷的周周期证据强于日滞后；光伏以日周期为主。训练严格排除等于0:00的观测。下方11张图均提供PNG、SVG与对应数据。</p>
+<details><summary>展开完整结果、实施口径与候选依据</summary><pre># C题第二问：数据预处理与时间序列结构诊断结果
+
+## 实施口径与信息边界
+
+本结果完整覆盖 dierwen1.md 的2.1阶段。用户确认训练数据严格 timestamp &lt; 当日0:00，等于0:00的上一日末段也不使用。
+预测阶段全程使用kW；仅在事后调度指标中按1/6小时转为kWh。全文统计不改变原始功率。
+全年诊断仅作事后描述；首次候选模型依据单独使用2025-02-01之前的4463个可见点。
+算法设置为实现口径而非新增题设：相关滞后至2016、Burg PACF、原长FFT周期图、ADF默认上限/BIC选滞后、KPSS自动带宽；检验同时给出1%、5%、10%临界值。
+工作日分组仅为周一至周五，不推定法定节假日；夜间缺少天文/天气标注，只统计零光伏而不自定夜间范围。
+
+## 原始输入核验
+
+52560个连续10分钟观测，365个源日期，每日144段；首点2025-01-01 00:10:00，末点2026-01-01 00:00:00。
+负荷与光伏无缺失、无非有限值、无负值。光伏零值23540个，全部保留；净负荷为负的时段10130个，属于光伏超过负荷的合法状态。
+局部转折点全部导出相邻时刻、前日、前周与既往同星期同槽位范围，仅按偏离邻点幅度排列人工复核顺序，没有设异常截断阈值，没有删除或平滑。
+
+## 周期证据与结果合理性
+
+| 变量 | 1日滞后r | 7日滞后r | 14日滞后r |
+|---|---:|---:|---:|
+| 小区负荷 | 0.679223 | 0.985484 | 0.979090 |
+| 光伏实际功率 | 0.992314 | 0.990339 | 0.986546 |
+
+负荷的周滞后相关高于日滞后相关，应结合星期平均曲线及周频峰考虑多季节结构。光伏的高7日相关本身不证明星期效应，须检查去除平均日曲线后的周频局部峰。
+周期图同时保留原始与日曲线残差结果，目标1/7周期/日通常不恰落在离散FFT格点上，CSV公开实际频率及分辨率；局部峰不是显著性检验。
+
+### 与通常工作日/周末预期不一致的观测
+
+按附件真实2025年日期映射，低负荷主要出现在星期五、星期六；星期日多数时段接近其他高负荷日。原始日期、星期和末段归属已独立核对，不能为了符合通常的周末预期而平移日期或修改功率。这一现象仅是附件数据的统计特征，数据未提供成因，不能据此断言居民作息或数据生成原因。
+
+| 星期 | 全日平均负荷 / kW |
+|---|---:|
+| 星期一 | 5162.540 |
+| 星期二 | 5172.680 |
+| 星期三 | 5171.498 |
+| 星期四 | 5168.024 |
+| 星期五 | 3263.827 |
+| 星期六 | 3266.968 |
+| 星期日 | 5166.209 |
+
+因此星期一至星期日应分别分析；周一至周五/周六日的分组图仅为描述对照，不能作为已证实的行为分类。
+
+小区负荷月均功率范围4337.671–5337.259 kW；月内1日相关范围0.625668–0.712005，7日相关范围0.984564–0.994422。这些差异须用于后续检验参数和季节性是否随时间变化，不能仅据全年高相关固定参数。
+
+光伏实际功率月均功率范围1513.837–2915.993 kW；月内1日相关范围0.985372–0.995937，7日相关范围0.985576–0.995957。这些差异须用于后续检验参数和季节性是否随时间变化，不能仅据全年高相关固定参数。
+
+## 平稳性检验的解释
+
+ADF原假设为存在单位根，KPSS原假设为水平(c)或趋势(ct)平稳；原始、日差分、周差分、日后周差分分别检验。
+KPSS表外p值只给上/下界，警告原文保留；ADF输出0是数值近似，不能解释为精确零概率。拒绝单位根不证明消除了季节性或异方差；同时查看各变换的月均值和标准差。日后周差分包含重复季节因子，可能过度差分，只用于诊断，未据此规定最终模型。
+
+| 变量 | 变换 | ADF(c) p | KPSS(c) p口径 |
+|---|---|---:|---|
+| 小区负荷 | raw | 0 | interpolated 0.035998 |
+| 小区负荷 | diff144 | 0 | greater_than 0.1 |
+| 小区负荷 | diff1008 | 1.9738e-29 | less_than 0.01 |
+| 小区负荷 | diff144_then1008 | 0 | greater_than 0.1 |
+| 光伏实际功率 | raw | 0 | less_than 0.01 |
+| 光伏实际功率 | diff144 | 0 | greater_than 0.1 |
+| 光伏实际功率 | diff1008 | 0 | less_than 0.01 |
+| 光伏实际功率 | diff144_then1008 | 0 | greater_than 0.1 |
+
+## 候选模型与回测规则
+
+下表仅据首次回测前的可见历史。全年图形不能回流为2月1日的模型选择信息。
+
+| 变量 | 候选 | 状态 |
+|---|---|---|
+| 小区负荷 | SARIMA | 基础候选，须历史内部验证 |
+| 小区负荷 | DHR_AR | 优先比较的多季节候选 |
+| 小区负荷 | Prophet | 条件对照 |
+| 小区负荷 | RF_or_GBDT | 暂不引入 |
+| 光伏实际功率 | SARIMA | 基础候选，须历史内部验证 |
+| 光伏实际功率 | DHR_AR | 条件保留，不预设周效应 |
+| 光伏实际功率 | Prophet | 条件对照 |
+| 光伏实际功率 | RF_or_GBDT | 暂不引入 |
+
+回测起止为2025-02-01至2025-12-31，共334日，每日0:00一次预测未来144段。
+首日历史4463点，最后可见时刻为2025-01-31 23:50:00；末日预测最后一个时段的右端点为2026-01-01 00:00:00。
+负荷与光伏分别调用新的预测器，输入仅为该变量历史与未来日历；两者相减得到净负荷。不得随机划分，拟合、缩放、选阶与调参均限历史内部。
+三类预测均实现MAE/RMSE；总RMSE从全部时段平方误差计算。事后调度指标实现紧急购电电量、时段数/比例、连续事件数、发生天数与总费用。
+紧急电量来自事后实际供给缺口×1/6小时，不能拿净负荷预测误差直接代替。费用=计划电量×正常电价+紧急电量×当期电价×5；未用电的计划电量仍计费。
+2–12月费用只可称评价期总费用；没有1月策略就不能伪称全年费用。接口只有收到365个完整日的调度明细后才标记完整自然年。
+
+## 本阶段完成状态与后续边界
+
+2.1.1–2.1.15所要求的数据重构、诊断图表/统计、候选依据、回测规则与评价接口已实现。
+原方案未给出预测模型阶数/拟合策略、调度优化和场景风险模型，因此真实预测误差、紧急购电与费用目前未计算；没有填零、模拟或以代理指标冒充真实结果。
+下一建模阶段应在上述候选中用历史内层时间回测确定模型，并提供调度策略后运行已实现的预测与调度评价接口。
+
+## 数值方法依据
+
+- [Burg PACF](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.stattools.pacf_burg.html)
+- [ADF](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.stattools.adfuller.html) 与 [KPSS](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.stattools.kpss.html)
+- [SciPy周期图及功率谱单位](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.periodogram.html)
+</pre></details>
+<a href="results.md">下载结果说明</a> · <a href="../../../docs/2/implementation_acceptance.md">逐句验收报告</a></section>
+<figure id="timeseries_7d"><h2>timeseries_7d</h2><img src="figures/timeseries_7d.png" alt="1月1日起连续7天负荷、光伏与净负荷；净负荷保留负值。"><figcaption>1月1日起连续7天负荷、光伏与净负荷；净负荷保留负值。 <a href="figures/timeseries_7d.svg">SVG</a> · <a href="timeseries.csv">timeseries.csv</a></figcaption></figure><figure id="timeseries_30d"><h2>timeseries_30d</h2><img src="figures/timeseries_30d.png" alt="1月1日起连续30天负荷、光伏与净负荷；净负荷保留负值。"><figcaption>1月1日起连续30天负荷、光伏与净负荷；净负荷保留负值。 <a href="figures/timeseries_30d.svg">SVG</a> · <a href="timeseries.csv">timeseries.csv</a></figcaption></figure><figure id="annual_heatmaps"><h2>annual_heatmaps</h2><img src="figures/annual_heatmaps.png" alt="日期纵轴、日内时间横轴，原始365×144值，无插值；各变量使用独立且标明的色标。"><figcaption>日期纵轴、日内时间横轴，原始365×144值，无插值；各变量使用独立且标明的色标。 <a href="figures/annual_heatmaps.svg">SVG</a> · <a href="timeseries.csv">timeseries.csv</a></figcaption></figure><figure id="monthly_profiles"><h2>monthly_profiles</h2><img src="figures/monthly_profiles.png" alt="同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。"><figcaption>同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。 <a href="figures/monthly_profiles.svg">SVG</a> · <a href="full_year_profiles.csv">full_year_profiles.csv</a></figcaption></figure><figure id="weekday_profiles"><h2>weekday_profiles</h2><img src="figures/weekday_profiles.png" alt="同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。"><figcaption>同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。 <a href="figures/weekday_profiles.svg">SVG</a> · <a href="full_year_profiles.csv">full_year_profiles.csv</a></figcaption></figure><figure id="weekday_weekend"><h2>weekday_weekend</h2><img src="figures/weekday_weekend.png" alt="同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。"><figcaption>同类源日期同槽位算术平均；原始功率未改值或填补，分组样本量与标准差见CSV。 <a href="figures/weekday_weekend.svg">SVG</a> · <a href="full_year_profiles.csv">full_year_profiles.csv</a></figcaption></figure><figure id="acf_pacf"><h2>acf_pacf</h2><img src="figures/acf_pacf.png" alt="计算全部1至2016阶；短滞后、3日与14日视图展示衰减及日/周结构。"><figcaption>计算全部1至2016阶；短滞后、3日与14日视图展示衰减及日/周结构。 <a href="figures/acf_pacf.svg">SVG</a> · <a href="full_year_acf_pacf.csv">full_year_acf_pacf.csv</a></figcaption></figure><figure id="spectra"><h2>spectra</h2><img src="figures/spectra.png" alt="FFT周期图；两轴对数，仅正PSD可显示，零频不表示周期；完整频点与局部峰见CSV。"><figcaption>FFT周期图；两轴对数，仅正PSD可显示，零频不表示周期；完整频点与局部峰见CSV。 <a href="figures/spectra.svg">SVG</a> · <a href="full_year_spectrum.csv">full_year_spectrum.csv</a> · <a href="full_year_spectral_targets.csv">full_year_spectral_targets.csv</a></figcaption></figure><figure id="monthly_stability"><h2>monthly_stability</h2><img src="figures/monthly_stability.png" alt="按月比较日/周相关、日峰谷差、标准差及均值；没有预设稳定性阈值。"><figcaption>按月比较日/周相关、日峰谷差、标准差及均值；没有预设稳定性阈值。 <a href="figures/monthly_stability.svg">SVG</a> · <a href="full_year_monthly_stability.csv">full_year_monthly_stability.csv</a></figcaption></figure><figure id="seasonal_moments"><h2>seasonal_moments</h2><img src="figures/seasonal_moments.png" alt="原始、日差分、周差分与日后周差分均使用单侧历史运算；均值稳定不能替代方差稳定。"><figcaption>原始、日差分、周差分与日后周差分均使用单侧历史运算；均值稳定不能替代方差稳定。 <a href="figures/seasonal_moments.svg">SVG</a> · <a href="full_year_transformed_monthly_moments.csv">full_year_transformed_monthly_moments.csv</a> · <a href="full_year_stationarity_tests.csv">full_year_stationarity_tests.csv</a></figcaption></figure><figure id="daily_peaks"><h2>daily_peaks</h2><img src="figures/daily_peaks.png" alt="每个日期原始峰值及其首次右端点；并列峰值保留数量，不把全零日人为改值。"><figcaption>每个日期原始峰值及其首次右端点；并列峰值保留数量，不把全零日人为改值。 <a href="figures/daily_peaks.svg">SVG</a> · <a href="full_year_daily_statistics.csv">full_year_daily_statistics.csv</a></figcaption></figure><section id="data"><h2>实算统计与下载</h2><details><summary>initial_history / summary</summary><a href="initial_history_summary.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>series</th>
+      <th>n</th>
+      <th>mean_kw</th>
+      <th>std_kw</th>
+      <th>min_kw</th>
+      <th>max_kw</th>
+      <th>zero_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>load_kw</td>
+      <td>4463</td>
+      <td>4726.26</td>
+      <td>1450.41</td>
+      <td>2211.69</td>
+      <td>7546.75</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>pv_kw</td>
+      <td>4463</td>
+      <td>1589.54</td>
+      <td>2247.38</td>
+      <td>0</td>
+      <td>7159.12</td>
+      <td>2323</td>
+    </tr>
+    <tr>
+      <td>net_load_kw</td>
+      <td>4463</td>
+      <td>3136.72</td>
+      <td>1767.19</td>
+      <td>-2806.23</td>
+      <td>6630.47</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>initial_history / lag_correlations</summary><a href="initial_history_lag_correlations.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>series</th>
+      <th>form</th>
+      <th>lag</th>
+      <th>lag_days</th>
+      <th>n_pairs</th>
+      <th>pearson_r</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>4462</td>
+      <td>0.987789</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>4457</td>
+      <td>0.917761</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>144</td>
+      <td>1</td>
+      <td>4319</td>
+      <td>0.682578</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>288</td>
+      <td>2</td>
+      <td>4175</td>
+      <td>0.389828</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>3455</td>
+      <td>0.992456</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>2447</td>
+      <td>0.992921</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>4462</td>
+      <td>0.985642</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>4457</td>
+      <td>0.931958</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>144</td>
+      <td>1</td>
+      <td>4319</td>
+      <td>0.251593</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>288</td>
+      <td>2</td>
+      <td>4175</td>
+      <td>-0.412332</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>3455</td>
+      <td>0.982533</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>2447</td>
+      <td>0.983708</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>4462</td>
+      <td>0.997687</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>4457</td>
+      <td>0.92954</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>144</td>
+      <td>1</td>
+      <td>4319</td>
+      <td>0.994429</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>288</td>
+      <td>2</td>
+      <td>4175</td>
+      <td>0.99395</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>3455</td>
+      <td>0.993985</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>2447</td>
+      <td>0.993927</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>4462</td>
+      <td>0.960846</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>4457</td>
+      <td>0.711586</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>144</td>
+      <td>1</td>
+      <td>4319</td>
+      <td>0.331632</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>288</td>
+      <td>2</td>
+      <td>4175</td>
+      <td>0.246643</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>3455</td>
+      <td>0.0896564</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>2447</td>
+      <td>-0.156006</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>initial_history / spectral_targets</summary><a href="initial_history_spectral_targets.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>series</th>
+      <th>form</th>
+      <th>target_period_days</th>
+      <th>target_frequency_per_day</th>
+      <th>frequency_resolution_per_day</th>
+      <th>nearest_frequency_per_day</th>
+      <th>nearest_period_days</th>
+      <th>target_psd</th>
+      <th>left_psd</th>
+      <th>right_psd</th>
+      <th>local_peak</th>
+      <th>bin_variance_fraction</th>
+      <th>integrated_psd_kw2</th>
+      <th>population_variance_kw2</th>
+      <th>interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0322653</td>
+      <td>1.00022</td>
+      <td>0.999776</td>
+      <td>3.402e+07</td>
+      <td>2323.27</td>
+      <td>1105</td>
+      <td>True</td>
+      <td>0.521902</td>
+      <td>2.1032e+06</td>
+      <td>2.1032e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.0322653</td>
+      <td>0.129061</td>
+      <td>7.74826</td>
+      <td>6.66255e+06</td>
+      <td>395046</td>
+      <td>4.68882e+06</td>
+      <td>True</td>
+      <td>0.10221</td>
+      <td>2.1032e+06</td>
+      <td>2.1032e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0322653</td>
+      <td>1.00022</td>
+      <td>0.999776</td>
+      <td>0.249952</td>
+      <td>156.592</td>
+      <td>865.999</td>
+      <td>False</td>
+      <td>8.90234e-09</td>
+      <td>905915</td>
+      <td>905915</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.0322653</td>
+      <td>0.129061</td>
+      <td>7.74826</td>
+      <td>6.66511e+06</td>
+      <td>395824</td>
+      <td>4.68668e+06</td>
+      <td>True</td>
+      <td>0.237386</td>
+      <td>905915</td>
+      <td>905915</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0322653</td>
+      <td>1.00022</td>
+      <td>0.999776</td>
+      <td>1.12845e+08</td>
+      <td>88488.5</td>
+      <td>89789.8</td>
+      <td>True</td>
+      <td>0.721042</td>
+      <td>5.0496e+06</td>
+      <td>5.0496e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.0322653</td>
+      <td>0.129061</td>
+      <td>7.74826</td>
+      <td>16783.2</td>
+      <td>12230.7</td>
+      <td>5028.02</td>
+      <td>True</td>
+      <td>0.000107239</td>
+      <td>5.0496e+06</td>
+      <td>5.0496e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0322653</td>
+      <td>1.00022</td>
+      <td>0.999776</td>
+      <td>40.7017</td>
+      <td>94513.7</td>
+      <td>74707.9</td>
+      <td>False</td>
+      <td>3.07816e-05</td>
+      <td>42663.5</td>
+      <td>42663.5</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.0322653</td>
+      <td>0.129061</td>
+      <td>7.74826</td>
+      <td>17079.4</td>
+      <td>12292</td>
+      <td>5041.51</td>
+      <td>True</td>
+      <td>0.0129167</td>
+      <td>42663.5</td>
+      <td>42663.5</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>initial_history / monthly_stability</summary><a href="initial_history_monthly_stability.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>month</th>
+      <th>series</th>
+      <th>n</th>
+      <th>mean_kw</th>
+      <th>std_kw</th>
+      <th>daily_lag_r</th>
+      <th>weekly_lag_r</th>
+      <th>daily_pairs</th>
+      <th>weekly_pairs</th>
+      <th>mean_daily_amplitude_kw</th>
+      <th>mean_profile_amplitude_kw</th>
+      <th>cv</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>initial_history</td>
+      <td>1</td>
+      <td>load_kw</td>
+      <td>4463</td>
+      <td>4726.26</td>
+      <td>1450.41</td>
+      <td>0.682578</td>
+      <td>0.992456</td>
+      <td>4319</td>
+      <td>3455</td>
+      <td>3725.53</td>
+      <td>3379.98</td>
+      <td>0.306882</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>1</td>
+      <td>pv_kw</td>
+      <td>4463</td>
+      <td>1589.54</td>
+      <td>2247.38</td>
+      <td>0.994429</td>
+      <td>0.993985</td>
+      <td>4319</td>
+      <td>3455</td>
+      <td>6221.03</td>
+      <td>6083.49</td>
+      <td>1.41386</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>1</td>
+      <td>net_load_kw</td>
+      <td>4463</td>
+      <td>3136.72</td>
+      <td>1767.19</td>
+      <td>0.763369</td>
+      <td>0.98453</td>
+      <td>4319</td>
+      <td>3455</td>
+      <td>6074.09</td>
+      <td>5589.24</td>
+      <td>0.563389</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>initial_history / stationarity_tests</summary><a href="initial_history_stationarity_tests.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>series</th>
+      <th>form</th>
+      <th>test</th>
+      <th>regression</th>
+      <th>input_n</th>
+      <th>status</th>
+      <th>statistic</th>
+      <th>p_value</th>
+      <th>p_value_type</th>
+      <th>selected_lags</th>
+      <th>test_n</th>
+      <th>bic</th>
+      <th>critical_1pct</th>
+      <th>critical_5pct</th>
+      <th>critical_10pct</th>
+      <th>reject_null_1pct</th>
+      <th>reject_null_5pct</th>
+      <th>reject_null_10pct</th>
+      <th>warning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>-7.12963</td>
+      <td>3.54539e-10</td>
+      <td>approximate</td>
+      <td>13</td>
+      <td>4449</td>
+      <td>57013.7</td>
+      <td>-3.43182</td>
+      <td>-2.86219</td>
+      <td>-2.56712</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>0.0464597</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>40</td>
+      <td>4463</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>-7.13108</td>
+      <td>7.12393e-09</td>
+      <td>approximate</td>
+      <td>13</td>
+      <td>4449</td>
+      <td>57022</td>
+      <td>-3.96081</td>
+      <td>-3.41148</td>
+      <td>-3.12763</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>0.0461526</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>40</td>
+      <td>4463</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>-3.76817</td>
+      <td>0.00325031</td>
+      <td>approximate</td>
+      <td>17</td>
+      <td>4301</td>
+      <td>54780.4</td>
+      <td>-3.43187</td>
+      <td>-2.86221</td>
+      <td>-2.56713</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>0.112399</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>40</td>
+      <td>4319</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>-3.77591</td>
+      <td>0.0178203</td>
+      <td>approximate</td>
+      <td>17</td>
+      <td>4301</td>
+      <td>54788.7</td>
+      <td>-3.96088</td>
+      <td>-3.41151</td>
+      <td>-3.12765</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>0.0987924</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>40</td>
+      <td>4319</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>-14.6722</td>
+      <td>3.25304e-27</td>
+      <td>approximate</td>
+      <td>13</td>
+      <td>3441</td>
+      <td>41508.4</td>
+      <td>-3.43225</td>
+      <td>-2.86238</td>
+      <td>-2.56722</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>0.0501298</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>2</td>
+      <td>3455</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>-14.6702</td>
+      <td>3.35627e-22</td>
+      <td>approximate</td>
+      <td>13</td>
+      <td>3441</td>
+      <td>41516.6</td>
+      <td>-3.9614</td>
+      <td>-3.41177</td>
+      <td>-3.1278</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>0.047491</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>2</td>
+      <td>3455</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>-12.7153</td>
+      <td>1.0094e-23</td>
+      <td>approximate</td>
+      <td>16</td>
+      <td>3294</td>
+      <td>42063.2</td>
+      <td>-3.43234</td>
+      <td>-2.86242</td>
+      <td>-2.56724</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>0.0261474</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>8</td>
+      <td>3311</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>-12.7134</td>
+      <td>3.26813e-20</td>
+      <td>approximate</td>
+      <td>16</td>
+      <td>3294</td>
+      <td>42071.3</td>
+      <td>-3.96152</td>
+      <td>-3.41182</td>
+      <td>-3.12784</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>0.0259403</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>8</td>
+      <td>3311</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>-14.3027</td>
+      <td>1.2216e-26</td>
+      <td>approximate</td>
+      <td>11</td>
+      <td>4451</td>
+      <td>47101.9</td>
+      <td>-3.43182</td>
+      <td>-2.86219</td>
+      <td>-2.56712</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>0.0276742</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>40</td>
+      <td>4463</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>-14.312</td>
+      <td>6.00377e-22</td>
+      <td>approximate</td>
+      <td>11</td>
+      <td>4451</td>
+      <td>47110.1</td>
+      <td>-3.96081</td>
+      <td>-3.41148</td>
+      <td>-3.12763</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>4463</td>
+      <td>ok</td>
+      <td>0.00395356</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>40</td>
+      <td>4463</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>-11.7956</td>
+      <td>9.59641e-22</td>
+      <td>approximate</td>
+      <td>15</td>
+      <td>4303</td>
+      <td>46404.2</td>
+      <td>-3.43187</td>
+      <td>-2.86221</td>
+      <td>-2.56713</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>0.018166</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>37</td>
+      <td>4319</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>-11.7943</td>
+      <td>8.38506e-19</td>
+      <td>approximate</td>
+      <td>15</td>
+      <td>4303</td>
+      <td>46412.5</td>
+      <td>-3.96088</td>
+      <td>-3.41151</td>
+      <td>-3.12765</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>4319</td>
+      <td>ok</td>
+      <td>0.0176202</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>37</td>
+      <td>4319</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>-10.5653</td>
+      <td>7.54328e-19</td>
+      <td>approximate</td>
+      <td>11</td>
+      <td>3443</td>
+      <td>37087.8</td>
+      <td>-3.43225</td>
+      <td>-2.86238</td>
+      <td>-2.56722</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>0.236585</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>35</td>
+      <td>3455</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>-10.637</td>
+      <td>1.13064e-16</td>
+      <td>approximate</td>
+      <td>11</td>
+      <td>3443</td>
+      <td>37094.5</td>
+      <td>-3.9614</td>
+      <td>-3.41177</td>
+      <td>-3.1278</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>3455</td>
+      <td>ok</td>
+      <td>0.0247169</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>35</td>
+      <td>3455</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>-10.3577</td>
+      <td>2.44183e-18</td>
+      <td>approximate</td>
+      <td>11</td>
+      <td>3299</td>
+      <td>37777.5</td>
+      <td>-3.43233</td>
+      <td>-2.86242</td>
+      <td>-2.56724</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>0.0269841</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>35</td>
+      <td>3311</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>-10.3563</td>
+      <td>4.16944e-16</td>
+      <td>approximate</td>
+      <td>11</td>
+      <td>3299</td>
+      <td>37785.5</td>
+      <td>-3.96152</td>
+      <td>-3.41182</td>
+      <td>-3.12783</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>initial_history</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>3311</td>
+      <td>ok</td>
+      <td>0.0268478</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>35</td>
+      <td>3311</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>full_year / summary</summary><a href="full_year_summary.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>series</th>
+      <th>n</th>
+      <th>mean_kw</th>
+      <th>std_kw</th>
+      <th>min_kw</th>
+      <th>max_kw</th>
+      <th>zero_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>load_kw</td>
+      <td>52560</td>
+      <td>4626.03</td>
+      <td>1411.75</td>
+      <td>1995.72</td>
+      <td>7978.88</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>pv_kw</td>
+      <td>52560</td>
+      <td>2311.79</td>
+      <td>2948.67</td>
+      <td>0</td>
+      <td>10216.2</td>
+      <td>23540</td>
+    </tr>
+    <tr>
+      <td>net_load_kw</td>
+      <td>52560</td>
+      <td>2314.25</td>
+      <td>2432.8</td>
+      <td>-6601.99</td>
+      <td>6687.75</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>full_year / lag_correlations</summary><a href="full_year_lag_correlations.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>series</th>
+      <th>form</th>
+      <th>lag</th>
+      <th>lag_days</th>
+      <th>n_pairs</th>
+      <th>pearson_r</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>52559</td>
+      <td>0.987038</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>52554</td>
+      <td>0.916909</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>144</td>
+      <td>1</td>
+      <td>52416</td>
+      <td>0.679223</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>288</td>
+      <td>2</td>
+      <td>52272</td>
+      <td>0.366092</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>51552</td>
+      <td>0.985484</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>50544</td>
+      <td>0.97909</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>52559</td>
+      <td>0.986721</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>52554</td>
+      <td>0.938336</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>144</td>
+      <td>1</td>
+      <td>52416</td>
+      <td>0.384715</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>288</td>
+      <td>2</td>
+      <td>52272</td>
+      <td>-0.214148</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>51552</td>
+      <td>0.972174</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>50544</td>
+      <td>0.96</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>52559</td>
+      <td>0.99797</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>52554</td>
+      <td>0.943077</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>144</td>
+      <td>1</td>
+      <td>52416</td>
+      <td>0.992314</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>288</td>
+      <td>2</td>
+      <td>52272</td>
+      <td>0.991943</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>51552</td>
+      <td>0.990339</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>50544</td>
+      <td>0.986546</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>0.00694444</td>
+      <td>52559</td>
+      <td>0.990132</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>6</td>
+      <td>0.0416667</td>
+      <td>52554</td>
+      <td>0.886921</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>144</td>
+      <td>1</td>
+      <td>52416</td>
+      <td>0.877083</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>288</td>
+      <td>2</td>
+      <td>52272</td>
+      <td>0.870464</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1008</td>
+      <td>7</td>
+      <td>51552</td>
+      <td>0.840363</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>2016</td>
+      <td>14</td>
+      <td>50544</td>
+      <td>0.768968</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>full_year / spectral_targets</summary><a href="full_year_spectral_targets.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>series</th>
+      <th>form</th>
+      <th>target_period_days</th>
+      <th>target_frequency_per_day</th>
+      <th>frequency_resolution_per_day</th>
+      <th>nearest_frequency_per_day</th>
+      <th>nearest_period_days</th>
+      <th>target_psd</th>
+      <th>left_psd</th>
+      <th>right_psd</th>
+      <th>local_peak</th>
+      <th>bin_variance_fraction</th>
+      <th>integrated_psd_kw2</th>
+      <th>population_variance_kw2</th>
+      <th>interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.00273973</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3.1198e+08</td>
+      <td>7.84184e+06</td>
+      <td>7.83378e+06</td>
+      <td>True</td>
+      <td>0.428873</td>
+      <td>1.99299e+06</td>
+      <td>1.99299e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.00273973</td>
+      <td>0.142466</td>
+      <td>7.01923</td>
+      <td>1.56264e+08</td>
+      <td>2.47984e+06</td>
+      <td>4.76892e+06</td>
+      <td>True</td>
+      <td>0.214814</td>
+      <td>1.99299e+06</td>
+      <td>1.99299e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.00273973</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.41306e-26</td>
+      <td>7.84184e+06</td>
+      <td>7.83378e+06</td>
+      <td>False</td>
+      <td>1.42937e-34</td>
+      <td>1.03754e+06</td>
+      <td>1.03754e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>daily_profile_residual</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.00273973</td>
+      <td>0.142466</td>
+      <td>7.01923</td>
+      <td>1.56264e+08</td>
+      <td>2.47984e+06</td>
+      <td>4.76892e+06</td>
+      <td>True</td>
+      <td>0.412631</td>
+      <td>1.03754e+06</td>
+      <td>1.03754e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.00273973</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2.45351e+09</td>
+      <td>2.31364e+07</td>
+      <td>2.30258e+07</td>
+      <td>True</td>
+      <td>0.773129</td>
+      <td>8.69447e+06</td>
+      <td>8.69447e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.00273973</td>
+      <td>0.142466</td>
+      <td>7.01923</td>
+      <td>18487.9</td>
+      <td>21044.9</td>
+      <td>23610.3</td>
+      <td>False</td>
+      <td>5.82575e-06</td>
+      <td>8.69447e+06</td>
+      <td>8.69447e+06</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.00273973</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7.08924e-25</td>
+      <td>2.31364e+07</td>
+      <td>2.30258e+07</td>
+      <td>False</td>
+      <td>3.55156e-33</td>
+      <td>546874</td>
+      <td>546874</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>daily_profile_residual</td>
+      <td>7</td>
+      <td>0.142857</td>
+      <td>0.00273973</td>
+      <td>0.142466</td>
+      <td>7.01923</td>
+      <td>18487.9</td>
+      <td>21044.9</td>
+      <td>23610.3</td>
+      <td>False</td>
+      <td>9.26206e-05</td>
+      <td>546874</td>
+      <td>546874</td>
+      <td>descriptive_not_significance_test</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>full_year / monthly_stability</summary><a href="full_year_monthly_stability.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>month</th>
+      <th>series</th>
+      <th>n</th>
+      <th>mean_kw</th>
+      <th>std_kw</th>
+      <th>daily_lag_r</th>
+      <th>weekly_lag_r</th>
+      <th>daily_pairs</th>
+      <th>weekly_pairs</th>
+      <th>mean_daily_amplitude_kw</th>
+      <th>mean_profile_amplitude_kw</th>
+      <th>cv</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>full_year</td>
+      <td>1</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>4725.77</td>
+      <td>1450.61</td>
+      <td>0.682729</td>
+      <td>0.992459</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3725.53</td>
+      <td>3379.98</td>
+      <td>0.306957</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>1</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>1589.18</td>
+      <td>2247.26</td>
+      <td>0.994429</td>
+      <td>0.993986</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>6221.03</td>
+      <td>6083.49</td>
+      <td>1.4141</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>1</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>3136.59</td>
+      <td>1767.02</td>
+      <td>0.763373</td>
+      <td>0.98453</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>6074.09</td>
+      <td>5589.24</td>
+      <td>0.563356</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>2</td>
+      <td>load_kw</td>
+      <td>4032</td>
+      <td>4516.9</td>
+      <td>1423.05</td>
+      <td>0.675671</td>
+      <td>0.993658</td>
+      <td>3888</td>
+      <td>3024</td>
+      <td>3604.53</td>
+      <td>3236.79</td>
+      <td>0.31505</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>2</td>
+      <td>pv_kw</td>
+      <td>4032</td>
+      <td>1966.48</td>
+      <td>2656.14</td>
+      <td>0.99458</td>
+      <td>0.994968</td>
+      <td>3888</td>
+      <td>3024</td>
+      <td>7260.72</td>
+      <td>7027.8</td>
+      <td>1.35071</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>2</td>
+      <td>net_load_kw</td>
+      <td>4032</td>
+      <td>2550.42</td>
+      <td>2071.78</td>
+      <td>0.838421</td>
+      <td>0.987351</td>
+      <td>3888</td>
+      <td>3024</td>
+      <td>7067.19</td>
+      <td>6701.45</td>
+      <td>0.81233</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>3</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>4355.7</td>
+      <td>1381.34</td>
+      <td>0.652407</td>
+      <td>0.993651</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3207.44</td>
+      <td>2875.4</td>
+      <td>0.317134</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>3</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>2304.2</td>
+      <td>2932.64</td>
+      <td>0.99145</td>
+      <td>0.992047</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8039.66</td>
+      <td>7764.98</td>
+      <td>1.27274</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>3</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>2051.5</td>
+      <td>2338.2</td>
+      <td>0.858521</td>
+      <td>0.984628</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>7888.13</td>
+      <td>7397.73</td>
+      <td>1.13975</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>4</td>
+      <td>load_kw</td>
+      <td>4320</td>
+      <td>4392.98</td>
+      <td>1373.51</td>
+      <td>0.678549</td>
+      <td>0.993534</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>3217.7</td>
+      <td>2862.65</td>
+      <td>0.312661</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>4</td>
+      <td>pv_kw</td>
+      <td>4320</td>
+      <td>2701.69</td>
+      <td>3231.72</td>
+      <td>0.991004</td>
+      <td>0.99259</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>8769.79</td>
+      <td>8413.1</td>
+      <td>1.19619</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>4</td>
+      <td>net_load_kw</td>
+      <td>4320</td>
+      <td>1691.29</td>
+      <td>2563.1</td>
+      <td>0.889284</td>
+      <td>0.985926</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>8004.43</td>
+      <td>7334.58</td>
+      <td>1.51547</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>5</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>4401.68</td>
+      <td>1355.58</td>
+      <td>0.638492</td>
+      <td>0.990529</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3009.68</td>
+      <td>2513.64</td>
+      <td>0.30797</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>5</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>2806.5</td>
+      <td>3204</td>
+      <td>0.990574</td>
+      <td>0.989831</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8724.81</td>
+      <td>8304.7</td>
+      <td>1.14163</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>5</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>1595.18</td>
+      <td>2620.89</td>
+      <td>0.894334</td>
+      <td>0.982454</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8102.31</td>
+      <td>7456.18</td>
+      <td>1.64301</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>6</td>
+      <td>load_kw</td>
+      <td>4320</td>
+      <td>4800.37</td>
+      <td>1338.79</td>
+      <td>0.654112</td>
+      <td>0.988589</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>3254.31</td>
+      <td>2843.46</td>
+      <td>0.278893</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>6</td>
+      <td>pv_kw</td>
+      <td>4320</td>
+      <td>2369.83</td>
+      <td>2662.64</td>
+      <td>0.985372</td>
+      <td>0.985576</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>7449.21</td>
+      <td>6971.19</td>
+      <td>1.12356</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>6</td>
+      <td>net_load_kw</td>
+      <td>4320</td>
+      <td>2430.55</td>
+      <td>2210.72</td>
+      <td>0.863994</td>
+      <td>0.974281</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>7165.59</td>
+      <td>6379.12</td>
+      <td>0.909556</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>7</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>5337.26</td>
+      <td>1335.14</td>
+      <td>0.664232</td>
+      <td>0.984564</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3457.16</td>
+      <td>3015.96</td>
+      <td>0.250154</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>7</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>2723.25</td>
+      <td>3095.81</td>
+      <td>0.990994</td>
+      <td>0.990784</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8517.34</td>
+      <td>8166.76</td>
+      <td>1.13681</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>7</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>2614</td>
+      <td>2616.5</td>
+      <td>0.902005</td>
+      <td>0.982784</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8278.58</td>
+      <td>7691.99</td>
+      <td>1.00095</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>8</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>5045.18</td>
+      <td>1341.12</td>
+      <td>0.625668</td>
+      <td>0.985694</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3294.6</td>
+      <td>2859.63</td>
+      <td>0.265821</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>8</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>2915.99</td>
+      <td>3428.26</td>
+      <td>0.993019</td>
+      <td>0.992973</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>9337.64</td>
+      <td>8977.76</td>
+      <td>1.17568</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>8</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>2129.18</td>
+      <td>2991.78</td>
+      <td>0.914283</td>
+      <td>0.987728</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>9297.25</td>
+      <td>8577.3</td>
+      <td>1.40513</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>9</td>
+      <td>load_kw</td>
+      <td>4320</td>
+      <td>4535.91</td>
+      <td>1348.91</td>
+      <td>0.663292</td>
+      <td>0.990392</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>3051.46</td>
+      <td>2559.48</td>
+      <td>0.297384</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>9</td>
+      <td>pv_kw</td>
+      <td>4320</td>
+      <td>2607.6</td>
+      <td>3251.35</td>
+      <td>0.992082</td>
+      <td>0.993563</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>8927.76</td>
+      <td>8630.32</td>
+      <td>1.24688</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>9</td>
+      <td>net_load_kw</td>
+      <td>4320</td>
+      <td>1928.31</td>
+      <td>2689.61</td>
+      <td>0.904733</td>
+      <td>0.98765</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>8935.27</td>
+      <td>8374.13</td>
+      <td>1.3948</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>10</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>4347.02</td>
+      <td>1376.93</td>
+      <td>0.651964</td>
+      <td>0.994422</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3206.29</td>
+      <td>2868.1</td>
+      <td>0.316753</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>10</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>2364.31</td>
+      <td>3143.06</td>
+      <td>0.995936</td>
+      <td>0.994868</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8648.28</td>
+      <td>8396.34</td>
+      <td>1.32937</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>10</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>1982.71</td>
+      <td>2549.48</td>
+      <td>0.895904</td>
+      <td>0.989782</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>8699.59</td>
+      <td>8313.69</td>
+      <td>1.28586</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>11</td>
+      <td>load_kw</td>
+      <td>4320</td>
+      <td>4337.67</td>
+      <td>1382.4</td>
+      <td>0.639968</td>
+      <td>0.993597</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>3226.78</td>
+      <td>2864.3</td>
+      <td>0.318697</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>11</td>
+      <td>pv_kw</td>
+      <td>4320</td>
+      <td>1854.38</td>
+      <td>2592.06</td>
+      <td>0.995937</td>
+      <td>0.995957</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>7186.07</td>
+      <td>6987.93</td>
+      <td>1.39781</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>11</td>
+      <td>net_load_kw</td>
+      <td>4320</td>
+      <td>2483.3</td>
+      <td>2106.48</td>
+      <td>0.835236</td>
+      <td>0.990505</td>
+      <td>4176</td>
+      <td>3312</td>
+      <td>7259.19</td>
+      <td>6934.96</td>
+      <td>0.84826</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>12</td>
+      <td>load_kw</td>
+      <td>4464</td>
+      <td>4691.31</td>
+      <td>1437.44</td>
+      <td>0.712005</td>
+      <td>0.993005</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>3774.41</td>
+      <td>3369.59</td>
+      <td>0.306404</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>12</td>
+      <td>pv_kw</td>
+      <td>4464</td>
+      <td>1513.84</td>
+      <td>2168.51</td>
+      <td>0.995103</td>
+      <td>0.995492</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>6089.48</td>
+      <td>5904.71</td>
+      <td>1.43246</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>12</td>
+      <td>net_load_kw</td>
+      <td>4464</td>
+      <td>3177.47</td>
+      <td>1683.28</td>
+      <td>0.794926</td>
+      <td>0.987129</td>
+      <td>4320</td>
+      <td>3456</td>
+      <td>6039.82</td>
+      <td>5526.68</td>
+      <td>0.529754</td>
+    </tr>
+  </tbody>
+</table></div></details><details><summary>full_year / stationarity_tests</summary><a href="full_year_stationarity_tests.csv">完整CSV</a><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scope</th>
+      <th>series</th>
+      <th>form</th>
+      <th>test</th>
+      <th>regression</th>
+      <th>input_n</th>
+      <th>status</th>
+      <th>statistic</th>
+      <th>p_value</th>
+      <th>p_value_type</th>
+      <th>selected_lags</th>
+      <th>test_n</th>
+      <th>bic</th>
+      <th>critical_1pct</th>
+      <th>critical_5pct</th>
+      <th>critical_10pct</th>
+      <th>reject_null_1pct</th>
+      <th>reject_null_5pct</th>
+      <th>reject_null_10pct</th>
+      <th>warning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>-32.2864</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>58</td>
+      <td>52501</td>
+      <td>673873</td>
+      <td>-3.43047</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>0.525169</td>
+      <td>0.035998</td>
+      <td>interpolated</td>
+      <td>135</td>
+      <td>52560</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>-32.2899</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>58</td>
+      <td>52501</td>
+      <td>673883</td>
+      <td>-3.95894</td>
+      <td>-3.41057</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>0.506252</td>
+      <td>0.01</td>
+      <td>less_than</td>
+      <td>135</td>
+      <td>52560</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>-28.2775</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>58</td>
+      <td>52357</td>
+      <td>668616</td>
+      <td>-3.43047</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>0.0039033</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>136</td>
+      <td>52416</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>-28.2778</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>58</td>
+      <td>52357</td>
+      <td>668626</td>
+      <td>-3.95894</td>
+      <td>-3.41057</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>0.00300234</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>136</td>
+      <td>52416</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>-16.5436</td>
+      <td>1.97378e-29</td>
+      <td>approximate</td>
+      <td>24</td>
+      <td>51527</td>
+      <td>628823</td>
+      <td>-3.43048</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>0.745194</td>
+      <td>0.01</td>
+      <td>less_than</td>
+      <td>127</td>
+      <td>51552</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>-16.5514</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>24</td>
+      <td>51527</td>
+      <td>628833</td>
+      <td>-3.95895</td>
+      <td>-3.41058</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>0.764562</td>
+      <td>0.01</td>
+      <td>less_than</td>
+      <td>127</td>
+      <td>51552</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>-26.8147</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>28</td>
+      <td>51379</td>
+      <td>660455</td>
+      <td>-3.43048</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>0.0142515</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>93</td>
+      <td>51408</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>-26.8145</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>28</td>
+      <td>51379</td>
+      <td>660466</td>
+      <td>-3.95895</td>
+      <td>-3.41058</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>load_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>0.0140867</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>93</td>
+      <td>51408</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>-50.6942</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>58</td>
+      <td>52501</td>
+      <td>596338</td>
+      <td>-3.43047</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>6.83787</td>
+      <td>0.01</td>
+      <td>less_than</td>
+      <td>134</td>
+      <td>52560</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>-50.7003</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>58</td>
+      <td>52501</td>
+      <td>596348</td>
+      <td>-3.95894</td>
+      <td>-3.41057</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>raw</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>52560</td>
+      <td>ok</td>
+      <td>6.8049</td>
+      <td>0.01</td>
+      <td>less_than</td>
+      <td>134</td>
+      <td>52560</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>-38.1007</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>21</td>
+      <td>52394</td>
+      <td>614236</td>
+      <td>-3.43047</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>0.170488</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>117</td>
+      <td>52416</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>-38.1211</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>21</td>
+      <td>52394</td>
+      <td>614245</td>
+      <td>-3.95894</td>
+      <td>-3.41057</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>52416</td>
+      <td>ok</td>
+      <td>0.00697517</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>117</td>
+      <td>52416</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>-32.9454</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>21</td>
+      <td>51530</td>
+      <td>605940</td>
+      <td>-3.43048</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>4.3417</td>
+      <td>0.01</td>
+      <td>less_than</td>
+      <td>122</td>
+      <td>51552</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is smaller than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>-33.5378</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>21</td>
+      <td>51530</td>
+      <td>605912</td>
+      <td>-3.95895</td>
+      <td>-3.41058</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>51552</td>
+      <td>ok</td>
+      <td>0.161607</td>
+      <td>0.0369944</td>
+      <td>interpolated</td>
+      <td>121</td>
+      <td>51552</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>c</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>-37.852</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>21</td>
+      <td>51386</td>
+      <td>637958</td>
+      <td>-3.43048</td>
+      <td>-2.8616</td>
+      <td>-2.5668</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>c</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>0.00248872</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>116</td>
+      <td>51408</td>
+      <td>无定义/不适用</td>
+      <td>0.739</td>
+      <td>0.463</td>
+      <td>0.347</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>ADF</td>
+      <td>ct</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>-37.8517</td>
+      <td>0</td>
+      <td>approximate</td>
+      <td>21</td>
+      <td>51386</td>
+      <td>637969</td>
+      <td>-3.95895</td>
+      <td>-3.41058</td>
+      <td>-3.1271</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>full_year</td>
+      <td>pv_kw</td>
+      <td>diff144_then1008</td>
+      <td>KPSS</td>
+      <td>ct</td>
+      <td>51408</td>
+      <td>ok</td>
+      <td>0.00245561</td>
+      <td>0.1</td>
+      <td>greater_than</td>
+      <td>116</td>
+      <td>51408</td>
+      <td>无定义/不适用</td>
+      <td>0.216</td>
+      <td>0.146</td>
+      <td>0.119</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>The test statistic is outside of the range of p-values available in the\nlook-up table. The actual p-value is greater than the p-value returned.\n</td>
+    </tr>
+  </tbody>
+</table></div></details>
+<details><summary>334日严格滚动切分</summary><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>origin</th>
+      <th>history_start</th>
+      <th>history_end_exclusive</th>
+      <th>history_last_timestamp</th>
+      <th>history_points</th>
+      <th>horizon_points</th>
+      <th>target_first</th>
+      <th>target_last</th>
+      <th>rule</th>
+      <th>window</th>
+      <th>unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025-02-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-01</td>
+      <td>2025-01-31 23:50:00</td>
+      <td>4463</td>
+      <td>144</td>
+      <td>2025-02-01 00:10:00</td>
+      <td>2025-02-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-02</td>
+      <td>2025-02-01 23:50:00</td>
+      <td>4607</td>
+      <td>144</td>
+      <td>2025-02-02 00:10:00</td>
+      <td>2025-02-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-03</td>
+      <td>2025-02-02 23:50:00</td>
+      <td>4751</td>
+      <td>144</td>
+      <td>2025-02-03 00:10:00</td>
+      <td>2025-02-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-04</td>
+      <td>2025-02-03 23:50:00</td>
+      <td>4895</td>
+      <td>144</td>
+      <td>2025-02-04 00:10:00</td>
+      <td>2025-02-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-05</td>
+      <td>2025-02-04 23:50:00</td>
+      <td>5039</td>
+      <td>144</td>
+      <td>2025-02-05 00:10:00</td>
+      <td>2025-02-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-06</td>
+      <td>2025-02-05 23:50:00</td>
+      <td>5183</td>
+      <td>144</td>
+      <td>2025-02-06 00:10:00</td>
+      <td>2025-02-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-07</td>
+      <td>2025-02-06 23:50:00</td>
+      <td>5327</td>
+      <td>144</td>
+      <td>2025-02-07 00:10:00</td>
+      <td>2025-02-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-08</td>
+      <td>2025-02-07 23:50:00</td>
+      <td>5471</td>
+      <td>144</td>
+      <td>2025-02-08 00:10:00</td>
+      <td>2025-02-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-09</td>
+      <td>2025-02-08 23:50:00</td>
+      <td>5615</td>
+      <td>144</td>
+      <td>2025-02-09 00:10:00</td>
+      <td>2025-02-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-10</td>
+      <td>2025-02-09 23:50:00</td>
+      <td>5759</td>
+      <td>144</td>
+      <td>2025-02-10 00:10:00</td>
+      <td>2025-02-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-11</td>
+      <td>2025-02-10 23:50:00</td>
+      <td>5903</td>
+      <td>144</td>
+      <td>2025-02-11 00:10:00</td>
+      <td>2025-02-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-12</td>
+      <td>2025-02-11 23:50:00</td>
+      <td>6047</td>
+      <td>144</td>
+      <td>2025-02-12 00:10:00</td>
+      <td>2025-02-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-13</td>
+      <td>2025-02-12 23:50:00</td>
+      <td>6191</td>
+      <td>144</td>
+      <td>2025-02-13 00:10:00</td>
+      <td>2025-02-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-14</td>
+      <td>2025-02-13 23:50:00</td>
+      <td>6335</td>
+      <td>144</td>
+      <td>2025-02-14 00:10:00</td>
+      <td>2025-02-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-15</td>
+      <td>2025-02-14 23:50:00</td>
+      <td>6479</td>
+      <td>144</td>
+      <td>2025-02-15 00:10:00</td>
+      <td>2025-02-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-16</td>
+      <td>2025-02-15 23:50:00</td>
+      <td>6623</td>
+      <td>144</td>
+      <td>2025-02-16 00:10:00</td>
+      <td>2025-02-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-17</td>
+      <td>2025-02-16 23:50:00</td>
+      <td>6767</td>
+      <td>144</td>
+      <td>2025-02-17 00:10:00</td>
+      <td>2025-02-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-18</td>
+      <td>2025-02-17 23:50:00</td>
+      <td>6911</td>
+      <td>144</td>
+      <td>2025-02-18 00:10:00</td>
+      <td>2025-02-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-19</td>
+      <td>2025-02-18 23:50:00</td>
+      <td>7055</td>
+      <td>144</td>
+      <td>2025-02-19 00:10:00</td>
+      <td>2025-02-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-20</td>
+      <td>2025-02-19 23:50:00</td>
+      <td>7199</td>
+      <td>144</td>
+      <td>2025-02-20 00:10:00</td>
+      <td>2025-02-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-21</td>
+      <td>2025-02-20 23:50:00</td>
+      <td>7343</td>
+      <td>144</td>
+      <td>2025-02-21 00:10:00</td>
+      <td>2025-02-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-22</td>
+      <td>2025-02-21 23:50:00</td>
+      <td>7487</td>
+      <td>144</td>
+      <td>2025-02-22 00:10:00</td>
+      <td>2025-02-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-23</td>
+      <td>2025-02-22 23:50:00</td>
+      <td>7631</td>
+      <td>144</td>
+      <td>2025-02-23 00:10:00</td>
+      <td>2025-02-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-24</td>
+      <td>2025-02-23 23:50:00</td>
+      <td>7775</td>
+      <td>144</td>
+      <td>2025-02-24 00:10:00</td>
+      <td>2025-02-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-25</td>
+      <td>2025-02-24 23:50:00</td>
+      <td>7919</td>
+      <td>144</td>
+      <td>2025-02-25 00:10:00</td>
+      <td>2025-02-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-26</td>
+      <td>2025-02-25 23:50:00</td>
+      <td>8063</td>
+      <td>144</td>
+      <td>2025-02-26 00:10:00</td>
+      <td>2025-02-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-27</td>
+      <td>2025-02-26 23:50:00</td>
+      <td>8207</td>
+      <td>144</td>
+      <td>2025-02-27 00:10:00</td>
+      <td>2025-02-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-02-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-02-28</td>
+      <td>2025-02-27 23:50:00</td>
+      <td>8351</td>
+      <td>144</td>
+      <td>2025-02-28 00:10:00</td>
+      <td>2025-03-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-01</td>
+      <td>2025-02-28 23:50:00</td>
+      <td>8495</td>
+      <td>144</td>
+      <td>2025-03-01 00:10:00</td>
+      <td>2025-03-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-02</td>
+      <td>2025-03-01 23:50:00</td>
+      <td>8639</td>
+      <td>144</td>
+      <td>2025-03-02 00:10:00</td>
+      <td>2025-03-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-03</td>
+      <td>2025-03-02 23:50:00</td>
+      <td>8783</td>
+      <td>144</td>
+      <td>2025-03-03 00:10:00</td>
+      <td>2025-03-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-04</td>
+      <td>2025-03-03 23:50:00</td>
+      <td>8927</td>
+      <td>144</td>
+      <td>2025-03-04 00:10:00</td>
+      <td>2025-03-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-05</td>
+      <td>2025-03-04 23:50:00</td>
+      <td>9071</td>
+      <td>144</td>
+      <td>2025-03-05 00:10:00</td>
+      <td>2025-03-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-06</td>
+      <td>2025-03-05 23:50:00</td>
+      <td>9215</td>
+      <td>144</td>
+      <td>2025-03-06 00:10:00</td>
+      <td>2025-03-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-07</td>
+      <td>2025-03-06 23:50:00</td>
+      <td>9359</td>
+      <td>144</td>
+      <td>2025-03-07 00:10:00</td>
+      <td>2025-03-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-08</td>
+      <td>2025-03-07 23:50:00</td>
+      <td>9503</td>
+      <td>144</td>
+      <td>2025-03-08 00:10:00</td>
+      <td>2025-03-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-09</td>
+      <td>2025-03-08 23:50:00</td>
+      <td>9647</td>
+      <td>144</td>
+      <td>2025-03-09 00:10:00</td>
+      <td>2025-03-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-10</td>
+      <td>2025-03-09 23:50:00</td>
+      <td>9791</td>
+      <td>144</td>
+      <td>2025-03-10 00:10:00</td>
+      <td>2025-03-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-11</td>
+      <td>2025-03-10 23:50:00</td>
+      <td>9935</td>
+      <td>144</td>
+      <td>2025-03-11 00:10:00</td>
+      <td>2025-03-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-12</td>
+      <td>2025-03-11 23:50:00</td>
+      <td>10079</td>
+      <td>144</td>
+      <td>2025-03-12 00:10:00</td>
+      <td>2025-03-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-13</td>
+      <td>2025-03-12 23:50:00</td>
+      <td>10223</td>
+      <td>144</td>
+      <td>2025-03-13 00:10:00</td>
+      <td>2025-03-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-14</td>
+      <td>2025-03-13 23:50:00</td>
+      <td>10367</td>
+      <td>144</td>
+      <td>2025-03-14 00:10:00</td>
+      <td>2025-03-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-15</td>
+      <td>2025-03-14 23:50:00</td>
+      <td>10511</td>
+      <td>144</td>
+      <td>2025-03-15 00:10:00</td>
+      <td>2025-03-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-16</td>
+      <td>2025-03-15 23:50:00</td>
+      <td>10655</td>
+      <td>144</td>
+      <td>2025-03-16 00:10:00</td>
+      <td>2025-03-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-17</td>
+      <td>2025-03-16 23:50:00</td>
+      <td>10799</td>
+      <td>144</td>
+      <td>2025-03-17 00:10:00</td>
+      <td>2025-03-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-18</td>
+      <td>2025-03-17 23:50:00</td>
+      <td>10943</td>
+      <td>144</td>
+      <td>2025-03-18 00:10:00</td>
+      <td>2025-03-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-19</td>
+      <td>2025-03-18 23:50:00</td>
+      <td>11087</td>
+      <td>144</td>
+      <td>2025-03-19 00:10:00</td>
+      <td>2025-03-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-20</td>
+      <td>2025-03-19 23:50:00</td>
+      <td>11231</td>
+      <td>144</td>
+      <td>2025-03-20 00:10:00</td>
+      <td>2025-03-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-21</td>
+      <td>2025-03-20 23:50:00</td>
+      <td>11375</td>
+      <td>144</td>
+      <td>2025-03-21 00:10:00</td>
+      <td>2025-03-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-22</td>
+      <td>2025-03-21 23:50:00</td>
+      <td>11519</td>
+      <td>144</td>
+      <td>2025-03-22 00:10:00</td>
+      <td>2025-03-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-23</td>
+      <td>2025-03-22 23:50:00</td>
+      <td>11663</td>
+      <td>144</td>
+      <td>2025-03-23 00:10:00</td>
+      <td>2025-03-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-24</td>
+      <td>2025-03-23 23:50:00</td>
+      <td>11807</td>
+      <td>144</td>
+      <td>2025-03-24 00:10:00</td>
+      <td>2025-03-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-25</td>
+      <td>2025-03-24 23:50:00</td>
+      <td>11951</td>
+      <td>144</td>
+      <td>2025-03-25 00:10:00</td>
+      <td>2025-03-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-26</td>
+      <td>2025-03-25 23:50:00</td>
+      <td>12095</td>
+      <td>144</td>
+      <td>2025-03-26 00:10:00</td>
+      <td>2025-03-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-27</td>
+      <td>2025-03-26 23:50:00</td>
+      <td>12239</td>
+      <td>144</td>
+      <td>2025-03-27 00:10:00</td>
+      <td>2025-03-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-28</td>
+      <td>2025-03-27 23:50:00</td>
+      <td>12383</td>
+      <td>144</td>
+      <td>2025-03-28 00:10:00</td>
+      <td>2025-03-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-29</td>
+      <td>2025-03-28 23:50:00</td>
+      <td>12527</td>
+      <td>144</td>
+      <td>2025-03-29 00:10:00</td>
+      <td>2025-03-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-30</td>
+      <td>2025-03-29 23:50:00</td>
+      <td>12671</td>
+      <td>144</td>
+      <td>2025-03-30 00:10:00</td>
+      <td>2025-03-31</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-03-31</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-03-31</td>
+      <td>2025-03-30 23:50:00</td>
+      <td>12815</td>
+      <td>144</td>
+      <td>2025-03-31 00:10:00</td>
+      <td>2025-04-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-01</td>
+      <td>2025-03-31 23:50:00</td>
+      <td>12959</td>
+      <td>144</td>
+      <td>2025-04-01 00:10:00</td>
+      <td>2025-04-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-02</td>
+      <td>2025-04-01 23:50:00</td>
+      <td>13103</td>
+      <td>144</td>
+      <td>2025-04-02 00:10:00</td>
+      <td>2025-04-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-03</td>
+      <td>2025-04-02 23:50:00</td>
+      <td>13247</td>
+      <td>144</td>
+      <td>2025-04-03 00:10:00</td>
+      <td>2025-04-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-04</td>
+      <td>2025-04-03 23:50:00</td>
+      <td>13391</td>
+      <td>144</td>
+      <td>2025-04-04 00:10:00</td>
+      <td>2025-04-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-05</td>
+      <td>2025-04-04 23:50:00</td>
+      <td>13535</td>
+      <td>144</td>
+      <td>2025-04-05 00:10:00</td>
+      <td>2025-04-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-06</td>
+      <td>2025-04-05 23:50:00</td>
+      <td>13679</td>
+      <td>144</td>
+      <td>2025-04-06 00:10:00</td>
+      <td>2025-04-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-07</td>
+      <td>2025-04-06 23:50:00</td>
+      <td>13823</td>
+      <td>144</td>
+      <td>2025-04-07 00:10:00</td>
+      <td>2025-04-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-08</td>
+      <td>2025-04-07 23:50:00</td>
+      <td>13967</td>
+      <td>144</td>
+      <td>2025-04-08 00:10:00</td>
+      <td>2025-04-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-09</td>
+      <td>2025-04-08 23:50:00</td>
+      <td>14111</td>
+      <td>144</td>
+      <td>2025-04-09 00:10:00</td>
+      <td>2025-04-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-10</td>
+      <td>2025-04-09 23:50:00</td>
+      <td>14255</td>
+      <td>144</td>
+      <td>2025-04-10 00:10:00</td>
+      <td>2025-04-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-11</td>
+      <td>2025-04-10 23:50:00</td>
+      <td>14399</td>
+      <td>144</td>
+      <td>2025-04-11 00:10:00</td>
+      <td>2025-04-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-12</td>
+      <td>2025-04-11 23:50:00</td>
+      <td>14543</td>
+      <td>144</td>
+      <td>2025-04-12 00:10:00</td>
+      <td>2025-04-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-13</td>
+      <td>2025-04-12 23:50:00</td>
+      <td>14687</td>
+      <td>144</td>
+      <td>2025-04-13 00:10:00</td>
+      <td>2025-04-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-14</td>
+      <td>2025-04-13 23:50:00</td>
+      <td>14831</td>
+      <td>144</td>
+      <td>2025-04-14 00:10:00</td>
+      <td>2025-04-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-15</td>
+      <td>2025-04-14 23:50:00</td>
+      <td>14975</td>
+      <td>144</td>
+      <td>2025-04-15 00:10:00</td>
+      <td>2025-04-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-16</td>
+      <td>2025-04-15 23:50:00</td>
+      <td>15119</td>
+      <td>144</td>
+      <td>2025-04-16 00:10:00</td>
+      <td>2025-04-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-17</td>
+      <td>2025-04-16 23:50:00</td>
+      <td>15263</td>
+      <td>144</td>
+      <td>2025-04-17 00:10:00</td>
+      <td>2025-04-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-18</td>
+      <td>2025-04-17 23:50:00</td>
+      <td>15407</td>
+      <td>144</td>
+      <td>2025-04-18 00:10:00</td>
+      <td>2025-04-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-19</td>
+      <td>2025-04-18 23:50:00</td>
+      <td>15551</td>
+      <td>144</td>
+      <td>2025-04-19 00:10:00</td>
+      <td>2025-04-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-20</td>
+      <td>2025-04-19 23:50:00</td>
+      <td>15695</td>
+      <td>144</td>
+      <td>2025-04-20 00:10:00</td>
+      <td>2025-04-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-21</td>
+      <td>2025-04-20 23:50:00</td>
+      <td>15839</td>
+      <td>144</td>
+      <td>2025-04-21 00:10:00</td>
+      <td>2025-04-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-22</td>
+      <td>2025-04-21 23:50:00</td>
+      <td>15983</td>
+      <td>144</td>
+      <td>2025-04-22 00:10:00</td>
+      <td>2025-04-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-23</td>
+      <td>2025-04-22 23:50:00</td>
+      <td>16127</td>
+      <td>144</td>
+      <td>2025-04-23 00:10:00</td>
+      <td>2025-04-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-24</td>
+      <td>2025-04-23 23:50:00</td>
+      <td>16271</td>
+      <td>144</td>
+      <td>2025-04-24 00:10:00</td>
+      <td>2025-04-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-25</td>
+      <td>2025-04-24 23:50:00</td>
+      <td>16415</td>
+      <td>144</td>
+      <td>2025-04-25 00:10:00</td>
+      <td>2025-04-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-26</td>
+      <td>2025-04-25 23:50:00</td>
+      <td>16559</td>
+      <td>144</td>
+      <td>2025-04-26 00:10:00</td>
+      <td>2025-04-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-27</td>
+      <td>2025-04-26 23:50:00</td>
+      <td>16703</td>
+      <td>144</td>
+      <td>2025-04-27 00:10:00</td>
+      <td>2025-04-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-28</td>
+      <td>2025-04-27 23:50:00</td>
+      <td>16847</td>
+      <td>144</td>
+      <td>2025-04-28 00:10:00</td>
+      <td>2025-04-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-29</td>
+      <td>2025-04-28 23:50:00</td>
+      <td>16991</td>
+      <td>144</td>
+      <td>2025-04-29 00:10:00</td>
+      <td>2025-04-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-04-30</td>
+      <td>2025-04-29 23:50:00</td>
+      <td>17135</td>
+      <td>144</td>
+      <td>2025-04-30 00:10:00</td>
+      <td>2025-05-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-01</td>
+      <td>2025-04-30 23:50:00</td>
+      <td>17279</td>
+      <td>144</td>
+      <td>2025-05-01 00:10:00</td>
+      <td>2025-05-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-02</td>
+      <td>2025-05-01 23:50:00</td>
+      <td>17423</td>
+      <td>144</td>
+      <td>2025-05-02 00:10:00</td>
+      <td>2025-05-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-03</td>
+      <td>2025-05-02 23:50:00</td>
+      <td>17567</td>
+      <td>144</td>
+      <td>2025-05-03 00:10:00</td>
+      <td>2025-05-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-04</td>
+      <td>2025-05-03 23:50:00</td>
+      <td>17711</td>
+      <td>144</td>
+      <td>2025-05-04 00:10:00</td>
+      <td>2025-05-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-05</td>
+      <td>2025-05-04 23:50:00</td>
+      <td>17855</td>
+      <td>144</td>
+      <td>2025-05-05 00:10:00</td>
+      <td>2025-05-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-06</td>
+      <td>2025-05-05 23:50:00</td>
+      <td>17999</td>
+      <td>144</td>
+      <td>2025-05-06 00:10:00</td>
+      <td>2025-05-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-07</td>
+      <td>2025-05-06 23:50:00</td>
+      <td>18143</td>
+      <td>144</td>
+      <td>2025-05-07 00:10:00</td>
+      <td>2025-05-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-08</td>
+      <td>2025-05-07 23:50:00</td>
+      <td>18287</td>
+      <td>144</td>
+      <td>2025-05-08 00:10:00</td>
+      <td>2025-05-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-09</td>
+      <td>2025-05-08 23:50:00</td>
+      <td>18431</td>
+      <td>144</td>
+      <td>2025-05-09 00:10:00</td>
+      <td>2025-05-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-10</td>
+      <td>2025-05-09 23:50:00</td>
+      <td>18575</td>
+      <td>144</td>
+      <td>2025-05-10 00:10:00</td>
+      <td>2025-05-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-11</td>
+      <td>2025-05-10 23:50:00</td>
+      <td>18719</td>
+      <td>144</td>
+      <td>2025-05-11 00:10:00</td>
+      <td>2025-05-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-12</td>
+      <td>2025-05-11 23:50:00</td>
+      <td>18863</td>
+      <td>144</td>
+      <td>2025-05-12 00:10:00</td>
+      <td>2025-05-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-13</td>
+      <td>2025-05-12 23:50:00</td>
+      <td>19007</td>
+      <td>144</td>
+      <td>2025-05-13 00:10:00</td>
+      <td>2025-05-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-14</td>
+      <td>2025-05-13 23:50:00</td>
+      <td>19151</td>
+      <td>144</td>
+      <td>2025-05-14 00:10:00</td>
+      <td>2025-05-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-15</td>
+      <td>2025-05-14 23:50:00</td>
+      <td>19295</td>
+      <td>144</td>
+      <td>2025-05-15 00:10:00</td>
+      <td>2025-05-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-16</td>
+      <td>2025-05-15 23:50:00</td>
+      <td>19439</td>
+      <td>144</td>
+      <td>2025-05-16 00:10:00</td>
+      <td>2025-05-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-17</td>
+      <td>2025-05-16 23:50:00</td>
+      <td>19583</td>
+      <td>144</td>
+      <td>2025-05-17 00:10:00</td>
+      <td>2025-05-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-18</td>
+      <td>2025-05-17 23:50:00</td>
+      <td>19727</td>
+      <td>144</td>
+      <td>2025-05-18 00:10:00</td>
+      <td>2025-05-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-19</td>
+      <td>2025-05-18 23:50:00</td>
+      <td>19871</td>
+      <td>144</td>
+      <td>2025-05-19 00:10:00</td>
+      <td>2025-05-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-20</td>
+      <td>2025-05-19 23:50:00</td>
+      <td>20015</td>
+      <td>144</td>
+      <td>2025-05-20 00:10:00</td>
+      <td>2025-05-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-21</td>
+      <td>2025-05-20 23:50:00</td>
+      <td>20159</td>
+      <td>144</td>
+      <td>2025-05-21 00:10:00</td>
+      <td>2025-05-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-22</td>
+      <td>2025-05-21 23:50:00</td>
+      <td>20303</td>
+      <td>144</td>
+      <td>2025-05-22 00:10:00</td>
+      <td>2025-05-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-23</td>
+      <td>2025-05-22 23:50:00</td>
+      <td>20447</td>
+      <td>144</td>
+      <td>2025-05-23 00:10:00</td>
+      <td>2025-05-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-24</td>
+      <td>2025-05-23 23:50:00</td>
+      <td>20591</td>
+      <td>144</td>
+      <td>2025-05-24 00:10:00</td>
+      <td>2025-05-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-25</td>
+      <td>2025-05-24 23:50:00</td>
+      <td>20735</td>
+      <td>144</td>
+      <td>2025-05-25 00:10:00</td>
+      <td>2025-05-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-26</td>
+      <td>2025-05-25 23:50:00</td>
+      <td>20879</td>
+      <td>144</td>
+      <td>2025-05-26 00:10:00</td>
+      <td>2025-05-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-27</td>
+      <td>2025-05-26 23:50:00</td>
+      <td>21023</td>
+      <td>144</td>
+      <td>2025-05-27 00:10:00</td>
+      <td>2025-05-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-28</td>
+      <td>2025-05-27 23:50:00</td>
+      <td>21167</td>
+      <td>144</td>
+      <td>2025-05-28 00:10:00</td>
+      <td>2025-05-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-29</td>
+      <td>2025-05-28 23:50:00</td>
+      <td>21311</td>
+      <td>144</td>
+      <td>2025-05-29 00:10:00</td>
+      <td>2025-05-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-30</td>
+      <td>2025-05-29 23:50:00</td>
+      <td>21455</td>
+      <td>144</td>
+      <td>2025-05-30 00:10:00</td>
+      <td>2025-05-31</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-05-31</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-05-31</td>
+      <td>2025-05-30 23:50:00</td>
+      <td>21599</td>
+      <td>144</td>
+      <td>2025-05-31 00:10:00</td>
+      <td>2025-06-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-01</td>
+      <td>2025-05-31 23:50:00</td>
+      <td>21743</td>
+      <td>144</td>
+      <td>2025-06-01 00:10:00</td>
+      <td>2025-06-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-02</td>
+      <td>2025-06-01 23:50:00</td>
+      <td>21887</td>
+      <td>144</td>
+      <td>2025-06-02 00:10:00</td>
+      <td>2025-06-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-03</td>
+      <td>2025-06-02 23:50:00</td>
+      <td>22031</td>
+      <td>144</td>
+      <td>2025-06-03 00:10:00</td>
+      <td>2025-06-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-04</td>
+      <td>2025-06-03 23:50:00</td>
+      <td>22175</td>
+      <td>144</td>
+      <td>2025-06-04 00:10:00</td>
+      <td>2025-06-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-05</td>
+      <td>2025-06-04 23:50:00</td>
+      <td>22319</td>
+      <td>144</td>
+      <td>2025-06-05 00:10:00</td>
+      <td>2025-06-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-06</td>
+      <td>2025-06-05 23:50:00</td>
+      <td>22463</td>
+      <td>144</td>
+      <td>2025-06-06 00:10:00</td>
+      <td>2025-06-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-07</td>
+      <td>2025-06-06 23:50:00</td>
+      <td>22607</td>
+      <td>144</td>
+      <td>2025-06-07 00:10:00</td>
+      <td>2025-06-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-08</td>
+      <td>2025-06-07 23:50:00</td>
+      <td>22751</td>
+      <td>144</td>
+      <td>2025-06-08 00:10:00</td>
+      <td>2025-06-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-09</td>
+      <td>2025-06-08 23:50:00</td>
+      <td>22895</td>
+      <td>144</td>
+      <td>2025-06-09 00:10:00</td>
+      <td>2025-06-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-10</td>
+      <td>2025-06-09 23:50:00</td>
+      <td>23039</td>
+      <td>144</td>
+      <td>2025-06-10 00:10:00</td>
+      <td>2025-06-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-11</td>
+      <td>2025-06-10 23:50:00</td>
+      <td>23183</td>
+      <td>144</td>
+      <td>2025-06-11 00:10:00</td>
+      <td>2025-06-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-12</td>
+      <td>2025-06-11 23:50:00</td>
+      <td>23327</td>
+      <td>144</td>
+      <td>2025-06-12 00:10:00</td>
+      <td>2025-06-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-13</td>
+      <td>2025-06-12 23:50:00</td>
+      <td>23471</td>
+      <td>144</td>
+      <td>2025-06-13 00:10:00</td>
+      <td>2025-06-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-14</td>
+      <td>2025-06-13 23:50:00</td>
+      <td>23615</td>
+      <td>144</td>
+      <td>2025-06-14 00:10:00</td>
+      <td>2025-06-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-15</td>
+      <td>2025-06-14 23:50:00</td>
+      <td>23759</td>
+      <td>144</td>
+      <td>2025-06-15 00:10:00</td>
+      <td>2025-06-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-16</td>
+      <td>2025-06-15 23:50:00</td>
+      <td>23903</td>
+      <td>144</td>
+      <td>2025-06-16 00:10:00</td>
+      <td>2025-06-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-17</td>
+      <td>2025-06-16 23:50:00</td>
+      <td>24047</td>
+      <td>144</td>
+      <td>2025-06-17 00:10:00</td>
+      <td>2025-06-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-18</td>
+      <td>2025-06-17 23:50:00</td>
+      <td>24191</td>
+      <td>144</td>
+      <td>2025-06-18 00:10:00</td>
+      <td>2025-06-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-19</td>
+      <td>2025-06-18 23:50:00</td>
+      <td>24335</td>
+      <td>144</td>
+      <td>2025-06-19 00:10:00</td>
+      <td>2025-06-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-20</td>
+      <td>2025-06-19 23:50:00</td>
+      <td>24479</td>
+      <td>144</td>
+      <td>2025-06-20 00:10:00</td>
+      <td>2025-06-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-21</td>
+      <td>2025-06-20 23:50:00</td>
+      <td>24623</td>
+      <td>144</td>
+      <td>2025-06-21 00:10:00</td>
+      <td>2025-06-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-22</td>
+      <td>2025-06-21 23:50:00</td>
+      <td>24767</td>
+      <td>144</td>
+      <td>2025-06-22 00:10:00</td>
+      <td>2025-06-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-23</td>
+      <td>2025-06-22 23:50:00</td>
+      <td>24911</td>
+      <td>144</td>
+      <td>2025-06-23 00:10:00</td>
+      <td>2025-06-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-24</td>
+      <td>2025-06-23 23:50:00</td>
+      <td>25055</td>
+      <td>144</td>
+      <td>2025-06-24 00:10:00</td>
+      <td>2025-06-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-25</td>
+      <td>2025-06-24 23:50:00</td>
+      <td>25199</td>
+      <td>144</td>
+      <td>2025-06-25 00:10:00</td>
+      <td>2025-06-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-26</td>
+      <td>2025-06-25 23:50:00</td>
+      <td>25343</td>
+      <td>144</td>
+      <td>2025-06-26 00:10:00</td>
+      <td>2025-06-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-27</td>
+      <td>2025-06-26 23:50:00</td>
+      <td>25487</td>
+      <td>144</td>
+      <td>2025-06-27 00:10:00</td>
+      <td>2025-06-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-28</td>
+      <td>2025-06-27 23:50:00</td>
+      <td>25631</td>
+      <td>144</td>
+      <td>2025-06-28 00:10:00</td>
+      <td>2025-06-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-29</td>
+      <td>2025-06-28 23:50:00</td>
+      <td>25775</td>
+      <td>144</td>
+      <td>2025-06-29 00:10:00</td>
+      <td>2025-06-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-06-30</td>
+      <td>2025-06-29 23:50:00</td>
+      <td>25919</td>
+      <td>144</td>
+      <td>2025-06-30 00:10:00</td>
+      <td>2025-07-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-01</td>
+      <td>2025-06-30 23:50:00</td>
+      <td>26063</td>
+      <td>144</td>
+      <td>2025-07-01 00:10:00</td>
+      <td>2025-07-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-02</td>
+      <td>2025-07-01 23:50:00</td>
+      <td>26207</td>
+      <td>144</td>
+      <td>2025-07-02 00:10:00</td>
+      <td>2025-07-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-03</td>
+      <td>2025-07-02 23:50:00</td>
+      <td>26351</td>
+      <td>144</td>
+      <td>2025-07-03 00:10:00</td>
+      <td>2025-07-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-04</td>
+      <td>2025-07-03 23:50:00</td>
+      <td>26495</td>
+      <td>144</td>
+      <td>2025-07-04 00:10:00</td>
+      <td>2025-07-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-05</td>
+      <td>2025-07-04 23:50:00</td>
+      <td>26639</td>
+      <td>144</td>
+      <td>2025-07-05 00:10:00</td>
+      <td>2025-07-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-06</td>
+      <td>2025-07-05 23:50:00</td>
+      <td>26783</td>
+      <td>144</td>
+      <td>2025-07-06 00:10:00</td>
+      <td>2025-07-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-07</td>
+      <td>2025-07-06 23:50:00</td>
+      <td>26927</td>
+      <td>144</td>
+      <td>2025-07-07 00:10:00</td>
+      <td>2025-07-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-08</td>
+      <td>2025-07-07 23:50:00</td>
+      <td>27071</td>
+      <td>144</td>
+      <td>2025-07-08 00:10:00</td>
+      <td>2025-07-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-09</td>
+      <td>2025-07-08 23:50:00</td>
+      <td>27215</td>
+      <td>144</td>
+      <td>2025-07-09 00:10:00</td>
+      <td>2025-07-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-10</td>
+      <td>2025-07-09 23:50:00</td>
+      <td>27359</td>
+      <td>144</td>
+      <td>2025-07-10 00:10:00</td>
+      <td>2025-07-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-11</td>
+      <td>2025-07-10 23:50:00</td>
+      <td>27503</td>
+      <td>144</td>
+      <td>2025-07-11 00:10:00</td>
+      <td>2025-07-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-12</td>
+      <td>2025-07-11 23:50:00</td>
+      <td>27647</td>
+      <td>144</td>
+      <td>2025-07-12 00:10:00</td>
+      <td>2025-07-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-13</td>
+      <td>2025-07-12 23:50:00</td>
+      <td>27791</td>
+      <td>144</td>
+      <td>2025-07-13 00:10:00</td>
+      <td>2025-07-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-14</td>
+      <td>2025-07-13 23:50:00</td>
+      <td>27935</td>
+      <td>144</td>
+      <td>2025-07-14 00:10:00</td>
+      <td>2025-07-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-15</td>
+      <td>2025-07-14 23:50:00</td>
+      <td>28079</td>
+      <td>144</td>
+      <td>2025-07-15 00:10:00</td>
+      <td>2025-07-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-16</td>
+      <td>2025-07-15 23:50:00</td>
+      <td>28223</td>
+      <td>144</td>
+      <td>2025-07-16 00:10:00</td>
+      <td>2025-07-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-17</td>
+      <td>2025-07-16 23:50:00</td>
+      <td>28367</td>
+      <td>144</td>
+      <td>2025-07-17 00:10:00</td>
+      <td>2025-07-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-18</td>
+      <td>2025-07-17 23:50:00</td>
+      <td>28511</td>
+      <td>144</td>
+      <td>2025-07-18 00:10:00</td>
+      <td>2025-07-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-19</td>
+      <td>2025-07-18 23:50:00</td>
+      <td>28655</td>
+      <td>144</td>
+      <td>2025-07-19 00:10:00</td>
+      <td>2025-07-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-20</td>
+      <td>2025-07-19 23:50:00</td>
+      <td>28799</td>
+      <td>144</td>
+      <td>2025-07-20 00:10:00</td>
+      <td>2025-07-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-21</td>
+      <td>2025-07-20 23:50:00</td>
+      <td>28943</td>
+      <td>144</td>
+      <td>2025-07-21 00:10:00</td>
+      <td>2025-07-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-22</td>
+      <td>2025-07-21 23:50:00</td>
+      <td>29087</td>
+      <td>144</td>
+      <td>2025-07-22 00:10:00</td>
+      <td>2025-07-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-23</td>
+      <td>2025-07-22 23:50:00</td>
+      <td>29231</td>
+      <td>144</td>
+      <td>2025-07-23 00:10:00</td>
+      <td>2025-07-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-24</td>
+      <td>2025-07-23 23:50:00</td>
+      <td>29375</td>
+      <td>144</td>
+      <td>2025-07-24 00:10:00</td>
+      <td>2025-07-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-25</td>
+      <td>2025-07-24 23:50:00</td>
+      <td>29519</td>
+      <td>144</td>
+      <td>2025-07-25 00:10:00</td>
+      <td>2025-07-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-26</td>
+      <td>2025-07-25 23:50:00</td>
+      <td>29663</td>
+      <td>144</td>
+      <td>2025-07-26 00:10:00</td>
+      <td>2025-07-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-27</td>
+      <td>2025-07-26 23:50:00</td>
+      <td>29807</td>
+      <td>144</td>
+      <td>2025-07-27 00:10:00</td>
+      <td>2025-07-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-28</td>
+      <td>2025-07-27 23:50:00</td>
+      <td>29951</td>
+      <td>144</td>
+      <td>2025-07-28 00:10:00</td>
+      <td>2025-07-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-29</td>
+      <td>2025-07-28 23:50:00</td>
+      <td>30095</td>
+      <td>144</td>
+      <td>2025-07-29 00:10:00</td>
+      <td>2025-07-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-30</td>
+      <td>2025-07-29 23:50:00</td>
+      <td>30239</td>
+      <td>144</td>
+      <td>2025-07-30 00:10:00</td>
+      <td>2025-07-31</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-07-31</td>
+      <td>2025-07-30 23:50:00</td>
+      <td>30383</td>
+      <td>144</td>
+      <td>2025-07-31 00:10:00</td>
+      <td>2025-08-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-01</td>
+      <td>2025-07-31 23:50:00</td>
+      <td>30527</td>
+      <td>144</td>
+      <td>2025-08-01 00:10:00</td>
+      <td>2025-08-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-02</td>
+      <td>2025-08-01 23:50:00</td>
+      <td>30671</td>
+      <td>144</td>
+      <td>2025-08-02 00:10:00</td>
+      <td>2025-08-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-03</td>
+      <td>2025-08-02 23:50:00</td>
+      <td>30815</td>
+      <td>144</td>
+      <td>2025-08-03 00:10:00</td>
+      <td>2025-08-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-04</td>
+      <td>2025-08-03 23:50:00</td>
+      <td>30959</td>
+      <td>144</td>
+      <td>2025-08-04 00:10:00</td>
+      <td>2025-08-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-05</td>
+      <td>2025-08-04 23:50:00</td>
+      <td>31103</td>
+      <td>144</td>
+      <td>2025-08-05 00:10:00</td>
+      <td>2025-08-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-06</td>
+      <td>2025-08-05 23:50:00</td>
+      <td>31247</td>
+      <td>144</td>
+      <td>2025-08-06 00:10:00</td>
+      <td>2025-08-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-07</td>
+      <td>2025-08-06 23:50:00</td>
+      <td>31391</td>
+      <td>144</td>
+      <td>2025-08-07 00:10:00</td>
+      <td>2025-08-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-08</td>
+      <td>2025-08-07 23:50:00</td>
+      <td>31535</td>
+      <td>144</td>
+      <td>2025-08-08 00:10:00</td>
+      <td>2025-08-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-09</td>
+      <td>2025-08-08 23:50:00</td>
+      <td>31679</td>
+      <td>144</td>
+      <td>2025-08-09 00:10:00</td>
+      <td>2025-08-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-10</td>
+      <td>2025-08-09 23:50:00</td>
+      <td>31823</td>
+      <td>144</td>
+      <td>2025-08-10 00:10:00</td>
+      <td>2025-08-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-11</td>
+      <td>2025-08-10 23:50:00</td>
+      <td>31967</td>
+      <td>144</td>
+      <td>2025-08-11 00:10:00</td>
+      <td>2025-08-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-12</td>
+      <td>2025-08-11 23:50:00</td>
+      <td>32111</td>
+      <td>144</td>
+      <td>2025-08-12 00:10:00</td>
+      <td>2025-08-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-13</td>
+      <td>2025-08-12 23:50:00</td>
+      <td>32255</td>
+      <td>144</td>
+      <td>2025-08-13 00:10:00</td>
+      <td>2025-08-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-14</td>
+      <td>2025-08-13 23:50:00</td>
+      <td>32399</td>
+      <td>144</td>
+      <td>2025-08-14 00:10:00</td>
+      <td>2025-08-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-15</td>
+      <td>2025-08-14 23:50:00</td>
+      <td>32543</td>
+      <td>144</td>
+      <td>2025-08-15 00:10:00</td>
+      <td>2025-08-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-16</td>
+      <td>2025-08-15 23:50:00</td>
+      <td>32687</td>
+      <td>144</td>
+      <td>2025-08-16 00:10:00</td>
+      <td>2025-08-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-17</td>
+      <td>2025-08-16 23:50:00</td>
+      <td>32831</td>
+      <td>144</td>
+      <td>2025-08-17 00:10:00</td>
+      <td>2025-08-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-18</td>
+      <td>2025-08-17 23:50:00</td>
+      <td>32975</td>
+      <td>144</td>
+      <td>2025-08-18 00:10:00</td>
+      <td>2025-08-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-19</td>
+      <td>2025-08-18 23:50:00</td>
+      <td>33119</td>
+      <td>144</td>
+      <td>2025-08-19 00:10:00</td>
+      <td>2025-08-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-20</td>
+      <td>2025-08-19 23:50:00</td>
+      <td>33263</td>
+      <td>144</td>
+      <td>2025-08-20 00:10:00</td>
+      <td>2025-08-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-21</td>
+      <td>2025-08-20 23:50:00</td>
+      <td>33407</td>
+      <td>144</td>
+      <td>2025-08-21 00:10:00</td>
+      <td>2025-08-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-22</td>
+      <td>2025-08-21 23:50:00</td>
+      <td>33551</td>
+      <td>144</td>
+      <td>2025-08-22 00:10:00</td>
+      <td>2025-08-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-23</td>
+      <td>2025-08-22 23:50:00</td>
+      <td>33695</td>
+      <td>144</td>
+      <td>2025-08-23 00:10:00</td>
+      <td>2025-08-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-24</td>
+      <td>2025-08-23 23:50:00</td>
+      <td>33839</td>
+      <td>144</td>
+      <td>2025-08-24 00:10:00</td>
+      <td>2025-08-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-25</td>
+      <td>2025-08-24 23:50:00</td>
+      <td>33983</td>
+      <td>144</td>
+      <td>2025-08-25 00:10:00</td>
+      <td>2025-08-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-26</td>
+      <td>2025-08-25 23:50:00</td>
+      <td>34127</td>
+      <td>144</td>
+      <td>2025-08-26 00:10:00</td>
+      <td>2025-08-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-27</td>
+      <td>2025-08-26 23:50:00</td>
+      <td>34271</td>
+      <td>144</td>
+      <td>2025-08-27 00:10:00</td>
+      <td>2025-08-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-28</td>
+      <td>2025-08-27 23:50:00</td>
+      <td>34415</td>
+      <td>144</td>
+      <td>2025-08-28 00:10:00</td>
+      <td>2025-08-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-29</td>
+      <td>2025-08-28 23:50:00</td>
+      <td>34559</td>
+      <td>144</td>
+      <td>2025-08-29 00:10:00</td>
+      <td>2025-08-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-30</td>
+      <td>2025-08-29 23:50:00</td>
+      <td>34703</td>
+      <td>144</td>
+      <td>2025-08-30 00:10:00</td>
+      <td>2025-08-31</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-08-31</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-08-31</td>
+      <td>2025-08-30 23:50:00</td>
+      <td>34847</td>
+      <td>144</td>
+      <td>2025-08-31 00:10:00</td>
+      <td>2025-09-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-01</td>
+      <td>2025-08-31 23:50:00</td>
+      <td>34991</td>
+      <td>144</td>
+      <td>2025-09-01 00:10:00</td>
+      <td>2025-09-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-02</td>
+      <td>2025-09-01 23:50:00</td>
+      <td>35135</td>
+      <td>144</td>
+      <td>2025-09-02 00:10:00</td>
+      <td>2025-09-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-03</td>
+      <td>2025-09-02 23:50:00</td>
+      <td>35279</td>
+      <td>144</td>
+      <td>2025-09-03 00:10:00</td>
+      <td>2025-09-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-04</td>
+      <td>2025-09-03 23:50:00</td>
+      <td>35423</td>
+      <td>144</td>
+      <td>2025-09-04 00:10:00</td>
+      <td>2025-09-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-05</td>
+      <td>2025-09-04 23:50:00</td>
+      <td>35567</td>
+      <td>144</td>
+      <td>2025-09-05 00:10:00</td>
+      <td>2025-09-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-06</td>
+      <td>2025-09-05 23:50:00</td>
+      <td>35711</td>
+      <td>144</td>
+      <td>2025-09-06 00:10:00</td>
+      <td>2025-09-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-07</td>
+      <td>2025-09-06 23:50:00</td>
+      <td>35855</td>
+      <td>144</td>
+      <td>2025-09-07 00:10:00</td>
+      <td>2025-09-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-08</td>
+      <td>2025-09-07 23:50:00</td>
+      <td>35999</td>
+      <td>144</td>
+      <td>2025-09-08 00:10:00</td>
+      <td>2025-09-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-09</td>
+      <td>2025-09-08 23:50:00</td>
+      <td>36143</td>
+      <td>144</td>
+      <td>2025-09-09 00:10:00</td>
+      <td>2025-09-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-10</td>
+      <td>2025-09-09 23:50:00</td>
+      <td>36287</td>
+      <td>144</td>
+      <td>2025-09-10 00:10:00</td>
+      <td>2025-09-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-11</td>
+      <td>2025-09-10 23:50:00</td>
+      <td>36431</td>
+      <td>144</td>
+      <td>2025-09-11 00:10:00</td>
+      <td>2025-09-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-12</td>
+      <td>2025-09-11 23:50:00</td>
+      <td>36575</td>
+      <td>144</td>
+      <td>2025-09-12 00:10:00</td>
+      <td>2025-09-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-13</td>
+      <td>2025-09-12 23:50:00</td>
+      <td>36719</td>
+      <td>144</td>
+      <td>2025-09-13 00:10:00</td>
+      <td>2025-09-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-14</td>
+      <td>2025-09-13 23:50:00</td>
+      <td>36863</td>
+      <td>144</td>
+      <td>2025-09-14 00:10:00</td>
+      <td>2025-09-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-15</td>
+      <td>2025-09-14 23:50:00</td>
+      <td>37007</td>
+      <td>144</td>
+      <td>2025-09-15 00:10:00</td>
+      <td>2025-09-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-16</td>
+      <td>2025-09-15 23:50:00</td>
+      <td>37151</td>
+      <td>144</td>
+      <td>2025-09-16 00:10:00</td>
+      <td>2025-09-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-17</td>
+      <td>2025-09-16 23:50:00</td>
+      <td>37295</td>
+      <td>144</td>
+      <td>2025-09-17 00:10:00</td>
+      <td>2025-09-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-18</td>
+      <td>2025-09-17 23:50:00</td>
+      <td>37439</td>
+      <td>144</td>
+      <td>2025-09-18 00:10:00</td>
+      <td>2025-09-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-19</td>
+      <td>2025-09-18 23:50:00</td>
+      <td>37583</td>
+      <td>144</td>
+      <td>2025-09-19 00:10:00</td>
+      <td>2025-09-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-20</td>
+      <td>2025-09-19 23:50:00</td>
+      <td>37727</td>
+      <td>144</td>
+      <td>2025-09-20 00:10:00</td>
+      <td>2025-09-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-21</td>
+      <td>2025-09-20 23:50:00</td>
+      <td>37871</td>
+      <td>144</td>
+      <td>2025-09-21 00:10:00</td>
+      <td>2025-09-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-22</td>
+      <td>2025-09-21 23:50:00</td>
+      <td>38015</td>
+      <td>144</td>
+      <td>2025-09-22 00:10:00</td>
+      <td>2025-09-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-23</td>
+      <td>2025-09-22 23:50:00</td>
+      <td>38159</td>
+      <td>144</td>
+      <td>2025-09-23 00:10:00</td>
+      <td>2025-09-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-24</td>
+      <td>2025-09-23 23:50:00</td>
+      <td>38303</td>
+      <td>144</td>
+      <td>2025-09-24 00:10:00</td>
+      <td>2025-09-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-25</td>
+      <td>2025-09-24 23:50:00</td>
+      <td>38447</td>
+      <td>144</td>
+      <td>2025-09-25 00:10:00</td>
+      <td>2025-09-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-26</td>
+      <td>2025-09-25 23:50:00</td>
+      <td>38591</td>
+      <td>144</td>
+      <td>2025-09-26 00:10:00</td>
+      <td>2025-09-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-27</td>
+      <td>2025-09-26 23:50:00</td>
+      <td>38735</td>
+      <td>144</td>
+      <td>2025-09-27 00:10:00</td>
+      <td>2025-09-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-28</td>
+      <td>2025-09-27 23:50:00</td>
+      <td>38879</td>
+      <td>144</td>
+      <td>2025-09-28 00:10:00</td>
+      <td>2025-09-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-29</td>
+      <td>2025-09-28 23:50:00</td>
+      <td>39023</td>
+      <td>144</td>
+      <td>2025-09-29 00:10:00</td>
+      <td>2025-09-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-09-30</td>
+      <td>2025-09-29 23:50:00</td>
+      <td>39167</td>
+      <td>144</td>
+      <td>2025-09-30 00:10:00</td>
+      <td>2025-10-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-01</td>
+      <td>2025-09-30 23:50:00</td>
+      <td>39311</td>
+      <td>144</td>
+      <td>2025-10-01 00:10:00</td>
+      <td>2025-10-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-02</td>
+      <td>2025-10-01 23:50:00</td>
+      <td>39455</td>
+      <td>144</td>
+      <td>2025-10-02 00:10:00</td>
+      <td>2025-10-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-03</td>
+      <td>2025-10-02 23:50:00</td>
+      <td>39599</td>
+      <td>144</td>
+      <td>2025-10-03 00:10:00</td>
+      <td>2025-10-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-04</td>
+      <td>2025-10-03 23:50:00</td>
+      <td>39743</td>
+      <td>144</td>
+      <td>2025-10-04 00:10:00</td>
+      <td>2025-10-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-05</td>
+      <td>2025-10-04 23:50:00</td>
+      <td>39887</td>
+      <td>144</td>
+      <td>2025-10-05 00:10:00</td>
+      <td>2025-10-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-06</td>
+      <td>2025-10-05 23:50:00</td>
+      <td>40031</td>
+      <td>144</td>
+      <td>2025-10-06 00:10:00</td>
+      <td>2025-10-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-07</td>
+      <td>2025-10-06 23:50:00</td>
+      <td>40175</td>
+      <td>144</td>
+      <td>2025-10-07 00:10:00</td>
+      <td>2025-10-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-08</td>
+      <td>2025-10-07 23:50:00</td>
+      <td>40319</td>
+      <td>144</td>
+      <td>2025-10-08 00:10:00</td>
+      <td>2025-10-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-09</td>
+      <td>2025-10-08 23:50:00</td>
+      <td>40463</td>
+      <td>144</td>
+      <td>2025-10-09 00:10:00</td>
+      <td>2025-10-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-10</td>
+      <td>2025-10-09 23:50:00</td>
+      <td>40607</td>
+      <td>144</td>
+      <td>2025-10-10 00:10:00</td>
+      <td>2025-10-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-11</td>
+      <td>2025-10-10 23:50:00</td>
+      <td>40751</td>
+      <td>144</td>
+      <td>2025-10-11 00:10:00</td>
+      <td>2025-10-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-12</td>
+      <td>2025-10-11 23:50:00</td>
+      <td>40895</td>
+      <td>144</td>
+      <td>2025-10-12 00:10:00</td>
+      <td>2025-10-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-13</td>
+      <td>2025-10-12 23:50:00</td>
+      <td>41039</td>
+      <td>144</td>
+      <td>2025-10-13 00:10:00</td>
+      <td>2025-10-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-14</td>
+      <td>2025-10-13 23:50:00</td>
+      <td>41183</td>
+      <td>144</td>
+      <td>2025-10-14 00:10:00</td>
+      <td>2025-10-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-15</td>
+      <td>2025-10-14 23:50:00</td>
+      <td>41327</td>
+      <td>144</td>
+      <td>2025-10-15 00:10:00</td>
+      <td>2025-10-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-16</td>
+      <td>2025-10-15 23:50:00</td>
+      <td>41471</td>
+      <td>144</td>
+      <td>2025-10-16 00:10:00</td>
+      <td>2025-10-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-17</td>
+      <td>2025-10-16 23:50:00</td>
+      <td>41615</td>
+      <td>144</td>
+      <td>2025-10-17 00:10:00</td>
+      <td>2025-10-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-18</td>
+      <td>2025-10-17 23:50:00</td>
+      <td>41759</td>
+      <td>144</td>
+      <td>2025-10-18 00:10:00</td>
+      <td>2025-10-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-19</td>
+      <td>2025-10-18 23:50:00</td>
+      <td>41903</td>
+      <td>144</td>
+      <td>2025-10-19 00:10:00</td>
+      <td>2025-10-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-20</td>
+      <td>2025-10-19 23:50:00</td>
+      <td>42047</td>
+      <td>144</td>
+      <td>2025-10-20 00:10:00</td>
+      <td>2025-10-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-21</td>
+      <td>2025-10-20 23:50:00</td>
+      <td>42191</td>
+      <td>144</td>
+      <td>2025-10-21 00:10:00</td>
+      <td>2025-10-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-22</td>
+      <td>2025-10-21 23:50:00</td>
+      <td>42335</td>
+      <td>144</td>
+      <td>2025-10-22 00:10:00</td>
+      <td>2025-10-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-23</td>
+      <td>2025-10-22 23:50:00</td>
+      <td>42479</td>
+      <td>144</td>
+      <td>2025-10-23 00:10:00</td>
+      <td>2025-10-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-24</td>
+      <td>2025-10-23 23:50:00</td>
+      <td>42623</td>
+      <td>144</td>
+      <td>2025-10-24 00:10:00</td>
+      <td>2025-10-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-25</td>
+      <td>2025-10-24 23:50:00</td>
+      <td>42767</td>
+      <td>144</td>
+      <td>2025-10-25 00:10:00</td>
+      <td>2025-10-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-26</td>
+      <td>2025-10-25 23:50:00</td>
+      <td>42911</td>
+      <td>144</td>
+      <td>2025-10-26 00:10:00</td>
+      <td>2025-10-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-27</td>
+      <td>2025-10-26 23:50:00</td>
+      <td>43055</td>
+      <td>144</td>
+      <td>2025-10-27 00:10:00</td>
+      <td>2025-10-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-28</td>
+      <td>2025-10-27 23:50:00</td>
+      <td>43199</td>
+      <td>144</td>
+      <td>2025-10-28 00:10:00</td>
+      <td>2025-10-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-29</td>
+      <td>2025-10-28 23:50:00</td>
+      <td>43343</td>
+      <td>144</td>
+      <td>2025-10-29 00:10:00</td>
+      <td>2025-10-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-30</td>
+      <td>2025-10-29 23:50:00</td>
+      <td>43487</td>
+      <td>144</td>
+      <td>2025-10-30 00:10:00</td>
+      <td>2025-10-31</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-10-31</td>
+      <td>2025-10-30 23:50:00</td>
+      <td>43631</td>
+      <td>144</td>
+      <td>2025-10-31 00:10:00</td>
+      <td>2025-11-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-01</td>
+      <td>2025-10-31 23:50:00</td>
+      <td>43775</td>
+      <td>144</td>
+      <td>2025-11-01 00:10:00</td>
+      <td>2025-11-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-02</td>
+      <td>2025-11-01 23:50:00</td>
+      <td>43919</td>
+      <td>144</td>
+      <td>2025-11-02 00:10:00</td>
+      <td>2025-11-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-03</td>
+      <td>2025-11-02 23:50:00</td>
+      <td>44063</td>
+      <td>144</td>
+      <td>2025-11-03 00:10:00</td>
+      <td>2025-11-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-04</td>
+      <td>2025-11-03 23:50:00</td>
+      <td>44207</td>
+      <td>144</td>
+      <td>2025-11-04 00:10:00</td>
+      <td>2025-11-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-05</td>
+      <td>2025-11-04 23:50:00</td>
+      <td>44351</td>
+      <td>144</td>
+      <td>2025-11-05 00:10:00</td>
+      <td>2025-11-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-06</td>
+      <td>2025-11-05 23:50:00</td>
+      <td>44495</td>
+      <td>144</td>
+      <td>2025-11-06 00:10:00</td>
+      <td>2025-11-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-07</td>
+      <td>2025-11-06 23:50:00</td>
+      <td>44639</td>
+      <td>144</td>
+      <td>2025-11-07 00:10:00</td>
+      <td>2025-11-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-08</td>
+      <td>2025-11-07 23:50:00</td>
+      <td>44783</td>
+      <td>144</td>
+      <td>2025-11-08 00:10:00</td>
+      <td>2025-11-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-09</td>
+      <td>2025-11-08 23:50:00</td>
+      <td>44927</td>
+      <td>144</td>
+      <td>2025-11-09 00:10:00</td>
+      <td>2025-11-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-10</td>
+      <td>2025-11-09 23:50:00</td>
+      <td>45071</td>
+      <td>144</td>
+      <td>2025-11-10 00:10:00</td>
+      <td>2025-11-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-11</td>
+      <td>2025-11-10 23:50:00</td>
+      <td>45215</td>
+      <td>144</td>
+      <td>2025-11-11 00:10:00</td>
+      <td>2025-11-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-12</td>
+      <td>2025-11-11 23:50:00</td>
+      <td>45359</td>
+      <td>144</td>
+      <td>2025-11-12 00:10:00</td>
+      <td>2025-11-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-13</td>
+      <td>2025-11-12 23:50:00</td>
+      <td>45503</td>
+      <td>144</td>
+      <td>2025-11-13 00:10:00</td>
+      <td>2025-11-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-14</td>
+      <td>2025-11-13 23:50:00</td>
+      <td>45647</td>
+      <td>144</td>
+      <td>2025-11-14 00:10:00</td>
+      <td>2025-11-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-15</td>
+      <td>2025-11-14 23:50:00</td>
+      <td>45791</td>
+      <td>144</td>
+      <td>2025-11-15 00:10:00</td>
+      <td>2025-11-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-16</td>
+      <td>2025-11-15 23:50:00</td>
+      <td>45935</td>
+      <td>144</td>
+      <td>2025-11-16 00:10:00</td>
+      <td>2025-11-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-17</td>
+      <td>2025-11-16 23:50:00</td>
+      <td>46079</td>
+      <td>144</td>
+      <td>2025-11-17 00:10:00</td>
+      <td>2025-11-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-18</td>
+      <td>2025-11-17 23:50:00</td>
+      <td>46223</td>
+      <td>144</td>
+      <td>2025-11-18 00:10:00</td>
+      <td>2025-11-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-19</td>
+      <td>2025-11-18 23:50:00</td>
+      <td>46367</td>
+      <td>144</td>
+      <td>2025-11-19 00:10:00</td>
+      <td>2025-11-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-20</td>
+      <td>2025-11-19 23:50:00</td>
+      <td>46511</td>
+      <td>144</td>
+      <td>2025-11-20 00:10:00</td>
+      <td>2025-11-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-21</td>
+      <td>2025-11-20 23:50:00</td>
+      <td>46655</td>
+      <td>144</td>
+      <td>2025-11-21 00:10:00</td>
+      <td>2025-11-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-22</td>
+      <td>2025-11-21 23:50:00</td>
+      <td>46799</td>
+      <td>144</td>
+      <td>2025-11-22 00:10:00</td>
+      <td>2025-11-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-23</td>
+      <td>2025-11-22 23:50:00</td>
+      <td>46943</td>
+      <td>144</td>
+      <td>2025-11-23 00:10:00</td>
+      <td>2025-11-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-24</td>
+      <td>2025-11-23 23:50:00</td>
+      <td>47087</td>
+      <td>144</td>
+      <td>2025-11-24 00:10:00</td>
+      <td>2025-11-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-25</td>
+      <td>2025-11-24 23:50:00</td>
+      <td>47231</td>
+      <td>144</td>
+      <td>2025-11-25 00:10:00</td>
+      <td>2025-11-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-26</td>
+      <td>2025-11-25 23:50:00</td>
+      <td>47375</td>
+      <td>144</td>
+      <td>2025-11-26 00:10:00</td>
+      <td>2025-11-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-27</td>
+      <td>2025-11-26 23:50:00</td>
+      <td>47519</td>
+      <td>144</td>
+      <td>2025-11-27 00:10:00</td>
+      <td>2025-11-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-28</td>
+      <td>2025-11-27 23:50:00</td>
+      <td>47663</td>
+      <td>144</td>
+      <td>2025-11-28 00:10:00</td>
+      <td>2025-11-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-29</td>
+      <td>2025-11-28 23:50:00</td>
+      <td>47807</td>
+      <td>144</td>
+      <td>2025-11-29 00:10:00</td>
+      <td>2025-11-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-11-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-11-30</td>
+      <td>2025-11-29 23:50:00</td>
+      <td>47951</td>
+      <td>144</td>
+      <td>2025-11-30 00:10:00</td>
+      <td>2025-12-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-01</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-01</td>
+      <td>2025-11-30 23:50:00</td>
+      <td>48095</td>
+      <td>144</td>
+      <td>2025-12-01 00:10:00</td>
+      <td>2025-12-02</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-02</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-02</td>
+      <td>2025-12-01 23:50:00</td>
+      <td>48239</td>
+      <td>144</td>
+      <td>2025-12-02 00:10:00</td>
+      <td>2025-12-03</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-03</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-03</td>
+      <td>2025-12-02 23:50:00</td>
+      <td>48383</td>
+      <td>144</td>
+      <td>2025-12-03 00:10:00</td>
+      <td>2025-12-04</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-04</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-04</td>
+      <td>2025-12-03 23:50:00</td>
+      <td>48527</td>
+      <td>144</td>
+      <td>2025-12-04 00:10:00</td>
+      <td>2025-12-05</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-05</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-05</td>
+      <td>2025-12-04 23:50:00</td>
+      <td>48671</td>
+      <td>144</td>
+      <td>2025-12-05 00:10:00</td>
+      <td>2025-12-06</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-06</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-06</td>
+      <td>2025-12-05 23:50:00</td>
+      <td>48815</td>
+      <td>144</td>
+      <td>2025-12-06 00:10:00</td>
+      <td>2025-12-07</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-07</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-07</td>
+      <td>2025-12-06 23:50:00</td>
+      <td>48959</td>
+      <td>144</td>
+      <td>2025-12-07 00:10:00</td>
+      <td>2025-12-08</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-08</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-08</td>
+      <td>2025-12-07 23:50:00</td>
+      <td>49103</td>
+      <td>144</td>
+      <td>2025-12-08 00:10:00</td>
+      <td>2025-12-09</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-09</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-09</td>
+      <td>2025-12-08 23:50:00</td>
+      <td>49247</td>
+      <td>144</td>
+      <td>2025-12-09 00:10:00</td>
+      <td>2025-12-10</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-10</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-10</td>
+      <td>2025-12-09 23:50:00</td>
+      <td>49391</td>
+      <td>144</td>
+      <td>2025-12-10 00:10:00</td>
+      <td>2025-12-11</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-11</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-11</td>
+      <td>2025-12-10 23:50:00</td>
+      <td>49535</td>
+      <td>144</td>
+      <td>2025-12-11 00:10:00</td>
+      <td>2025-12-12</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-12</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-12</td>
+      <td>2025-12-11 23:50:00</td>
+      <td>49679</td>
+      <td>144</td>
+      <td>2025-12-12 00:10:00</td>
+      <td>2025-12-13</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-13</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-13</td>
+      <td>2025-12-12 23:50:00</td>
+      <td>49823</td>
+      <td>144</td>
+      <td>2025-12-13 00:10:00</td>
+      <td>2025-12-14</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-14</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-14</td>
+      <td>2025-12-13 23:50:00</td>
+      <td>49967</td>
+      <td>144</td>
+      <td>2025-12-14 00:10:00</td>
+      <td>2025-12-15</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-15</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-15</td>
+      <td>2025-12-14 23:50:00</td>
+      <td>50111</td>
+      <td>144</td>
+      <td>2025-12-15 00:10:00</td>
+      <td>2025-12-16</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-16</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-16</td>
+      <td>2025-12-15 23:50:00</td>
+      <td>50255</td>
+      <td>144</td>
+      <td>2025-12-16 00:10:00</td>
+      <td>2025-12-17</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-17</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-17</td>
+      <td>2025-12-16 23:50:00</td>
+      <td>50399</td>
+      <td>144</td>
+      <td>2025-12-17 00:10:00</td>
+      <td>2025-12-18</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-18</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-18</td>
+      <td>2025-12-17 23:50:00</td>
+      <td>50543</td>
+      <td>144</td>
+      <td>2025-12-18 00:10:00</td>
+      <td>2025-12-19</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-19</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-19</td>
+      <td>2025-12-18 23:50:00</td>
+      <td>50687</td>
+      <td>144</td>
+      <td>2025-12-19 00:10:00</td>
+      <td>2025-12-20</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-20</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-20</td>
+      <td>2025-12-19 23:50:00</td>
+      <td>50831</td>
+      <td>144</td>
+      <td>2025-12-20 00:10:00</td>
+      <td>2025-12-21</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-21</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-21</td>
+      <td>2025-12-20 23:50:00</td>
+      <td>50975</td>
+      <td>144</td>
+      <td>2025-12-21 00:10:00</td>
+      <td>2025-12-22</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-22</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-22</td>
+      <td>2025-12-21 23:50:00</td>
+      <td>51119</td>
+      <td>144</td>
+      <td>2025-12-22 00:10:00</td>
+      <td>2025-12-23</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-23</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-23</td>
+      <td>2025-12-22 23:50:00</td>
+      <td>51263</td>
+      <td>144</td>
+      <td>2025-12-23 00:10:00</td>
+      <td>2025-12-24</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-24</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-24</td>
+      <td>2025-12-23 23:50:00</td>
+      <td>51407</td>
+      <td>144</td>
+      <td>2025-12-24 00:10:00</td>
+      <td>2025-12-25</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-25</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-25</td>
+      <td>2025-12-24 23:50:00</td>
+      <td>51551</td>
+      <td>144</td>
+      <td>2025-12-25 00:10:00</td>
+      <td>2025-12-26</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-26</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-26</td>
+      <td>2025-12-25 23:50:00</td>
+      <td>51695</td>
+      <td>144</td>
+      <td>2025-12-26 00:10:00</td>
+      <td>2025-12-27</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-27</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-27</td>
+      <td>2025-12-26 23:50:00</td>
+      <td>51839</td>
+      <td>144</td>
+      <td>2025-12-27 00:10:00</td>
+      <td>2025-12-28</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-28</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-28</td>
+      <td>2025-12-27 23:50:00</td>
+      <td>51983</td>
+      <td>144</td>
+      <td>2025-12-28 00:10:00</td>
+      <td>2025-12-29</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-29</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-29</td>
+      <td>2025-12-28 23:50:00</td>
+      <td>52127</td>
+      <td>144</td>
+      <td>2025-12-29 00:10:00</td>
+      <td>2025-12-30</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-30</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-30</td>
+      <td>2025-12-29 23:50:00</td>
+      <td>52271</td>
+      <td>144</td>
+      <td>2025-12-30 00:10:00</td>
+      <td>2025-12-31</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>2025-01-01 00:10:00</td>
+      <td>2025-12-31</td>
+      <td>2025-12-30 23:50:00</td>
+      <td>52415</td>
+      <td>144</td>
+      <td>2025-12-31 00:10:00</td>
+      <td>2026-01-01</td>
+      <td>timestamp &lt; origin</td>
+      <td>expanding</td>
+      <td>kW</td>
+    </tr>
+  </tbody>
+</table></div></details>
+<details><summary>候选模型证据</summary><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>series</th>
+      <th>model</th>
+      <th>status</th>
+      <th>reason</th>
+      <th>evidence</th>
+      <th>evidence_scope</th>
+      <th>fitted</th>
+      <th>selection_rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>load_kw</td>
+      <td>SARIMA</td>
+      <td>基础候选，须历史内部验证</td>
+      <td>日季节项以144为候选；固定参数是否足够不能由单个月份定论，阶数不能由图形直接定死。</td>
+      <td>r144=0.682578; r1008=0.992456; 去平均日曲线r1008=0.982533; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>load_kw</td>
+      <td>DHR_AR</td>
+      <td>优先比较的多季节候选</td>
+      <td>日/周频峰与相关共同支持比较多季节动态谐波回归—AR误差；仍非统计显著证明。</td>
+      <td>r144=0.682578; r1008=0.992456; 去平均日曲线r1008=0.982533; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>load_kw</td>
+      <td>Prophet</td>
+      <td>条件对照</td>
+      <td>仅在历史趋势与季节分解足够平滑时作为对照；当前未开展分解拟合及内层回测。</td>
+      <td>r144=0.682578; r1008=0.992456; 去平均日曲线r1008=0.982533; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>load_kw</td>
+      <td>RF_or_GBDT</td>
+      <td>暂不引入</td>
+      <td>须先有传统模型无法解释非线性残差的回测证据，不能仅凭原始曲线判定。</td>
+      <td>r144=0.682578; r1008=0.992456; 去平均日曲线r1008=0.982533; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>pv_kw</td>
+      <td>SARIMA</td>
+      <td>基础候选，须历史内部验证</td>
+      <td>日季节项以144为候选；固定参数是否足够不能由单个月份定论，阶数不能由图形直接定死。</td>
+      <td>r144=0.994429; r1008=0.993985; 去平均日曲线r1008=0.089656; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>pv_kw</td>
+      <td>DHR_AR</td>
+      <td>条件保留，不预设周效应</td>
+      <td>尚未形成独立周周期的完整证据；若后续可见历史出现周证据，再比较多季节模型。</td>
+      <td>r144=0.994429; r1008=0.993985; 去平均日曲线r1008=0.089656; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>pv_kw</td>
+      <td>Prophet</td>
+      <td>条件对照</td>
+      <td>仅在历史趋势与季节分解足够平滑时作为对照；当前未开展分解拟合及内层回测。</td>
+      <td>r144=0.994429; r1008=0.993985; 去平均日曲线r1008=0.089656; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+    <tr>
+      <td>pv_kw</td>
+      <td>RF_or_GBDT</td>
+      <td>暂不引入</td>
+      <td>须先有传统模型无法解释非线性残差的回测证据，不能仅凭原始曲线判定。</td>
+      <td>r144=0.994429; r1008=0.993985; 去平均日曲线r1008=0.089656; 日频局部峰=True; 残差周频局部峰=True</td>
+      <td>initial_history</td>
+      <td>False</td>
+      <td>所有估计/参数选择仅用各预测日可见历史；不能读取full_year诊断</td>
+    </tr>
+  </tbody>
+</table></div></details>
+<details><summary>后续评价数值状态</summary><div class="table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>指标</th>
+      <th>状态</th>
+      <th>值</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>load_mae_kw</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>load_rmse_kw</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>pv_mae_kw</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>pv_rmse_kw</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>net_load_mae_kw</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>net_load_rmse_kw</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>emergency_kwh</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>emergency_frequency</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+    <tr>
+      <td>total_cost_yuan</td>
+      <td>尚未指定实际预测/调度模型</td>
+      <td>未计算</td>
+      <td>本方案止于预测前诊断与评价规则，未指定拟合预测器/调度模型</td>
+    </tr>
+  </tbody>
+</table></div></details>
+<ul><li><a href="evaluation_status.csv">evaluation_status.csv</a></li>
+<li><a href="full_year_acf_pacf.csv">full_year_acf_pacf.csv</a></li>
+<li><a href="full_year_daily_statistics.csv">full_year_daily_statistics.csv</a></li>
+<li><a href="full_year_lag_correlations.csv">full_year_lag_correlations.csv</a></li>
+<li><a href="full_year_monthly_stability.csv">full_year_monthly_stability.csv</a></li>
+<li><a href="full_year_profiles.csv">full_year_profiles.csv</a></li>
+<li><a href="full_year_pv_zero_profile.csv">full_year_pv_zero_profile.csv</a></li>
+<li><a href="full_year_spectral_targets.csv">full_year_spectral_targets.csv</a></li>
+<li><a href="full_year_spectrum.csv">full_year_spectrum.csv</a></li>
+<li><a href="full_year_stationarity_tests.csv">full_year_stationarity_tests.csv</a></li>
+<li><a href="full_year_summary.csv">full_year_summary.csv</a></li>
+<li><a href="full_year_transformed_monthly_moments.csv">full_year_transformed_monthly_moments.csv</a></li>
+<li><a href="full_year_transformed_series.csv">full_year_transformed_series.csv</a></li>
+<li><a href="initial_history_acf_pacf.csv">initial_history_acf_pacf.csv</a></li>
+<li><a href="initial_history_daily_statistics.csv">initial_history_daily_statistics.csv</a></li>
+<li><a href="initial_history_lag_correlations.csv">initial_history_lag_correlations.csv</a></li>
+<li><a href="initial_history_monthly_stability.csv">initial_history_monthly_stability.csv</a></li>
+<li><a href="initial_history_profiles.csv">initial_history_profiles.csv</a></li>
+<li><a href="initial_history_pv_zero_profile.csv">initial_history_pv_zero_profile.csv</a></li>
+<li><a href="initial_history_spectral_targets.csv">initial_history_spectral_targets.csv</a></li>
+<li><a href="initial_history_spectrum.csv">initial_history_spectrum.csv</a></li>
+<li><a href="initial_history_stationarity_tests.csv">initial_history_stationarity_tests.csv</a></li>
+<li><a href="initial_history_summary.csv">initial_history_summary.csv</a></li>
+<li><a href="initial_history_transformed_monthly_moments.csv">initial_history_transformed_monthly_moments.csv</a></li>
+<li><a href="initial_history_transformed_series.csv">initial_history_transformed_series.csv</a></li>
+<li><a href="jump_context.csv">jump_context.csv</a></li>
+<li><a href="model_candidates.csv">model_candidates.csv</a></li>
+<li><a href="quality_checks.csv">quality_checks.csv</a></li>
+<li><a href="rolling_folds.csv">rolling_folds.csv</a></li>
+<li><a href="timeseries.csv">timeseries.csv</a></li></ul></section></main></html>

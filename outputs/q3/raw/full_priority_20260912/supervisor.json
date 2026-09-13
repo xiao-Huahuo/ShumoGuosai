@@ -1,0 +1,11 @@
+{
+  "status": "running",
+  "supervisor_pid": 74700,
+  "history": [
+    {
+      "attempt": 1,
+      "pid": 74704,
+      "started_at": "2026-09-12T09:58:45.584436+00:00"
+    }
+  ]
+}

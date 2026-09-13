@@ -1,0 +1,20 @@
+{
+  "status": "migrated_to_parallel_highs115",
+  "phase": "main",
+  "worker_pid": 78189,
+  "attempt": 1,
+  "completed_days_including_warmup": 22,
+  "formal_days": 0,
+  "total_formal_days": 334,
+  "active_date": "2025-01-23",
+  "active_hour": "06",
+  "last_solver_gap": 0.10779294293499203,
+  "completed_slices": 9,
+  "node_reliable": false,
+  "checkpoint": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_fast_20260912/main/nodes/2025-01-23/06/latest.json",
+  "soc": 9603.971567940102,
+  "updated_at": "2026-09-12T12:47:34.666902+00:00",
+  "main_result_ready": false,
+  "completed_sample_jobs": 0,
+  "sample_jobs_total": 36
+}

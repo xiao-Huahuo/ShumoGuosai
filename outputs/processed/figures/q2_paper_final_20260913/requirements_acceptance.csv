@@ -1,0 +1,14 @@
+item,requirement,evidence,status
+5-1a,工作日/周末均值、P25/P75、0..24和kW,fig51_weekday_profiles.csv,verified
+5-1b,1/4/7/10月光伏季节曲线,fig51_seasonal_pv.csv,verified
+5-1c,负荷相关至1008，144/288/1008虚线标签，负相关全范围,fig51_load_lag_correlation.csv,verified
+5-1d,去周期PV残差ACF至288、95%Bartlett参考带,fig51_pv_residual_acf.csv,verified
+5-2a,共同304日起点三h箱线、零线和全部尾部,fig52_paired_errors.csv,verified
+5-2b,两组PICP、80/90%参考线、覆盖数重算,fig52_paired_coverage.csv,verified
+5-3,横向时间轴、三冻结量、实际反馈、不可见未来和跨日SOC闭环,绘图代码及图像逐项目视,verified
+5-4a,指定四日按紧急量最大自动选日，Z/G/真实紧急柱,fig54_candidate_dates.csv;fig54_real_dispatch.csv,verified
+5-4b,充电正、放电负、零参考线,fig54_real_dispatch.csv,verified
+5-4c,145点实际SOC和1200/10800边界,fig54_storage_145.csv,verified
+5-5,当前4代表日K1/2/3同机同场景前缀、均值费用—时间、明确非全年,用户已确认局部口径；12案例均认证,verified_user_approved_change
+附图,全年三热图、日期时间、原值与净负荷0中心色标,figS1_annual_arrays.npz,verified
+格式,统一科研配色、中文、400dpi PNG、SVG、数据与图注,manifest.json与verification.json,verified

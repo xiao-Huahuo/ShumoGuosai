@@ -1,0 +1,571 @@
+{
+  "at": "2026-09-11T22:05:56.042206+00:00",
+  "status": "production_scenario_and_official_apr24_rollout_validated",
+  "scope": "single_band_supplemental_linear_MILP",
+  "all_original_integer_feasible_policies_preserved": true,
+  "proof": "docs/2/revision_work/linear_milp_equivalence.md",
+  "valid_inequalities": [
+    "q <= Qmax*(lr0+lr2)",
+    "w <= Wmax*(lc0+lc2)",
+    "Epost + (Emax-Emin)*lr2 <= Emax",
+    "-Epost + (Emax-Emin)*lc2 <= -Emin"
+  ],
+  "base_solver_seconds": 120,
+  "supplemental_solver_seconds": 900,
+  "required_gap": 0.01,
+  "forecast_and_scenario_unchanged": true,
+  "tests": 71,
+  "source_sha256": {
+    "src/q2/linear_policy.py": "348434eae42db9909524da5e74f34bc66e06df4aee48a1b6adac1fa9d9a64020",
+    "src/q2/test_linear_policy.py": "df9e08817c747b27fa902afe502ad8cac2a4a5d0e3dacbaeaccd3ebaf67994a3",
+    "src/q2/final_report.py": "ae3e5dbf396b6f512c0638a63beeaaa59235e9fe7cfd0d5bc9eb79cad3349883"
+  },
+  "production_validation": "raw/solver_diagnostics/apr24_branch_cuts_production.json",
+  "production_solver": {
+    "status": "Optimal",
+    "solver": "HiGHS_physical_bound_linear_MILP",
+    "solver_version": "1.8.0",
+    "time_limit": 900,
+    "requested_gap": 0.01,
+    "solve_seconds": 37.030054499999096,
+    "reliable": true,
+    "continuous_variables": 20592,
+    "binary_variables": 28224,
+    "constraints": 88704,
+    "nodes": 1,
+    "dual_bound": 34494.560491624194,
+    "seed_verified": true,
+    "seed_refinement": {
+      "before_dominance": {
+        "rounds": 19,
+        "seconds": 4.218855999999505,
+        "initial_cost": 34845.03991689607,
+        "candidate_cost": 34826.70397726546,
+        "role": "local_region_feasible_upper_bound_only"
+      },
+      "after_dominance": {
+        "rounds": 1,
+        "seconds": 0.4319937500040396,
+        "initial_cost": 34826.70397726546,
+        "candidate_cost": 34826.670401958334,
+        "role": "local_region_feasible_upper_bound_only"
+      },
+      "rounds": 20,
+      "seconds": 4.651044707999972,
+      "initial_cost": 34845.03991689607,
+      "candidate_cost": 34826.670401958334,
+      "role": "local_region_feasible_upper_bound_only"
+    },
+    "highs_primal_relative_gap_target": 0.009900990099009901,
+    "maximum_charge_cap_dominance_presolve": true,
+    "response_branch_valid_cuts": true,
+    "objective": 34826.670401958334,
+    "optimizer_objective": 34826.670401958334,
+    "mip_gap": 0.009627892212593393,
+    "mapping_error_kwh": 0.0,
+    "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+  },
+  "previous_failure_gap": 0.010006264726301057,
+  "previous_source_backup": "raw/solver_diagnostics/linear_policy_before_branch_cuts.txt",
+  "history": [
+    {
+      "at": "2026-09-11T22:05:56.042206+00:00",
+      "status": "production_scenario_validated_official_apr24_rollout_pending",
+      "scope": "single_band_supplemental_linear_MILP",
+      "all_original_integer_feasible_policies_preserved": true,
+      "proof": "docs/2/revision_work/linear_milp_equivalence.md",
+      "valid_inequalities": [
+        "q <= Qmax*(lr0+lr2)",
+        "w <= Wmax*(lc0+lc2)",
+        "Epost + (Emax-Emin)*lr2 <= Emax",
+        "-Epost + (Emax-Emin)*lc2 <= -Emin"
+      ],
+      "base_solver_seconds": 120,
+      "supplemental_solver_seconds": 900,
+      "required_gap": 0.01,
+      "forecast_and_scenario_unchanged": true,
+      "tests": 71,
+      "source_sha256": {
+        "src/q2/linear_policy.py": "348434eae42db9909524da5e74f34bc66e06df4aee48a1b6adac1fa9d9a64020",
+        "src/q2/test_linear_policy.py": "df9e08817c747b27fa902afe502ad8cac2a4a5d0e3dacbaeaccd3ebaf67994a3",
+        "src/q2/final_report.py": "ae3e5dbf396b6f512c0638a63beeaaa59235e9fe7cfd0d5bc9eb79cad3349883"
+      },
+      "production_validation": "raw/solver_diagnostics/apr24_branch_cuts_production.json",
+      "production_solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 37.030054499999096,
+        "reliable": true,
+        "continuous_variables": 20592,
+        "binary_variables": 28224,
+        "constraints": 88704,
+        "nodes": 1,
+        "dual_bound": 34494.560491624194,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 19,
+            "seconds": 4.218855999999505,
+            "initial_cost": 34845.03991689607,
+            "candidate_cost": 34826.70397726546,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 1,
+            "seconds": 0.4319937500040396,
+            "initial_cost": 34826.70397726546,
+            "candidate_cost": 34826.670401958334,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 20,
+          "seconds": 4.651044707999972,
+          "initial_cost": 34845.03991689607,
+          "candidate_cost": 34826.670401958334,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 34826.670401958334,
+        "optimizer_objective": 34826.670401958334,
+        "mip_gap": 0.009627892212593393,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "previous_failure_gap": 0.010006264726301057,
+      "previous_source_backup": "raw/solver_diagnostics/linear_policy_before_branch_cuts.txt"
+    }
+  ],
+  "official_rollout": {
+    "date": "2025-04-24",
+    "daily": {
+      "date": "2025-04-24",
+      "K": 1,
+      "M": 28,
+      "S": 28,
+      "initial_soc": 1538.0615848778116,
+      "final_soc": 1200.0,
+      "cost": 34585.29033142648,
+      "emergency_kwh": 5.96511848372279,
+      "computational_limited": true
+    },
+    "solver": {
+      "status": "Optimal",
+      "solver": "HiGHS_physical_bound_linear_MILP",
+      "solver_version": "1.8.0",
+      "time_limit": 900,
+      "requested_gap": 0.01,
+      "solve_seconds": 27.191178374996525,
+      "reliable": true,
+      "continuous_variables": 20592,
+      "binary_variables": 28224,
+      "constraints": 88704,
+      "nodes": 1,
+      "dual_bound": 34494.560491624194,
+      "seed_verified": true,
+      "seed_refinement": {
+        "before_dominance": {
+          "rounds": 19,
+          "seconds": 2.826579042004596,
+          "initial_cost": 34845.03991689607,
+          "candidate_cost": 34826.70397726546,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "after_dominance": {
+          "rounds": 1,
+          "seconds": 0.28911637499550125,
+          "initial_cost": 34826.70397726546,
+          "candidate_cost": 34826.670401958334,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "rounds": 20,
+        "seconds": 3.1158072910038754,
+        "initial_cost": 34845.03991689607,
+        "candidate_cost": 34826.670401958334,
+        "role": "local_region_feasible_upper_bound_only"
+      },
+      "highs_primal_relative_gap_target": 0.009900990099009901,
+      "maximum_charge_cap_dominance_presolve": true,
+      "response_branch_valid_cuts": true,
+      "objective": 34826.670401958334,
+      "optimizer_objective": 34826.670401958334,
+      "mip_gap": 0.009627892212593393,
+      "mapping_error_kwh": 0.0,
+      "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+    },
+    "audit_sha256": "fecc62fcad665265b4150edad96ad9c2c116b575c31a361474fd89993cf3277d",
+    "frozen_policy_sha256": "215383886602cf6b7e28dfa7351678c209f6099e55bd20c36d92ea0a854d9c84",
+    "validated_on_copied_committed_snapshot": true,
+    "checkpoint_verified_through": "2025-04-26"
+  },
+  "official_rollout_verified_at": "2026-09-11T22:28:22.170548+00:00",
+  "additional_instance_validations": {
+    "main_2025-04-15_K1": {
+      "at": "2026-09-11T22:31:08.266625+00:00",
+      "record": "raw/solver_diagnostics/apr15_main_branch_cuts_production.json",
+      "solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 113.86264295900037,
+        "reliable": true,
+        "continuous_variables": 20592,
+        "binary_variables": 28224,
+        "constraints": 88704,
+        "nodes": 1,
+        "dual_bound": 33210.10736984145,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 20,
+            "seconds": 3.6580785830010427,
+            "initial_cost": 33557.04976776555,
+            "candidate_cost": 33542.75253460788,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 6,
+            "seconds": 1.187693666004634,
+            "initial_cost": 33542.75253460788,
+            "candidate_cost": 33541.57100474311,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 26,
+          "seconds": 4.845922583001084,
+          "initial_cost": 33557.04976776555,
+          "candidate_cost": 33541.57100474311,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 33541.57100474311,
+        "optimizer_objective": 33541.57100474311,
+        "mip_gap": 0.009980805879678431,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "official_rollout_pending": false
+    },
+    "horizon_2_2025-04-15_K2": {
+      "validated_at": "2026-09-11T23:52:10.452912+00:00",
+      "record": "raw/solver_diagnostics/apr15_horizon2_branch_cuts_production.json",
+      "record_sha256": "024d3be1387a6d1f3e8c2e32818a39c0e4e11a4be6cd0d1a874ccd49f455f282",
+      "solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 84.53952829199989,
+        "reliable": true,
+        "continuous_variables": 39744,
+        "binary_variables": 54432,
+        "constraints": 171072,
+        "nodes": 1,
+        "dual_bound": 69444.03101517545,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 22,
+            "seconds": 9.733324125001673,
+            "initial_cost": 70163.26791973005,
+            "candidate_cost": 70138.81998530716,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 5,
+            "seconds": 2.53344491700409,
+            "initial_cost": 70138.81998530716,
+            "candidate_cost": 70138.36407081436,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 27,
+          "seconds": 12.267026500005159,
+          "initial_cost": 70163.26791973005,
+          "candidate_cost": 70138.36407081436,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 70138.36407081435,
+        "optimizer_objective": 70138.36407081436,
+        "mip_gap": 0.009998455525820012,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "initial_soc": 8125.321109268394,
+      "K": 2,
+      "S": 27,
+      "official_rollout_pending": false,
+      "original_failure_retained": true,
+      "source_sha256_at_start": {
+        "src/q2/linear_policy.py": "348434eae42db9909524da5e74f34bc66e06df4aee48a1b6adac1fa9d9a64020",
+        "src/q2/rolling.py": "96e4e528472b77f854e8b141c19aca36fd32cba8cbbcf1ac0084fc60c0fd8b6a"
+      }
+    }
+  },
+  "additional_official_rollouts": {
+    "main_2025-04-15": {
+      "verified_at": "2026-09-11T23:04:16.152084+00:00",
+      "date": "2025-04-15",
+      "daily": {
+        "date": "2025-04-15",
+        "K": 2,
+        "M": 27,
+        "S": 27,
+        "initial_soc": 8148.936064290121,
+        "final_soc": 8298.566195862559,
+        "cost": 36109.62353108317,
+        "emergency_kwh": 0.0,
+        "computational_limited": true
+      },
+      "selected_K": 2,
+      "solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 73.08015154200257,
+        "reliable": true,
+        "continuous_variables": 39744,
+        "binary_variables": 54432,
+        "constraints": 171072,
+        "nodes": 1,
+        "dual_bound": 69454.17896586048,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 13,
+            "seconds": 5.308625375000702,
+            "initial_cost": 70168.67343782724,
+            "candidate_cost": 70141.14725199656,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 0,
+            "seconds": 0.39703683400148293,
+            "initial_cost": 70141.14725199656,
+            "candidate_cost": 70141.14725199656,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 13,
+          "seconds": 5.705877166998107,
+          "initial_cost": 70168.67343782724,
+          "candidate_cost": 70141.14725199656,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 70141.14725199656,
+        "optimizer_objective": 70141.14725199655,
+        "mip_gap": 0.009890956834631225,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "audit_sha256": "e255f0d8b6e9c8c1ec9555b3d9d060582a00486929e5e36afb9dd55e28650fdb",
+      "frozen_policy_sha256": "87bb6afbbd17f9316f84b0e9668cf775a2c714de26d780762de1f1853542a513",
+      "validated_on_copied_committed_snapshot": true,
+      "checkpoint_verified_through": "2025-04-15"
+    },
+    "main_2025-04-16": {
+      "verified_at": "2026-09-11T23:40:04.263158+00:00",
+      "date": "2025-04-16",
+      "daily": {
+        "date": "2025-04-16",
+        "K": 3,
+        "M": 26,
+        "S": 26,
+        "initial_soc": 8298.566195862559,
+        "final_soc": 8242.338049863103,
+        "cost": 35988.5860886649,
+        "emergency_kwh": 0.0,
+        "computational_limited": true
+      },
+      "selected_K": 3,
+      "solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 37.73408308299986,
+        "reliable": true,
+        "continuous_variables": 57456,
+        "binary_variables": 78624,
+        "constraints": 247104,
+        "nodes": 1,
+        "dual_bound": 81602.66976861331,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 17,
+            "seconds": 8.802335833002871,
+            "initial_cost": 82453.01702130848,
+            "candidate_cost": 82408.44637776975,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 11,
+            "seconds": 5.710221458000888,
+            "initial_cost": 82408.44637776975,
+            "candidate_cost": 82406.82209297965,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 28,
+          "seconds": 14.512757333999616,
+          "initial_cost": 82453.01702130848,
+          "candidate_cost": 82406.82209297965,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 82406.82209297965,
+        "optimizer_objective": 82406.82209297965,
+        "mip_gap": 0.009854485480028244,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "audit_sha256": "0118e15ed6640f913fc1fbf1311bdd3b084ddccddb6b85950d37d6fdb26c387b",
+      "frozen_policy_sha256": "aeef871efc18b917f97f362bfbb3c42e59efd186418a3ff4c8386dae050e4e20",
+      "validated_on_copied_committed_snapshot": true,
+      "checkpoint_verified_through": "2025-04-16"
+    },
+    "horizon_3_2025-04-13": {
+      "verified_at": "2026-09-11T23:53:18.724092+00:00",
+      "date": "2025-04-13",
+      "daily": {
+        "date": "2025-04-13",
+        "K": 3,
+        "M": 26,
+        "S": 26,
+        "initial_soc": 8242.778789367307,
+        "final_soc": 8246.152701260418,
+        "cost": 36472.93464651684,
+        "emergency_kwh": 38.41724308394123,
+        "computational_limited": true
+      },
+      "selected_K": 3,
+      "solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 66.87356429200008,
+        "reliable": true,
+        "continuous_variables": 57456,
+        "binary_variables": 78624,
+        "constraints": 247104,
+        "nodes": 1,
+        "dual_bound": 105702.33706571747,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 21,
+            "seconds": 13.11933074999979,
+            "initial_cost": 106819.65605821162,
+            "candidate_cost": 106751.13353055692,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 10,
+            "seconds": 5.792384624997794,
+            "initial_cost": 106751.13353055692,
+            "candidate_cost": 106749.14673816218,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 31,
+          "seconds": 18.91196145900176,
+          "initial_cost": 106819.65605821162,
+          "candidate_cost": 106749.14673816218,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 106749.14673816219,
+        "optimizer_objective": 106749.14673816219,
+        "mip_gap": 0.009903373014296737,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "audit_sha256": "2fed8902f950b1e865415ff8ab94c998f8db9eadf38a5e5eca5daa74b5239027",
+      "frozen_policy_sha256": "bf178b061806eaab067988456ffe89d02982aad00f4b1a375b7e36a7d3e8cba6",
+      "validated_on_copied_committed_snapshot": true,
+      "checkpoint_verified_through": "2025-04-13"
+    },
+    "horizon_2_2025-04-15_K2": {
+      "verified_at": "2026-09-12T00:34:55.976463+00:00",
+      "selected_K": 2,
+      "daily": {
+        "date": "2025-04-15",
+        "K": 2,
+        "M": 27,
+        "S": 27,
+        "initial_soc": 8125.321109268394,
+        "final_soc": 8313.319409008158,
+        "cost": 36161.28990523387,
+        "emergency_kwh": 5.806210048221033,
+        "computational_limited": true
+      },
+      "selected_solver": {
+        "status": "Optimal",
+        "solver": "HiGHS_physical_bound_linear_MILP",
+        "solver_version": "1.8.0",
+        "time_limit": 900,
+        "requested_gap": 0.01,
+        "solve_seconds": 77.6926956669995,
+        "reliable": true,
+        "continuous_variables": 39744,
+        "binary_variables": 54432,
+        "constraints": 171072,
+        "nodes": 1,
+        "dual_bound": 69444.03101517545,
+        "seed_verified": true,
+        "seed_refinement": {
+          "before_dominance": {
+            "rounds": 22,
+            "seconds": 8.175802916004614,
+            "initial_cost": 70163.26791973005,
+            "candidate_cost": 70138.81998530716,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "after_dominance": {
+            "rounds": 5,
+            "seconds": 2.0902875409956323,
+            "initial_cost": 70138.81998530716,
+            "candidate_cost": 70138.36407081436,
+            "role": "local_region_feasible_upper_bound_only"
+          },
+          "rounds": 27,
+          "seconds": 10.26627587499388,
+          "initial_cost": 70163.26791973005,
+          "candidate_cost": 70138.36407081436,
+          "role": "local_region_feasible_upper_bound_only"
+        },
+        "highs_primal_relative_gap_target": 0.009900990099009901,
+        "maximum_charge_cap_dominance_presolve": true,
+        "response_branch_valid_cuts": true,
+        "objective": 70138.36407081435,
+        "optimizer_objective": 70138.36407081436,
+        "mip_gap": 0.009998455525820012,
+        "mapping_error_kwh": 0.0,
+        "execution_role": "supplemental_equivalent_physical_bound_MILP_after_original_budget_failure"
+      },
+      "audit_sha256": "96fa75867b0254eb9a6a9478d5393831d143ec79f604a1a4073462942f535925",
+      "frozen_policy_sha256": "862a380ab83297efb6648b3d7c2bf7a4e7cf8854047e9b8959a2a5eb21b5690e",
+      "independent_full_prefix_replay_verified": true,
+      "original_budget_failure_preserved": true
+    }
+  }
+}

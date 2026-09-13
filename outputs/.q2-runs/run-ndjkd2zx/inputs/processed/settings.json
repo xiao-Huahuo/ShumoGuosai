@@ -1,0 +1,33 @@
+{
+  "scope": "full_year 为事后描述；initial_history 仅含首次回测前严格可见的观测",
+  "continuous_curve_start": "2025-01-01（附件起点，非择优选取）",
+  "key_lags": [
+    1,
+    6,
+    144,
+    288,
+    1008,
+    2016
+  ],
+  "acf_pacf_max_lag": 2016,
+  "acf": "FFT, adjusted=False；常数序列相关无定义",
+  "pacf": "Burg, demean=True；直接计算至2016，不跳过周滞后",
+  "correlation_interpretation": "报告效应量，不把高频相关当独立样本显著性；7日相关可能仅为日周期重复",
+  "spectrum": "periodogram fs=144/day, boxcar, detrend=constant, density；保留所有正频率，不插值",
+  "spectral_peak": "目标最近离散频点及其左右紧邻频点；局部峰不等于统计显著",
+  "stability": "按原始月份；滞后两端均限制于当月；std ddof=1；不设稳定/不稳定硬阈值",
+  "stationarity": "raw, diff144, diff1008, diff144_then1008；ADF默认Schwert上限+ BIC选滞后；KPSS auto",
+  "stationarity_regression": "每种变换分别检验c（水平平稳）与ct（趋势平稳）；记录1%、5%、10%临界值",
+  "stationarity_caveat": "ADF拒绝单位根不证明季节/方差稳定；KPSS表外p值按上下界标记；联合差分或过度差分",
+  "outlier_policy": "所有局部转折点提供前后值与既往同星期同槽位上下文；只排序，不删除或平滑",
+  "calendar": "weekday=1..7 按源日期；周末仅指周六周日，不推断法定节假日或调休",
+  "pv_night": "统计零值占比与全零槽位；没有日出日落元数据，不能预设固定夜间窗口",
+  "numeric_setting_role": "以上均为明确披露的计算/显示方法，不是新增题设或预测模型参数",
+  "candidate_priority": "仅初始历史：日频局部峰、去日曲线后周频局部峰、残差周相关大于日相关三项一致时优先比较DHR_AR；仅比较证据，不等同统计显著性或最终选型",
+  "forecast_start": "2025-02-01",
+  "cutoff": "timestamp < origin",
+  "boundary_authority": "user_explicit_confirmation",
+  "forecast_horizon": 144,
+  "forecast_unit": "kW",
+  "dt_hours_dispatch_only": 0.16666666666666666
+}

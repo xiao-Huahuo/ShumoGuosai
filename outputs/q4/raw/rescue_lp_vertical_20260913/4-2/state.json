@@ -1,0 +1,56 @@
+{
+  "signature": "68eb2e03b778c502dc1684cf83c5703accbff938a48ba39a7f2aa5b35e097d17",
+  "sources": "a76fd46da075c0a12c831eacc4aa08be75df9c78e6e7785411e2cc5c96800836",
+  "mode": "4-2",
+  "days": [
+    {
+      "day": 31,
+      "hashes": {
+        "dispatch": "e9c2f9690b1400c26203f1139d37d8e39ce01b709a8fa8d9bab0d710505e1d57",
+        "audit": "67e384fa877d7f8737abe2e565093bf9f26de090d7ee9f3fe04e819a46240a0a"
+      }
+    },
+    {
+      "day": 32,
+      "hashes": {
+        "dispatch": "5d0f8a289ba046e18298998d1e6a970ca9a372a3955ac74e73581b7780eb758d",
+        "audit": "2ab094775009df67f14bf47a73be90f3099445cc511c229e64822e55b165a7e1"
+      }
+    },
+    {
+      "day": 33,
+      "hashes": {
+        "dispatch": "2c77699d327923eb04b71639adcf2c3643cbec562ca55b5e9c05665e08e636c7",
+        "audit": "2edea7fefdd27838eb90a90147af16e3b97315cff333c110908dd05d1f65bf77"
+      }
+    }
+  ],
+  "soc": 10799.999999999996,
+  "config": {
+    "scenarios": 20,
+    "residual_window": 56,
+    "net_weight": 0.5,
+    "bootstrap_repetitions": 100,
+    "bootstrap_quantile": 0.95,
+    "dro_scale": 1.0,
+    "conditional": true,
+    "joint": true,
+    "min_ess": 10.0,
+    "nodes": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "seconds": 30.0,
+    "gap": 0.03,
+    "solver_threads": 1,
+    "hard_timeout": 30.0,
+    "seed": 20250913,
+    "allow_limited": false
+  },
+  "model_version": "q4_rescue_lp_v1",
+  "formal_start_day": 31,
+  "integer_variables": 0,
+  "initial_soc": 6000.0
+}

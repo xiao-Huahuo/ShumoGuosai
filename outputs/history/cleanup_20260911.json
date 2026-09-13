@@ -1,0 +1,87 @@
+{
+  "status": "completed",
+  "measurement": "st_blocks * 512; no symlink traversal; project directory only",
+  "before_allocated_bytes": 749674496,
+  "before_logical_bytes": 739334169,
+  "before_files": 4251,
+  "current": {
+    "q1": "run-ie6fkatf",
+    "q2": "run-ndjkd2zx"
+  },
+  "retained_generations": [
+    "outputs/.q1-runs/legacy_before_atomic",
+    "outputs/.q1-runs/run-7ceay8rq",
+    "outputs/.q1-runs/run-ie6fkatf",
+    "outputs/.q2-runs/run-6nq32k65",
+    "outputs/.q2-runs/run-ndjkd2zx"
+  ],
+  "removed_generations": [
+    "outputs/.q1-runs/run-o8ibfyxu",
+    "outputs/.q2-runs/preflight",
+    "outputs/.q2-runs/run-0q8f7_cj",
+    "outputs/.q2-runs/run-9o2xcz3a",
+    "outputs/.q2-runs/run-fk68hvrw",
+    "outputs/.q2-runs/run-maabphtb",
+    "outputs/.q2-runs/run-xakqii4s"
+  ],
+  "planned_remove_files": 429,
+  "planned_remove_allocated_bytes": 445825024,
+  "cached_files": 23,
+  "archive_files": 59,
+  "archive_sha256": "e08ec2e24c5be18160699b34fc5e4a685adbd948247eb2b3eb0f911e22408962",
+  "inventory_sha256": "b1b7cda9eb0d385feda61fd38e436501d0eaad2fe710adf33ec980d097149b83",
+  "archive_roundtrip_verified": true,
+  "automatic_retention_implemented": false,
+  "compression_of_current_artifacts": false,
+  "protected_files_unchanged": 3822,
+  "symlinks_unchanged": 11,
+  "deleted_files": 429,
+  "deleted_allocated_bytes": 445825024,
+  "verified_utc": "2026-09-11T06:52:46.774065+00:00",
+  "readme_entries_verified": 315,
+  "documentation_links_verified": 35,
+  "current_output_hashes_verified": {
+    "q1": 62,
+    "q2": 63
+  },
+  "http_smoke": {
+    "unique_http_resources_verified": 103,
+    "pages": [
+      {
+        "page": "outputs/processed/q1/report.html",
+        "link_and_image_elements": 11
+      },
+      {
+        "page": "outputs/processed/q1/marginal_report.html",
+        "link_and_image_elements": 19
+      },
+      {
+        "page": "outputs/processed/q2/report.html",
+        "link_and_image_elements": 89
+      },
+      {
+        "page": "outputs/processed/q1_paper/run-ie6fkatf-d9b1d24a/index.html",
+        "link_and_image_elements": 19
+      }
+    ]
+  },
+  "browser_smoke": {
+    "q2_loaded_images": 11,
+    "q2_expanded_fold_rows": 334,
+    "q1_expanded_input_rows": 144,
+    "q1_expanded_output_rows": 144,
+    "q1_main_images": 2,
+    "q1_marginal_page_images": 2,
+    "q1_marginal_link_navigation_passed": true
+  },
+  "modified_documentation": [
+    "README.md",
+    "TASK_STATE.md",
+    "docs/1/deliverables/q1_run_guide.md",
+    "docs/2/run_guide.md",
+    "docs/CHANGE_HISTORY.md"
+  ],
+  "after_allocated_bytes": 304087040,
+  "net_reclaimed_allocated_bytes": 445587456,
+  "net_reclaimed_percent": 59.4374569733262
+}

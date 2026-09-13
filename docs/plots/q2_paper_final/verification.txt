@@ -1,0 +1,90 @@
+{
+  "figures": 6,
+  "formats": [
+    "PNG400dpi",
+    "SVG"
+  ],
+  "image_metadata": [
+    {
+      "figure": "fig5_1_source_load_structure",
+      "pixels": [
+        3520,
+        2600
+      ],
+      "dpi": [
+        399.9992,
+        399.9992
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "figure": "fig5_2_forecast_and_calibration",
+      "pixels": [
+        3520,
+        1700
+      ],
+      "dpi": [
+        399.9992,
+        399.9992
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "figure": "fig5_3_causal_information_timeline",
+      "pixels": [
+        3840,
+        2240
+      ],
+      "dpi": [
+        399.9992,
+        399.9992
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "figure": "fig5_4_real_dispatch_20250320",
+      "pixels": [
+        3520,
+        3080
+      ],
+      "dpi": [
+        399.9992,
+        399.9992
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "figure": "fig5_5_local_horizon_tradeoff",
+      "pixels": [
+        2800,
+        1760
+      ],
+      "dpi": [
+        399.9992,
+        399.9992
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "figure": "figS1_annual_source_load_heatmaps",
+      "pixels": [
+        3840,
+        1960
+      ],
+      "dpi": [
+        399.9992,
+        399.9992
+      ],
+      "mode": "RGBA"
+    }
+  ],
+  "source_counts_verified": true,
+  "same_origin_errors_verified": true,
+  "paired_coverage_recalculated": true,
+  "SOC145_and_sign_convention_verified": true,
+  "all_heatmap_values_preserved": true,
+  "horizon_local_user_approved": true,
+  "horizon_cases_certified": 12,
+  "all_source_extremes_preserved": true,
+  "visual_inspection_required_and_completed": true
+}

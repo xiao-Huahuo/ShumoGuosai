@@ -1,0 +1,7 @@
+{
+  "rounds": 14,
+  "seconds": 4.9800432919982995,
+  "initial_cost": 36275.85296762959,
+  "candidate_cost": 36270.316633818424,
+  "role": "local_region_feasible_upper_bound_only"
+}

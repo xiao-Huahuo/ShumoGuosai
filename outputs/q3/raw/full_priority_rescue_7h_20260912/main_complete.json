@@ -1,0 +1,9 @@
+{
+  "rows": 48096,
+  "gap_target": 0.03,
+  "result": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx",
+  "finished": "2026-09-12T19:09:51.540027+00:00",
+  "sample_experiments_not_needed_for_main_export": true,
+  "production_rescue": true,
+  "all_nodes_certified_3pct": false
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-09-12T03:36:33.296530+00:00",
+  "records": [
+    {
+      "gap_percent": 3,
+      "same_instance_all_K_verified": true,
+      "certificates_recomputed": true,
+      "selected_policy_scenario_and_actual_replay_verified": true
+    },
+    {
+      "gap_percent": 4,
+      "same_instance_all_K_verified": true,
+      "certificates_recomputed": true,
+      "selected_policy_scenario_and_actual_replay_verified": true
+    },
+    {
+      "gap_percent": 5,
+      "same_instance_all_K_verified": true,
+      "certificates_recomputed": true,
+      "selected_policy_scenario_and_actual_replay_verified": true
+    },
+    {
+      "gap_percent": 2,
+      "same_instance_all_K_verified": true,
+      "certificates_recomputed": true,
+      "selected_policy_scenario_and_actual_replay_verified": true
+    }
+  ],
+  "policy_3pct_4pct_identical": true,
+  "production_sources_and_config_unchanged": true
+}

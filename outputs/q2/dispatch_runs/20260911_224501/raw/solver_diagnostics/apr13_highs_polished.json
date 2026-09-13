@@ -1,0 +1,27 @@
+{
+  "status": "Optimal",
+  "solver": "HiGHS_physical_bound_linear_MILP",
+  "solver_version": "1.8.0",
+  "time_limit": 600,
+  "requested_gap": 0.01,
+  "solve_seconds": 64.81236279099903,
+  "reliable": true,
+  "continuous_variables": 20592,
+  "binary_variables": 28224,
+  "constraints": 72576,
+  "nodes": 1,
+  "dual_bound": 36325.98637167591,
+  "seed_verified": true,
+  "seed_refinement": {
+    "rounds": 10,
+    "seconds": 4.21989004200077,
+    "initial_cost": 36702.818276340535,
+    "candidate_cost": 36688.55593541688,
+    "role": "local_region_feasible_upper_bound_only"
+  },
+  "highs_primal_relative_gap_target": 0.009900990099009901,
+  "objective": 36688.55593541688,
+  "optimizer_objective": 36688.55593541688,
+  "mip_gap": 0.009980997075517162,
+  "mapping_error_kwh": 0.0
+}

@@ -1,0 +1,11 @@
+{
+  "cost": 35126.94858928963,
+  "explicit_dual": 35126.948589289634,
+  "duality_gap": 7.275957614183426e-12,
+  "stationarity_max": 1.0402394994773406e-16,
+  "initial_stationarity": 0.0,
+  "terminal_stationarity": 0.0,
+  "positive_grid_price_identity": 0.0,
+  "capacity_upper_derivative": -0.6550455555555555,
+  "initial_derivative": -0.004333333333333356
+}

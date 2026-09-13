@@ -1,0 +1,6 @@
+{
+  "status": "complete",
+  "completed_day_cases": 20,
+  "optimal_nodes": 32,
+  "baseline_days_reused": 6
+}

@@ -1,0 +1,17 @@
+{
+  "jobs_verified": 40,
+  "core_jobs": 32,
+  "optional_jobs": 8,
+  "original_plan_bytes_verified": true,
+  "q3_S28_user_approved": true,
+  "baseline_files_unchanged": 4,
+  "all_same_initial_soc": true,
+  "OFAT_frozen_inputs_verified": true,
+  "max_balance_error_kwh": 1.1368683772161603e-13,
+  "max_soc_transition_error_kwh": 1.1823431123048067e-11,
+  "all_delta_and_aggregate_statistics_verified": true,
+  "baseline_not_resolved": true,
+  "certified_jobs": 18,
+  "limited_feasible_jobs": 22,
+  "failed_jobs": 0
+}

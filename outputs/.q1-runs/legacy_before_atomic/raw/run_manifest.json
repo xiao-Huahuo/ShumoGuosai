@@ -1,0 +1,75 @@
+{
+  "started_utc": "2026-09-11T02:57:14.989286+00:00",
+  "finished_utc": "2026-09-11T02:57:21.680802+00:00",
+  "command": "uv run --with-requirements src/q1/requirements.txt python src/q1/run.py",
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "versions": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "openpyxl": "3.1.5",
+    "matplotlib": "3.11.1"
+  },
+  "inputs": [
+    {
+      "source": "docs/CUMCM2026Problems/C题/附件/附件1.xlsx",
+      "copy": "inputs/q1/raw/attachment1.xlsx",
+      "sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377"
+    }
+  ],
+  "model_sha256": "dc09df3620062e28eeab696a050e889e9fa1cd514b093571cb9df3c6c52c806b",
+  "code_sha256": {
+    "src/q1/analysis.py": "32850ca2bd148c491cc098d4601a1c53f4dc7e87000ed8cb97ad6571a6101c42",
+    "src/q1/analysis_report.py": "fcc2f07d0db6e1be56630c80408b5a7a81a749f41cfb072ab287d12c28207419",
+    "src/q1/export.py": "65e9fd390af801ae0a3987dd81187d9a0e9c7876427abc6b47a34e6963f2112c",
+    "src/q1/model.py": "9a5aa2f2f3feef209d9c6182216423fe09629de62e2293b72cd090d831cd385e",
+    "src/q1/report.py": "84f67e69ebc506e815bbe215e6e8461e192627568d02fa81d3c931ef4bd187c7",
+    "src/q1/review_compact_q1.py": "98b722fd3f17df1bb6efc6ba42b09b09eb7a9cc5a3a162aa8177b96e249b8234",
+    "src/q1/run.py": "23272b9632f8b88c79525466e9bae303190c0f3477290f75238070d35362f7e7",
+    "src/q1/test_analysis.py": "33c7d82abb046054d5a1a3c8d14c3208199d73bb948a04fe4285b06bc7b50d57",
+    "src/q1/test_q1.py": "64ceabf34c2adbdc01778aa2990c26e927566391cb737fd979a6574d7f42f273"
+  },
+  "input_statistics": {
+    "records": 144,
+    "price_min": 0.3713,
+    "price_max": 1.3952,
+    "load_kwh": 111024.8081,
+    "pv_kwh": 55482.835666666666
+  },
+  "output_sha256": {
+    "outputs/processed/q1/active_constraints.csv": "98c04da01c394f75b257e64eea5b6a1da1acb9fd7ebef88bc42f4aa5f473d5e9",
+    "outputs/processed/q1/analysis_summary.json": "fed80b2b1e8e48a750560bb967463405b4a89bf0def5dbbaf1b3cb3e7d86e97e",
+    "outputs/processed/q1/arbitrage_thresholds.csv": "218fe5dba999df1b080955216ab29053e90746c6a61ab2a6f2d3c41909d0de50",
+    "outputs/processed/q1/baseline_comparison.csv": "bddc54bc998fc18cfce77b00b8e5618eb80a3ec74eceff8e84e7514d63a3625b",
+    "outputs/processed/q1/bottleneck_analysis.pdf": "d090659533baf9d1d11cebcc68b88015b162d240f2d8a4da54fe5b8e2dcfd6db",
+    "outputs/processed/q1/bottleneck_analysis.png": "55005f8fd8802da9d239fada8fd91d34fb6c521d450039ef4713b5774b710694",
+    "outputs/processed/q1/bottleneck_analysis.svg": "10da26159f530ed53661e52feb6f8ea36a7f9390c92edb40badaa6e9b30148e9",
+    "outputs/processed/q1/bottleneck_values.csv": "7bc6ac5b8c536dfc1584156d8d9f7dbada052fce889c6030ef879d90889c276d",
+    "outputs/processed/q1/daily_summary.csv": "07fc345d418fe9d0e0367c6810aa09337d04fdf6b3a991904fb1cc68de517570",
+    "outputs/processed/q1/dispatch.pdf": "b1e2569c49bc16da3103fd2ab3123e199269bde8ea9b3214b95df23240aaef48",
+    "outputs/processed/q1/dispatch.png": "39bfde27ba60ede2d905ca745ea73765af426ea7d03fc141d07b39d808194923",
+    "outputs/processed/q1/dispatch.svg": "a578894af5c1d275c6ec4621bf19bf0dfd32d3fc8def3a11689aef55230db006",
+    "outputs/processed/q1/efficiency.pdf": "38f4258f1b07d189879cf49b32950149697c80f6f784984b351a76886e1eb035",
+    "outputs/processed/q1/efficiency.png": "4fb60a0a9c631790059bc81d3d4eb8299d7c8b64e16e0fc8ed895621eb73d673",
+    "outputs/processed/q1/efficiency.svg": "768398d47ce5226f851369765fc81684f91a5a8222553d1b74d8d9ee07c17942",
+    "outputs/processed/q1/efficiency_comparison.csv": "1aadae1f5e22066653d961eb29e4d480713ae4982a423c6698018eaa6e962e02",
+    "outputs/processed/q1/incremental_benefits.csv": "02936e2af2b5fb68f4aea98a016ec94ae04a7b599ea77017d23bf6c91b641293",
+    "outputs/processed/q1/lp_diagnosis.csv": "282f662601c9093d0bfd1a88ace01f5b6b356d8d4189e208d2b7d4e4601f8234",
+    "outputs/processed/q1/marginal_analysis.pdf": "5de360e2b2d26751d25fa000a0b1a31c20cc2660b3d3d1d8dd259d53483a3dd7",
+    "outputs/processed/q1/marginal_analysis.png": "2865563271d64de25d88a8632fc67a15e5bfbfa7ef2fe5b4985069f6c8d43f89",
+    "outputs/processed/q1/marginal_analysis.svg": "f65180154a884054e38ee388ee7807ae91d009766b503dd2f0974a82cae5a384",
+    "outputs/processed/q1/marginal_report.html": "d665f39c59c2224887c3b9273418c46dbc0684794c83093e70a1d7595aa97aa7",
+    "outputs/processed/q1/marginal_rhs_validation.csv": "fa7761b1249e3082edb2bfeb39155d3f263f69a068aa25a6e1452969eefbc7a5",
+    "outputs/processed/q1/marginal_values.csv": "b5e441ea198f345712bf872b07ffb19c3a91e4fd9a8450e3350c064428308be2",
+    "outputs/processed/q1/normalized_sensitivity.csv": "770b80d31c10a70c4af6b563ba84c74a130ad3e107813aae101eaff1d0a16352",
+    "outputs/processed/q1/report.html": "cd29e3f22ad5b1454267eee2c1b069acd0829b8a15dce161ace1d20c5ede1254",
+    "outputs/processed/q1/result1.csv": "d3adfe5f9f06d16c75d8e3a11e2b3f8152f1fd947ea59742fc69ca3ff6542535",
+    "outputs/processed/q1/sensitivity_scenarios.csv": "6ae3e6446c914af9f20429236883f45197a70a6016aac86f552bde6065b440da",
+    "outputs/processed/q1/summary.json": "6d62a5f5bcdff5252ef2552b94d7f04b9d038364842ee9522ff7c5778f94f0b3",
+    "outputs/processed/q1/table1_purchase.csv": "477d7f80e720e4eba37aeea00c989e96991e7fb0151487aec10070f15e3bc13d",
+    "outputs/processed/q1/table2_storage.csv": "8eb93598ac664659d15755c51aaac22309e02d009bf2e797c2f7d45f1a723d94"
+  },
+  "all_physical_and_csv_checks_passed": true,
+  "analysis_checks_passed": true,
+  "analysis_scenarios": 36
+}

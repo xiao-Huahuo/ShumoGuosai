@@ -1,0 +1,20 @@
+{
+  "source": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/dispatch.csv",
+  "comparisons": [
+    {
+      "reserve_retained": true,
+      "C_realized": 14941642.192579936,
+      "E_emergency": 130262.42708495187,
+      "grid": 21654307.821422793,
+      "max_saved_emergency_difference": 9.819700608204585e-12
+    },
+    {
+      "reserve_retained": false,
+      "C_realized": 14836427.918189546,
+      "E_emergency": 107149.04255563222,
+      "grid": 21654307.821422793,
+      "max_saved_emergency_difference": 833.3333333333333
+    }
+  ],
+  "conclusion": "审查数值对应漏传soc_reserve_kwh的回放；保留最终策略应使用带reserve基准。"
+}

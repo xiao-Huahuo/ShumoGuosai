@@ -1,0 +1,239 @@
+{
+  "main": {
+    "start": "2025-02-01",
+    "end": "2025-12-31",
+    "days": 334,
+    "period": "evaluation_period_not_calendar_year",
+    "planned_cost_yuan": 13519155.116704091,
+    "emergency_cost_yuan": 677182.5457146972,
+    "total_cost_yuan": 14196337.662418788,
+    "planned_grid_kwh": 21654307.821422793,
+    "emergency_kwh": 130262.4270849516,
+    "emergency_intervals": 2058,
+    "emergency_events": 955,
+    "intervals_above_numerical_tolerance": 2058,
+    "unused_kwh": 2760865.1653923467,
+    "charge_kwh": 5695517.067523333,
+    "discharge_kwh": 4611001.4793746015,
+    "final_soc": 8630.38368811016,
+    "charge_with_emergency_intervals": 0
+  },
+  "main_complete": true,
+  "computational_limited_days": 10,
+  "supplemental_days": 1,
+  "execution": {
+    "base_solver_seconds": 120.0,
+    "rescue_seconds": 900.0,
+    "rescue_trigger": "all_day_candidates_failed",
+    "gap": 0.03,
+    "interpretation": "supplementary_compute_not_retroactive_original_budget_success",
+    "tail_stratification": true,
+    "tail_fraction": 0.2,
+    "dynamic_soc_reserve": true,
+    "reserve_quantile": 0.8,
+    "refine_seconds": 5.0,
+    "lp_certificate_fast_path": true,
+    "solver_threads": 1,
+    "rescue_reuses_day_assets_bound_and_incumbent": true,
+    "evaluation_initial_soc_kwh": 6000.0,
+    "precision_revision_sha256": "308847bde0add876ac9fb31374e7b364c4a0d485f5e1377f42b30c376ac8f0e3",
+    "base_policy_solver": "equivalent_MILP_after_global_LP_certificate_attempt",
+    "horizon_evaluation": "K2_K3_then_K1_only_if_both_fail"
+  },
+  "original_budget_all_passed": false,
+  "failed_date": null,
+  "failure_reason": null,
+  "main_full_year_success_rate": 1.0,
+  "observed_candidate_success_rate": 0.9806259314456036,
+  "observed_attempted_dates": 334,
+  "full_year_all_candidates_reliable_day_rate": 0.9700598802395209,
+  "selected_policy_physics_valid": true,
+  "mandatory_experiments_complete": true,
+  "completed_experiments": 0,
+  "required_experiments": 0,
+  "evidence": {
+    "prepare": {
+      "accepted": true,
+      "reason": "原始附件逐值回读及完整准备库摘要核验通过",
+      "artifacts": [
+        "raw/prepared_manifest.json",
+        "inputs/processed/quality_checks.csv"
+      ]
+    },
+    "forecast": {
+      "accepted": true,
+      "reason": "已复用并逐摘要核验完整影子预测库；本轮未重训预测器",
+      "artifacts": [
+        "raw/shadows/frozen_lightgbm.json",
+        "raw/prepared_manifest.json"
+      ]
+    },
+    "warm": {
+      "accepted": true,
+      "reason": "1月仅积累预测历史，储能不主动调度；2月1日SOC固定为6000kWh",
+      "artifacts": [
+        "processed/warm_start.json"
+      ]
+    },
+    "main": {
+      "accepted": true,
+      "reason": "主回放已完成334/334日；计算受限10日",
+      "artifacts": [
+        "processed/main/run_status.json",
+        "processed/main/dispatch.csv"
+      ]
+    },
+    "compute": {
+      "accepted": true,
+      "reason": "334日均有可靠入选策略；另有候选受限或采用补充预算的日期10日",
+      "artifacts": [
+        "processed/main/daily_audit",
+        "processed/main/solver_statistics.json"
+      ]
+    },
+    "export": {
+      "accepted": true,
+      "reason": "仅完整334日通过物理/模板回读后导出result2；合成模板测试不代表正式结果",
+      "artifacts": [
+        "processed/main/template_audit.json"
+      ]
+    },
+    "diagnostic": {
+      "accepted": true,
+      "reason": "新增图必须与实际目视版本的PNG摘要匹配；重绘后的不同图不能沿用旧验收",
+      "artifacts": [
+        "processed/pv_local_residual_correlations.csv",
+        "processed/seasonal_difference_variance.csv",
+        "processed/figures/manifest.json"
+      ]
+    },
+    "scenarios": {
+      "accepted": true,
+      "reason": "联合origin×horizon历史块及物理投影已测试；全年场景审计随主回放完成",
+      "artifacts": [
+        "processed/main/daily_audit",
+        "processed/main/calibration.csv"
+      ]
+    },
+    "calibration": {
+      "accepted": true,
+      "reason": "覆盖率按horizon和月份汇总；低覆盖必须如实报告，不能视作预设覆盖保证",
+      "artifacts": [
+        "processed/scenario_calibration_summary.csv"
+      ]
+    },
+    "quantile": {
+      "accepted": true,
+      "reason": "80%临界分位由5倍紧急购电解析推导及单元测试验收；取消额外全年实验",
+      "artifacts": [
+        "raw/test_manifest.json"
+      ]
+    },
+    "optional_cvar": {
+      "accepted": false,
+      "reason": "可选扩展有求解入口，未执行；不进入风险中性主结果",
+      "artifacts": []
+    },
+    "structure": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "predictor_economics": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "scenario_sensitivity": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "minimums": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "initials": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "horizons": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "ablations": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "richer": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "oracles": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "experiments": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "warm_and_initials": {
+      "accepted": true,
+      "reason": "按最终任务书取消；未运行且不作为论文验收门槛",
+      "artifacts": [
+        "processed/experiment_comparison.csv"
+      ]
+    },
+    "forecast_and_main": {
+      "accepted": true,
+      "reason": "主回放已完成334/334日；计算受限10日",
+      "artifacts": [
+        "processed/main/run_status.json",
+        "processed/main/dispatch.csv"
+      ]
+    },
+    "tests": {
+      "accepted": true,
+      "reason": "当前源码测试摘要通过",
+      "artifacts": [
+        "raw/test_manifest.json",
+        "raw/final_tests.txt"
+      ]
+    },
+    "all": {
+      "accepted": true,
+      "reason": "所有必需条件同时验收；当前不得用局部结果宣称整体通过",
+      "artifacts": [
+        "processed/acceptance.json"
+      ]
+    }
+  },
+  "all_accepted": true
+}

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:8769/",
+  "browser": "Codex in-app browser hidden verification tab 6",
+  "images_loaded": 7,
+  "all_natural_dimensions_positive": true,
+  "horizontal_overflow": false,
+  "screenshot_visually_checked": true,
+  "links_in_dom": 24,
+  "image_visual_review": "All seven final images individually viewed; core mixed-font labels and cost annotation corrected and reviewed",
+  "user_cancelled": "图6-4 FIV/OUV"
+}

@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "at": "2026-09-12T08:15:23.086734+00:00",
+  "old_supervisor": 55409,
+  "launch_pid": 70077,
+  "pinned_interpreter": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q2/dispatch_runs/20260911_224501/raw/export_runtime_repair_20260912/pinned_runtime/bin/python",
+  "scientific_workers_preserved": [
+    64937,
+    65186
+  ],
+  "old_failed_receipt_preserved": true,
+  "explanation": "Replaced uv-owned supervisor runtime with retained equivalent overlay; resumed existing scientific workers without resetting solver state."
+}

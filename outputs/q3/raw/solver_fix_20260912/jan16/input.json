@@ -1,0 +1,33 @@
+{
+  "run": "outputs/q3/raw/full_priority_fast_20260912",
+  "date": "2025-01-16",
+  "signature": "9660e77dbd429e089c2df929364c2213487e4a3343d08f0028b035cdf5837342",
+  "source_audit": {
+    "status": "Optimal",
+    "solver": "HiGHS_Q3_monotone_equivalent_MILP",
+    "solver_version": "1.8.0",
+    "binaries": 3456,
+    "variables": 14364,
+    "constraints": 22360,
+    "scenario_count": 8,
+    "requested_gap": 0.03,
+    "terminal": 0.8938676491250226,
+    "solver_threads": 1,
+    "reliable": true,
+    "seconds": 491.23813666599744,
+    "lower_bound": 3267.779367977252,
+    "objective": 3348.742710263421,
+    "optimizer_objective": 3348.742710263416,
+    "gap": 0.02417723584377735,
+    "linear_feasibility_error": 2.871367261952819e-10,
+    "integrality_error": 1.9316286504084546e-11,
+    "monotone_projection_error": 1.0913936421275139e-11,
+    "raw_response_difference": 2688.592307027755,
+    "mapping_error": null,
+    "mapped_cost_not_above_optimizer": true,
+    "completed_slices": 5,
+    "slice_seconds": 120.0,
+    "restored_incumbent": false,
+    "certificate": "original_feedback_cost_with_valid_monotone_MILP_lower_bound"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "index": 1,
+  "configuration": {
+    "num_leaves": 15,
+    "n_estimators": 100,
+    "learning_rate": 0.05,
+    "max_depth": -1,
+    "min_child_samples": 20,
+    "reg_lambda": 1.0
+  },
+  "freeze_origin": "2025-02-01",
+  "scores": [
+    {
+      "configuration": 0,
+      "mae_kw": 125.30630063648739,
+      "rmse_kw": 158.846170812133,
+      "origins": 17,
+      "first_origin": "2025-01-15",
+      "last_origin": "2025-01-31"
+    },
+    {
+      "configuration": 1,
+      "mae_kw": 118.39400557704121,
+      "rmse_kw": 149.8564120457368,
+      "origins": 17,
+      "first_origin": "2025-01-15",
+      "last_origin": "2025-01-31"
+    }
+  ]
+}

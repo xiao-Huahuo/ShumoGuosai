@@ -1,0 +1,9 @@
+{
+  "status": "Optimal",
+  "solver": "HiGHS_finite_support_Wasserstein_LP",
+  "solver_version": "1.15.1",
+  "seconds": 0.27442770899506286,
+  "solver_seconds": 0.24807224998949096,
+  "solver_threads": 1,
+  "solution_source": "optimal_solver",
+  "gap": 

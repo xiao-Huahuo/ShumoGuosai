@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "at": "2026-09-12T04:22:31.587987+00:00",
+  "old_supervisor_pid": 42052,
+  "interrupted_jobs": [
+    "main",
+    "horizon_3"
+  ],
+  "requeued_jobs": [
+    "main",
+    "horizon_1",
+    "horizon_2",
+    "horizon_3"
+  ],
+  "offline_verified_days": 462,
+  "revision_sha256": "afd9bf5f1f8a78c674ab95f87230b68b6f9309f04bdd56246b78c6f3469602ec",
+  "original_execution_files_unchanged": true
+}

@@ -1,0 +1,121 @@
+从已验收的232日连续回放检查点续算
+真实回放 2025-09-21 K=3 S=26 SOC=7927.769
+真实回放 2025-09-22 K=3 S=26 SOC=7706.561
+真实回放 2025-09-23 K=2 S=27 SOC=8010.697
+真实回放 2025-09-24 K=2 S=27 SOC=8385.157
+真实回放 2025-09-25 K=2 S=27 SOC=3940.163
+真实回放 2025-09-26 K=2 S=27 SOC=4510.715
+真实回放 2025-09-27 K=2 S=27 SOC=7598.679
+真实回放 2025-09-28 K=2 S=27 SOC=8239.554
+真实回放 2025-09-29 K=2 S=27 SOC=8012.538
+真实回放 2025-09-30 K=2 S=27 SOC=8034.679
+真实回放 2025-10-01 K=2 S=27 SOC=9865.077
+真实回放 2025-10-02 K=2 S=27 SOC=6428.446
+真实回放 2025-10-03 K=2 S=27 SOC=6412.250
+真实回放 2025-10-04 K=2 S=27 SOC=9945.475
+真实回放 2025-10-05 K=2 S=27 SOC=9553.839
+真实回放 2025-10-06 K=2 S=27 SOC=9226.265
+真实回放 2025-10-07 K=2 S=27 SOC=9477.996
+真实回放 2025-10-08 K=2 S=27 SOC=8246.006
+真实回放 2025-10-09 K=2 S=27 SOC=4393.282
+真实回放 2025-10-10 K=2 S=27 SOC=4758.869
+真实回放 2025-10-11 K=2 S=27 SOC=8120.234
+真实回放 2025-10-12 K=2 S=27 SOC=7946.045
+真实回放 2025-10-13 K=2 S=27 SOC=7964.595
+真实回放 2025-10-14 K=2 S=27 SOC=7855.905
+真实回放 2025-10-15 K=2 S=27 SOC=8087.073
+真实回放 2025-10-16 K=2 S=27 SOC=4953.967
+真实回放 2025-10-17 K=3 S=26 SOC=5296.166
+真实回放 2025-10-18 K=2 S=27 SOC=8446.303
+真实回放 2025-10-19 K=2 S=27 SOC=8203.375
+真实回放 2025-10-20 K=2 S=27 SOC=7758.590
+真实回放 2025-10-21 K=3 S=26 SOC=7944.597
+真实回放 2025-10-22 K=2 S=27 SOC=8033.794
+真实回放 2025-10-23 K=3 S=26 SOC=5711.948
+真实回放 2025-10-24 K=2 S=27 SOC=5605.745
+真实回放 2025-10-25 K=2 S=27 SOC=8086.430
+真实回放 2025-10-26 K=2 S=27 SOC=8409.130
+真实回放 2025-10-27 K=2 S=27 SOC=8005.931
+真实回放 2025-10-28 K=2 S=27 SOC=8337.573
+真实回放 2025-10-29 K=2 S=27 SOC=8017.041
+真实回放 2025-10-30 K=2 S=27 SOC=6220.577
+真实回放 2025-10-31 K=2 S=27 SOC=6336.507
+真实回放 2025-11-01 K=2 S=27 SOC=8648.386
+真实回放 2025-11-02 K=2 S=27 SOC=8043.882
+真实回放 2025-11-03 K=2 S=27 SOC=8200.391
+真实回放 2025-11-04 K=2 S=27 SOC=8015.703
+真实回放 2025-11-05 K=2 S=27 SOC=8441.134
+真实回放 2025-11-06 K=2 S=27 SOC=6136.645
+真实回放 2025-11-07 K=2 S=27 SOC=6757.600
+真实回放 2025-11-08 K=2 S=27 SOC=8467.183
+真实回放 2025-11-09 K=2 S=27 SOC=8100.409
+真实回放 2025-11-10 K=2 S=27 SOC=8047.394
+真实回放 2025-11-11 K=2 S=27 SOC=8204.275
+真实回放 2025-11-12 K=2 S=27 SOC=8200.994
+真实回放 2025-11-13 K=2 S=27 SOC=7411.288
+真实回放 2025-11-14 K=2 S=27 SOC=7791.660
+真实回放 2025-11-15 K=2 S=27 SOC=8301.774
+真实回放 2025-11-16 K=2 S=27 SOC=7929.037
+真实回放 2025-11-17 K=2 S=27 SOC=8347.732
+真实回放 2025-11-18 K=2 S=27 SOC=7987.848
+真实回放 2025-11-19 K=2 S=27 SOC=7872.422
+真实回放 2025-11-20 K=2 S=27 SOC=7068.694
+真实回放 2025-11-21 K=2 S=27 SOC=7990.429
+真实回放 2025-11-22 K=2 S=27 SOC=8085.928
+真实回放 2025-11-23 K=2 S=27 SOC=8032.770
+真实回放 2025-11-24 K=2 S=27 SOC=7807.110
+真实回放 2025-11-25 K=2 S=27 SOC=8007.640
+真实回放 2025-11-26 K=2 S=27 SOC=7842.113
+真实回放 2025-11-27 K=2 S=27 SOC=7795.321
+真实回放 2025-11-28 K=2 S=27 SOC=8178.685
+真实回放 2025-11-29 K=2 S=27 SOC=7719.335
+真实回放 2025-11-30 K=2 S=27 SOC=7758.468
+真实回放 2025-12-01 K=2 S=27 SOC=7713.051
+真实回放 2025-12-02 K=2 S=27 SOC=7688.295
+真实回放 2025-12-03 K=3 S=26 SOC=7558.155
+真实回放 2025-12-04 K=3 S=26 SOC=7814.121
+真实回放 2025-12-05 K=3 S=26 SOC=8031.777
+真实回放 2025-12-06 K=3 S=26 SOC=8123.100
+真实回放 2025-12-07 K=2 S=27 SOC=8233.199
+真实回放 2025-12-08 K=3 S=26 SOC=8703.414
+真实回放 2025-12-09 K=2 S=27 SOC=8508.095
+真实回放 2025-12-10 K=2 S=27 SOC=8529.534
+真实回放 2025-12-11 K=2 S=27 SOC=8596.233
+真实回放 2025-12-12 K=3 S=26 SOC=8655.949
+真实回放 2025-12-13 K=2 S=27 SOC=8742.460
+真实回放 2025-12-14 K=2 S=27 SOC=8506.429
+真实回放 2025-12-15 K=2 S=27 SOC=8611.741
+真实回放 2025-12-16 K=2 S=27 SOC=8424.913
+真实回放 2025-12-17 K=2 S=27 SOC=8654.339
+真实回放 2025-12-18 K=2 S=27 SOC=8598.268
+真实回放 2025-12-19 K=3 S=26 SOC=8596.596
+真实回放 2025-12-20 K=2 S=27 SOC=8560.434
+真实回放 2025-12-21 K=2 S=27 SOC=8544.154
+真实回放 2025-12-22 K=2 S=27 SOC=8331.005
+真实回放 2025-12-23 K=2 S=27 SOC=8647.885
+真实回放 2025-12-24 K=2 S=27 SOC=8492.242
+真实回放 2025-12-25 K=2 S=27 SOC=8467.169
+真实回放 2025-12-26 K=3 S=26 SOC=9061.632
+真实回放 2025-12-27 K=2 S=27 SOC=8566.963
+真实回放 2025-12-28 K=2 S=27 SOC=8643.757
+真实回放 2025-12-29 K=2 S=27 SOC=8273.020
+真实回放 2025-12-30 K=2 S=27 SOC=8630.615
+真实回放 2025-12-31 K=2 S=27 SOC=8129.247
+/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/export_dispatch.py:115: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  write_csv(output/"paper_table3.csv", pd.concat(events, ignore_index=True) if events else emergency_events(specified))
+Traceback (most recent call last):
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/full_run.py", line 160, in worker
+    run_main(run, rescue_seconds=RESCUE_SECONDS, **precision)
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/dispatch.py", line 140, in run_main
+    verify_code(path)
+  File "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/src/q2/final_report.py", line 48, in verify_code
+    tested = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "src/q2", "-p", "test_*.py", "-v"],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/Users/slumpyfufu/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/slumpyfufu/.cache/uv/builds-v0/.tmpTqeUgW/bin/python'

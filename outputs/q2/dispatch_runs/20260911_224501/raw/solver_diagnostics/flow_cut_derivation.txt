@@ -1,0 +1,5 @@
+诊断阶段，尚未接入生产。
+原整数反馈满足：放电方向r+q=n-g，g>=0，所以r+q<=Qmax*z，其中Qmax=max(n,0)。充电方向c+w=g-n，g<=Gmax，所以c+w<=Wmax*(1-z)，其中Wmax=max(Gmax-n,0)。原模型分别限制q与r、w与c，分数组合可重复消耗同一缺口/剩余上界；合计上界保留全部原整数可行策略但加强松弛。
+放电可用电量分支lr2=1时，Epost=Emin、c=0、r<=CAP，由递推Eprev=Emin+r/eta_d<=Emin+CAP/eta_d；否则只有原Eprev<=Emax。因此Eprev+(Emax-Emin-CAP/eta_d)*lr2<=Emax。
+充电容量分支lc2=1时，Epost=Emax、r=0、c<=CAP，由递推Eprev=Emax-eta_c*c>=Emax-eta_c*CAP；否则只有Eprev>=Emin。因此-Eprev+(Emax-Emin-eta_c*CAP)*lc2<=-Emin。
+两条上一SOC约束用于i>0的变量SOC；首时段已知初态沿用现有精确物理边界。四条式子均由原整数反馈和物理边界推出，对固定策略也有效，不依赖cp支配性预处理，不改变目标、场景、预算或1%精度。

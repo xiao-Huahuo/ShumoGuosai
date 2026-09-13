@@ -1,0 +1,77 @@
+{
+  "date": "2025-06-02",
+  "role": "高紧急购电日",
+  "K": 3,
+  "S": 26,
+  "initial_soc": 7024.973999184445,
+  "baseline": {
+    "total_cost": 85389.0327737825,
+    "planned_cost": 39174.57081125819,
+    "adjustment_cost": 0.0,
+    "emergency_kwh": 8467.009592709148,
+    "emergency_cost": 46214.4619625243,
+    "min_soc": 1311.626622652716,
+    "final_soc": 6870.06298465135,
+    "charge_kwh": 16325.7574199063,
+    "discharge_kwh": 13363.283423203891,
+    "throughput_kwh": 29689.04084311019
+  },
+  "baseline_solver": {
+    "status": "certified_by_feasible_policy_and_global_lp_lower_bound",
+    "solver": "SCIP_native_MILP_presolve_and_HiGHS_bound",
+    "solver_version": "10.0.2",
+    "before_presolve": {
+      "continuous": 180930,
+      "binary": 89856,
+      "variables": 270786,
+      "constraints": 381758
+    },
+    "after_presolve": {
+      "continuous": 171956,
+      "binary": 80648,
+      "variables": 252604,
+      "constraints": 340959
+    },
+    "mip_gap": 0.029579503542218128,
+    "requested_gap": 0.03,
+    "objective": 119494.27394918323,
+    "dual_bound": 116061.24008691801,
+    "solve_seconds": 7.17216130000088,
+    "mapping_error_kwh": 0.0,
+    "mapping_evidence": "all_responses_generated_by_same_exact_frozen_policy",
+    "reliable": true,
+    "certificate": {
+      "lower_bound": 116061.24008691801,
+      "incumbent_cost": 119494.27394918323,
+      "certified_gap": 0.029579503542218128,
+      "seconds": 3.130778700000519,
+      "variables": 56592,
+      "constraints": 22464,
+      "refinement": {
+        "method": "piecewise_gradient_incumbent_only",
+        "iterations": null,
+        "evaluations": 11,
+        "seconds": 0.2658508999993501,
+        "termination": "feasible_upper_bound_reached_requested_gap",
+        "candidate_cost": 119494.2739491832,
+        "global_optimality_claim": false
+      },
+      "role": "lower_bound_only_never_free_recourse_execution"
+    },
+    "branch_and_bound_required": false,
+    "presolve_scope": "SCIP_FAST_one_round_symmetry_disabled_certificate_already_proves_gap"
+  },
+  "gap": 0.03,
+  "seconds": 120.0,
+  "rescue_seconds": 900.0,
+  "threads": 1,
+  "refine_seconds": 5.0,
+  "fixed_history_sha256": "a8e530968eb4d8b1ac3b3715adbd704ccf0ce7b1f24036e4842caf3b8532489e",
+  "point_sha256": "a0ac11252a2576b1641c4498579c7b7a34af0462cd158802086042cee44350e4",
+  "baseline_scenarios_sha256": "da4778e28937b190cdc64aa8ff0b7ee1919ba1a6eb782dde81de05b56ece58e2",
+  "baseline_reserve_sha256": "0f9ea383097b5f67957c1dddac9da04518741aa3fccaef9a099bd238e992b179",
+  "baseline_audit_sha256": "73d8ff8d13437fc072124956d5089b2fd04b7d2cf5b885032ae6403bd338f735",
+  "baseline_plan_sha256": "85a558992b1daf681477f006fb352879a59da234b6d091d90fb40fe2f795aecf",
+  "baseline_replay_verified": true,
+  "scenario_reconstruction_verified": true
+}

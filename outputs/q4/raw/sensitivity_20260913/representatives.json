@@ -1,0 +1,58 @@
+{
+  "rules": "June-Dec; ordinary closest to full formal-year median; volatility population std; joint risk mean positive standardized OOS net residual times positive standardized OOS price residual (scales from available 56-day history); pressure maximum baseline emergency kWh; ties date ascending; duplicates advance rank",
+  "selected_before_variants": true,
+  "modes": {
+    "4-2": [
+      {
+        "role": "常规日",
+        "date": "2025-09-18",
+        "day": 260,
+        "metric": "median_distance",
+        "metric_value": 25.222314963306417,
+        "annual_cost_median": 49042.969158829495
+      },
+      {
+        "role": "高价格波动日",
+        "date": "2025-12-14",
+        "day": 347,
+        "metric": "price_std",
+        "metric_value": 0.38672828511813906,
+        "annual_cost_median": 49042.969158829495
+      },
+      {
+        "role": "高联合风险日",
+        "date": "2025-07-01",
+        "day": 181,
+        "metric": "joint_risk",
+        "metric_value": 4.624998208445518,
+        "annual_cost_median": 49042.969158829495
+      },
+      {
+        "role": "高运行压力日",
+        "date": "2025-07-06",
+        "day": 186,
+        "metric": "emergency",
+        "metric_value": 6267.918480499176,
+        "annual_cost_median": 49042.969158829495
+      }
+    ],
+    "4-3": [
+      {
+        "role": "常规日",
+        "date": "2025-09-02",
+        "day": 244,
+        "metric": "median_distance",
+        "metric_value": 76.16191698539478,
+        "annual_cost_median": 48261.673165373184
+      },
+      {
+        "role": "高联合风险日",
+        "date": "2025-07-01",
+        "day": 181,
+        "metric": "joint_risk",
+        "metric_value": 4.624998208445518,
+        "annual_cost_median": 48261.673165373184
+      }
+    ]
+  }
+}

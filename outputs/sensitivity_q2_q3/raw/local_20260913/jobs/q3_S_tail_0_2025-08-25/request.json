@@ -1,0 +1,12 @@
+{
+  "id": "q3_S_tail_0_2025-08-25",
+  "question": "q3",
+  "parameter": "S_tail",
+  "value": 0,
+  "date": "2025-08-25",
+  "role": "高预测更新日",
+  "status": "pending",
+  "optional": true,
+  "started_at": 1789277964.9631062,
+  "signature": "45ed9662c267044b6a6cab3dbc0fe29055cf2fc10189c72fcc47bac7119e6939"
+}

@@ -1,0 +1,22 @@
+{
+  "effective_at": "2026-09-11T17:57:41.076639+00:00",
+  "reason": "SCIP900秒仍无法认证的真实实验，通过等价线性MILP在64.812秒获得1%证书；用户授权自主修复后继续全量计算",
+  "scope": "仅原预算整日全候选失败后的补算；正常SCIP120秒候选不变",
+  "base_solver": "SCIP10.0.2 native indicator",
+  "supplemental_solver": "HiGHS1.8.0 physical-bound linear MILP",
+  "supplemental_seconds": 900,
+  "certified_gap_limit": 0.01,
+  "highs_primal_relative_gap_limit": 0.009900990099009901,
+  "model_changed": false,
+  "source_documents": [
+    "docs/2/revision_work/linear_milp_equivalence.md"
+  ],
+  "real_evidence": "raw/solver_diagnostics/apr13_highs_polished.json",
+  "original_failures_preserved": true,
+  "current_test_count": 67,
+  "source_sha256": {
+    "src/q2/linear_policy.py": "54de0070c278050a06598d2cdbb3144f7fd84f33eb72e558fb9277ab8badf65b",
+    "src/q2/rolling.py": "7eb9d1e483291095275cf70e06e115388bfc982f7f94451d63301f7640967ff9",
+    "src/q2/experiments.py": "ac8d739d1dd5bf9f9dec49ea72627199566da0c55601d4a680d4f3204c635e76"
+  }
+}

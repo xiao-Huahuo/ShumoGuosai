@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "reviewed_png_sha256": {
+    "seasonal_variance": "6c88a23263b262813222ad01557487cca18567232bdc11ca14d40dee6ff9e035",
+    "dhr_residuals": "055f70cfcca51d17709e3a3cd542d93398d36831914c0af2bb59d9da74a71115",
+    "real_rollout": "9d372c8b49d3972fc5e9a757c4127075ecef454a9edd787bac08de68289196f0"
+  },
+  "source_sha256": "8e3f5f14c212deffa8a6b22ce6fa036711cb7ba60af50f5eb0c9936cfbdf05f2",
+  "font": "Microsoft YaHei",
+  "checks": {
+    "chinese_text": true,
+    "axes_and_units": true,
+    "no_clipping": true,
+    "legibility": true,
+    "physical_bounds_visible_where_applicable": true
+  },
+  "reviewed_in_actual_render": true
+}

@@ -1,0 +1,265 @@
+{
+  "complete": true,
+  "at": "2026-09-12T05:03:53.810429+00:00",
+  "groups": {
+    "main": {
+      "days": 246,
+      "preserved_days": 232,
+      "prefix_csv_and_audit_exact": true,
+      "source_physics_cost_soc_verified": true,
+      "new_days": [
+        {
+          "date": "2025-09-21",
+          "K": 3,
+          "gap": 0.018592380081673313,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-22",
+          "K": 3,
+          "gap": 0.014223316172257553,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-23",
+          "K": 2,
+          "gap": 0.016759049438884406,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-24",
+          "K": 2,
+          "gap": 0.017251553816471997,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-25",
+          "K": 2,
+          "gap": 0.015424119458126826,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-26",
+          "K": 2,
+          "gap": 0.007124124877534937,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-27",
+          "K": 2,
+          "gap": 0.009060423875850758,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-28",
+          "K": 2,
+          "gap": 0.012935468934234652,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-29",
+          "K": 2,
+          "gap": 0.013042266509817043,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-09-30",
+          "K": 2,
+          "gap": 0.012957434568807375,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-10-01",
+          "K": 2,
+          "gap": 0.012799666142353438,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-10-02",
+          "K": 2,
+          "gap": 0.015537286978123711,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-10-03",
+          "K": 2,
+          "gap": 0.006738221420132984,
+          "K1_skipped": true
+        },
+        {
+          "date": "2025-10-04",
+          "K": 2,
+          "gap": 0.00951409267166606,
+          "K1_skipped": true
+        }
+      ]
+    },
+    "horizon_2": {
+      "days": 327,
+      "preserved_days": 301,
+      "prefix_csv_and_audit_exact": true,
+      "source_physics_cost_soc_verified": true,
+      "new_days": [
+        {
+          "date": "2025-11-29",
+          "K": 2,
+          "gap": 0.011077376963170293,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-11-30",
+          "K": 2,
+          "gap": 0.011150561450388547,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-01",
+          "K": 2,
+          "gap": 0.01373159589605694,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-02",
+          "K": 2,
+          "gap": 0.01663735036086003,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-03",
+          "K": 2,
+          "gap": 0.02241016615419265,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-04",
+          "K": 2,
+          "gap": 0.028821988846054962,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-05",
+          "K": 2,
+          "gap": 0.027232717600983093,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-06",
+          "K": 2,
+          "gap": 0.02880649309643002,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-07",
+          "K": 2,
+          "gap": 0.015289650193972807,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-08",
+          "K": 2,
+          "gap": 0.012722268689185096,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-09",
+          "K": 2,
+          "gap": 0.012563565295869472,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-10",
+          "K": 2,
+          "gap": 0.012559678795001614,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-11",
+          "K": 2,
+          "gap": 0.020924267418548127,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-12",
+          "K": 2,
+          "gap": 0.028956738163885467,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-13",
+          "K": 2,
+          "gap": 0.018868114054937917,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-14",
+          "K": 2,
+          "gap": 0.012518681633466262,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-15",
+          "K": 2,
+          "gap": 0.012411295953364421,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-16",
+          "K": 2,
+          "gap": 0.01238754968669777,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-17",
+          "K": 2,
+          "gap": 0.012275555263195084,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-18",
+          "K": 2,
+          "gap": 0.019884888345010097,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-19",
+          "K": 2,
+          "gap": 0.028789687396410864,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-20",
+          "K": 2,
+          "gap": 0.018384576937418854,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-21",
+          "K": 2,
+          "gap": 0.012509649688709426,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-22",
+          "K": 2,
+          "gap": 0.012499087121168399,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-23",
+          "K": 2,
+          "gap": 0.012557491120499191,
+          "K1_skipped": false
+        },
+        {
+          "date": "2025-12-24",
+          "K": 2,
+          "gap": 0.012613930386982084,
+          "K1_skipped": false
+        }
+      ]
+    }
+  },
+  "tests": 84,
+  "precision_unchanged": true,
+  "baseline_reuse_status": "automatically_checked_after_main_completion_no_future_equivalence_assumed"
+}

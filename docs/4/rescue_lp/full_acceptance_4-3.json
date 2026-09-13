@@ -1,0 +1,17 @@
+{
+  "mode": "4-3",
+  "days": 334,
+  "rows": 48096,
+  "certified_nodes": 1336,
+  "daily_hashes": 668,
+  "integer_variables": 0,
+  "max_balance_error": 2.2737367544323206e-13,
+  "max_soc_chain_error": 1.355147105641663e-10,
+  "excel_all_cells_checked": true,
+  "excel_max_numeric_error": 4.3655745685100555e-11,
+  "emergency_events": 3727,
+  "formula_error_cells": 0,
+  "also_passes_review_baseline_15pct": true,
+  "workbook": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/outputs/q4/raw/rescue_lp_q43_20260913_v3/result4-3.xlsx",
+  "workbook_sha256": "04abb525c2987449e71e97d32d8e8c4f6d45737b4df9727f87afb84deaec3d9c"
+}

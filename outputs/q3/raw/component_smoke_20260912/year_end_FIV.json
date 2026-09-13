@@ -1,0 +1,110 @@
+{
+  "date": "2025-12-31",
+  "hour": 18,
+  "initial_soc": 6000.0,
+  "FIV_block": 0.0,
+  "FIV_day": 0.0,
+  "FIV_cmp": null,
+  "FIV_cont": null,
+  "comparison_complete": false,
+  "calibration": {
+    "endpoint_hour": 12,
+    "history_days": [
+      335,
+      336,
+      337,
+      338,
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345,
+      346,
+      347,
+      348,
+      349,
+      350,
+      351,
+      352,
+      353,
+      354,
+      355,
+      356,
+      357,
+      358,
+      359,
+      360,
+      361,
+      362
+    ],
+    "median_unscaled": 0.8371111111110804,
+    "scale": 1.0,
+    "source_cutoff_slot": 52416,
+    "delta": 100.0,
+    "initial_soc": 6000.0,
+    "auxiliary_information": "fully_realized_historical_24h_deterministic; terminal_value_only"
+  },
+  "interpretation": "18h matched-support frozen counterfactual; no state mutation to main",
+  "audits": [
+    {
+      "branch": "stale",
+      "solver": {
+        "status": "certified_policy_from_LP_bound",
+        "objective": 23121.67812005762,
+        "lower_bound": 23121.67812005761,
+        "gap": 3.1468120853527797e-16,
+        "reliable": true,
+        "seconds": 0.007582709004054777,
+        "scenario_count": 1,
+        "slots": 108,
+        "variables": 510,
+        "binaries": 0,
+        "mapping_error": 0.0,
+        "terminal": 0.8371111111110804,
+        "relaxation_is_not_execution": true
+      },
+      "scenarios": {
+        "day": 364,
+        "hour": 18,
+        "forecast_origin": 12,
+        "length": 108,
+        "predictor": "load_lgb_1",
+        "history_boundary_slot": 52524,
+        "history_days": [],
+        "S": 1,
+        "M0": true
+      }
+    },
+    {
+      "branch": "updated",
+      "solver": {
+        "status": "certified_policy_from_LP_bound",
+        "objective": 22064.10047459155,
+        "lower_bound": 22064.10047459155,
+        "gap": 0.0,
+        "reliable": true,
+        "seconds": 0.008167541993316263,
+        "scenario_count": 1,
+        "slots": 108,
+        "variables": 504,
+        "binaries": 0,
+        "mapping_error": 0.0,
+        "terminal": 0.8371111111110804,
+        "relaxation_is_not_execution": true
+      },
+      "scenarios": {
+        "day": 364,
+        "hour": 18,
+        "forecast_origin": 18,
+        "length": 108,
+        "predictor": "load_lgb_1",
+        "history_boundary_slot": 52524,
+        "history_days": [],
+        "S": 1,
+        "M0": true
+      }
+    }
+  ]
+}

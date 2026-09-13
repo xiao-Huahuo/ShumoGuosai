@@ -1,0 +1,12 @@
+{
+  "status": "Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)",
+  "solver": "HiGHS_physical_bound_linear_MILP",
+  "time_limit": 300,
+  "requested_gap": 0.01,
+  "solve_seconds": 347.7512906669981,
+  "reliable": false,
+  "continuous_variables": 20592,
+  "binary_variables": 28224,
+  "constraints": 72576,
+  "nodes": null
+}

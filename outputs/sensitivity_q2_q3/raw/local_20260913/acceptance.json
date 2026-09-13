@@ -1,0 +1,11 @@
+{
+  "jobs": 40,
+  "verified_dispatch_audit_pairs": 40,
+  "baseline_reused_no_optimization": true,
+  "no_full_year_rerun": true,
+  "no_bootstrap": true,
+  "all_core_jobs_have_outcome": true,
+  "failed": 0,
+  "local_inference_only": true,
+  "q3_S28_user_approved": true
+}

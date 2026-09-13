@@ -1,0 +1,21 @@
+{
+  "spec": "docs/3/validation/Q3_第三问_模型检验与实验方案_最终版.md",
+  "scope": "pending_user_choice",
+  "heavy_jobs_start_after": "main_complete.json exists and 334-day audit passes",
+  "priority": [
+    "correctness_audit",
+    "forecast_FIV_OUV",
+    "M0_M1",
+    "six_core_sensitivities",
+    "4_to_8_day_M2",
+    "PCHIP_lag_sequential"
+  ],
+  "sampled_dates": [
+    "2025-03-20",
+    "2025-06-21",
+    "2025-09-23",
+    "2025-12-21"
+  ],
+  "M1_reused_without_resolve": true,
+  "model_not_retuned": true
+}

@@ -1,0 +1,9 @@
+{
+  "phase": "本轮队列完成",
+  "date": "2025-09-28",
+  "parameter": "rho_tail",
+  "value": 0.3,
+  "started_at": 1789277485.417249,
+  "hour": null,
+  "detail": "已完成记录均已原子保存，基准结果未修改"
+}
