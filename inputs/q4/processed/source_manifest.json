@@ -1,0 +1,75 @@
+{
+  "q2_run": "D:\\Projects\\Python\\ShumoGuosai\\outputs\\q2\\dispatch_runs\\20260911_224501",
+  "attachment4": "D:\\Projects\\Python\\ShumoGuosai\\docs\\CUMCM2026Problems\\C题\\附件\\附件4.xlsx",
+  "attachment4_sha256": "20e9c93aeab5e8e21ae4dd15587f9e190f7408692504c1319598461cd654fe71",
+  "price_code_sha256": "258c1c3999eac1c330ecc093b078dd3cc9afa24ac3531e6be68374f3962ff124",
+  "price_model": {
+    "information_boundary": "daily origin uses only days strictly before origin; day+1 is recursive",
+    "feature_count": 17,
+    "selected_alpha": 0.0001,
+    "selected_l1_ratio": 0.9,
+    "tuning": [
+      {
+        "alpha": 0.0001,
+        "l1_ratio": 0.1,
+        "mae": 0.03963432525852005,
+        "rmse": 0.04945360244507224
+      },
+      {
+        "alpha": 0.0001,
+        "l1_ratio": 0.5,
+        "mae": 0.03484461186566465,
+        "rmse": 0.04352355042829101
+      },
+      {
+        "alpha": 0.0001,
+        "l1_ratio": 0.9,
+        "mae": 0.034540297082727295,
+        "rmse": 0.04340977506817668
+      },
+      {
+        "alpha": 0.001,
+        "l1_ratio": 0.1,
+        "mae": 0.03454743983628537,
+        "rmse": 0.043495244905446366
+      },
+      {
+        "alpha": 0.001,
+        "l1_ratio": 0.5,
+        "mae": 0.03487307626365242,
+        "rmse": 0.04395497507858702
+      },
+      {
+        "alpha": 0.001,
+        "l1_ratio": 0.9,
+        "mae": 0.03486319426455709,
+        "rmse": 0.04397425558533579
+      },
+      {
+        "alpha": 0.01,
+        "l1_ratio": 0.1,
+        "mae": 0.03488764014728108,
+        "rmse": 0.04401926720881087
+      },
+      {
+        "alpha": 0.01,
+        "l1_ratio": 0.5,
+        "mae": 0.03571451913960436,
+        "rmse": 0.04534926672566235
+      },
+      {
+        "alpha": 0.01,
+        "l1_ratio": 0.9,
+        "mae": 0.036828776474593115,
+        "rmse": 0.04700310950877739
+      }
+    ],
+    "elastic_net_mae": 0.041927783193341644,
+    "elastic_net_rmse": 0.056230006711715644,
+    "seasonal_mae": 0.04715118305056554,
+    "seasonal_rmse": 0.06534801504178886
+  },
+  "net_forecast": "Q2 selected rolling-OOS load + attachment3 forecast-origin PV",
+  "q4_2_second_day_pv": "target-day minus 7 days actual PV, available at current 0:00",
+  "information_boundary": "future actual load/PV/price used only by replay and residuals after realization"
+}

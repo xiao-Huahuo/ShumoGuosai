@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-13",
+  "actual_data_day": "2025-02-01",
+  "q4_2": {
+    "horizon_slots": 288,
+    "committed_slots": 144,
+    "scenario_count": 4,
+    "solver_gap": 0.010002650756316346,
+    "workbook": "outputs/q4/raw/smoke_20260913/smoke_result4-2.xlsx",
+    "sheet_names": ["计划购电量", "充放电量", "紧急购电量"],
+    "roundtrip_all_sheets": true
+  },
+  "q4_3": {
+    "node_hours": [0, 6, 12, 18],
+    "committed_slots_per_node": 36,
+    "scenario_count": 4,
+    "solver_gaps": [0.03316310069876233, 0.00005501161316015882, 0.0007540914214436978, 0.012412013425181919],
+    "workbook": "outputs/q4/raw/smoke_20260913/smoke_result4-3.xlsx",
+    "sheet_names": ["计划购电量", "调整购电量", "充放电量", "紧急购电量"],
+    "roundtrip_all_sheets": true
+  },
+  "checks": [
+    "corrected 00:00-24:00 interval headers",
+    "freeze panes",
+    "numeric plan rows",
+    "six storage blocks",
+    "emergency event rows",
+    "saved workbook reopened and values matched source frames"
+  ]
+}
+

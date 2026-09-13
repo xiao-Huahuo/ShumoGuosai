@@ -3,3 +3,5 @@
 SKILLS
 skills-lock.json
 /outputs/
+__pycache__/
+*.py[cod]

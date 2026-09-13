@@ -1,6 +1,6 @@
 # README
 
-本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问新最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断。第三问[七小时比赛生产救援](docs/3/production_rescue/report.md)已完成：全年主轨迹实际用3小时18分39秒，正式结果334日、48,096行，[`result3.xlsx`](outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx)四表回读及全年物理验收通过。其1,336个正式节点有847个取得3%证书，489个只是经原物理与完整矩阵验证的限时可行解，不得写成3%解。
+本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断；第三问入口为 `python -m src.q3.run`，[七小时比赛生产救援](docs/3/production_rescue/report.md)已完成：全年主轨迹实际用3小时18分39秒，正式结果334日、48,096行，[`result3.xlsx`](outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx)四表回读及全年物理验收通过，其中1,336个正式节点有847个取得3%证书，489个为经原物理与完整矩阵验证的限时可行解。第四问入口为 `python -m src.q4.run`，[第四问实现与全量状态](docs/4/implementation_report.md)；其复用第三问的 HiGHS 1.15.1 四线程等价物理矩阵，并以最坏分布约束生成求解有限支持 Wasserstein DRO，4-2已完成、4-3年度轨迹仍在计算。另一台电脑的outputs已经按“本机优先、只补外部独有文件”合并并通过[跨电脑合并验收](docs/output_merge_20260913.md)。常规结果表格使用CSV，比赛XLSX模板仅在完整真实回放验收后导出。
 
 当前第二问论文正式结果位于 `outputs/q2/dispatch_runs/20260912_tail_reserve_final/`：尾部场景分层、动态 SOC 安全裕度、2 月 1 日初始 SOC 6000 kWh、3% gap，334/334 日已完成并生成 `result2.xlsx`；物理/数值与界面验收通过。旧运行只作为 baseline，不代表当前论文结果。
 
@@ -9,7 +9,7 @@
 下列目录树逐文件覆盖题目资料、模型、输入、结果、源码和论文模板。技能包、技能来源说明、本机IDE配置和不可变运行历史按目录汇总；逐日期影子预测/求解审计与运行代按目录汇总，完整明细见第二问revision_work/file_inventory.csv；Git内部对象、Python缓存与系统缓存不属于核心文件。所有列出的文件和文件夹均附用途说明。
 
 ```text
-ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘图集中管理
+ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘图集中管理
 ├── README.md  # 项目总览与核心目录树；文件变化后持续同步
 ├── AGENTS.md  # 代理执行规则、需求逐项验收及UTF-8要求
 ├── CLAUDE.md  # 项目协作与代码修改规则
@@ -197,6 +197,17 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   │   ├── tests.txt  # 23原测试+9并行测试的完整日志
 │   │   │   └── ui_smoke.json  # 实际并行报告AX/截图检查
 │   │   └── file_inventory.csv  # 第三问逐文件清单与用途
+│   ├── 4/  # 第四问严格因果波动电价方案、实现与验收
+│   │   ├── Q4_问题四_严格因果波动电价_完整建模_最终修订版.md  # 用户原方案原样归档
+│   │   ├── task_plan.md  # 用户原句/模型要求到实现、验证和全量状态
+│   │   ├── notes.md  # 显式假设、计算取舍及实算偏差
+│   │   ├── optimization_equivalence.md  # 物理量拆分与Wasserstein约束生成等价性
+│   │   ├── implementation_report.md  # 代码、计时、全量状态与未完成项
+│   │   ├── source_line_acceptance.csv  # 1377个非空方案源行到实现和测试映射
+│   │   ├── traceability_audit.json  # 逐源行映射完整性
+│   │   ├── tests.txt  # 10项自动测试摘要
+│   │   └── ui_smoke.json  # 两套真实模板回填和逐值回读记录
+│   ├── output_merge_20260913.md  # 跨电脑outputs合并、编码、Q2 baseline与Q3最终结果验收
 │   └── plots/  # 论文图与集中管理的逐项验收记录
 │       ├── acceptance.md  # 18项需求、P0—P3、假设、数值与视觉验收
 │       ├── migration_verification.json  # 原15图PNG字节一致、128个原文件不变和49项测试结果
@@ -224,6 +235,12 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │       ├── pv_forecasts.csv  # issue+h重构的35040条整点预报
 │   │       ├── q2_load_selection.csv  # 逐日继承Q2的负荷预测器
 │   │       └── source_manifest.json  # 原始输入/影子预测/每日决策的SHA
+│   ├── q4/  # 第四问附件4与严格因果价格预测缓存
+│   │   └── processed/
+│   │       ├── actual_prices.csv  # 附件4的365×144真实波动电价
+│   │       ├── price_forecasts.csv  # 每日0:00产生的严格因果未来48h价格中心
+│   │       ├── price_residuals.csv  # 365×144滚动样本外价格残差
+│   │       └── source_manifest.json  # 附件/价格代码哈希、预测指标与信息边界
 │   └── q2/  # 第二问当前输入别名；随q2_current统一切换
 │       ├── processed/  # 规范化功率长表与诊断方法设置
 │       │   ├── settings.json  # 算法、单位、截止时点及用户确认的信息边界
@@ -497,6 +514,12 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │           ├── report.html  # 检验状态及只读审计
 │   │           ├── forecast/  # 已计算的误差CSV、PNG/SVG和相关性
 │   │           └── prepared/  # 检验专属预处理副本，避免写主任务输入
+│   ├── q4/  # 第四问真实冒烟、诊断及两条年度滚动轨迹
+│   │   ├── processed/diagnostics/  # 附件统计、OOS依赖、消融和窗口标定
+│   │   └── raw/
+│   │       ├── smoke_20260913/  # 4-2/4-3真实日CSV、指标和模板回读
+│   │       ├── full_q42_20260913/  # 48h日前DRO逐日收据、审计和正式结果
+│   │       └── full_q43_20260913/  # 四节点DRO逐日收据、审计和正式结果
 │   ├── q2_current/  # 第二问当前完整运行代原子指针；正式路径下逐文件列出
 │   └── history/  # 已清理运行代的轻量追溯记录和逐文件清理验收
 │       ├── q2_baselines/pre_tail_reserve_20260912/  # 本轮修改前78源码+11977结果的逐哈希完整baseline
@@ -603,6 +626,21 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   ├── test_production_rescue.py  # 35/8秒、可行门禁、恢复与冻结配置7测试
 │   │   ├── test_validation.py  # 检验模块/优先级、真实单日经济表和只读审计
 │   │   └── traceability.py  # 模型逐行映射和源码/模型摘要
+│   ├── q4/  # 第四问严格因果价格—源荷联合Wasserstein鲁棒滚动调度
+│   │   ├── __init__.py  # Python模块入口
+│   │   ├── config.py  # 题设常数、显式计算参数、源码签名与原子写入
+│   │   ├── price.py  # 周季节Elastic Net滚动预测及LightGBM比较
+│   │   ├── data.py  # 附件4、Q2/Q3复用、24h/48h联合OOS残差
+│   │   ├── scenarios.py  # 前缀条件化、ESS、尾部medoids与bootstrap半径
+│   │   ├── physics.py  # 结算/调用量拆分及因果储能真实回放
+│   │   ├── optimization.py  # 直接对偶和最坏分布约束生成MILP
+│   │   ├── rolling.py  # 4-2/4-3滚动、SOC连续、文件锁与逐日续算
+│   │   ├── diagnostics.py  # 统计复现、OOS依赖、消融与敏感性配置
+│   │   ├── export.py  # CSV指标及两个比赛工作簿回填/回读
+│   │   ├── run.py  # prepare/diagnostics/smoke/benchmark/q42/q43入口
+│   │   ├── requirements.txt  # 复用第三问固定依赖
+│   │   ├── test_q4.py  # 数学、因果、场景、模板和逐源行10项测试
+│   │   └── traceability.py  # 方案每个非空源行到实现与验收映射
 │   └── plots/  # 全部项目自写绘图代码的唯一维护目录；既有入口保持兼容
 │       ├── README.md  # 科研配色、必要性分类、统一命令和脚本职责说明
 │       ├── catalog.py  # 生成全项目23组图清单与总图集
