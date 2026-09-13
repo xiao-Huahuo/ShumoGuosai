@@ -575,3 +575,20 @@ status_server.py新增solver_threads/version/cpu_percent；HTML新增“当前�
 用户明确要求停止主计算。已核对并SIGTERM监督84996，启动器84991与worker85000均退出；无solver_probe残留。最终保留25个完整预热日，正式0/334，活动Jan26/06，8切片，最后gap 0.07952327660370284、未可靠。停止收据为outputs/q3/raw/full_priority_parallel_20260912/stopped_by_user.json，resume.sh保留但不得自行恢复。active_run transition=stopped，右侧API已核实worker_alive=false。
 
 本轮附件加速工作只完成：原文归档、Gurobi13.0.3受限许可证大矩阵No-Go、三真节点输入/矩阵摘要、v2固定列消元与小实例等价测试、Jan16首组影子基准。v2第一组未明显改善，剩余Jan22/Jan23基准按用户停算要求暂停；未迁移、未启动替代主任务。向用户解释时只说：在同一难题上比较旧求解法与删除无用变量的新求解法，结果不够快所以没上线。
+## 2026-09-12 23:51：Q3七小时production rescue已启动
+
+用户授权约7小时直接跑。当前run outputs/q3/raw/full_priority_rescue_7h_20260912，launcher5862/supervisor5863/worker5865；HiGHS1.15.1、4threads、legacy fast、S20/tail2、24h、四节点、gap3%优先、06=35秒/其余=8秒hard wall、workers2、main-only。验证85279/85282已停止；不再跑Gurobi/v2/2bit/benchmark。active_run已指新run并running，status server重启PID5915。
+
+迁移25日/74节点，签名35b27b0f0d7ca36ae754685efc6abb27c6b7c18ffd0e7ba22f7d6694f0f5bfed在runtime/state/migration一致。唯一未认证Jan26/06 UB502.2252696/LB462.2866706/gap7.9523%，原物理/legacy矩阵/整数通过后复用；Jan26完整提交。Jan27新规则实测：06用35.045秒，gap4.6348%限时接受，其余节点<1秒3%认证，整日提交。约2分钟推进到29日以上，但不可承诺全年线性速度。纯剩余节点预算20017秒=5h33m37s，余约1h26m用于开销。
+
+专项7测试+原物理/Excel2测试通过。右侧新iab tab2已实际显示救援文案、35/8预算、新PID和进度，已markDeliverable。完整result3尚未生成；完成后需核验334日/48096行、四sheet回读、rescue_summary认证数/maxgap和main_complete。恢复只用新run/resume.sh，不得用superseded或旧run。补算若写回策略必须重算后续SOC链。
+## 2026-09-13：Q3每10分钟监督heartbeat已启用
+
+用户明确要求定期检查并自动接续。已创建Codex heartbeat“Q3 七小时主计算监督”，automationId=q3，status ACTIVE，间隔10分钟。正常进展静默；异常退出/10分钟无检查点时确认非用户主动停止、清理残留并用full_priority_rescue_7h_20260912/resume.sh恢复。25/50/75%里程碑、偏离7小时、失败和完成才通知。严格禁止Gurobi/v2/2bit/benchmark与FIV/OUV/M0/M2/敏感性，保持HiGHS1.15.1/4threads/legacy/S20/tail2/24h/35与8秒/main-only。完成后验365日、334正式日48096行、SHA/SOC/物理/四sheet/rescue_summary，并暂停自身。
+
+创建时主运行PID5865正常，60个含预热日、正式29/334，active 2025-03-02/06；未修改主计算配置或检查点。
+
+## Q3七小时production rescue全年主结果完成并通过终验（2026-09-13）
+主程序一次启动完成，无自动恢复：2026-09-12 15:51:13—19:09:53 UTC，耗时3小时18分39秒。活动run为outputs/q3/raw/full_priority_rescue_7h_20260912；state恰365日，正式2025-02-01—12-31共334日/48096行，result3.xlsx已生成。
+最终独立验收：365×3=1095个日文件SHA全匹配；冻结validate_frame全年通过，能量平衡最大残差1.14e-13、SOC递推9.09e-13、跨日SOC残差0；1432个节点快照SHA与核心审计无不一致，所有限时可行节点的原physics、策略域、legacy矩阵和整数门禁记录通过。Excel四表全量逐值回读CSV，最大偏差1.46e-11，无公式/错误值，文件SHA be09ffb1ac5088350cc2032f320166fcd2e161db79d6ce557c353f216fabdc81。
+真实精度必须保留：全部1432节点中933个3%认证、499个hard_limit_feasible；正式1336节点中847个认证、489个限时可行。全节点gap中位2.3775%、P95 21.1463%、P99 112.9185%；最大7393.62%在2025-08-01/12，UB=-6.359754、LB=-476.575870，近零目标放大相对值但仍未认证。正式总真实费用13387733.511374元。完成态看板已实际浏览，显示334/334、31/31、计算已正常结束和全年结果已验收；修复了完成后仍显示“准备输入/求解中”的旧节点文案。完整证据在docs/3/production_rescue/report.md与acceptance.json。main-only已完成，FIV/OUV/M0/M2/敏感性/benchmark未运行。自动监督任务q3已在最终验收通过后删除，不会继续唤醒。

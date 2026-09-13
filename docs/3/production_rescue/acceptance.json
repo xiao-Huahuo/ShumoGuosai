@@ -1,0 +1,169 @@
+{
+  "status": "complete_validated",
+  "validated_at": "2026-09-12T19:26:09Z",
+  "run_directory": "outputs/q3/raw/full_priority_rescue_7h_20260912",
+  "runtime_signature": "35b27b0f0d7ca36ae754685efc6abb27c6b7c18ffd0e7ba22f7d6694f0f5bfed",
+  "execution": {
+    "started_at": "2026-09-12T15:51:13.969847+00:00",
+    "finished_at": "2026-09-12T19:09:53.071802+00:00",
+    "wall_seconds": 11919.101955,
+    "attempts": 1,
+    "worker_return_code": 0,
+    "automatic_restarts": 0
+  },
+  "migration": {
+    "byte_identical_committed_days": 25,
+    "nodes_revalidated": 74,
+    "only_uncertified_migrated_node": "2025-01-26/06",
+    "old_run_preserved": true,
+    "fd_cache_rows": 95,
+    "terminal_csv_is_cache_subset": true
+  },
+  "frozen_execution": {
+    "solver": "HiGHS 1.15.1",
+    "solver_threads": 4,
+    "formulation": "legacy fast exact-equivalent",
+    "scenarios": 20,
+    "tail": 2,
+    "nodes": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "horizon_hours": 24,
+    "slots_per_day": 144,
+    "preferred_certificate_gap": 0.03,
+    "hard_06_seconds": 35,
+    "hard_other_seconds": 8,
+    "main_only": true
+  },
+  "full_result": {
+    "state_days": 365,
+    "formal_days": 334,
+    "formal_rows": 48096,
+    "date_min": "2025-02-01",
+    "date_max": "2025-12-31",
+    "result3": "outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx",
+    "result3_sha256": "be09ffb1ac5088350cc2032f320166fcd2e161db79d6ce557c353f216fabdc81",
+    "sheets": [
+      "计划购电量",
+      "调整购电量",
+      "充放电量",
+      "紧急购电量"
+    ],
+    "sheet_dimensions": {
+      "计划购电量": [
+        335,
+        147
+      ],
+      "调整购电量": [
+        335,
+        147
+      ],
+      "充放电量": [
+        2005,
+        6
+      ],
+      "紧急购电量": [
+        863,
+        3
+      ]
+    },
+    "template_roundtrip_all_sheets": true,
+    "formula_cells": 0,
+    "formula_or_literal_errors": 0
+  },
+  "validation": {
+    "daily_files_checked": 1095,
+    "daily_receipt_sha_mismatches": 0,
+    "node_snapshots_checked": 1432,
+    "node_snapshot_sha_mismatches": 0,
+    "node_audit_core_mismatches": 0,
+    "acceptance_invariant_failures": 0,
+    "physics_replay_full_frame": true,
+    "max_abs_energy_balance_kwh": 1.1368683772161603e-13,
+    "max_abs_soc_dynamics_kwh": 9.094947017729282e-13,
+    "max_abs_cross_day_soc_kwh": 0.0,
+    "soc_min_kwh": 1200.0,
+    "soc_max_kwh": 10800.0,
+    "max_charge_kwh_per_slot": 833.3333333333334,
+    "max_discharge_kwh_per_slot": 833.3333333333334,
+    "simultaneous_charge_discharge_max_kwh": 0.0,
+    "workbook_values_match_csv": true,
+    "node_request_signature_mismatches": 0,
+    "scenario_policy_replays_checked": 1432,
+    "executed_blocks_checked": 1432,
+    "executed_block_mismatches": 0,
+    "hard_limit_legacy_matrices_rebuilt": 499,
+    "hard_limit_matrix_max_feasibility_error": 1.8189894035458565e-12,
+    "hard_limit_matrix_max_integrality_error": 0.0,
+    "hard_limit_matrix_max_objective_difference": 7.275957614183426e-12,
+    "max_policy_bound_error": 1.0231815394945443e-12,
+    "actual_browser_completion_smoke": true,
+    "dashboard_completion_text_verified": [
+      "主结果已完成",
+      "334 / 334 天",
+      "31 / 31 天",
+      "计算已正常结束",
+      "全年结果已验收"
+    ]
+  },
+  "precision_all_nodes": {
+    "nodes": 1432,
+    "certified_3pct": 933,
+    "certified_3pct_percent": 65.1536312849162,
+    "hard_limit_feasible": 499,
+    "hard_limit_feasible_percent": 34.8463687150838,
+    "hard_limit_by_hour": {
+      "00": 2,
+      "06": 256,
+      "12": 143,
+      "18": 98
+    },
+    "gap_p50": 0.02377521822725561,
+    "gap_p90": 0.11310479578058433,
+    "gap_p95": 0.21146329766358454,
+    "gap_p99": 1.129184514594723,
+    "max_recorded_gap": 73.93620766393259,
+    "max_gap_node": {
+      "date": "2025-08-01",
+      "hour": 12,
+      "upper_bound": -6.359754319086278,
+      "lower_bound": -476.5758703466415
+    }
+  },
+  "precision_formal_period": {
+    "nodes": 1336,
+    "certified_3pct": 847,
+    "certified_3pct_percent": 63.39820359281437,
+    "hard_limit_feasible": 489,
+    "hard_limit_feasible_percent": 36.60179640718563,
+    "gap_p50": 0.024694567937381763,
+    "gap_p90": 0.11878498685845296,
+    "gap_p95": 0.22446686038177918,
+    "gap_p99": 1.1652475858075806,
+    "max_recorded_gap": 73.93620766393259
+  },
+  "formal_totals": {
+    "planned_grid_kwh": 21286805.29790399,
+    "effective_grid_kwh": 20617903.010410376,
+    "planned_cost_yuan": 13214424.307718009,
+    "adjustment_cost_yuan": -83745.0786076441,
+    "emergency_cost_yuan": 257054.2822640582,
+    "total_cost_yuan": 13387733.511374421,
+    "emergency_energy_kwh": 52605.56106536373,
+    "emergency_events": 862
+  },
+  "limits": [
+    "正式期489个限时可行节点没有3%近优保证；它们只保证保存政策经原物理、策略域、矩阵与整数性门禁。",
+    "最大相对gap为73.9362（7393.62%），发生在2025-08-01/12；该节点目标值接近0使相对gap分母很小，仍须如实标记未认证。",
+    "当前完成的是main-only全年结果；FIV、OUV、M0、M2和敏感性未运行。"
+  ],
+  "automation": {
+    "id": "q3",
+    "name": "Q3 七小时主计算监督",
+    "status": "deleted_after_validated_completion",
+    "interval_minutes": 10
+  }
+}

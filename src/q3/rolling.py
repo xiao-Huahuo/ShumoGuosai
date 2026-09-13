@@ -122,9 +122,11 @@ def run_day(data: Inputs, terminal: TerminalValues, day: int, initial: float, co
         coefficient, calibration = terminal.value(day, hour)
         prices = data.prices[(hour*6+np.arange(144))%144]
         reference = None if hour == 0 else (version if config.settlement == 'sequential' else g0)[hour*6:]
+        hard_seconds=(config.hard_06_seconds if hour==6 else config.hard_other_seconds) if config.production_rescue else None
         solution = solve(scenes, prices, soc, config, reference=reference, today=144-hour*6,
                          terminal=coefficient, previous_net=previous_net(data, day, hour), require=require,
-                         checkpoint=checkpoint_root/f'{hour:02d}' if checkpoint_root else None, max_slices=max_slices)
+                         checkpoint=checkpoint_root/f'{hour:02d}' if checkpoint_root else None,
+                         max_slices=max_slices,hard_seconds=hard_seconds)
         if solution.policy is None:
             raise LimitedSolve(solution.audit)
         policy = solution.policy

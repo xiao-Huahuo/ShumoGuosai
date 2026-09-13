@@ -28,6 +28,7 @@ def current() -> dict:
     run=Path(pointer.get('run_directory',ROOT/'outputs/q3/raw/full_priority_20260912')).resolve()
     if not run.is_relative_to(ROOT/'outputs/q3/raw'):raise ValueError('非Q3运行路径')
     progress=read(run/'progress.json');state=read(run/'main/state.json');active=read(run/'main/active.json')
+    execution=read(run/'execution.json');rescue=bool(execution.get('config',{}).get('production_rescue'))
     date=active.get('date') or progress.get('active_date')
     candidates=list((run/'main/nodes'/date).glob('*/latest.json')) if date else []
     latest=max(candidates,key=lambda p:p.stat().st_mtime) if candidates else None
@@ -51,12 +52,15 @@ def current() -> dict:
         'run_name':run.name,'formal_days':formal,'formal_total':334,'warm_days':min(saved,31),'warm_total':31,
         'active_date':date,'active_hour':latest.parent.name if latest else progress.get('active_hour'),
         'gap':audit.get('gap'),'target_gap':.03,'node_reliable':audit.get('reliable',False),
+        'node_accepted':audit.get('accepted',False),'accepted_by':audit.get('accepted_by'),
+        'hard_limit_seconds':audit.get('hard_limit_seconds'),'production_rescue':rescue,
         'slices':audit.get('completed_slices',0),'node_seconds':audit.get('seconds'),
         'saved_ago_seconds':time.time()-latest.stat().st_mtime if latest else None,
         'soc':state.get('soc'),'solver':audit.get('solver',audit.get('solve_method','—')),
         'solver_threads':audit.get('solver_threads'),'solver_version':audit.get('solver_version'),'cpu_percent':cpu,
         'lower_bound':audit.get('lower_bound'),'objective':audit.get('objective'),
-        'validation_phase':val.get('phase','未启动'),'validation_scope':val.get('scope','pending'),
+        'validation_phase':'disabled_main_only' if rescue else val.get('phase','未启动'),
+        'validation_scope':'disabled' if rescue else val.get('scope','pending'),
         'rescue_certificate':{'seconds':certificate.get('seconds'),'gap':certificate.get('gap'),'passed':certificate.get('reliable')},
         'main_result_ready':ready,'log_lines':log.splitlines()[-12:],'observed_at':time.time()}
 

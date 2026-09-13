@@ -51,12 +51,14 @@ def accept_feasible_incumbent(policy: Policy | None, scenarios: Scenarios, price
     feasibility,integrality=matrix_error(vector,bounds,integer,constraints)
     raw_value=float(coefficients@vector)
     lower=audit.get('lower_bound');lower=float(lower) if lower is not None and np.isfinite(lower) else None
-    if feasibility>TOL or integrality>1e-8 or abs(raw_value-value)>TOL or (lower is not None and lower>value+TOL):
+    if lower is None:
+        raise LimitedSolve({**audit,'accepted':False,'acceptance_rejection':'missing_valid_global_lower_bound'})
+    if feasibility>TOL or integrality>1e-8 or abs(raw_value-value)>TOL or lower>value+TOL:
         raise LimitedSolve({**audit,'accepted':False,'acceptance_rejection':'independent_validation_failed',
             'objective':value,'optimizer_objective':raw_value,'lower_bound':lower,
             'linear_feasibility_error':feasibility,'integrality_error':integrality})
-    gap=max(0.,value-lower)/max(abs(value),1e-10) if lower is not None else None
-    accepted={**audit,'status':'hard_limit_feasible','objective':value,'optimizer_objective':raw_value,
+    gap=max(0.,value-lower)/max(abs(value),1e-10)
+    accepted={**audit,'status':'hard_limit_feasible','objective':value,'upper_bound':value,'optimizer_objective':raw_value,
         'lower_bound':lower,'gap':gap,'reliable':False,'certificate_met':False,'accepted':True,
         'accepted_by':'hard_limit_feasible','hard_limit_reached':True,'hard_limit_seconds':hard_seconds,
         'acceptance_source':source,'original_physics_replay_validated':True,
@@ -64,6 +66,10 @@ def accept_feasible_incumbent(policy: Policy | None, scenarios: Scenarios, price
         'integrality_error':integrality,'matrix_digest':matrix_digest(*matrix[:4]),
         'energy_balance_soc_power_validated_by':'physics.replay'}
     return Solution(policy,responses,accepted)
+
+
+def reached_hard_limit(audit: dict, elapsed: float, budget: float) -> bool:
+    return 'time limit' in str(audit.get('status','')).lower() or elapsed>=budget-.05
 
 
 def objective(policy: Policy, responses: list[dict], weights: np.ndarray, prices: np.ndarray,
@@ -221,11 +227,17 @@ def solve(scenarios: Scenarios, prices: np.ndarray, initial: float, config: Conf
             if restored_value-restored_lower > max(TOL, config.gap*abs(restored_value)):
                 raise ValueError('已完成节点快照的最优性证书不符')
             return Solution(restored_policy, restored_responses, {**restored_audit,'accepted':True,
-                'certificate_met':True,'accepted_by':'certified_3pct','restored_complete_node':True})
+                'upper_bound':restored_value,
+                'certificate_met':True,'accepted_by':'certified_3pct','hard_limit_reached':False,
+                'restored_complete_node':True})
         if config.production_rescue and restored_audit.get('accepted'):
-            return accept_feasible_incumbent(restored_policy,scenarios,prices,initial,config,
+            accepted=accept_feasible_incumbent(restored_policy,scenarios,prices,initial,config,
                 reference=reference,today=today,terminal=terminal,previous_net=previous_net,
                 audit=restored_audit,hard_seconds=budget,source='restored_rescue_checkpoint')
+            if restored_audit.get('accepted_from_preexisting_checkpoint'):
+                accepted.audit.update(hard_limit_reached=False,accepted_from_preexisting_checkpoint=True,
+                    acceptance_source='reused_preexisting_over_budget_incumbent')
+            return accepted
         if not require and max_slices == 1 and restored_audit.get('completed_slices', 0) >= 1:
             return Solution(restored_policy, restored_responses, {**restored_audit, 'restored_budgeted_sample': True})
 
@@ -241,8 +253,14 @@ def solve(scenarios: Scenarios, prices: np.ndarray, initial: float, config: Conf
     relaxed_lower=float(relaxed.getDualbound())
     if restored_lower>relaxed_lower:
         lower=restored_lower
-        lower_provenance={'kind':'checkpoint','matrix_digest':restored_audit.get('matrix_digest'),
-            'formulation_version':restored_audit.get('formulation_version'),'source_audit':restored_audit.get('bound_sources')}
+        if restored_audit.get('matrix_digest'):
+            lower_provenance={'kind':'checkpoint','matrix_digest':restored_audit['matrix_digest'],
+                'formulation_version':restored_audit.get('formulation_version'),
+                'source_audit':restored_audit.get('bound_sources')}
+        else:
+            sources=restored_audit.get('bound_sources') or []
+            lower_provenance=(sources[-1] if sources else {'kind':'legacy_valid_bound_without_matrix_digest',
+                'value':lower,'source_status':restored_audit.get('status')})
     else:
         lower=relaxed_lower
         lower_provenance={'kind':'external_original_recourse_LP','solver':'SCIP','value':lower,
@@ -277,12 +295,12 @@ def solve(scenarios: Scenarios, prices: np.ndarray, initial: float, config: Conf
             value, seed, responses = candidate_value, candidate, candidate_responses
             certified = max(0., value-lower)/max(abs(value), 1e-10)
     if fixed is None and certified is not None and value-lower <= max(TOL, config.gap*abs(value)):
-        audit = {'status': 'certified_policy_from_LP_bound', 'objective': value,
+        audit = {'status': 'certified_policy_from_LP_bound', 'objective': value, 'upper_bound':value,
             'lower_bound': lower, 'gap': certified, 'reliable': True, 'seconds': time.perf_counter()-started,
             'scenario_count': s, 'slots': count, 'variables': relaxed.getNVars(), 'binaries': 0,
             'mapping_error': 0., 'terminal': terminal, 'relaxation_is_not_execution': True,
             'solver_threads': 1, 'requested_solver_threads': config.solver_threads, 'solve_method': 'LP_certificate',
-            'accepted':True,'certificate_met':True,'accepted_by':'certified_3pct',
+            'accepted':True,'certificate_met':True,'accepted_by':'certified_3pct','hard_limit_reached':False,
             'hard_limit_seconds':budget if budget is not None else None}
         if checkpoint:
             save_snapshot(checkpoint/'latest.json', signature, seed, audit)
@@ -312,13 +330,18 @@ def solve(scenarios: Scenarios, prices: np.ndarray, initial: float, config: Conf
             terminal=terminal,seed=seed,known_lower=lower,
             seconds=remaining() if budget is not None else (1e20 if max_slices is None else config.seconds*max_slices),
             progress=persist_fast if checkpoint else None,formulation=config.formulation,
-            known_lower_provenance=lower_provenance)
+            known_lower_provenance=lower_provenance,
+            deadline=started+budget if budget is not None else None)
         if policy is not None:persist_fast(policy,responses,audit)
         if audit.get('reliable'):
             audit.update(accepted=True,certificate_met=True,accepted_by='certified_3pct',
-                         hard_limit_seconds=budget if budget is not None else None)
+                         hard_limit_reached=False,hard_limit_seconds=budget if budget is not None else None)
             return Solution(policy,responses,audit)
         if config.production_rescue:
+            elapsed=time.perf_counter()-started
+            if not reached_hard_limit(audit,elapsed,budget):
+                raise LimitedSolve({**audit,'accepted':False,
+                    'acceptance_rejection':'solver_ended_before_hard_limit','elapsed_seconds':elapsed})
             accepted=accept_feasible_incumbent(policy or seed,scenarios,prices,initial,config,
                 reference=reference,today=today,terminal=terminal,previous_net=previous_net,
                 audit=audit,hard_seconds=budget,source='best_incumbent_at_hard_limit')

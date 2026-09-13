@@ -67,6 +67,17 @@ class Config:
         return hashlib.sha256(payload).hexdigest()
 
 
+def validate_production_rescue(config: Config) -> None:
+    frozen=(config.production_rescue and config.scenarios==20 and config.tail==2 and not config.unconditional
+        and config.terminal_scale==1. and config.interpolation=='linear' and config.feedback=='aggregate'
+        and config.settlement=='final' and config.nodes==NODES and not config.deterministic and config.seconds==120.
+        and config.gap==.03 and config.solver_threads==4 and config.solver_backend=='highs'
+        and config.formulation=='legacy' and config.solver_focus=='default' and config.fd_delta==100.
+        and config.fd_base==E_INITIAL and config.fd_days==28 and config.hard_06_seconds==35.
+        and config.hard_other_seconds==8.)
+    if not frozen:
+        raise ValueError('production rescue冻结S20/tail2/四节点/24h模型/3%优先/HiGHS4线程/legacy fast/35与8秒')
+
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix+f'.{os.getpid()}.pending')
