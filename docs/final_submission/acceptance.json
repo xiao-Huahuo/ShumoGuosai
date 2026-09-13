@@ -1,0 +1,84 @@
+{
+  "files": [
+    {
+      "name": "result1.xlsx",
+      "sha256": "3734858c83869538470cedade74a7f9ea358b61e55a83c3875f6b1ee476e41c8",
+      "intervals": 144,
+      "numeric_roundtrip": true,
+      "storage_blocks": 6,
+      "initial_soc": 6000,
+      "final_soc": 6000,
+      "grid_kwh": 59482.69899835391,
+      "cost_yuan": 35126.948589289634
+    },
+    {
+      "name": "result2.xlsx",
+      "source": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/result2.xlsx",
+      "sha256": "e0b3d23703096bdc8b0a815c7fdb0d7dcef28c18ab9fbe8e767ceeb53eeb314c",
+      "identical_to_verified_source": true,
+      "days": 334,
+      "intervals": 48096,
+      "sheets": [
+        "计划购电量",
+        "充放电量",
+        "紧急购电量"
+      ],
+      "excel_error_cells": 0
+    },
+    {
+      "name": "result3.xlsx",
+      "source": "outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx",
+      "sha256": "be09ffb1ac5088350cc2032f320166fcd2e161db79d6ce557c353f216fabdc81",
+      "identical_to_verified_source": true,
+      "days": 334,
+      "intervals": 48096,
+      "sheets": [
+        "计划购电量",
+        "调整购电量",
+        "充放电量",
+        "紧急购电量"
+      ],
+      "excel_error_cells": 0
+    },
+    {
+      "name": "result4-2.xlsx",
+      "source": "outputs/q4/raw/rescue_lp_q42_20260913_v2/result4-2.xlsx",
+      "sha256": "45175b9bb02883e88a07ce53f63341dd1fd95bfa65fdb3ad9a22ef8e45524283",
+      "identical_to_verified_source": true,
+      "days": 334,
+      "intervals": 48096,
+      "sheets": [
+        "计划购电量",
+        "充放电量",
+        "紧急购电量"
+      ],
+      "excel_error_cells": 0
+    },
+    {
+      "name": "result4-3.xlsx",
+      "source": "outputs/q4/raw/rescue_lp_q43_20260913_v3/result4-3.xlsx",
+      "sha256": "04abb525c2987449e71e97d32d8e8c4f6d45737b4df9727f87afb84deaec3d9c",
+      "identical_to_verified_source": true,
+      "days": 334,
+      "intervals": 48096,
+      "sheets": [
+        "计划购电量",
+        "调整购电量",
+        "充放电量",
+        "紧急购电量"
+      ],
+      "excel_error_cells": 0
+    }
+  ],
+  "all_q1_source_hashes_unchanged": true,
+  "q1_all_required_values_verified": true,
+  "q1_specified_purchase_intervals_verified": true,
+  "q1_total_grid_and_cost_independently_recomputed": true,
+  "final_folder_exactly_five_xlsx": true,
+  "zip": "outputs/final.zip",
+  "zip_bytes": 3616817,
+  "zip_sha256": "faf83ac61becb3192aa990d14405bd8e75ee74669412c4dbdd85e8a24638082e",
+  "zip_crc_verified": true,
+  "zip_all_five_members_sha256_verified": true,
+  "unfinished": []
+}

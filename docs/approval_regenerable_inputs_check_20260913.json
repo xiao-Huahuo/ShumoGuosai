@@ -1,0 +1,26 @@
+{
+  "rebuild": "pass",
+  "days": [
+    {
+      "date": "2025-06-01",
+      "arrays": 11,
+      "exact_array_match": true
+    },
+    {
+      "date": "2025-06-02",
+      "arrays": 11,
+      "exact_array_match": true
+    },
+    {
+      "date": "2025-09-17",
+      "arrays": 11,
+      "exact_array_match": true
+    },
+    {
+      "date": "2025-09-28",
+      "arrays": 11,
+      "exact_array_match": true
+    }
+  ],
+  "no_optimization_run": true
+}

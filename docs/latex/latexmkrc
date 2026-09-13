@@ -1,0 +1,2 @@
+# Use XeLaTeX for the bundled fonts and Chinese source listings.
+$pdf_mode = 5;

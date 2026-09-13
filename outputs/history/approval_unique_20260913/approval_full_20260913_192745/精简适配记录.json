@@ -1,0 +1,10 @@
+{
+  "metadata_relative_paths": [
+    "outputs/q4/raw/rescue_lp_q42_20260913_v2/state.json",
+    "outputs/q4/raw/rescue_lp_q43_20260913_v3/state.json",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/execution.json"
+  ],
+  "source_edit": "approval/src/sensitivity/q4_experiment.py只适配全年CSV的来源哈希读取；优化模型、结算、基准日和实际输入不变",
+  "original_full_csv_retained_in_backup": true,
+  "reason": "避免仅为计算来源摘要而保留约28MB的两份全年CSV"
+}

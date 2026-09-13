@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "source_hashes": 682,
+  "formal_days_each": 334,
+  "slots_each": 48096,
+  "optimal_nodes": 1670,
+  "density_included_samples": 48096,
+  "radius_records": 18,
+  "max_balance_residual": 2.2737367544323206e-13,
+  "max_soc_residual": 2.7284841053187847e-12,
+  "total_cost_delta_q43_minus_q42": -319985.3336771801,
+  "figures": [
+    {
+      "name": "fig7_1_joint_dro_mechanism",
+      "pixels": [
+        4040,
+        2560
+      ],
+      "dpi": 400,
+      "svg_glyph_paths": true
+    },
+    {
+      "name": "fig7_2_price_clock_and_density",
+      "pixels": [
+        3920,
+        2080
+      ],
+      "dpi": 400,
+      "svg_glyph_paths": true
+    },
+    {
+      "name": "fig7_3_cost_change_bridge",
+      "pixels": [
+        3920,
+        1920
+      ],
+      "dpi": 400,
+      "svg_glyph_paths": true
+    },
+    {
+      "name": "fig7_4_energy_flow_and_entitlement",
+      "pixels": [
+        4200,
+        2480
+      ],
+      "dpi": 400,
+      "svg_glyph_paths": true
+    },
+    {
+      "name": "fig7_5_high_risk_panorama",
+      "pixels": [
+        4079,
+        3720
+      ],
+      "dpi": 400,
+      "svg_glyph_paths": true
+    },
+    {
+      "name": "fig7_6_radius_cost_risk_paths",
+      "pixels": [
+        4000,
+        2039
+      ],
+      "dpi": 400,
+      "svg_glyph_paths": true
+    }
+  ],
+  "all_source_files_unchanged": true,
+  "caveats": "Two complete policies, different horizons and inventory paths; not pure information value."
+}

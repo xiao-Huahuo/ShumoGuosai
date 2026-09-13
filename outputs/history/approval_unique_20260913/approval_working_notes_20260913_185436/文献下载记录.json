@@ -1,0 +1,26 @@
+[
+  {
+    "file": "01_LightGBM_2017.pdf",
+    "url": "https://proceedings.neurips.cc/paper/6907-a-highly-efficient-gradient-boosting-decision-tree.pdf",
+    "final_url": "https://proceedings.neurips.cc/paper_files/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf",
+    "ok": true,
+    "bytes": 366352,
+    "sha256": "32ddfe0c7a8e1acb87c97cff904a16e0a556a8d79ebfecf772159843e736affc",
+    "downloaded_at": "2026-09-13T18:56:24.192696+08:00"
+  },
+  {
+    "file": "02_Finding_Groups_in_Data.pdf",
+    "url": "https://www.researchgate.net/profile/Peter-Rousseeuw/publication/220695963_Finding_Groups_in_Data_An_Introduction_To_Cluster_Analysis/links/60fbbe85169a1a0103b20e91/Finding-Groups-in-Data-An-Introduction-To-Cluster-Analysis.pdf",
+    "ok": false,
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "03_Scenario_Reduction_2003.pdf",
+    "url": "https://www2.mathematik.hu-berlin.de/~romisch/papers/DuGR03MP.pdf",
+    "final_url": "https://www2.mathematik.hu-berlin.de/~romisch/papers/DuGR03MP.pdf",
+    "ok": true,
+    "bytes": 495862,
+    "sha256": "61c11563b130a5f2a75ed45c0e1bfc13ae1f043dbf0653feb8757e32d32a04d2",
+    "downloaded_at": "2026-09-13T18:56:24.618262+08:00"
+  }
+]

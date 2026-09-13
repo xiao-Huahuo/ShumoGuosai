@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://ndl.ethernet.edu.et/handle/123456789/31823",
+    "ok": false,
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+  },
+  {
+    "url": "https://ndl.ethernet.edu.et/bitstream/123456789/31823/1/Leonard%20Kaufman_2005.pdf",
+    "ok": false,
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+  }
+]

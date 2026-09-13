@@ -1,0 +1,15 @@
+{
+  "file": "approval.zip",
+  "bytes": 18722862,
+  "MB": 18.723,
+  "below_20MB": true,
+  "sha256": "98ad7f1ea4d00f221f7a22ad26461c39cc9c97906d727da1abeefda40c7703d3",
+  "zip_integrity": "pass",
+  "cache_restored_files": 1554,
+  "cache_restoration_byte_identical": true,
+  "regenerable_npz": 4,
+  "arrays_exactly_verified": 44,
+  "format": "ZIP; original code/attachments/final Excel/PDF are direct entries; numerical cache uses lossless merged storage",
+  "before_running": "python src/prepare_support_data.py",
+  "backup": "outputs/history/approval_before_final_zip_20260913"
+}

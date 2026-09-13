@@ -22,6 +22,35 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 ├── skills-lock.json  # 本地技能安装来源与版本锁定信息
 ├── .venv/  # 主运行环境；保留已安装依赖，字节码缓存可自动重建
 ├── .venv_sensitivity/  # 独立敏感性/绘图环境；版本与主环境不同，保留
+├── cumcm_overleaf_ready/  # 论文工程；完整源码附录与XeLaTeX编译配置
+│   ├── cumcm.tex  # 论文正文、参考文献与分组完整源码附录
+│   ├── cumcm.pdf  # 修复后完整论文及源码附录
+│   ├── latexmkrc  # 默认XeLaTeX编译器
+│   ├── .vscode/settings.json  # 独立打开论文目录时的XeLaTeX配方
+│   ├── cumcm2026.sty  # 论文版式
+│   ├── references.bib  # 支撑材料三项参考文献
+│   ├── code/  # 示例文件保留；论文附录使用src副本
+│   │   └── src/  # approval/src的152份源码及配套文件；附录列入145份程序
+│   ├── figure/  # 论文插图
+│   ├── fonts/  # 论文中文/英文字体及附录DejaVu Sans Mono四种字形与许可
+│   ├── ai-usage-details.tex  # 模板AI详情文件
+│   ├── CUMCM-2026-RULES.md  # 模板格式说明
+│   ├── LICENSE  # 模板许可
+│   └── README.md  # 编译与附录源码说明
+├── approval.zip  # 最终ZIP 18.723MB，低于20MB；CRC、成员和缓存恢复验证通过
+├── approval/  # 最终ZIP对应目录；代码/附件/结果直接保留，计算缓存运行准备脚本恢复
+│   ├── README.md  # 最小材料分类、数据依赖和范围说明
+│   ├── 运行说明.md  # 各问正确入口、冻结版本及再生成输出的步骤
+│   ├── 计算缓存.dat.xz  # 合并存放的无损计算输入，恢复后与原件逐字节一致
+│   ├── 缓存目录.json  # 文件路径、长度及SHA，供准备脚本恢复
+│   ├── AI使用报告.md  # 人工建模与AI辅助分工
+│   ├── 文件清单.csv  # 直接文件、缓存内文件与可再生成文件清单
+│   ├── 校验结果.json  # 输入真实加载、Q4六日物理、源码及字节核验
+│   ├── src/  # 源代码、依赖及实验/绘图程序；包内Q4实验仅做来源摘要读取适配
+│   ├── docs/  # 题目附件/模板、程序读取的模型文件、必要实验/运行说明
+│   ├── inputs/  # 必需价格缓存和数据质量记录
+│   ├── outputs/  # 五份最终Excel、后续程序必需的冻结预测/选择、实验输入及汇总
+│   └── 参考文献/  # 两篇全文PDF、三项书目和获取状态
 ├── docs/  # 题目资料、模型文档、使用说明和变更记录
 │   ├── 1/  # 第一问文档；按最终、交付、中间、清理候选四类管理
 │   │   ├── README.md  # 第一问逐文件分类说明与阅读导航
@@ -100,6 +129,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   │   └── E题.pdf  # E题原始题面PDF
 │   │   └── format2026.doc  # 随题提供的2026格式文件
 │   ├── CHANGE_HISTORY.md  # 按现状、实施方案、完成状态记录每次任务
+│   ├── final_submission/  # 五个正式XLSX的逐项验收、源哈希、模板映射及界面检查
 │   ├── storage_cleanup_20260913.md  # 体积归因、清理逐项验收、恢复命令与保留边界
 │   ├── storage_cleanup_20260913.json  # 清理前后字节数、归档SHA与实际验证收据
 │   ├── C题.md  # C题题面转写、各问要求与储能参数附录
@@ -259,6 +289,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │       └── visual_qa/  # 短回放7张工作表渲染图和sheet清单
 │   ├── output_merge_20260913.md  # 跨电脑outputs合并、编码、Q2 baseline与Q3最终结果验收
 │   └── plots/  # 论文图与集中管理的逐项验收记录
+│       ├── q4_paper_final/  # 第四问六图方案、配色原页、逐图分析、数值/界面/ZIP验收
 │       ├── q3_paper_final/  # 第三问图方案、用户补充原文、逐图分析、数值/界面/ZIP验收
 │       ├── acceptance.md  # 18项需求、P0—P3、假设、数值与视觉验收
 │       ├── migration_verification.json  # 原15图PNG字节一致、128个原文件不变和49项测试结果
@@ -301,10 +332,19 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │           ├── attachment2.xlsx  # 附件2原始XLSX只读副本；不作为结果格式
 │           └── manifest.json  # 附件来源与SHA-256
 ├── outputs/  # 本机原始结果和整理后的交付结果；整体不纳入Git，跨设备另行同步
+│   ├── final/  # C题最终提交目录，仅含五份正式XLSX
+│   │   ├── result1.xlsx  # 第一问144时段与六段储能汇总，官方模板导出并回读验收
+│   │   ├── result2.xlsx  # 当前Q2尾部分层+动态reserve正式334日结果
+│   │   ├── result3.xlsx  # 当前Q3主轨迹正式334日结果
+│   │   ├── result4-2.xlsx  # Q42 v2正式334日结果
+│   │   └── result4-3.xlsx  # Q43 v3正式334日结果
+│   ├── final.zip  # 根目录五份XLSX，与final逐成员SHA一致
 │   ├── processed/  # 面向阅读、论文及交付的整理结果
 │   │   ├── sensitivity_q4/  # 已完成报告页、逐日结果、聚合表、32节点证书和权重重建表
 │   │   ├── sensitivity_q2_q3/  # 右侧进度页面与报告/CSV下载链接
 │   │   ├── deliverables/  # 用户请求的题目分文件夹交付包
+│   │   │   ├── 问题四科研图_蓝莲花渐变_LaTeX字体_20260913/  # 六图PNG/SVG与方案、README、数据、源码
+│   │   │   ├── 问题四科研图_蓝莲花渐变_LaTeX字体_20260913.zip  # 按附件Blue Lotus/月白深蓝设计，Fandol宋体
 │   │   │   ├── 问题三科研图_蓝色渐变完整版_20260913/  # 3核心+4备选PNG/SVG、方案/CSV/图注/源码/README
 │   │   │   ├── 问题三科研图_蓝色渐变完整版_20260913.zip  # 第三问图组独立ZIP；FIV/OUV图按用户要求取消
 │   │   │   ├── 数学建模_全套结果_20260913_140811.zip  # 五问与实验全套结果，README与逐文件说明，7297成员校验通过
@@ -429,6 +469,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │   │   │   ├── source_traceability.csv  # 254非空源行、265句到精确函数/测试行和产物的映射
 │   │   │   └── timeseries.csv  # 便于报告下载的清洗后长表副本，52560行
 │   │   └── figures/  # 集中图集；新论文图与项目原图导航
+│   │       ├── q4_paper_final_20260913/  # 六张DRO/电价/费用/能量流/风险日/敏感性图，data与验收
 │   │       ├── q3_paper_final_20260913/  # 第三问所有设计图、core核心图、data/、manifest和独立数值验收
 │   │       ├── index.html  # 全项目23组图预览与脚本入口
 │   │       └── q1/  # 第一问8张新论文图、12份数据CSV及图目CSV
@@ -614,6 +655,7 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 ├── src/  # 按题号组织的求解、导出、报告与测试源码
 │   ├── q1/  # 当前第一问实现与保留的历史审查程序
 │   │   ├── export.py  # CSV导出和关闭回读；逐行、六区间、日汇总与单位容差校验
+│   │   ├── export_submission.mjs  # 只读既有Q1结果，填充官方XLSX模板并生成渲染和来源收据
 │   │   ├── model.py  # 输入标准化、共享MILP/LP约束与独立物理/最优性复核
 │   │   ├── report.py  # 第一问HTML和文字报告；绘图委托src/plots/q1_legacy.py
 │   │   ├── requirements.txt  # 锁定NumPy、SciPy、openpyxl、Matplotlib版本
@@ -759,6 +801,10 @@ ShumoGuosai/  # 数学建模项目根目录；四问计算与全项目科研绘�
 │       ├── q2.py  # 第二问原11张数据诊断图的集中实现
 │       ├── q2_dispatch.py  # 新最终方案预测步长、残差、方差及真实回放图
 │       ├── q3.py  # 第三问预报误差热图及运行级图目清单
+│       ├── q4_paper_data.py  # 问题四正式334日双策略与局部敏感性只读绘图数据
+│       ├── q4_paper_final.py  # 蓝莲花渐变、Fandol/Latin Modern科研六图
+│       ├── q4_paper_verify.py  # 原件、结算、能量流、SOC、密度与导出核验
+│       ├── q4_paper_package.py  # 第四问图方案、成图、数据、说明和ZIP完整性检查
 │       ├── q3_paper_data.py  # 第三问共同预测支持、正式执行与客观代表日数据
 │       ├── q3_paper_final.py  # 第三问蓝色科研扩展图
 │       ├── q3_paper_core.py  # 用户清单图6-1/6-2/6-3，宋体和Times、B/P/C机制
@@ -826,3 +872,12 @@ uv run --with-requirements src/q2/requirements.txt python src/q2/run.py
 第三问科研图已完成：[最终方案](docs/plots/q3_paper_final/第三问科研图方案.md) · [图后分析](docs/plots/q3_paper_final/图后分析与论文插入建议.md) · [3核心+4备选图ZIP](outputs/processed/deliverables/问题三科研图_蓝色渐变完整版_20260913.zip)。用户取消FIV/OUV图6-4；其余核心图逐项完成，334日执行及333共同日预报对照，数值与视觉核验通过。
 
 2026-09-13存储清理：已移除两份经过ZIP逐文件校验的展开副本，将旧Q2 baseline结果无损压缩，并清除可再生缓存。正式结果、原始输入、源码、交付ZIP和两套运行环境保留；恢复方法与验证见[清理报告](docs/storage_cleanup_20260913.md)。
+
+问题四科研图已完成：[六图方案](docs/plots/q4_paper_final/问题四科研图方案.md) · [图后分析](docs/plots/q4_paper_final/图后分析与使用建议.md) · [蓝莲花渐变与LaTeX字体ZIP](outputs/processed/deliverables/问题四科研图_蓝莲花渐变_LaTeX字体_20260913.zip)。双机制DRO、价格时钟、费用桥、能量流、风险日和半径敏感性，PNG400dpi/SVG，全部采用真实334日结果或既有实验，无新增求解。
+
+
+2026-09-13 C题提交文件已齐：[五份XLSX最终目录](outputs/final/) · [final.zip](outputs/final.zip) · [交付验收](docs/final_submission/acceptance.md)。第一问从已验收CSV填入官方模板；另外四表与当前正式原件逐字节一致，ZIP仅含这五份XLSX。
+
+内部材料整理记录保留于 `outputs/history/approval_working_notes_20260913_185436/`，包含35份移出文件及SHA清单，不属于 `approval` 提交目录。
+
+精简前完整支撑目录保留于 `outputs/history/approval_full_20260913_192745/`；`approval/` 已按用户确认的约80MB范围精简，数据与结果原件仍在项目中。

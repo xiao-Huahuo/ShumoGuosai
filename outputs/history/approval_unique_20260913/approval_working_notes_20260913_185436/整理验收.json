@@ -1,0 +1,28 @@
+{
+  "moved_files": 35,
+  "moved_bytes": 1774974,
+  "sha_verified": true,
+  "archive_created": false,
+  "classification": "按内部任务/整理用途分类；不按是否提及AI筛除证明或结果证据",
+  "literature_record": "docs/1/intermediate/q1_compact_review_comments.md C04已存在两条arXiv线索；本次仅核对文献元数据，不声称最终论文采用",
+  "retained_checked": 10653,
+  "source_result_missing": [],
+  "unexpected_hash_changes": [],
+  "new_file_count": 10664,
+  "new_MB": 713.457,
+  "AI_report_scope": "人工建模；代码实现/调试、通过工具执行程序、按作者条目检索文献；未隐瞒实际编程运行，也未新增语言润色表述",
+  "literature_status": "2篇全文已下载；书籍全文下载失败，未以摘要/书评替代",
+  "navigation_changes": [
+    "docs/1/README.md"
+  ],
+  "acceptance": "逐项执行材料精简和报告更新，保留数值依据；文献第三项请求中书籍全文仍未完成",
+  "ui_smoke": {
+    "application": "macOS Finder Quick Look",
+    "material_directory": "已显示12项根入口，内部ai目录与操作验收文件已移出",
+    "literature_directory": "已显示2份全文PDF、README、文献清单及BibTeX",
+    "pdf_first_pages": "LightGBM与Scenario reduction均实际打开，首页题名、作者/DOI和正文清晰可读",
+    "ai_report": "实际预览全文，人工建模、代码调试/运行辅助和文献检索辅助三部分完整可读",
+    "checked_at": "2026-09-13T19:10:33.803575+08:00"
+  },
+  "final_MB": 713.458
+}

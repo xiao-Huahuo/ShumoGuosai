@@ -1,0 +1,216 @@
+[
+  {
+    "question": "cross",
+    "name": "S01_information_boundaries",
+    "title": "补充图S01 全文信息边界总览",
+    "caption": "五列分开描述不同题目的信息、策略和风险表示，不能用不同评价范围和电价口径的总费用直接排名。问题二为当前正式实际48/72h选择，局部K=1实验不混入此表；问题三与4-3全天四节点，此处时间带仅表示一次节点优化。问题三正式轨迹含限时可行节点。",
+    "data": [
+      "information_boundaries.csv"
+    ],
+    "png": "S01_information_boundaries.png",
+    "svg": "S01_information_boundaries.svg",
+    "width_inches": 12.1,
+    "height_inches": 7.7,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S02_worst_distribution",
+    "title": "补充图S02 最坏分布与场景损失",
+    "caption": "使用预先指定高联合风险日7月1日0点原审计的20个场景，S编号为原审计顺序，纵向只按同一固定策略的场景费用排序。贡献=(最坏概率−经验概率)×场景费用，各贡献之和等于最坏期望相对经验期望的风险溢价。连线连接同一个场景的概率值，不表示已知的场景间运输路径；风险溢价不是实际费用节约。",
+    "data": [
+      "dro_example.csv"
+    ],
+    "png": "S02_worst_distribution.png",
+    "svg": "S02_worst_distribution.svg",
+    "width_inches": 11.3,
+    "height_inches": 6.5,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S03_dro_annual_diagnostics",
+    "title": "补充图S03 全年DRO半径与风险溢价",
+    "caption": "Q4-3正式334日×4节点的原始半径、ESS和风险溢价，逐节点显示，不按月份平滑。ESS由历史条件概率计算；风险溢价=100×(最坏期望/经验期望−1)，分母为同一策略的场景经验期望，非真实日费；零分母若出现则留空。三个面板色标单位不同。",
+    "data": [
+      "dro_nodes.csv"
+    ],
+    "png": "S03_dro_annual_diagnostics.png",
+    "svg": "S03_dro_annual_diagnostics.svg",
+    "width_inches": 10.3,
+    "height_inches": 5.8,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S04_storage_Q2_Q3",
+    "title": "补充图S04 问题二/三储能运行图谱",
+    "caption": "每个时刻均有334个正式日，SOC以400kWh分箱，每列概率合计100%；只有浮点容差内的越界值归入边界箱，原始轨迹完整保存。充/放电状态以1e-5kWh阈值识别，余者为闲置，类别互斥。各图共用0–100%色标和1200–10800kWh范围；末库存ECDF保留全部334日。这是运行方式描述，各模型预测来源、信息和策略不同，不能据占用形态直接宣称经济优劣。",
+    "data": [
+      "soc_density.csv",
+      "action_profiles.csv",
+      "daily_states.csv"
+    ],
+    "png": "S04_storage_Q2_Q3.png",
+    "svg": "S04_storage_Q2_Q3.svg",
+    "width_inches": 11.2,
+    "height_inches": 7.0,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S05_storage_Q4-2_Q4-3",
+    "title": "补充图S05 问题四双策略储能运行图谱",
+    "caption": "每个时刻均有334个正式日，SOC以400kWh分箱，每列概率合计100%；只有浮点容差内的越界值归入边界箱，原始轨迹完整保存。充/放电状态以1e-5kWh阈值识别，余者为闲置，类别互斥。各图共用0–100%色标和1200–10800kWh范围；末库存ECDF保留全部334日。这是运行方式描述，各模型预测来源、信息和策略不同，不能据占用形态直接宣称经济优劣。",
+    "data": [
+      "soc_density.csv",
+      "action_profiles.csv",
+      "daily_states.csv"
+    ],
+    "png": "S05_storage_Q4-2_Q4-3.png",
+    "svg": "S05_storage_Q4-2_Q4-3.svg",
+    "width_inches": 11.2,
+    "height_inches": 7.0,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S06_dynamic_reserve_and_risk",
+    "title": "补充图S06 动态SOC裕度与风险事件",
+    "caption": "按正式334日紧急电量最大值客观选择2025-06-01。放电可用能量=.9×max(Eprev−1200−R,0)，实际放电还受冻结上限和当期缺口限制；图中阈值不是额外SOC硬约束，不能把SOC低于当前变动阈值误判为物理越界。下方放电与紧急堆叠合计等于正缺口。全部来自同一正式轨迹，不作无裕度反事实收益解释。",
+    "data": [
+      "reserve_day.csv"
+    ],
+    "png": "S06_dynamic_reserve_and_risk.png",
+    "svg": "S06_dynamic_reserve_and_risk.svg",
+    "width_inches": 10.1,
+    "height_inches": 7.5,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S07_tail_risk_concentration",
+    "title": "补充图S07 极端日期风险贡献",
+    "caption": "对每个模型分别按334日紧急费用从高到低排序，累积归一化分母为该模型自己的全年紧急费用；不是把不同价格口径的绝对费用直接比较。5/10/20%采用ceil，实际纳入17/34/67日，各模型高风险日期集合可不同。所有日期包含在累计曲线中。",
+    "data": [
+      "risk_concentration.csv",
+      "risk_shares.csv"
+    ],
+    "png": "S07_tail_risk_concentration.png",
+    "svg": "S07_tail_risk_concentration.svg",
+    "width_inches": 10.0,
+    "height_inches": 6.9,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S08_emergency_event_geometry",
+    "title": "补充图S08 紧急事件持续时间与能量",
+    "caption": "统一以单时段紧急量>1e-5kWh定义事件，连续144以外的跨午夜事件不人为拆开；因此计数可与原按日重置的事件表不同。持续时间=时段数/6h，总量为逐槽紧急量之和，颜色=Σ(pq)/Σq。全部事件为正值并保留，双对数仅用于同时观察大小事件，没有删除极端值。各模型采用共同色标。",
+    "data": [
+      "emergency_events.csv"
+    ],
+    "png": "S08_emergency_event_geometry.png",
+    "svg": "S08_emergency_event_geometry.svg",
+    "width_inches": 10.3,
+    "height_inches": 7.2,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S09_seasonal_interval_calibration",
+    "title": "补充图S09 预测区间季节校准",
+    "caption": "原正式审计的selected_origin_indices与weights直接重建场景分位：真实历史误差叠加当前冻结预测，对L/PV分别截非负后算净负荷；使用原离散左分位。1942条origin×h×nominal覆盖计数与正式calibration逐条一致，无重新优化或聚类。月覆盖按覆盖时段数/总时段数加权；宽度为原区间upper−lower均值。无h=2的月份显示缺失，底部支持数为0；不同h可用起点数不同，不能解释成同起点严格配对的跨h比较。",
+    "data": [
+      "interval_monthly.csv",
+      "interval_origin_stats.csv",
+      "original_calibration.csv"
+    ],
+    "png": "S09_seasonal_interval_calibration.png",
+    "svg": "S09_seasonal_interval_calibration.svg",
+    "width_inches": 10.5,
+    "height_inches": 7.1,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S10_capacity_power_marginal_gains",
+    "title": "补充图S10 容量/功率边际收益",
+    "caption": "仅使用Q1已完成的11容量×10功率共110个原MILP结果，不做插值。容量收益=(当前费−下一容量费)/增加MWh，步长2.4MWh；功率收益按相邻1MW差计算，第三面板横坐标是功率增量区间中点。有限步长差不是连续影子导数；超过原额定上限的配置为数学约束放宽，未计投资，不是设备采购ROI。费用均为原单个典型日。",
+    "data": [
+      "device_joint_grid.csv",
+      "device_one_dimensional.csv"
+    ],
+    "png": "S10_capacity_power_marginal_gains.png",
+    "svg": "S10_capacity_power_marginal_gains.svg",
+    "width_inches": 11.5,
+    "height_inches": 5.1,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S11_marginal_value_validation",
+    "title": "补充图S11 固定模式边际值与重优化核查",
+    "caption": "Q1已有288条(kind,t)核查，每条正负两侧各0.01kWh，图中576个实际差分值；不是新求解。母线需求144/144双侧吻合，内部注入119/144吻合，反映模式切换处固定模式边际值不能随意推广。负的内部注入费用斜率意味着增加注入降低费用，与正经济价值符号相反。上限活跃状态直接取原CSV；蓝块仅标约束活跃，不表示新实验。",
+    "data": [
+      "milp_rhs_checks.csv",
+      "fixed_mode_marginals.csv"
+    ],
+    "png": "S11_marginal_value_validation.png",
+    "svg": "S11_marginal_value_validation.svg",
+    "width_inches": 10.6,
+    "height_inches": 7.0,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  },
+  {
+    "question": "cross",
+    "name": "S12_inventory_cost_coupling",
+    "title": "补充图S12 费用与跨日库存联动",
+    "caption": "左图为Q4同日真实费用与日末SOC之差，包含连续库存继承及整个策略的其他差异，散点关联不估计库存因果价值。右图是已完成Q3四日λE局部OFAT实验，同日初态固定，每日1.0为自身基准；线只连三个实测点。叉号表示该案例存在未认证节点，圆点为全节点达到3%证书。日末库存明显不同，因此不能单看低当日费用认定跨日经济性更优。",
+    "data": [
+      "daily_states.csv",
+      "q3_terminal_cases.csv"
+    ],
+    "png": "S12_inventory_cost_coupling.png",
+    "svg": "S12_inventory_cost_coupling.svg",
+    "width_inches": 10.4,
+    "height_inches": 5.3,
+    "dpi": 400,
+    "font": "FandolSong / Latin Modern Roman / Computer Modern",
+    "script": "src/plots/project_expansion.py",
+    "necessity": "全项目补充图，按正文论证需要选用"
+  }
+]

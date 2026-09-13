@@ -1,0 +1,4 @@
+编号,文件,状态,来源URL,下载后URL,页数,字节数,SHA256,备注
+1,01_LightGBM_2017.pdf,已下载全文,https://proceedings.neurips.cc/paper/6907-a-highly-efficient-gradient-boosting-decision-tree.pdf,https://proceedings.neurips.cc/paper_files/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf,9,366352,32ddfe0c7a8e1acb87c97cff904a16e0a556a8d79ebfecf772159843e736affc,
+2,,全文未成功下载,https://www.researchgate.net/profile/Peter-Rousseeuw/publication/220695963_Finding_Groups_in_Data_An_Introduction_To_Cluster_Analysis/links/60fbbe85169a1a0103b20e91/Finding-Groups-in-Data-An-Introduction-To-Cluster-Analysis.pdf,,,,,作者公开上传版下载返回403；出版社及其他公开馆藏未取得本地全文
+3,03_Scenario_Reduction_2003.pdf,已下载全文,https://www2.mathematik.hu-berlin.de/~romisch/papers/DuGR03MP.pdf,https://www2.mathematik.hu-berlin.de/~romisch/papers/DuGR03MP.pdf,19,495862,61c11563b130a5f2a75ed45c0e1bfc13ae1f043dbf0653feb8757e32d32a04d2,

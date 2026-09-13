@@ -1,0 +1,13 @@
+{
+  "native_files": 275,
+  "cached_files": 1554,
+  "unique_chunks": 1547,
+  "omitted_regenerable_files": [
+    "outputs/sensitivity_q2_q3/raw/local_20260913/inputs/q2/2025-06-01/frozen.npz",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/inputs/q2/2025-06-02/frozen.npz",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/inputs/q2/2025-09-17/frozen.npz",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/inputs/q2/2025-09-28/frozen.npz"
+  ],
+  "cache_bytes": 11101268,
+  "source_files_unchanged": true
+}

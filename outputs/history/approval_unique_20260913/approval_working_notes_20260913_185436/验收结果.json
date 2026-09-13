@@ -1,0 +1,203 @@
+{
+  "q3_frozen_sources": {
+    "checked": 26,
+    "mismatches": []
+  },
+  "q4_v2_snapshot_manifest": {
+    "entries": 20,
+    "mismatches": []
+  },
+  "q4_v3_snapshot_manifest": {
+    "entries": 20,
+    "mismatches": []
+  },
+  "formal_csv_rows": {
+    "outputs/.q1-runs/run-ie6fkatf/processed/result1.csv": 144,
+    "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/dispatch.csv": 48096,
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/main/dispatch.csv": 48096,
+    "outputs/q4/raw/rescue_lp_q42_20260913_v2/dispatch.csv": 48096,
+    "outputs/q4/raw/rescue_lp_q43_20260913_v3/dispatch.csv": 48096
+  },
+  "python_syntax": {
+    "files": 329,
+    "errors": [],
+    "method": "ast.parse；未运行模型"
+  },
+  "source_existing_statements_not_reexecuted": true,
+  "node_export_syntax_check": "bundled node --check passed",
+  "ai_report_review": {
+    "evidence": "docs/CHANGE_HISTORY.md（整理前快照见ai/project_change_history.md）",
+    "writing_rules": "../MetaWeave/写作规范.md",
+    "academic_skill": "../MetaWeave/.agents/skills/academic-humanizer/SKILL.md",
+    "final_rules": "../MetaWeave/去AI味写作规范.md（已读到EOF）",
+    "method": "人工事实/命题/重复/句式审查及禁用词扫描；规则文件所述专用check-final.mjs未随文件提供，未声称运行其检查器",
+    "invented_dialogue_or_versions": false,
+    "statement": "按用户明确要求删除模型审查相关段落及引用；其余数值和来源保留，AI实际使用继续披露。",
+    "authorship_correction": {
+      "source": "用户本轮明确说明模型是人完成的",
+      "model_author": "作者",
+      "ai_scope": "依照人工建立的模型编程、计算调试、数据处理和绘图程序",
+      "removed": "模型审查小节中的审查段落及对应引用",
+      "checks": "全文无模型审查相关归因；保留数值验收、实际AI使用和记录范围说明",
+      "checked_at": "2026-09-13T18:47:36.963230+08:00"
+    },
+    "language_scope_edit": {
+      "requested": "删除润色语言及相关文字工作描述，可不写润色",
+      "removed": [
+        "文字材料标题",
+        "图注/结果分析/运行说明/清单整理描述",
+        "报告起草及逐段文字生成方式描述"
+      ],
+      "new_polishing_claim_added": false,
+      "checked_at": "2026-09-13T18:49:38.212211+08:00",
+      "full_text_search_and_semantic_review": "通过"
+    }
+  },
+  "copied_file_recheck": {
+    "checked": 10675,
+    "mismatches": [],
+    "source_basis": "复制当时记录的项目原件SHA-256；保留历史快照，不随原件后续编辑更新"
+  },
+  "readme_links": [
+    {
+      "document": "README.md",
+      "link": "文件清单.csv",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "运行说明.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "验收结果.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "outputs/final/result1.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "outputs/final/result2.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "outputs/final/result3.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "outputs/final/result4-2.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "outputs/final/result4-3.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "link": "运行说明.md",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "ai/project_change_history.md",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "docs/4/rescue_lp/report.md",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "docs/3/production_rescue/acceptance.json",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "docs/sensitivity_q2_q3/results.md",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "docs/sensitivity_q4/results.md",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "outputs/processed/figures/",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "文件清单.csv",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "link": "ai/project_task_history.md",
+      "exists": true
+    }
+  ],
+  "ui_smoke": {
+    "surface": "macOS Finder",
+    "directory": "approval",
+    "top_level_items_visible": 15,
+    "README_quick_look": "实际打开预览，截图目视确认中文标题、说明、表格和链接清晰",
+    "ai_report_entry_visible": true,
+    "all_10000_files_visually_opened": false,
+    "scope": "整理目录和新增README实际界面检查；不重新进行模型应用验收"
+  },
+  "archive_files": [],
+  "user_requirements": {
+    "paper": "作者处理",
+    "external_materials": "用户确认项目内文档齐全，无需另找外部资料",
+    "ai_report": "按真实变更记录及MetaWeave写作规范完成",
+    "compression": "未创建压缩包"
+  },
+  "missing_historical_source_files": [
+    "src/q1/analysis_report.py",
+    "src/q1/pipeline.py",
+    "src/q1/report.py",
+    "src/q1/run.py",
+    "src/q2/final_report.py",
+    "src/q2/full_run.py",
+    "src/q2/linear_policy.py",
+    "src/q2/optimization.py",
+    "src/q2/protocol.py",
+    "src/q2/relaxation.py",
+    "src/q2/rolling.py",
+    "src/q2/test_execution.py",
+    "src/q2/test_forecast_dispatch.py",
+    "src/q2/test_full_run.py"
+  ],
+  "copied_source_tree_files": 152,
+  "checked_at": "2026-09-13T18:33:35.128090+08:00",
+  "inventory": {
+    "rows": 10693,
+    "hashed_files": 10691,
+    "self_reference_exclusions": [
+      "文件清单.csv",
+      "验收结果.json"
+    ],
+    "manifest_sha256": "b773a5f4dede2e7d47f8d5e8338779e36e525bf674846ae427f9a24cdf821d73"
+  },
+  "material_files": 10693,
+  "material_bytes": 714371430,
+  "material_MB": 714.371,
+  "follow_up_deletion": {
+    "file": "缺失与核对说明.md",
+    "absent": true,
+    "references_removed_from_current_navigation": true,
+    "checked_at": "2026-09-13T18:39:13.280056+08:00",
+    "model_files_changed": false,
+    "archive_created": false,
+    "ui_check": "尝试在Finder核对根目录时用户持续浏览其他子目录，工具返回user changed；未干扰用户继续导航。删除和导航链接已通过实际文件系统检查，未声称本轮根目录GUI验收通过。"
+  }
+}

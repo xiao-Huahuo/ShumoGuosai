@@ -1,0 +1,9 @@
+{
+  "backup": "outputs/history/approval_full_20260913_192745",
+  "selected_files": 1835,
+  "selected_bytes": 79080428,
+  "copy_hashes_match": true,
+  "removed_from_submission_files": 8829,
+  "compression": false,
+  "user_requirement": "按约80MB候选清单快速精简；必要源码/输入/实验输入/五份Excel/AI说明/文献保留"
+}

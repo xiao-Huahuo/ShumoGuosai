@@ -1,0 +1,72 @@
+{
+  "scope": "文件/源码语法、关键数据实际加载和Q4六个基准日物理检查；未重新运行全年优化或全部绘图",
+  "retained_unchanged_files": 1822,
+  "unexpected_hash_changes": 0,
+  "python_syntax_files": 218,
+  "python_syntax": "pass",
+  "q1_input": {
+    "status": "pass",
+    "slots": 144
+  },
+  "q2_input": {
+    "status": "pass",
+    "shape": [
+      365,
+      144,
+      2
+    ],
+    "forecast_models": 5
+  },
+  "q3_input": {
+    "status": "pass",
+    "shape": [
+      365,
+      144,
+      2
+    ],
+    "selected_days": 365
+  },
+  "q4_input": {
+    "status": "pass",
+    "price_shape": [
+      365,
+      144
+    ],
+    "forecast_shape": [
+      365,
+      288
+    ],
+    "price_cache_reused": true
+  },
+  "q4_sensitivity_baselines": [
+    {
+      "mode": "4-2",
+      "source_input_hashes": "pass",
+      "days": 4,
+      "physics": "pass"
+    },
+    {
+      "mode": "4-3",
+      "source_input_hashes": "pass",
+      "days": 2,
+      "physics": "pass"
+    }
+  ],
+  "source_adaptation": "仅包内Q4敏感性来源摘要读取及3份元数据的路径相对化；数学模型、原项目程序和数值结果未改",
+  "final_workbooks": {
+    "result4-2.xlsx": "45175b9bb02883e88a07ce53f63341dd1fd95bfa65fdb3ad9a22ef8e45524283",
+    "result4-3.xlsx": "04abb525c2987449e71e97d32d8e8c4f6d45737b4df9727f87afb84deaec3d9c",
+    "result2.xlsx": "e0b3d23703096bdc8b0a815c7fdb0d7dcef28c18ab9fbe8e767ceeb53eeb314c",
+    "result3.xlsx": "be09ffb1ac5088350cc2032f320166fcd2e161db79d6ce557c353f216fabdc81",
+    "result1.xlsx": "3734858c83869538470cedade74a7f9ea358b61e55a83c3875f6b1ee476e41c8"
+  },
+  "compressed": false,
+  "literature_full_text_downloads": 2,
+  "book_full_text_included": false,
+  "checked_at": "2026-09-13T19:36:48.521480+08:00",
+  "entry_links_checked": 12,
+  "manifest_sha256": "5fc886d39d506b8bd2dcf793add9d06d75c404810605f652ee76e61a06f22f48",
+  "material_files": 1837,
+  "material_bytes": 79208876,
+  "material_MB": 79.209
+}

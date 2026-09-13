@@ -1,0 +1,91 @@
+{
+  "stage": "12/12 张全部生成，已按要求直接交付图包",
+  "total": 12,
+  "items": [
+    {
+      "id": "S01",
+      "title": "全文信息边界总览",
+      "status": "已生成，可查看",
+      "png": "S01_information_boundaries.png",
+      "svg": "S01_information_boundaries.svg"
+    },
+    {
+      "id": "S02",
+      "title": "最坏分布与场景损失",
+      "status": "已生成，可查看",
+      "png": "S02_worst_distribution.png",
+      "svg": "S02_worst_distribution.svg"
+    },
+    {
+      "id": "S03",
+      "title": "全年DRO半径与风险溢价",
+      "status": "已生成，可查看",
+      "png": "S03_dro_annual_diagnostics.png",
+      "svg": "S03_dro_annual_diagnostics.svg"
+    },
+    {
+      "id": "S04",
+      "title": "问题二/三储能运行图谱",
+      "status": "已生成，可查看",
+      "png": "S04_storage_Q2_Q3.png",
+      "svg": "S04_storage_Q2_Q3.svg"
+    },
+    {
+      "id": "S05",
+      "title": "问题四双策略储能运行图谱",
+      "status": "已生成，可查看",
+      "png": "S05_storage_Q4-2_Q4-3.png",
+      "svg": "S05_storage_Q4-2_Q4-3.svg"
+    },
+    {
+      "id": "S06",
+      "title": "动态SOC裕度与风险事件",
+      "status": "已生成，可查看",
+      "png": "S06_dynamic_reserve_and_risk.png",
+      "svg": "S06_dynamic_reserve_and_risk.svg"
+    },
+    {
+      "id": "S07",
+      "title": "极端日期风险贡献",
+      "status": "已生成，可查看",
+      "png": "S07_tail_risk_concentration.png",
+      "svg": "S07_tail_risk_concentration.svg"
+    },
+    {
+      "id": "S08",
+      "title": "紧急事件持续时间与能量",
+      "status": "已生成，可查看",
+      "png": "S08_emergency_event_geometry.png",
+      "svg": "S08_emergency_event_geometry.svg"
+    },
+    {
+      "id": "S09",
+      "title": "预测区间季节校准",
+      "status": "已生成，可查看",
+      "png": "S09_seasonal_interval_calibration.png",
+      "svg": "S09_seasonal_interval_calibration.svg"
+    },
+    {
+      "id": "S10",
+      "title": "容量/功率边际收益",
+      "status": "已生成，可查看",
+      "png": "S10_capacity_power_marginal_gains.png",
+      "svg": "S10_capacity_power_marginal_gains.svg"
+    },
+    {
+      "id": "S11",
+      "title": "固定模式边际值与重优化核查",
+      "status": "已生成，可查看",
+      "png": "S11_marginal_value_validation.png",
+      "svg": "S11_marginal_value_validation.svg"
+    },
+    {
+      "id": "S12",
+      "title": "费用与跨日库存联动",
+      "status": "已生成，可查看",
+      "png": "S12_inventory_cost_coupling.png",
+      "svg": "S12_inventory_cost_coupling.svg"
+    }
+  ],
+  "complete": true
+}

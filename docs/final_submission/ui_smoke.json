@@ -1,0 +1,18 @@
+{
+  "application": "WPS Office",
+  "result1_opened_from": "outputs/final/result1.xlsx",
+  "native_window_title": "result1.xlsx",
+  "plan_sheet_screenshot_reviewed": true,
+  "visible_first_interval": "00:00-00:10",
+  "visible_first_purchase_kwh": "1406.6411",
+  "both_sheet_tabs_visible": true,
+  "native_file_dialog_final_folder_showed": [
+    "result1.xlsx", "result2.xlsx", "result3.xlsx", "result4-2.xlsx", "result4-3.xlsx"
+  ],
+  "artifact_rendered_and_visually_reviewed": [
+    "计划购电量 A1:B15", "计划购电量 A132:B145", "充放电量 A1:E7"
+  ],
+  "native_storage_sheet_not_reopened_after_user_changed_window": true,
+  "workbooks_not_saved_from_ui": true,
+  "numerical_and_archive_evidence": "acceptance.json"
+}

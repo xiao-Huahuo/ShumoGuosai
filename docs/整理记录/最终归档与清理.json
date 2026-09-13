@@ -1,0 +1,1318 @@
+{
+  "status": "organizing",
+  "date": "2026-09-13T20:24:27.459985+08:00",
+  "latex_source": "cumcm_overleaf_ready",
+  "latex_destination": "docs/latex",
+  "pdf_source": "/Users/slumpyfufu/Desktop/cumcm.pdf",
+  "pdf_destination": "docs/latex/cumcm.pdf",
+  "pdf_sha256": "96a010dab0cac632b27e87536ab4606fc374b8b9f8d2ea6ba77c009594c7ce9e",
+  "pdf_pages": 486,
+  "tex_original_hashes": {
+    "LICENSE": "5114486c63eadcb66a91b150dae5353876e2ae31223bb39df8430a51f4b31161",
+    "references.bib": "e1a2a5485335fab53557ce0a6efdf4923e27ab771191a05ee613da27ca9c5481",
+    "cumcm.out": "4a425484be83a451c0cc4cb3f56b999b916f1bc610819820b309e1b0aff57dd7",
+    "cumcm.tex": "6272e2f165fc39f042ebbd7439771c36d36701926ee8114131cc94c3b400d847",
+    "cumcm.fdb_latexmk": "ab106641b5ffc7e4346f99e63c991e2c44f237283f866f4181162cd374215f9a",
+    "README.md": "52f80d40212794648ee1a7ddc10d0961f47a9f1fc2c6b7622774555e180b8ce1",
+    "cumcm.synctex.gz": "d72fb4332d104b6172717af3a8dff3414969196bf129f1c911d6c9dc8524b7f9",
+    "cumcm2026.sty": "9cfef744ab21f24d31e14c494b1d268da93a6e2d665334a38739756152fc12df",
+    "ai-usage-details.tex": "04fd88dd40ec8856c2f07d5b8fb5fda50ba0b24dbfc15c8dc781cb50e69642ae",
+    "cumcm.aux": "78005974f16b53435054cc45c63cdc6b698d48095165fb45eb738a613d0dc0cb",
+    "cumcm.log": "e6b606b12a0aa7a521f8c58bf38fb63f5856aee91cefed7cc4860e3a3cfd606e",
+    "latexmkrc": "af92be5194b36ac83d4882af3f02975d657f6a54f80e17a9038482df79feaf95",
+    "CUMCM-2026-RULES.md": "98407fcefc7486cd293cf38d5b2a85e3cb8f531c5763c0e8bd3ba00b5959961a",
+    "figure/Q1.png": "5331b90e09dc30be4265b07ce7df8d531c8a21c68b76aa6055922c711d1237bc",
+    "figure/Q2.png": "5e109995ecdee2faed5bc7385a26b9807f53e40f643ff6107df8caa1611d00f8",
+    "figure/q3_dispatch_typical.png": "6744d780911162eb92679a5b45545378a8f38accb540a5315e09055e587e1e2a",
+    "figure/fig7_3_cost_change_bridge.png": "b37e77c2cf17d13a666ad4f19a8e89b394b7d8d1fc869f75b76f409bd4e44e5d",
+    "code/example.py": "67b5df708829504896a023379f5981b60a39a2f87df4ec880458668fb187e17a",
+    ".vscode/settings.json": "0411d36744c80eb9e72e187627afa58ae6f0715f0396fa2cc531b0879521bdd0",
+    "fonts/SimHei.ttf": "336a838f4a78e150826be608dae69de59d50948c3d2b71760e096ae764154bdc",
+    "fonts/TimesNewRomanBold.ttf": "268218b3a0009bb3c3e3677c4d107de38a21f2a86cda6b4f6f3ec8e00171f43f",
+    "fonts/TimesNewRomanItalic.ttf": "d1baa654326673a6e49c22f3dc2638253a30565a2ae78a1f2c60a1e482230fc8",
+    "fonts/SimSun.ttc": "ff7d69bfa6588d3fdedbddbe3a29ac11f0c50236723ee72a9ea49ec3e2553f5d",
+    "fonts/DejaVuSansMono-BoldOblique.ttf": "4faba01515b6b40e145b7de16a7e9d3f867e74e5622bb2458b027ac685af1273",
+    "fonts/DejaVuSansMono.ttf": "67fa085e9e72a7565ac36cb6a77bdac701e18c7a46d0c15b9b08714a1e1a2042",
+    "fonts/DejaVuSansMono-Bold.ttf": "b908e119ab3a02a34f5ebeb479a1dcbf5682e90cdbdb5c13d68bb55b4d423326",
+    "fonts/TimesNewRoman.ttf": "d9fb32eb1646d6fc977c63fd780a46c60b6d1f607bf55eb7baa185aa2637711d",
+    "fonts/DejaVuSansMono-Oblique.ttf": "6b93cf18dd3224c24a1febabf62336bd3dabb46ee66fb758f7ea191a7901de40",
+    "fonts/DejaVu-LICENSE.txt": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+    "fonts/TimesNewRomanBoldItalic.ttf": "21732df1135f9ccfbcac6818723f94c5ac3baced44b532a483e889906c4ad419",
+    "code/src/问题1/review_temporary_plan.py": "5f8e4faf94359848309e5d5578ef763f123341b1a0a7a99700de159dc9a1a02e",
+    "code/src/sensitivity/run.py": "2802937e431edbc0ea1212c64d507a821ffa153bf0e7f248ae88e432bf5fc423",
+    "code/src/sensitivity/q4_experiment.py": "4e7b9bdb53001f5578a50f5e7b8f169d78e785b9741ee6d9cb635cb6415a26f3",
+    "code/src/sensitivity/test_sensitivity.py": "0709ac484ff166f6685d0ae69978329042aec1a25aead70318ebaccc4bb09a24",
+    "code/src/sensitivity/status_server.py": "2f50de481accf2c724d335482b16b2da04998ee873827c7a4cd6b5a9e62122e4",
+    "code/src/sensitivity/common.py": "48cd6b00a51d62de68a62dd86217e7e7a330e4d7e1e3b91320135c2015cf966f",
+    "code/src/sensitivity/q3.py": "39bbd94dd39f0cec641d8773153cea923a9d89a3a019263e7185968c128e0758",
+    "code/src/sensitivity/q4_report.py": "e7bdae63bbe271052f8978db220c65027e8e69762466419f9f29e8159d90860c",
+    "code/src/sensitivity/verify.py": "b7d72f774a4194b76b03e20951b1e3dba251de2df43c3bad4ad8470641c41944",
+    "code/src/sensitivity/report.py": "e0e9145e6803595fe98258cd7c9d98a058c12a5f6dc80ee4e2f30db74b9e167a",
+    "code/src/sensitivity/prepare.py": "b93bdb3c78cb45b01f970c4a8e022c94784b9e4288803ba5f3731fdd788b81fc",
+    "code/src/sensitivity/q2.py": "640ae44c5d7219d45cf1a4a3cfbe6974f55db73bbe2b861d705c72c4252346df",
+    "code/src/q1/analysis_report.py": "36d21e665c14e5ba2f522c5f927cbcc4a42583148d681a060dad8665afb09f4c",
+    "code/src/q1/run.py": "2f2273d3ff8798d27b2e6d699f4fcac53f3b73b543d5fefd6d675d15936ed394",
+    "code/src/q1/analysis.py": "72c068c62a9fb88feb7342cc01e4bc8a941330d34d8a14ae479307bd4d69bc4a",
+    "code/src/q1/requirements.txt": "ea688cf0da2b05a7d5450666fcffbbcc5ed2359d2a01c31748a9c9775ade19fa",
+    "code/src/q1/test_q1.py": "b58718e09371aafa99279644da0503ea1995993afcbad7c7ee2eda78cb197326",
+    "code/src/q1/test_analysis.py": "45460720f67740e3d195cbb7b607e4f7db401df735e4e2fd7c5ae1d9943ef224",
+    "code/src/q1/export.py": "84bb145eddb5e12e5a37d2449de464c3cab0b6a4c00c366c2df866bc9e940249",
+    "code/src/q1/model.py": "56c3b89241d0719ae0a1df24a88cbff3e26a9ffbb916021b364638a9478a515f",
+    "code/src/q1/prepare_paper_materials.py": "d6f0f214f86a0606f520dbfdc23b74ff97e13b5360bbd18972cc820447be6f4a",
+    "code/src/q1/golden_main.json": "1367e4c17ec8354f28674f59f0255c4e37c5b88d8fb3960de93e8ad337f5cec8",
+    "code/src/q1/pipeline.py": "0d49ab8334a03a08bde89167616313ae359c957eefb9d662e658ed766bdc7e11",
+    "code/src/q1/review_compact_q1.py": "e457db5832d25efb8717d874530d34778d61d2297c9a2fcd68aecdb40553ea1d",
+    "code/src/q1/traceability.py": "6279bd94ffc4bb9f55496543d2c7db0e27a9e6ab4377e5e7cf701281a2b30a12",
+    "code/src/q1/export_submission.mjs": "79e6283aebf7059006f15982795aada8a64479748b93ab6b603f5671da90608d",
+    "code/src/q1/report.py": "a5599d2ec712a9e13d9d5754d8dd6dfe521da956fd8acfd4f38f167fa92d8466",
+    "code/src/q1/device_sensitivity.py": "f1e28306ec0308afd800374bd9a4a28fe67d67ae1f20f26276b7256c6eeffa97",
+    "code/src/q1/test_review.py": "50edcc2913c2c1347087b43dfe1ca6aac38830a42d6870e7e5d360631bb9c201",
+    "code/src/q2/incumbent.py": "e5f0b4ebe05a02e1488eb50de90d0e07cea5cbe7a04ea3fd9e6c1fb7f528b2de",
+    "code/src/q2/test_dispatch.py": "f35945d7f0589cd72e91ab5430c1b51d58d4b3fc070d0bd525fcc920dc5d4a81",
+    "code/src/q2/scenarios.py": "f6695c73c15b85ad09dac7a9f0e8ddc4c6941c02624089b11c5d604a25d2ef58",
+    "code/src/q2/test_baseline_reuse.py": "cf9c578e5b4d233f5db6aea866c187b714fbb955a4a63a474e554f75b63f3d10",
+    "code/src/q2/run.py": "70f539594cc0dbe5377a1be138916a4f2962f447ec8b432af4a39a6d7b49ae71",
+    "code/src/q2/final_diagnostics.py": "ba452485cd1a4b8ee91b38767ad89b60c2027a2aaa6d54da8721cbb544ce6e51",
+    "code/src/q2/forecast.py": "7893f22f175a3a5dabcef6464ceecd74f97cf877542a972b268617c875d57ae2",
+    "code/src/q2/execution.py": "1bd79f71fbfd148192984e0be7ddab212078e07e0c52aaaa8cc7fd9aeedaa183",
+    "code/src/q2/export_dispatch.py": "c5482227367d234c27265a39b822bdcc1515c11cd32d2aa4f55b23ec1a2f46cd",
+    "code/src/q2/checkpoint.py": "53ed664104a4f5d67f08d767581fcf6caf4c91f727cde854b495954336f6a197",
+    "code/src/q2/requirements.txt": "e3a873b43eff011066e27d4c77028ecfd1a8f87d464a9478374eca868785ddf8",
+    "code/src/q2/diagnostics.py": "2567dce4f7a0629141763a92db64261965a79f61922d451c531b9083c916f8a9",
+    "code/src/q2/dispatch.py": "b7f5e4c92108477628e810550f67ddaabd2ada916617100634fd49b30898a77e",
+    "code/src/q2/linear_policy.py": "22abf9c6a24aaf3268ccd22888e9a7f704c7403d0f3da134114a188151e386ae",
+    "code/src/q2/protocol.py": "a01e4a49e0d19e1bd751159aede4fd1cf5d13143103b2799658dc8da89ebbc27",
+    "code/src/q2/relaxation.py": "84ded5cc41fd408ce1c237863d6f7621d0d67c9b8dc9dd38f4a08dd239031b51",
+    "code/src/q2/test_forecast_dispatch.py": "4c2fc3a67feed4668d5bb3ab4d77593b6c4b79d014c0bf51257d50126209c770",
+    "code/src/q2/policy.py": "a0794ae68696d4e251d7edab589bceee7d87a08c20ea617c5b14557c325bb11f",
+    "code/src/q2/optimization.py": "1fbfc68f9fc39e94f30eb6022cb7e540a76314fe27637c5ed4cf08e01150da7d",
+    "code/src/q2/test_linear_policy.py": "573661a5c010cc597a1a17a09ef49e25ce4228f2bf56e36c82c10599fa32c045",
+    "code/src/q2/rolling.py": "7d80ef5b50328b7b5a47f0130d9f484d3fd509202cd226124d1688a038a4eca9",
+    "code/src/q2/full_run.py": "81b14f52dfdfadc03f60e28c48209df8712a8cc69bcd5424eef8e76df323ac49",
+    "code/src/q2/shadows.py": "14031f391a49d39f7887c0f41a6a2726c34f947e230c373859b406cff823f395",
+    "code/src/q2/test_execution.py": "7347e0a09c6ca109399e84d5d5cf4118bf4c77e10ee09dbdf1802a09a7c244fe",
+    "code/src/q2/experiments.py": "70e4c46465f826b852e51937b449cdf2ffd7dc2837310be0889fc3b6f99c77dc",
+    "code/src/q2/final_traceability.py": "b3126ad9f3ccf08170d3f4f2863cdc8c12c73486346bf75929827cae6b292c60",
+    "code/src/q2/figures.py": "20b6cf75c29e097d64f6966e9dff4c9d6fb3adff0e09b592443a39adaf9130ef",
+    "code/src/q2/final_report.py": "e1de76cf91a66e896261056a55a9ce4529dd8717e3a5532f195bccab4f78e360",
+    "code/src/q2/test_full_run.py": "d75e5bf8bf9bac3a8d8e4b91df0db80c0b34b3627fd1098f3d2d3dd928ab82b0",
+    "code/src/q2/traceability.py": "3d22f125873b4bfb2a6f5378be8410e21497f0a660a9c1756a58b7191b138df3",
+    "code/src/q2/baseline_reuse.py": "1304464c3002998d5b4985fbed2c1b6eedd90ee659d01b8cd7acd9912b7b2772",
+    "code/src/q2/test_q2.py": "b4f977037684b8171e73d193bd8b2b920dadfc8eb145204562a6009cab34ffc2",
+    "code/src/q2/backtest.py": "dd91738bee1b64dc191986c3a8dec28f94a437ffa8ff397bc95d1e8e159b72f6",
+    "code/src/q2/report.py": "fbb625f73eafc11d501e81f47da35d674eeddeb20bee45eff2644bf231e749e7",
+    "code/src/q2/test_horizon_execution.py": "03be10be609e833dba20b7ea50c05423998c187e9ae52dc752b845df1ef4a527",
+    "code/src/q2/data.py": "b7259d5762c83d9dcba2686ff0b3749e1b072323f5f81f072f6ffcdef3992cb0",
+    "code/src/q2/comparators.py": "e4756f9a1106200966bfe11e790a55d9f650e46573834aec4cf13664260d3f31",
+    "code/src/plots/catalog.py": "f228dd262c38e3c39f377d8a3b7c62f6b1cf6d00468466d856062136a01449d3",
+    "code/src/plots/q4_paper_data.py": "d02c5aea72938313b56837c825d80daf91c26064289c26e74810aab016c478d3",
+    "code/src/plots/run.py": "6d9c82b1986cd1a74579ee64bc7acdb6090489b50194046f2ffa6a80d5e87923",
+    "code/src/plots/q3_paper_verify.py": "de9787646d4f155f5a8b4ee85fc65021ca11b09f73ffa4dd698688660b73e669",
+    "code/src/plots/q4_paper_verify.py": "c8269d71eb330ee5e42a60a51274a7560531ff662efee01d431cce74fac7b47d",
+    "code/src/plots/q3_paper_data.py": "19d043410ea86e9d7aa956f0e108e771e4f4bb72688466c89bd11d075ed054c2",
+    "code/src/plots/replot_existing.py": "4c88174e1a64a895532da7f4120d527cdf48f8a43b4829c7e81f262462fab6fc",
+    "code/src/plots/q1_paper.py": "4629cf06562d20f4b3c94c6db300d5b549e98193e8e6ebdd6794cc845527b785",
+    "code/src/plots/figure_registry.csv": "3da02b5aed6c19b0bad3afe102f3ac5b639f8384afe8f61536e6ff20f0b36c39",
+    "code/src/plots/q2_paper_verify.py": "e2c150c372a1d61c20194c03a4b98301730201bc0b80378fdd119e99308571ea",
+    "code/src/plots/q3_paper_package.py": "6d842365bf7d0cf5cd552637f343368566b299d948504e769a81d4892515ab98",
+    "code/src/plots/q4_paper_final.py": "da0d0dd3a2441ddcc0555038a3a732cf4059d8d3b38cafe48610316977621c7d",
+    "code/src/plots/README.md": "68e46eb24bbdb568559a71dffbe6305956de2e2951596429a17199aef5545ce0",
+    "code/src/plots/project_expansion.py": "3053aa29172b8dfec1d33626ccb28a0f62513bf525cebbdde89ebede6e7a3703",
+    "code/src/plots/q3_paper_final.py": "e65c4e52dae4bd7de79f7170fce2170158a835da824f647992d18d8bee9811f2",
+    "code/src/plots/q4_paper_package.py": "756fa59892ad7f39d1d3a8e988b8438087f1c14e0621ac5a34d46b6a79b2ebc2",
+    "code/src/plots/common.py": "b950d92d7d78d0f1a21880f64c6449a51945525a919d863bb9f5219a7057e29c",
+    "code/src/plots/q2_dispatch.py": "8e3f5f14c212deffa8a6b22ce6fa036711cb7ba60af50f5eb0c9936cfbdf05f2",
+    "code/src/plots/q3_paper_core.py": "d64d91b700324aeff09323921d62d2ad4dbfeb5c1aa7d5c019e4fa2176db0f77",
+    "code/src/plots/q2_paper_final.py": "e5dee772f7a39ebf6d3f62d7c334ac0c6d51b90fa7024c89004286cd35fee0df",
+    "code/src/plots/project_expansion_data.py": "eda93c7297f8f99c9c30df0a3918fdcb300f8defc3bf848d33d8b3c450b55875",
+    "code/src/plots/q3.py": "f86370deb9e7c0c2c8ff9305777b4a84083cd692f02d9d83f35ff5c27332e8b7",
+    "code/src/plots/verify.py": "62038df03e7cf26235536f100aeca93094180ed0df21d7c2a1de5c1dfb60ae2d",
+    "code/src/plots/q2_paper_data.py": "025425de8e09a93b26e09cb013239ef7f36d2a1cd4d298ea09eb67b62d8cd5f3",
+    "code/src/plots/q1_legacy.py": "30531842770cbc0c43c21b52b64f2a56dc1f80dd15605b4ab6d74975a672e513",
+    "code/src/plots/q2.py": "85ffcdd527ce61400da4aca4aef2b9f3bcfdb90d61ad22bbb6100afb1fa121a1",
+    "code/src/q4/scenarios.py": "9caf29784c716f6fd98da580834c7b59515085f014dcd35eb96d43cb17879887",
+    "code/src/q4/run.py": "eed3e7d5e164688535dc32bf7380d79229bc25755145180690445a93c3126640",
+    "code/src/q4/test_q4.py": "0159184811a707595362fc4fd46a507b7b013a52bb75a76636a14cfc41a4370d",
+    "code/src/q4/config.py": "d990a4c4a443438d11876e9721a028a4e7cf6c2db7822832005673dfd1190998",
+    "code/src/q4/requirements.txt": "85c631d6531d1a6f1f57b2a2d1cdc659db1f11a161a4a79c5e288db10facc8bc",
+    "code/src/q4/diagnostics.py": "d9a880e338e81674dd11d10ef8717d4ab31e555724c95c354927691ecb736aba",
+    "code/src/q4/vertical_slice.py": "e0e286ebbd469ef869b47c95e5788574932b3e386ac8f03d8b7686540e2991fb",
+    "code/src/q4/optimization.py": "64ed09471d622e2bef2a331059d1c0ca0ae5aa5c4e82fa9aa29985d383842482",
+    "code/src/q4/__init__.py": "af2ad42a63eb91042591eb9420e9e74bb75a2602d860efef898f8ba2e1ba09ee",
+    "code/src/q4/export.py": "c9c465fcc8b3c832eaf18a247480d46858453c40c933ccf4d3e23a93195450ae",
+    "code/src/q4/rolling.py": "a32f21b8bf96b8c01448afb842d92885195188aa62cfa782027d6f7e29e8c382",
+    "code/src/q4/physics.py": "3fd0bed219d85ed847fec4101a9a6d82d914c9c1c838a13b029c0752643f83e1",
+    "code/src/q4/test_rescue.py": "684f1a574043660c92bc076b1b84353b8dc37fe93abf2b6119a45a2e74eb3d11",
+    "code/src/q4/traceability.py": "7755d1cb1aad0de9257d5ed42e5ea282b69e49e41721f5ba6d516e18d48a5696",
+    "code/src/q4/data.py": "36017edfaeb29aa74adecfc665cb44c104da150a0c81be97ced6f5eb9f397fa5",
+    "code/src/q4/price.py": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+    "code/src/q3/incumbent.py": "5bec6c40a16fdd7792b0f78bc9a32713a2ba91c88bc31ccabf5c5f6ae94a6086",
+    "code/src/q3/scenarios.py": "39cbe1f72a55205913f2af7f115b6c2a3cbf71a41537d19ce721cfdfd72b3612",
+    "code/src/q3/test_fast_solver.py": "0810f4c45f362fcd36d48ee29de6becfa32e5f8835534122b70fff3d0628db03",
+    "code/src/q3/run.py": "019b3e931020c5b4a5fb88ba5347475f18b32e2e8ed65500b5670dea86463222",
+    "code/src/q3/test_validation.py": "9bf64f7d410c6520317d81d0bb57f43b375ef59fb0fb3c2c59a2b75b57405263",
+    "code/src/q3/config.py": "f89cd39b2295bb5b7da9761543151cf04d2aeb220b322fa2a0d14bc6394ccd2a",
+    "code/src/q3/analysis.py": "f1a700e41e38253158ddd12289406e3bd5a51ad15acd8ca237ad0b502191fc55",
+    "code/src/q3/checkpoint.py": "fd670445ff1054103b7d51b8896808fb40efcdba963e1e13c1d0e8b77add30c2",
+    "code/src/q3/multistage.py": "bab2fc0150d4711ac559a14ef39976bd6d5a1f88f6975fe008ce28fc42acfbbc",
+    "code/src/q3/requirements.txt": "4b3df929db899479b62a0fd093728809e449bdc98af3c8da5ac2f2b9de81ae72",
+    "code/src/q3/terminal.py": "e52b4637ffa0ce8d6612a77f0a5bf97275d43c6cc6caa9726637b0c71844b054",
+    "code/src/q3/fast_solver.py": "131c54dd93e0c4dcb44b8e838b99ae54128b0f5b725b7b7149c58ef66422cf36",
+    "code/src/q3/parallel_benchmark.py": "86f2319fc6c7dbcb3bd267b03c2dcc1fbbf569e20e135f452ea7b7b3e057cb32",
+    "code/src/q3/optimization.py": "96965ce1d88db291873f511122872b797393ced24bb9fd614e220c6d30e33cff",
+    "code/src/q3/__init__.py": "fa09181345a311b05f0b903c0cc7f6645644688de92d195d9e2f0811694b6a89",
+    "code/src/q3/gurobi_backend.py": "9bb8a766ee4088a3588d0f3855d6140b71f86bf48c6227b4fcd15c7f40ce94e1",
+    "code/src/q3/solver_probe.py": "b0c0e74951a041611fd377edbfe5e7a1d40056466aee84a2665826adb7d00fdd",
+    "code/src/q3/status_server.py": "f313bb37c3d90ec384cfdd8a76e7250d83d53b6dcbc69997e843f1f7634c8584",
+    "code/src/q3/test_solver_acceleration.py": "07a66a49c05e071e677d50c2383e3c389d3d9ed4d47444fe208b802815a930c6",
+    "code/src/q3/export.py": "7db0e119b97b72f89a4e7d9ddb3e9974aa15b40f79b71d02662e4766c1f5ed63",
+    "code/src/q3/rolling.py": "e6b4b711e452793845f054b9d23a0988b033a0c3cd6c4b9072c81187b5dda537",
+    "code/src/q3/full_run.py": "6434bf8cc19643dcda4f7ed8648229722ebbb2d702893ebca50ac094bbbe3f08",
+    "code/src/q3/sampled.py": "da60829e87fc8ecfcf1791de5de8f732ee4d561a40ebea807120b78d7c70f81a",
+    "code/src/q3/physics.py": "11846e9952d73dc496ea4b7cdae7f3c4f06a232a179b7225909a494d34c8b6aa",
+    "code/src/q3/test_parallel.py": "592d451f5735688c3cdcbcbffb2fe3ec8c788bfd619540ea22e7b4a90dc88d28",
+    "code/src/q3/migrate_rescue.py": "6c21c50389943fd3042ab19077d074cc2b6fd475ac7ec527cdc3cf8be71b427a",
+    "code/src/q3/migrate_solver.py": "435c28cb7c21b3bc93a3d35449b9d75894e0d97144f758c794fceefb990e9a85",
+    "code/src/q3/test_gurobi_backend.py": "ead6d63ab3c721bb1bd8e0e5dd7d847be3cf1ae95ea1254116a4f870ddc465c0",
+    "code/src/q3/test_full_run.py": "c60e812b6239dfb669b13e6cd4e5724971a8256a90bad01d8ac360a3656c94c7",
+    "code/src/q3/traceability.py": "90ffa9b39c9a56432736ee256c8c7e4ac85c594cec8213dafd3290543729eeb1",
+    "code/src/q3/parallel.py": "9f38de066d14c0677ba0263781682bc18c941765d844bc96cc85ce415f44d682",
+    "code/src/q3/test_q3.py": "72b1913ed7cf845d459eaafc58a7368117570de60346d49a671674c499128a25",
+    "code/src/q3/test_production_rescue.py": "6b70b4e749a2b3e68a7fddc5b320e957d77b24069457eab2e469685e351d6356",
+    "code/src/q3/data.py": "787cb1e2eef6a2994100179df66f38597e1b7c5b08f7e709841e78ff16191eaf",
+    "code/src/q3/validation.py": "8d4f805e3d38876cd5a150dae01790cf07d1d905953628c835d82ded555b04d3",
+    "code/src/q2/deliverables/export_partial.py": "72a781cda5ccef48930d41c983bb3cf73c4af6097bd2cb17915ce51b3d167d73",
+    "code/src/q2/benchmarks/precision_sweep.py": "f5abcf3272ef18d322d46566128c7f5e602928a5901cbb4b41a14f6341bb2a47",
+    "code/src/q2/benchmarks/precision_pair.py": "5c3782ff6187b0b86f38940b3ffd287f715850b6fac70a5ce6c38a2009ce2981",
+    "code/src/q2/benchmarks/horizon_for_figure.py": "73f26e6d22e1fc7356f98e6c54c2d06e8548a2863e3ce9d401b2dc130343c059",
+    "code/src/q2/benchmarks/precision_pair_report.py": "5c42a85021c60caa26d00ee0013c6d5c8b1cc19e94b0f5fd90427ea9275e761e",
+    "code/src/q4/rescue/launch_full.py": "57520e65692ce386170f93893f98cb3ff18b612d6d7ffb44d9cf719f304938a8",
+    "code/src/q4/rescue/verify_full.py": "e4751162d0950d5f53b674c8f2134eb0b14b0419157c80ee9ca88f99e3d5bd53",
+    "code/src/q4/rescue/check_apr18.py": "e62b5c3914e261199deb9c130b762dbf8285a0df4d77f0d3d9a0912c1a8bc4fb",
+    "code/src/q4/rescue/launch_q43_v3.py": "89da14892727b6455dcd0acb3a0b5d49da8ec4a01ba358474543f633b6d2111b"
+  },
+  "zip_destination": "docs/支撑材料.zip",
+  "zip_sha256": "98ad7f1ea4d00f221f7a22ad26461c39cc9c97906d727da1abeefda40c7703d3",
+  "zip_bytes": 18722862,
+  "approval_before": {
+    "AI使用报告.md": "d30929f89cf63e60e763371bec2aea1e4a152c6ba0edb9b43a57fad3751e8261",
+    "计算缓存.dat.xz": "d8f123b7799df269477e97ad67a2be8a5ccaedaadd8929c2d2e35536656f1193",
+    "运行说明.md": "2a9b324f76b9073b9c5f707b18def30237ecc1cda4fc37763dfc4f9739a21a7e",
+    "缓存目录.json": "7cef71a8c578b83d4118ffa644c3350ec135d3b4a7f0c97e9c69effd86f903af",
+    "README.md": "b8658a7df9611bcf617fe42331376b2a04dad11af9d72efdedd139411784b498",
+    "文件清单.csv": "35e4701a1fe747e56f375323d2912ab8f5a8a15e08628dcc23f3d53427eb48ad",
+    "校验结果.json": "18a98107d3de449e067d4149d3225962cbac3a374c96e120a94d4f438a2dc2d5",
+    "参考文献/01_LightGBM_2017.pdf": "32ddfe0c7a8e1acb87c97cff904a16e0a556a8d79ebfecf772159843e736affc",
+    "参考文献/文献清单.csv": "74c6d5c1353577fef93b2f20ad0032997da420c4af1e458faeaca0fc1b8124b5",
+    "参考文献/03_Scenario_Reduction_2003.pdf": "61c11563b130a5f2a75ed45c0e1bfc13ae1f043dbf0653feb8757e32d32a04d2",
+    "参考文献/README.md": "fd66c0023859894c280fb8068e7a124e098c9af4174abddfe9df90b5ebd5a142",
+    "参考文献/参考文献.bib": "bef283ce37cc246a9a8cc667b49e9dd8f74ccc820696cbadc12cbcdf85a031dc",
+    "src/prepare_support_data.py": "1fe818e0a112f93beacf56e08fd510cd0c32a7ba9e98eafc9cf18a282f1f3dd6",
+    "docs/sensitivity_q4/run_guide.md": "03f58c2cb47e780b2a9629210a8984eac68c6672c522f3f270e9221913f2db9a",
+    "docs/sensitivity_q4/问题四敏感性分析实验方案_时间受限版.md": "7baec4df17f43ec42c9f8c1769b754d831a58a005c1de9ffe487f09b0c89c17d",
+    "docs/sensitivity_q4/results.md": "4dbd75942b6e7a1bb5806c2de4d49ca96744365dcf24bc2ae0de8afdec9e8ae7",
+    "docs/sensitivity_q2_q3/问题2与问题3敏感性分析实验方案_时间受限版.md": "866563d9481f002ba4feba69b1b7e113027d92f3f8d94b4df9ccac3838a3696f",
+    "docs/sensitivity_q2_q3/results.md": "33b5080314bb01fc8ac678d3f1a8a962abd34ffe1217c0e1694f8b1bc99631d5",
+    "docs/4/Q4_问题四_严格因果波动电价_完整建模_最终修订版.md": "3dfd28fcef42768aaeef1c981a38270cdb902a35047d92c1871df623a8f09605",
+    "docs/3/Q3_第三问_最终建模_严格修订终稿_v4.md": "c0cb96b81d0d92b36bcf42786f64545cafb91cf009665b7719c7b030934aa826",
+    "docs/2/dierwen1.md": "f4313206fe4e7869bfdbc4f8d502749c63f794b3ea3471ccbcef2053950a3fa4",
+    "docs/1/final/第一问_MILP_边际价值强化版.md": "a0c0186c626a145a9c7bd4479fdb1bf9b84fd60af284d5d28d9d12d216acec8b",
+    "docs/CUMCM2026Problems/C题/C题.pdf": "2c098f6ae9dd47ae965aebdec3b9facf3de6c173f999783c1012c08fc5fb9d2d",
+    "docs/CUMCM2026Problems/C题/附件/附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+    "docs/CUMCM2026Problems/C题/附件/附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843",
+    "docs/CUMCM2026Problems/C题/附件/附件4.xlsx": "20e9c93aeab5e8e21ae4dd15587f9e190f7408692504c1319598461cd654fe71",
+    "docs/CUMCM2026Problems/C题/附件/附件1.xlsx": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+    "docs/CUMCM2026Problems/C题/附件/附件5/result4-2.xlsx": "1c26494cfc6d754e0bd9bff7e13e1126a73d2d2da6c5336eb251d89b9a1a1a47",
+    "docs/CUMCM2026Problems/C题/附件/附件5/result4-3.xlsx": "c59da470cabd0be23f602c95c8aa9d11ec224a0cdac216b3e1f218e65d006bdc",
+    "docs/CUMCM2026Problems/C题/附件/附件5/result2.xlsx": "1c26494cfc6d754e0bd9bff7e13e1126a73d2d2da6c5336eb251d89b9a1a1a47",
+    "docs/CUMCM2026Problems/C题/附件/附件5/result3.xlsx": "c59da470cabd0be23f602c95c8aa9d11ec224a0cdac216b3e1f218e65d006bdc",
+    "docs/CUMCM2026Problems/C题/附件/附件5/result1.xlsx": "28360e0974e7d6065394a8aba4e14a86773ae0036cc7d3ea1b211b515b03d688",
+    "docs/4/rescue_lp/frozen_source_v3/requirements.txt": "2f6157463699be266cb48c51dc2d1875233a6540314dfb75f283363fb00141e5",
+    "docs/4/rescue_lp/frozen_source_v3/manifest.json": "ee6afc31d7d6c6b5c6d78d9fd6c6ce1b892419a541c3676834b815c2297a34cf",
+    "docs/4/rescue_lp/frozen_source_v2/requirements.txt": "2f6157463699be266cb48c51dc2d1875233a6540314dfb75f283363fb00141e5",
+    "docs/4/rescue_lp/frozen_source_v2/manifest.json": "f1221b0b7b06f586f8724761d3ee9913a2701d8458e2b8136b138db7ec4f93f7",
+    "docs/4/rescue_lp/frozen_source_v3/docs/4/Q4_问题四_严格因果波动电价_完整建模_最终修订版.md": "3dfd28fcef42768aaeef1c981a38270cdb902a35047d92c1871df623a8f09605",
+    "docs/4/rescue_lp/frozen_source_v3/src/q2/forecast.py": "7893f22f175a3a5dabcef6464ceecd74f97cf877542a972b268617c875d57ae2",
+    "docs/4/rescue_lp/frozen_source_v3/src/q2/protocol.py": "a01e4a49e0d19e1bd751159aede4fd1cf5d13143103b2799658dc8da89ebbc27",
+    "docs/4/rescue_lp/frozen_source_v3/src/q2/policy.py": "a0794ae68696d4e251d7edab589bceee7d87a08c20ea617c5b14557c325bb11f",
+    "docs/4/rescue_lp/frozen_source_v3/src/q2/data.py": "b7259d5762c83d9dcba2686ff0b3749e1b072323f5f81f072f6ffcdef3992cb0",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/scenarios.py": "9caf29784c716f6fd98da580834c7b59515085f014dcd35eb96d43cb17879887",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/run.py": "eed3e7d5e164688535dc32bf7380d79229bc25755145180690445a93c3126640",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/config.py": "d990a4c4a443438d11876e9721a028a4e7cf6c2db7822832005673dfd1190998",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/diagnostics.py": "d9a880e338e81674dd11d10ef8717d4ab31e555724c95c354927691ecb736aba",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/vertical_slice.py": "e0e286ebbd469ef869b47c95e5788574932b3e386ac8f03d8b7686540e2991fb",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/optimization.py": "64ed09471d622e2bef2a331059d1c0ca0ae5aa5c4e82fa9aa29985d383842482",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/__init__.py": "af2ad42a63eb91042591eb9420e9e74bb75a2602d860efef898f8ba2e1ba09ee",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/export.py": "c9c465fcc8b3c832eaf18a247480d46858453c40c933ccf4d3e23a93195450ae",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/rolling.py": "a32f21b8bf96b8c01448afb842d92885195188aa62cfa782027d6f7e29e8c382",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/physics.py": "3fd0bed219d85ed847fec4101a9a6d82d914c9c1c838a13b029c0752643f83e1",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/traceability.py": "7755d1cb1aad0de9257d5ed42e5ea282b69e49e41721f5ba6d516e18d48a5696",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/data.py": "36017edfaeb29aa74adecfc665cb44c104da150a0c81be97ced6f5eb9f397fa5",
+    "docs/4/rescue_lp/frozen_source_v3/src/q4/price.py": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+    "docs/4/rescue_lp/frozen_source_v3/src/q3/config.py": "f89cd39b2295bb5b7da9761543151cf04d2aeb220b322fa2a0d14bc6394ccd2a",
+    "docs/4/rescue_lp/frozen_source_v3/src/q3/data.py": "787cb1e2eef6a2994100179df66f38597e1b7c5b08f7e709841e78ff16191eaf",
+    "docs/4/rescue_lp/frozen_source_v2/docs/4/Q4_问题四_严格因果波动电价_完整建模_最终修订版.md": "331a573794fbd8e85f3f75e96fee64ff25cac5e014fa896e927604a624270bd1",
+    "docs/4/rescue_lp/frozen_source_v2/src/q2/forecast.py": "7893f22f175a3a5dabcef6464ceecd74f97cf877542a972b268617c875d57ae2",
+    "docs/4/rescue_lp/frozen_source_v2/src/q2/protocol.py": "a01e4a49e0d19e1bd751159aede4fd1cf5d13143103b2799658dc8da89ebbc27",
+    "docs/4/rescue_lp/frozen_source_v2/src/q2/policy.py": "a0794ae68696d4e251d7edab589bceee7d87a08c20ea617c5b14557c325bb11f",
+    "docs/4/rescue_lp/frozen_source_v2/src/q2/data.py": "b7259d5762c83d9dcba2686ff0b3749e1b072323f5f81f072f6ffcdef3992cb0",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/scenarios.py": "9caf29784c716f6fd98da580834c7b59515085f014dcd35eb96d43cb17879887",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/run.py": "eed3e7d5e164688535dc32bf7380d79229bc25755145180690445a93c3126640",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/config.py": "274e6e80c68615551aa72213214f650d68269276fe5acae17a0316fa26fb62af",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/diagnostics.py": "d9a880e338e81674dd11d10ef8717d4ab31e555724c95c354927691ecb736aba",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/vertical_slice.py": "2f835f65cc39cc5eb4a48f3141685f52e84cfe8de6b0425f0bd60e5931d9683a",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/optimization.py": "aa32fbf88850ec8d6bfe5a6705b405e0d3b398b4ada991a2a89098ceac7f38ee",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/__init__.py": "af2ad42a63eb91042591eb9420e9e74bb75a2602d860efef898f8ba2e1ba09ee",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/export.py": "c9c465fcc8b3c832eaf18a247480d46858453c40c933ccf4d3e23a93195450ae",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/rolling.py": "a32f21b8bf96b8c01448afb842d92885195188aa62cfa782027d6f7e29e8c382",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/physics.py": "3fd0bed219d85ed847fec4101a9a6d82d914c9c1c838a13b029c0752643f83e1",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/traceability.py": "7755d1cb1aad0de9257d5ed42e5ea282b69e49e41721f5ba6d516e18d48a5696",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/data.py": "36017edfaeb29aa74adecfc665cb44c104da150a0c81be97ced6f5eb9f397fa5",
+    "docs/4/rescue_lp/frozen_source_v2/src/q4/price.py": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+    "docs/4/rescue_lp/frozen_source_v2/src/q3/config.py": "f89cd39b2295bb5b7da9761543151cf04d2aeb220b322fa2a0d14bc6394ccd2a",
+    "docs/4/rescue_lp/frozen_source_v2/src/q3/data.py": "787cb1e2eef6a2994100179df66f38597e1b7c5b08f7e709841e78ff16191eaf",
+    "docs/3/production_rescue/acceptance.json": "7f44010d670f1bb5dc70c0b0f54dbc364592a42fd1574dea725473122168887d",
+    "docs/2/tail_reserve_work/run_guide.md": "b01b76b7895236152ace08f002a0f4d778a6a1cc3c06e218ae00f8965d802492",
+    "docs/2/final/求解精度执行修订_3pct.md": "53f0fcddf9dcfea1a0cfeaff535c8884092bd915a27e237af9dcaa5da2254025",
+    "docs/2/final/求解精度执行修订_2pct.md": "5af171ccb952dfc28932a8bb6ef06a521ed3bd06e0034ec485e8d4a0c67d68af",
+    "docs/2/final/第二问_最终建模思路_论文精简终版.md": "b970d34a64d37f5392f75174e3519a3b5629cd2d058f0e43c1194c28fbd419de",
+    "docs/2/final/Codex_问题二求解加速任务书.md": "22215e59ed0d9a24fde455821ea20cdf5ba6bfe9fbe3a6d350146bff4042a562",
+    "docs/2/final/计算执行提速修订_延迟K1与基准复用.md": "4b2bc254a8808f7223f746328f33d7eea4d82592a81ef6bf178c6fe8dd88707f",
+    "docs/2/final/Q2_Codex_最终模型修改任务书.md": "20992d36ebb6caf5b135e6bc2bd264d6b66df7298a68dbf54e3ba3322f81b385",
+    "docs/2/final/第二问_最终建模思路_最高优先级修订版_修订后.md": "bb9292abcaf2bd04dde4a4d1f1997ade582cbd0e81177d585bff8f0264b58b95",
+    "outputs/final/result4-2.xlsx": "45175b9bb02883e88a07ce53f63341dd1fd95bfa65fdb3ad9a22ef8e45524283",
+    "outputs/final/result4-3.xlsx": "04abb525c2987449e71e97d32d8e8c4f6d45737b4df9727f87afb84deaec3d9c",
+    "outputs/final/result2.xlsx": "e0b3d23703096bdc8b0a815c7fdb0d7dcef28c18ab9fbe8e767ceeb53eeb314c",
+    "outputs/final/result3.xlsx": "be09ffb1ac5088350cc2032f320166fcd2e161db79d6ce557c353f216fabdc81",
+    "outputs/final/result1.xlsx": "3734858c83869538470cedade74a7f9ea358b61e55a83c3875f6b1ee476e41c8",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/requirements.txt": "467446fd077037a31b8a7471e9871f76ccb8d3a6b3170cf2a25d255991016d0d",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/run.py": "2802937e431edbc0ea1212c64d507a821ffa153bf0e7f248ae88e432bf5fc423",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/test_sensitivity.py": "0709ac484ff166f6685d0ae69978329042aec1a25aead70318ebaccc4bb09a24",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/status_server.py": "2f50de481accf2c724d335482b16b2da04998ee873827c7a4cd6b5a9e62122e4",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/common.py": "48cd6b00a51d62de68a62dd86217e7e7a330e4d7e1e3b91320135c2015cf966f",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/q3.py": "39bbd94dd39f0cec641d8773153cea923a9d89a3a019263e7185968c128e0758",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/verify.py": "b7d72f774a4194b76b03e20951b1e3dba251de2df43c3bad4ad8470641c41944",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/report.py": "e0e9145e6803595fe98258cd7c9d98a058c12a5f6dc80ee4e2f30db74b9e167a",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/prepare.py": "b93bdb3c78cb45b01f970c4a8e022c94784b9e4288803ba5f3731fdd788b81fc",
+    "outputs/sensitivity_q2_q3/raw/local_20260913/runtime/src/sensitivity/q2.py": "640ae44c5d7219d45cf1a4a3cfbe6974f55db73bbe2b861d705c72c4252346df",
+    "outputs/processed/sensitivity_q4/results.md": "4dbd75942b6e7a1bb5806c2de4d49ca96744365dcf24bc2ae0de8afdec9e8ae7",
+    "outputs/processed/sensitivity_q2_q3/report.md": "33b5080314bb01fc8ac678d3f1a8a962abd34ffe1217c0e1694f8b1bc99631d5",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/requirements.txt": "8012ffecc7a47b92f145ef043b8a46fe588bd397d8f8e84cb7b503b6301f1908",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/incumbent.py": "e88488a72281b00c017dc431d0fb656fbaa4e9b84fd10a9385ecbab190755827",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/scenarios.py": "756a4a306ee9f6f3adbbf7ed56efd48c4741cbc529e2c810ae3055c86e19768f",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/run.py": "d51af5f4dcfd0b73bb9623cc8c9588a453db46e33284e48f4b8e18b84e417ce1",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/config.py": "bdd4ca2038167685ce63887caae41a6ac786a94eee50a615cc7669f4dc9c8a1f",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/analysis.py": "8bf2d047e4772ee1807c971e9c6be46cc1d6a1c393278e118c3745bc2ce3e53d",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/checkpoint.py": "07f5106ef6c0175c13106a13ea90363bb5ac6d54728688b2b4a983d7d91d58cc",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/multistage.py": "66897ab5c58168cd4e90665637da1dc26228c85b29aa6d37a9648c3d0c6f6e52",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/terminal.py": "9dd3504f14a42930d16eff9856d0ae962c62be34c9d3ca99592c555847edd14f",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/fast_solver.py": "8be1f0a2c46e38579a866d4fd8c4fcc134d086f051351ac423e367414b36c7e5",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/parallel_benchmark.py": "f7594e6e0151cfd757a4171a6b9f8e5b2175e57ded953aafc817f6ac467ba66c",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/optimization.py": "9087055b930d51e2656161b5cd8e75b5713dc4c85ebd319532dee7ef53066ee9",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__init__.py": "594d329031b4cd6a7bb700aac918693bb2b15d82d1454ca209ca3e109d172226",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/gurobi_backend.py": "2e42b07e2bc747051757fd24058ba5444d265f90368603bcc55d20869ff99697",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/solver_probe.py": "0ba7228757e975c5813d53bc20f638c771ba52ff4f1b1493a8cd0a3cfa89f647",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/status_server.py": "bfb2d61680a69b87893bcb75fa76aa94ab3faa1d9806e2bbd75f502ce27976fe",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/export.py": "afd01d344bc112580b4dee5b5bd1cc869ff081de25a37ebbbedab8002cbcf02f",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/rolling.py": "67c18b1db7866c0836e711b216d18829b5d1e30a539d0390e070a06b2cb9e86f",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/full_run.py": "3fa94fb1327cfb11e3ce8886bfab2405a1c757cc3acbd55ae9e752c1d0c05b26",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/sampled.py": "e683803e890a792871cb2c9a6de740b56f57b4274bc0879a9e41b906af9d1ec9",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/physics.py": "c4564eceed4c12b03737c6b9e1610eef813394df0ecec6190954441cbcaa7591",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/migrate_rescue.py": "a8978a9d1cfecc50fdd8d2b06e897291c5e0c65fbc9d5fff0a900b17e43b64a4",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/migrate_solver.py": "8d54645cacc30ec531e751ec3f3a75120d96b12470ff7772bb68dcfd908a21c5",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/traceability.py": "3d353e9ba324cfd4db5ee9fd07f37eea158b185a05a32f28d85fbe0067aacb7f",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/parallel.py": "dba8464e61872c099c2ac62a8d7621a421834818220cbddf90dbbbbf920ac465",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/data.py": "660145dc0641aa7bfef48042850666d4ba5c101173da661367d1bdc5ca3ffa42",
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/validation.py": "d33a7bd00148cc4f77e3e8453e76c336b8c9c85c27653f162198ead321cb2a1d",
+    "src/问题1/review_temporary_plan.py": "5f8e4faf94359848309e5d5578ef763f123341b1a0a7a99700de159dc9a1a02e",
+    "src/sensitivity/run.py": "2802937e431edbc0ea1212c64d507a821ffa153bf0e7f248ae88e432bf5fc423",
+    "src/sensitivity/q4_experiment.py": "4e7b9bdb53001f5578a50f5e7b8f169d78e785b9741ee6d9cb635cb6415a26f3",
+    "src/sensitivity/test_sensitivity.py": "0709ac484ff166f6685d0ae69978329042aec1a25aead70318ebaccc4bb09a24",
+    "src/sensitivity/status_server.py": "2f50de481accf2c724d335482b16b2da04998ee873827c7a4cd6b5a9e62122e4",
+    "src/sensitivity/common.py": "48cd6b00a51d62de68a62dd86217e7e7a330e4d7e1e3b91320135c2015cf966f",
+    "src/sensitivity/q3.py": "39bbd94dd39f0cec641d8773153cea923a9d89a3a019263e7185968c128e0758",
+    "src/sensitivity/q4_report.py": "e7bdae63bbe271052f8978db220c65027e8e69762466419f9f29e8159d90860c",
+    "src/sensitivity/verify.py": "b7d72f774a4194b76b03e20951b1e3dba251de2df43c3bad4ad8470641c41944",
+    "src/sensitivity/report.py": "e0e9145e6803595fe98258cd7c9d98a058c12a5f6dc80ee4e2f30db74b9e167a",
+    "src/sensitivity/prepare.py": "b93bdb3c78cb45b01f970c4a8e022c94784b9e4288803ba5f3731fdd788b81fc",
+    "src/sensitivity/q2.py": "640ae44c5d7219d45cf1a4a3cfbe6974f55db73bbe2b861d705c72c4252346df",
+    "src/q1/analysis_report.py": "36d21e665c14e5ba2f522c5f927cbcc4a42583148d681a060dad8665afb09f4c",
+    "src/q1/run.py": "2f2273d3ff8798d27b2e6d699f4fcac53f3b73b543d5fefd6d675d15936ed394",
+    "src/q1/analysis.py": "72c068c62a9fb88feb7342cc01e4bc8a941330d34d8a14ae479307bd4d69bc4a",
+    "src/q1/requirements.txt": "ea688cf0da2b05a7d5450666fcffbbcc5ed2359d2a01c31748a9c9775ade19fa",
+    "src/q1/test_q1.py": "b58718e09371aafa99279644da0503ea1995993afcbad7c7ee2eda78cb197326",
+    "src/q1/test_analysis.py": "45460720f67740e3d195cbb7b607e4f7db401df735e4e2fd7c5ae1d9943ef224",
+    "src/q1/export.py": "84bb145eddb5e12e5a37d2449de464c3cab0b6a4c00c366c2df866bc9e940249",
+    "src/q1/model.py": "56c3b89241d0719ae0a1df24a88cbff3e26a9ffbb916021b364638a9478a515f",
+    "src/q1/prepare_paper_materials.py": "d6f0f214f86a0606f520dbfdc23b74ff97e13b5360bbd18972cc820447be6f4a",
+    "src/q1/golden_main.json": "1367e4c17ec8354f28674f59f0255c4e37c5b88d8fb3960de93e8ad337f5cec8",
+    "src/q1/pipeline.py": "0d49ab8334a03a08bde89167616313ae359c957eefb9d662e658ed766bdc7e11",
+    "src/q1/review_compact_q1.py": "e457db5832d25efb8717d874530d34778d61d2297c9a2fcd68aecdb40553ea1d",
+    "src/q1/traceability.py": "6279bd94ffc4bb9f55496543d2c7db0e27a9e6ab4377e5e7cf701281a2b30a12",
+    "src/q1/export_submission.mjs": "79e6283aebf7059006f15982795aada8a64479748b93ab6b603f5671da90608d",
+    "src/q1/report.py": "a5599d2ec712a9e13d9d5754d8dd6dfe521da956fd8acfd4f38f167fa92d8466",
+    "src/q1/device_sensitivity.py": "f1e28306ec0308afd800374bd9a4a28fe67d67ae1f20f26276b7256c6eeffa97",
+    "src/q1/test_review.py": "50edcc2913c2c1347087b43dfe1ca6aac38830a42d6870e7e5d360631bb9c201",
+    "src/__pycache__/prepare_support_data.cpython-312.pyc": "1e4df6ba3893ec28b1b2d3712fc07b6e7815fab11669e56d77245abc55867440",
+    "src/q2/incumbent.py": "e5f0b4ebe05a02e1488eb50de90d0e07cea5cbe7a04ea3fd9e6c1fb7f528b2de",
+    "src/q2/test_dispatch.py": "f35945d7f0589cd72e91ab5430c1b51d58d4b3fc070d0bd525fcc920dc5d4a81",
+    "src/q2/scenarios.py": "f6695c73c15b85ad09dac7a9f0e8ddc4c6941c02624089b11c5d604a25d2ef58",
+    "src/q2/test_baseline_reuse.py": "cf9c578e5b4d233f5db6aea866c187b714fbb955a4a63a474e554f75b63f3d10",
+    "src/q2/run.py": "70f539594cc0dbe5377a1be138916a4f2962f447ec8b432af4a39a6d7b49ae71",
+    "src/q2/final_diagnostics.py": "ba452485cd1a4b8ee91b38767ad89b60c2027a2aaa6d54da8721cbb544ce6e51",
+    "src/q2/forecast.py": "7893f22f175a3a5dabcef6464ceecd74f97cf877542a972b268617c875d57ae2",
+    "src/q2/execution.py": "1bd79f71fbfd148192984e0be7ddab212078e07e0c52aaaa8cc7fd9aeedaa183",
+    "src/q2/export_dispatch.py": "c5482227367d234c27265a39b822bdcc1515c11cd32d2aa4f55b23ec1a2f46cd",
+    "src/q2/checkpoint.py": "53ed664104a4f5d67f08d767581fcf6caf4c91f727cde854b495954336f6a197",
+    "src/q2/requirements.txt": "e3a873b43eff011066e27d4c77028ecfd1a8f87d464a9478374eca868785ddf8",
+    "src/q2/diagnostics.py": "2567dce4f7a0629141763a92db64261965a79f61922d451c531b9083c916f8a9",
+    "src/q2/dispatch.py": "b7f5e4c92108477628e810550f67ddaabd2ada916617100634fd49b30898a77e",
+    "src/q2/linear_policy.py": "22abf9c6a24aaf3268ccd22888e9a7f704c7403d0f3da134114a188151e386ae",
+    "src/q2/protocol.py": "a01e4a49e0d19e1bd751159aede4fd1cf5d13143103b2799658dc8da89ebbc27",
+    "src/q2/relaxation.py": "84ded5cc41fd408ce1c237863d6f7621d0d67c9b8dc9dd38f4a08dd239031b51",
+    "src/q2/test_forecast_dispatch.py": "4c2fc3a67feed4668d5bb3ab4d77593b6c4b79d014c0bf51257d50126209c770",
+    "src/q2/policy.py": "a0794ae68696d4e251d7edab589bceee7d87a08c20ea617c5b14557c325bb11f",
+    "src/q2/optimization.py": "1fbfc68f9fc39e94f30eb6022cb7e540a76314fe27637c5ed4cf08e01150da7d",
+    "src/q2/test_linear_policy.py": "573661a5c010cc597a1a17a09ef49e25ce4228f2bf56e36c82c10599fa32c045",
+    "src/q2/rolling.py": "7d80ef5b50328b7b5a47f0130d9f484d3fd509202cd226124d1688a038a4eca9",
+    "src/q2/full_run.py": "81b14f52dfdfadc03f60e28c48209df8712a8cc69bcd5424eef8e76df323ac49",
+    "src/q2/shadows.py": "14031f391a49d39f7887c0f41a6a2726c34f947e230c373859b406cff823f395",
+    "src/q2/test_execution.py": "7347e0a09c6ca109399e84d5d5cf4118bf4c77e10ee09dbdf1802a09a7c244fe",
+    "src/q2/experiments.py": "70e4c46465f826b852e51937b449cdf2ffd7dc2837310be0889fc3b6f99c77dc",
+    "src/q2/final_traceability.py": "b3126ad9f3ccf08170d3f4f2863cdc8c12c73486346bf75929827cae6b292c60",
+    "src/q2/figures.py": "20b6cf75c29e097d64f6966e9dff4c9d6fb3adff0e09b592443a39adaf9130ef",
+    "src/q2/final_report.py": "e1de76cf91a66e896261056a55a9ce4529dd8717e3a5532f195bccab4f78e360",
+    "src/q2/test_full_run.py": "d75e5bf8bf9bac3a8d8e4b91df0db80c0b34b3627fd1098f3d2d3dd928ab82b0",
+    "src/q2/traceability.py": "3d22f125873b4bfb2a6f5378be8410e21497f0a660a9c1756a58b7191b138df3",
+    "src/q2/baseline_reuse.py": "1304464c3002998d5b4985fbed2c1b6eedd90ee659d01b8cd7acd9912b7b2772",
+    "src/q2/test_q2.py": "b4f977037684b8171e73d193bd8b2b920dadfc8eb145204562a6009cab34ffc2",
+    "src/q2/backtest.py": "dd91738bee1b64dc191986c3a8dec28f94a437ffa8ff397bc95d1e8e159b72f6",
+    "src/q2/report.py": "fbb625f73eafc11d501e81f47da35d674eeddeb20bee45eff2644bf231e749e7",
+    "src/q2/test_horizon_execution.py": "03be10be609e833dba20b7ea50c05423998c187e9ae52dc752b845df1ef4a527",
+    "src/q2/data.py": "b7259d5762c83d9dcba2686ff0b3749e1b072323f5f81f072f6ffcdef3992cb0",
+    "src/q2/comparators.py": "e4756f9a1106200966bfe11e790a55d9f650e46573834aec4cf13664260d3f31",
+    "src/plots/catalog.py": "f228dd262c38e3c39f377d8a3b7c62f6b1cf6d00468466d856062136a01449d3",
+    "src/plots/q4_paper_data.py": "d02c5aea72938313b56837c825d80daf91c26064289c26e74810aab016c478d3",
+    "src/plots/run.py": "6d9c82b1986cd1a74579ee64bc7acdb6090489b50194046f2ffa6a80d5e87923",
+    "src/plots/q3_paper_verify.py": "de9787646d4f155f5a8b4ee85fc65021ca11b09f73ffa4dd698688660b73e669",
+    "src/plots/q4_paper_verify.py": "c8269d71eb330ee5e42a60a51274a7560531ff662efee01d431cce74fac7b47d",
+    "src/plots/q3_paper_data.py": "19d043410ea86e9d7aa956f0e108e771e4f4bb72688466c89bd11d075ed054c2",
+    "src/plots/replot_existing.py": "4c88174e1a64a895532da7f4120d527cdf48f8a43b4829c7e81f262462fab6fc",
+    "src/plots/q1_paper.py": "4629cf06562d20f4b3c94c6db300d5b549e98193e8e6ebdd6794cc845527b785",
+    "src/plots/figure_registry.csv": "3da02b5aed6c19b0bad3afe102f3ac5b639f8384afe8f61536e6ff20f0b36c39",
+    "src/plots/q2_paper_verify.py": "e2c150c372a1d61c20194c03a4b98301730201bc0b80378fdd119e99308571ea",
+    "src/plots/q3_paper_package.py": "6d842365bf7d0cf5cd552637f343368566b299d948504e769a81d4892515ab98",
+    "src/plots/q4_paper_final.py": "da0d0dd3a2441ddcc0555038a3a732cf4059d8d3b38cafe48610316977621c7d",
+    "src/plots/README.md": "68e46eb24bbdb568559a71dffbe6305956de2e2951596429a17199aef5545ce0",
+    "src/plots/project_expansion.py": "3053aa29172b8dfec1d33626ccb28a0f62513bf525cebbdde89ebede6e7a3703",
+    "src/plots/q3_paper_final.py": "e65c4e52dae4bd7de79f7170fce2170158a835da824f647992d18d8bee9811f2",
+    "src/plots/q4_paper_package.py": "756fa59892ad7f39d1d3a8e988b8438087f1c14e0621ac5a34d46b6a79b2ebc2",
+    "src/plots/common.py": "b950d92d7d78d0f1a21880f64c6449a51945525a919d863bb9f5219a7057e29c",
+    "src/plots/q2_dispatch.py": "8e3f5f14c212deffa8a6b22ce6fa036711cb7ba60af50f5eb0c9936cfbdf05f2",
+    "src/plots/q3_paper_core.py": "d64d91b700324aeff09323921d62d2ad4dbfeb5c1aa7d5c019e4fa2176db0f77",
+    "src/plots/q2_paper_final.py": "e5dee772f7a39ebf6d3f62d7c334ac0c6d51b90fa7024c89004286cd35fee0df",
+    "src/plots/project_expansion_data.py": "eda93c7297f8f99c9c30df0a3918fdcb300f8defc3bf848d33d8b3c450b55875",
+    "src/plots/q3.py": "f86370deb9e7c0c2c8ff9305777b4a84083cd692f02d9d83f35ff5c27332e8b7",
+    "src/plots/verify.py": "62038df03e7cf26235536f100aeca93094180ed0df21d7c2a1de5c1dfb60ae2d",
+    "src/plots/q2_paper_data.py": "025425de8e09a93b26e09cb013239ef7f36d2a1cd4d298ea09eb67b62d8cd5f3",
+    "src/plots/q1_legacy.py": "30531842770cbc0c43c21b52b64f2a56dc1f80dd15605b4ab6d74975a672e513",
+    "src/plots/q2.py": "85ffcdd527ce61400da4aca4aef2b9f3bcfdb90d61ad22bbb6100afb1fa121a1",
+    "src/q4/scenarios.py": "9caf29784c716f6fd98da580834c7b59515085f014dcd35eb96d43cb17879887",
+    "src/q4/run.py": "eed3e7d5e164688535dc32bf7380d79229bc25755145180690445a93c3126640",
+    "src/q4/test_q4.py": "0159184811a707595362fc4fd46a507b7b013a52bb75a76636a14cfc41a4370d",
+    "src/q4/config.py": "d990a4c4a443438d11876e9721a028a4e7cf6c2db7822832005673dfd1190998",
+    "src/q4/requirements.txt": "85c631d6531d1a6f1f57b2a2d1cdc659db1f11a161a4a79c5e288db10facc8bc",
+    "src/q4/diagnostics.py": "d9a880e338e81674dd11d10ef8717d4ab31e555724c95c354927691ecb736aba",
+    "src/q4/vertical_slice.py": "e0e286ebbd469ef869b47c95e5788574932b3e386ac8f03d8b7686540e2991fb",
+    "src/q4/optimization.py": "64ed09471d622e2bef2a331059d1c0ca0ae5aa5c4e82fa9aa29985d383842482",
+    "src/q4/__init__.py": "af2ad42a63eb91042591eb9420e9e74bb75a2602d860efef898f8ba2e1ba09ee",
+    "src/q4/export.py": "c9c465fcc8b3c832eaf18a247480d46858453c40c933ccf4d3e23a93195450ae",
+    "src/q4/rolling.py": "a32f21b8bf96b8c01448afb842d92885195188aa62cfa782027d6f7e29e8c382",
+    "src/q4/physics.py": "3fd0bed219d85ed847fec4101a9a6d82d914c9c1c838a13b029c0752643f83e1",
+    "src/q4/test_rescue.py": "684f1a574043660c92bc076b1b84353b8dc37fe93abf2b6119a45a2e74eb3d11",
+    "src/q4/traceability.py": "7755d1cb1aad0de9257d5ed42e5ea282b69e49e41721f5ba6d516e18d48a5696",
+    "src/q4/data.py": "36017edfaeb29aa74adecfc665cb44c104da150a0c81be97ced6f5eb9f397fa5",
+    "src/q4/price.py": "b5c4989466984952ac2855e62b122903020524305cf5ca46dcb962f9293610db",
+    "src/q3/incumbent.py": "5bec6c40a16fdd7792b0f78bc9a32713a2ba91c88bc31ccabf5c5f6ae94a6086",
+    "src/q3/scenarios.py": "39cbe1f72a55205913f2af7f115b6c2a3cbf71a41537d19ce721cfdfd72b3612",
+    "src/q3/test_fast_solver.py": "0810f4c45f362fcd36d48ee29de6becfa32e5f8835534122b70fff3d0628db03",
+    "src/q3/run.py": "019b3e931020c5b4a5fb88ba5347475f18b32e2e8ed65500b5670dea86463222",
+    "src/q3/test_validation.py": "9bf64f7d410c6520317d81d0bb57f43b375ef59fb0fb3c2c59a2b75b57405263",
+    "src/q3/config.py": "f89cd39b2295bb5b7da9761543151cf04d2aeb220b322fa2a0d14bc6394ccd2a",
+    "src/q3/analysis.py": "f1a700e41e38253158ddd12289406e3bd5a51ad15acd8ca237ad0b502191fc55",
+    "src/q3/checkpoint.py": "fd670445ff1054103b7d51b8896808fb40efcdba963e1e13c1d0e8b77add30c2",
+    "src/q3/multistage.py": "bab2fc0150d4711ac559a14ef39976bd6d5a1f88f6975fe008ce28fc42acfbbc",
+    "src/q3/requirements.txt": "4b3df929db899479b62a0fd093728809e449bdc98af3c8da5ac2f2b9de81ae72",
+    "src/q3/terminal.py": "e52b4637ffa0ce8d6612a77f0a5bf97275d43c6cc6caa9726637b0c71844b054",
+    "src/q3/fast_solver.py": "131c54dd93e0c4dcb44b8e838b99ae54128b0f5b725b7b7149c58ef66422cf36",
+    "src/q3/parallel_benchmark.py": "86f2319fc6c7dbcb3bd267b03c2dcc1fbbf569e20e135f452ea7b7b3e057cb32",
+    "src/q3/optimization.py": "96965ce1d88db291873f511122872b797393ced24bb9fd614e220c6d30e33cff",
+    "src/q3/__init__.py": "fa09181345a311b05f0b903c0cc7f6645644688de92d195d9e2f0811694b6a89",
+    "src/q3/gurobi_backend.py": "9bb8a766ee4088a3588d0f3855d6140b71f86bf48c6227b4fcd15c7f40ce94e1",
+    "src/q3/solver_probe.py": "b0c0e74951a041611fd377edbfe5e7a1d40056466aee84a2665826adb7d00fdd",
+    "src/q3/status_server.py": "f313bb37c3d90ec384cfdd8a76e7250d83d53b6dcbc69997e843f1f7634c8584",
+    "src/q3/test_solver_acceleration.py": "07a66a49c05e071e677d50c2383e3c389d3d9ed4d47444fe208b802815a930c6",
+    "src/q3/export.py": "7db0e119b97b72f89a4e7d9ddb3e9974aa15b40f79b71d02662e4766c1f5ed63",
+    "src/q3/rolling.py": "e6b4b711e452793845f054b9d23a0988b033a0c3cd6c4b9072c81187b5dda537",
+    "src/q3/full_run.py": "6434bf8cc19643dcda4f7ed8648229722ebbb2d702893ebca50ac094bbbe3f08",
+    "src/q3/sampled.py": "da60829e87fc8ecfcf1791de5de8f732ee4d561a40ebea807120b78d7c70f81a",
+    "src/q3/physics.py": "11846e9952d73dc496ea4b7cdae7f3c4f06a232a179b7225909a494d34c8b6aa",
+    "src/q3/test_parallel.py": "592d451f5735688c3cdcbcbffb2fe3ec8c788bfd619540ea22e7b4a90dc88d28",
+    "src/q3/migrate_rescue.py": "6c21c50389943fd3042ab19077d074cc2b6fd475ac7ec527cdc3cf8be71b427a",
+    "src/q3/migrate_solver.py": "435c28cb7c21b3bc93a3d35449b9d75894e0d97144f758c794fceefb990e9a85",
+    "src/q3/test_gurobi_backend.py": "ead6d63ab3c721bb1bd8e0e5dd7d847be3cf1ae95ea1254116a4f870ddc465c0",
+    "src/q3/test_full_run.py": "c60e812b6239dfb669b13e6cd4e5724971a8256a90bad01d8ac360a3656c94c7",
+    "src/q3/traceability.py": "90ffa9b39c9a56432736ee256c8c7e4ac85c594cec8213dafd3290543729eeb1",
+    "src/q3/parallel.py": "9f38de066d14c0677ba0263781682bc18c941765d844bc96cc85ce415f44d682",
+    "src/q3/test_q3.py": "72b1913ed7cf845d459eaafc58a7368117570de60346d49a671674c499128a25",
+    "src/q3/test_production_rescue.py": "6b70b4e749a2b3e68a7fddc5b320e957d77b24069457eab2e469685e351d6356",
+    "src/q3/data.py": "787cb1e2eef6a2994100179df66f38597e1b7c5b08f7e709841e78ff16191eaf",
+    "src/q3/validation.py": "8d4f805e3d38876cd5a150dae01790cf07d1d905953628c835d82ded555b04d3",
+    "src/q2/deliverables/export_partial.py": "72a781cda5ccef48930d41c983bb3cf73c4af6097bd2cb17915ce51b3d167d73",
+    "src/q2/benchmarks/precision_sweep.py": "f5abcf3272ef18d322d46566128c7f5e602928a5901cbb4b41a14f6341bb2a47",
+    "src/q2/benchmarks/precision_pair.py": "5c3782ff6187b0b86f38940b3ffd287f715850b6fac70a5ce6c38a2009ce2981",
+    "src/q2/benchmarks/horizon_for_figure.py": "73f26e6d22e1fc7356f98e6c54c2d06e8548a2863e3ce9d401b2dc130343c059",
+    "src/q2/benchmarks/precision_pair_report.py": "5c42a85021c60caa26d00ee0013c6d5c8b1cc19e94b0f5fd90427ea9275e761e",
+    "src/q4/rescue/launch_full.py": "57520e65692ce386170f93893f98cb3ff18b612d6d7ffb44d9cf719f304938a8",
+    "src/q4/rescue/verify_full.py": "e4751162d0950d5f53b674c8f2134eb0b14b0419157c80ee9ca88f99e3d5bd53",
+    "src/q4/rescue/check_apr18.py": "e62b5c3914e261199deb9c130b762dbf8285a0df4d77f0d3d9a0912c1a8bc4fb",
+    "src/q4/rescue/launch_q43_v3.py": "89da14892727b6455dcd0acb3a0b5d49da8ec4a01ba358474543f633b6d2111b"
+  },
+  "latex_caches_removed": [
+    {
+      "path": "docs/latex/cumcm.out",
+      "bytes": 8304,
+      "reason": "可再生成的LaTeX编译缓存"
+    },
+    {
+      "path": "docs/latex/cumcm.fdb_latexmk",
+      "bytes": 25284,
+      "reason": "可再生成的LaTeX编译缓存"
+    },
+    {
+      "path": "docs/latex/cumcm.synctex.gz",
+      "bytes": 11607223,
+      "reason": "可再生成的LaTeX编译缓存"
+    },
+    {
+      "path": "docs/latex/cumcm.aux",
+      "bytes": 44051,
+      "reason": "可再生成的LaTeX编译缓存"
+    },
+    {
+      "path": "docs/latex/cumcm.log",
+      "bytes": 97218,
+      "reason": "可再生成的LaTeX编译缓存"
+    }
+  ],
+  "backup_cleanup": {
+    "checked_files": 12552,
+    "deleted_files": 12519,
+    "deleted_bytes": 870584741,
+    "unique_files_retained": 33,
+    "unique_bytes_retained": 7455542,
+    "unique_directory": "outputs/history/approval_unique_20260913",
+    "retained": [
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_before_final_zip_20260913/README.md",
+        "bytes": 2986,
+        "sha256": "8affa81c73537fd7d38e8001b01c309eaa2a4ac29476c38600433178d42f1b39"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_before_final_zip_20260913/文件清单.csv",
+        "bytes": 501852,
+        "sha256": "5fc886d39d506b8bd2dcf793add9d06d75c404810605f652ee76e61a06f22f48"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_before_final_zip_20260913/校验结果.json",
+        "bytes": 1974,
+        "sha256": "ae9fa6dbbd509701ad242fff709b38304d3667314e62c7c454dda82d461255b9"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_before_final_zip_20260913/运行说明.md",
+        "bytes": 3336,
+        "sha256": "2d0fa0d14bfab6a95130827b1c262a49e4740fb4216be70f9408929e8313626a"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/README.md",
+        "bytes": 6659,
+        "sha256": "4e3eb9fbb795bdf65ce7358226513c03c2d07f0c247997ca0a63c5c485a0668f"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/docs/1/README.md",
+        "bytes": 6426,
+        "sha256": "7d08226aa75dfccf82e9844c94dfefb008b6e56bceb4cd934bfe99fad8f35029"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/analysis.py",
+        "bytes": 24344,
+        "sha256": "b6c180ee61522f8b081fe367bb814e61bed8841b762f8ac14057861cd21f9142"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/export.py",
+        "bytes": 6428,
+        "sha256": "e8ab93e13ec66a8c49ce37def3b3a5cafc2dba34a0dd2bb3c1c021e8dd207134"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/model.py",
+        "bytes": 16463,
+        "sha256": "afadae782d45b18891d1bceedabe70206558fc15e5e8d5192bee4df4e53c52b0"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/review_compact_q1.py",
+        "bytes": 9873,
+        "sha256": "98b722fd3f17df1bb6efc6ba42b09b09eb7a9cc5a3a162aa8177b96e249b8234"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/test_analysis.py",
+        "bytes": 9447,
+        "sha256": "fad8fb81f42933b6a0f44205b12abdc65082d295bd3608be9dc6a71c62d8eca4"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/test_q1.py",
+        "bytes": 8551,
+        "sha256": "2b8b288918fb764e609b8510c351ba53be3bb2f32947a46b94265eb932ce7486"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/test_review.py",
+        "bytes": 12790,
+        "sha256": "8915952248dbb2b6e529f7908ea7a690d45e12d9569c4ab8e2f960e26f2a6915"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/q1_recorded/src/q1/traceability.py",
+        "bytes": 16947,
+        "sha256": "8ce3749e292cfabca4b08d62854d53007fea150e7d3e5c1edf73e5c8906f17dc"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/source_history/来源记录.json",
+        "bytes": 10937,
+        "sha256": "1139219b4d0575e2f87535e22723f7e81119d2f2e96125eb8605785258abe91d"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/文件清单.csv",
+        "bytes": 3261329,
+        "sha256": "f6e9a5dd9ab7b398c85fbb3dd5763ce9de6d7c460eeb9f9706fcf153db43b493"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/本次精简记录.json",
+        "bytes": 343,
+        "sha256": "f75202345b7ece0b1e2fba982170f5b2f056d5b413f5b4eb8356a2e08634d677"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/校验结果.json",
+        "bytes": 4074,
+        "sha256": "b9648e9aa0c10bbc7fb15456c820dd8715cac4df1515d9d0851c9262692496a7"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/源码版本核对.csv",
+        "bytes": 30969,
+        "sha256": "faa56aff7449c7b0be33b7d6c0df3f869a201798713fe13a3fb84c603daac9a1"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/精简适配记录.json",
+        "bytes": 512,
+        "sha256": "16de540e5242b6f0a40a83b05edb6230596154382a95f85e2c195e942a6aa369"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_full_20260913_192745/运行说明.md",
+        "bytes": 3694,
+        "sha256": "e2c05475b66d911adeeecd4f3e527107a28ca5a643d340a9d6c3fc24e76580fd"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/ai/project_change_history.md",
+        "bytes": 121364,
+        "sha256": "c38af85edd621f0bfc2f1135720ede4ffe4b6482abdcd159042b0721da6f406c"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/docs/项目原README.md",
+        "bytes": 88104,
+        "sha256": "486910e4fa0553fc2d4e9209a3ea1c1137536ee7117a112152afa9bd0b34290c"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/书籍下载补查.json",
+        "bytes": 454,
+        "sha256": "2a1cbc380839f6119b138969b9488ee3d158206002dffdfa0d97a62503dc8900"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/收集范围.json",
+        "bytes": 6033,
+        "sha256": "28d4135a226ab04d05877b1bdd87df37c07429fdeeba7a746e925e0759202175"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/整理前_AI使用报告.md",
+        "bytes": 3795,
+        "sha256": "042b024d29997ca5712ca3f176e2729f5253ff3bce0defb9dcd1fead8e6c6f67"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/整理前_README.md",
+        "bytes": 6557,
+        "sha256": "dfd24806579794ccb3198f408f1a7239d36c7dfac32fb285ccd35122a547cef5"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/整理前_文件清单.csv",
+        "bytes": 3267873,
+        "sha256": "b773a5f4dede2e7d47f8d5e8338779e36e525bf674846ae427f9a24cdf821d73"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/整理验收.json",
+        "bytes": 1559,
+        "sha256": "485037d9865431ee361d777195442169597dff4b801da50aeb93f239bf7e7fc0"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/文献下载记录.json",
+        "bytes": 1206,
+        "sha256": "71a6d3635b48a645b8417bb75b18641e4e937f8969accb72f60bc210bc6633da"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/移出清单.csv",
+        "bytes": 9556,
+        "sha256": "b68329e24f521fde0ad9e79dfaca52bbe0f21a5966fe63e3e896636297873720"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/需求验收.csv",
+        "bytes": 2464,
+        "sha256": "355117717c0e4fd97a6cfbc64289c9eccfd4adff5881ffa2c5fbd29e62e38943"
+      },
+      {
+        "path": "outputs/history/approval_unique_20260913/approval_working_notes_20260913_185436/验收结果.json",
+        "bytes": 6643,
+        "sha256": "29eb286d547a24c0a0ec471715e4aac4029903195eae94cbd254185b89d9f47f"
+      }
+    ],
+    "system_caches_removed": [
+      {
+        "path": ".DS_Store",
+        "bytes": 10244
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/diagnostics.cpython-312.pyc",
+        "bytes": 10111
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/test_q4.cpython-312.pyc",
+        "bytes": 11962
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/config.cpython-312.pyc",
+        "bytes": 6477
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 37551
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/data.cpython-312.pyc",
+        "bytes": 13669
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/traceability.cpython-312.pyc",
+        "bytes": 2964
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/run.cpython-312.pyc",
+        "bytes": 4157
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 19920
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/physics.cpython-312.pyc",
+        "bytes": 4064
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/price.cpython-312.pyc",
+        "bytes": 10865
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/export.cpython-312.pyc",
+        "bytes": 13881
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 239
+      },
+      {
+        "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 13774
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/config.cpython-312.pyc",
+        "bytes": 7296
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 23961
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/data.cpython-312.pyc",
+        "bytes": 15668
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 23459
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/physics.cpython-312.pyc",
+        "bytes": 6092
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/price.cpython-312.pyc",
+        "bytes": 10915
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 15930
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/config.cpython-312.pyc",
+        "bytes": 7296
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 22119
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/data.cpython-312.pyc",
+        "bytes": 15668
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 23459
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/physics.cpython-312.pyc",
+        "bytes": 6092
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/price.cpython-312.pyc",
+        "bytes": 10915
+      },
+      {
+        "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 15930
+      },
+      {
+        "path": "outputs/.DS_Store",
+        "bytes": 6148
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_linear_policy.cpython-312.pyc",
+        "bytes": 17099
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/diagnostics.cpython-312.pyc",
+        "bytes": 18979
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_execution.cpython-312.pyc",
+        "bytes": 16616
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/comparators.cpython-312.pyc",
+        "bytes": 9759
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/shadows.cpython-312.pyc",
+        "bytes": 9429
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/policy.cpython-312.pyc",
+        "bytes": 8029
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/dispatch.cpython-312.pyc",
+        "bytes": 17144
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/full_run.cpython-312.pyc",
+        "bytes": 23114
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 24781
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/final_diagnostics.cpython-312.pyc",
+        "bytes": 5373
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/data.cpython-312.pyc",
+        "bytes": 15163
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_q2.cpython-312.pyc",
+        "bytes": 36773
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/experiments.cpython-312.pyc",
+        "bytes": 41040
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/backtest.cpython-312.pyc",
+        "bytes": 12003
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/traceability.cpython-312.pyc",
+        "bytes": 7500
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/final_report.cpython-312.pyc",
+        "bytes": 36718
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/relaxation.cpython-312.pyc",
+        "bytes": 8276
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/report.cpython-312.pyc",
+        "bytes": 21178
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/forecast.cpython-312.pyc",
+        "bytes": 13329
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/final_traceability.cpython-312.pyc",
+        "bytes": 14210
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/run.cpython-312.pyc",
+        "bytes": 11529
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 28535
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/execution.cpython-312.pyc",
+        "bytes": 1596
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/figures.cpython-312.pyc",
+        "bytes": 795
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/export_dispatch.cpython-312.pyc",
+        "bytes": 19971
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_baseline_reuse.cpython-312.pyc",
+        "bytes": 7672
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/protocol.cpython-312.pyc",
+        "bytes": 3089
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/checkpoint.cpython-312.pyc",
+        "bytes": 12417
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_horizon_execution.cpython-312.pyc",
+        "bytes": 6017
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/baseline_reuse.cpython-312.pyc",
+        "bytes": 5316
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_full_run.cpython-312.pyc",
+        "bytes": 7869
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/incumbent.cpython-312.pyc",
+        "bytes": 7279
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_dispatch.cpython-312.pyc",
+        "bytes": 10968
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/linear_policy.cpython-312.pyc",
+        "bytes": 24650
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/test_forecast_dispatch.cpython-312.pyc",
+        "bytes": 42697
+      },
+      {
+        "path": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 9571
+      },
+      {
+        "path": "outputs/processed/.DS_Store",
+        "bytes": 8196
+      },
+      {
+        "path": "outputs/q2/.DS_Store",
+        "bytes": 6148
+      },
+      {
+        "path": "outputs/q2/dispatch_runs/.DS_Store",
+        "bytes": 6148
+      },
+      {
+        "path": "outputs/q2/dispatch_runs/20260911_224501/.DS_Store",
+        "bytes": 6148
+      },
+      {
+        "path": "outputs/q4/raw/rescue_lp_vertical_20260913/.DS_Store",
+        "bytes": 10244
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 210
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/config.cpython-312.pyc",
+        "bytes": 7012
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/full_run.cpython-312.pyc",
+        "bytes": 19036
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 34490
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/data.cpython-312.pyc",
+        "bytes": 13606
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/fast_solver.cpython-312.pyc",
+        "bytes": 30438
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 26525
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/sampled.cpython-312.pyc",
+        "bytes": 10828
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/parallel.cpython-312.pyc",
+        "bytes": 5588
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/terminal.cpython-312.pyc",
+        "bytes": 8962
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/physics.cpython-312.pyc",
+        "bytes": 8718
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/export.cpython-312.pyc",
+        "bytes": 15428
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/checkpoint.cpython-312.pyc",
+        "bytes": 5179
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 285
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/incumbent.cpython-312.pyc",
+        "bytes": 6962
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_fast_20260912/runtime/src/q3/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 11030
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 215
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/config.cpython-312.pyc",
+        "bytes": 9475
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/full_run.cpython-312.pyc",
+        "bytes": 24007
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 42541
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/data.cpython-312.pyc",
+        "bytes": 13611
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/fast_solver.cpython-312.pyc",
+        "bytes": 62645
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 26732
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/sampled.cpython-312.pyc",
+        "bytes": 10833
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/parallel.cpython-312.pyc",
+        "bytes": 5593
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/terminal.cpython-312.pyc",
+        "bytes": 8992
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/physics.cpython-312.pyc",
+        "bytes": 8723
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/export.cpython-312.pyc",
+        "bytes": 15433
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/checkpoint.cpython-312.pyc",
+        "bytes": 5184
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 290
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/incumbent.cpython-312.pyc",
+        "bytes": 6967
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 11035
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 214
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/config.cpython-312.pyc",
+        "bytes": 7016
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/full_run.cpython-312.pyc",
+        "bytes": 19269
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 34450
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/data.cpython-312.pyc",
+        "bytes": 13610
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/fast_solver.cpython-312.pyc",
+        "bytes": 31153
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 26529
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/sampled.cpython-312.pyc",
+        "bytes": 10832
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/parallel.cpython-312.pyc",
+        "bytes": 5592
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/terminal.cpython-312.pyc",
+        "bytes": 8966
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/physics.cpython-312.pyc",
+        "bytes": 8722
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/export.cpython-312.pyc",
+        "bytes": 15432
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/checkpoint.cpython-312.pyc",
+        "bytes": 5183
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 289
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/incumbent.cpython-312.pyc",
+        "bytes": 6966
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_parallel_20260912/runtime/src/q3/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 11034
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 202
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/plots/__pycache__/common.cpython-312.pyc",
+        "bytes": 3418
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/plots/__pycache__/q3.cpython-312.pyc",
+        "bytes": 3103
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/config.cpython-312.pyc",
+        "bytes": 7004
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 32523
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/data.cpython-312.pyc",
+        "bytes": 13598
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 26443
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/sampled.cpython-312.pyc",
+        "bytes": 10820
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/parallel.cpython-312.pyc",
+        "bytes": 5580
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/analysis.cpython-312.pyc",
+        "bytes": 24262
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/terminal.cpython-312.pyc",
+        "bytes": 8954
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/multistage.cpython-312.pyc",
+        "bytes": 16639
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/physics.cpython-312.pyc",
+        "bytes": 8710
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/export.cpython-312.pyc",
+        "bytes": 15420
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/validation.cpython-312.pyc",
+        "bytes": 50885
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/checkpoint.cpython-312.pyc",
+        "bytes": 5171
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 277
+      },
+      {
+        "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 11022
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 205
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/config.cpython-312.pyc",
+        "bytes": 7007
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/full_run.cpython-312.pyc",
+        "bytes": 19031
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/optimization.cpython-312.pyc",
+        "bytes": 32526
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/data.cpython-312.pyc",
+        "bytes": 13601
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/rolling.cpython-312.pyc",
+        "bytes": 26390
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/sampled.cpython-312.pyc",
+        "bytes": 10823
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/parallel.cpython-312.pyc",
+        "bytes": 5583
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/terminal.cpython-312.pyc",
+        "bytes": 8957
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/physics.cpython-312.pyc",
+        "bytes": 8713
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/export.cpython-312.pyc",
+        "bytes": 15423
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/checkpoint.cpython-312.pyc",
+        "bytes": 5174
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/__init__.cpython-312.pyc",
+        "bytes": 280
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/incumbent.cpython-312.pyc",
+        "bytes": 6957
+      },
+      {
+        "path": "outputs/q3/raw/full_priority_20260912/runtime/src/q3/__pycache__/scenarios.cpython-312.pyc",
+        "bytes": 11025
+      },
+      {
+        "path": "src/plots/__pycache__/project_expansion.cpython-312.pyc",
+        "bytes": 52728
+      },
+      {
+        "path": "src/plots/__pycache__/q4_paper_data.cpython-312.pyc",
+        "bytes": 13575
+      },
+      {
+        "path": "src/plots/__pycache__/q4_paper_package.cpython-312.pyc",
+        "bytes": 10217
+      },
+      {
+        "path": "src/plots/__pycache__/q4_paper_final.cpython-312.pyc",
+        "bytes": 45696
+      },
+      {
+        "path": "src/plots/__pycache__/catalog.cpython-312.pyc",
+        "bytes": 10673
+      },
+      {
+        "path": "src/plots/__pycache__/project_expansion_data.cpython-312.pyc",
+        "bytes": 22724
+      },
+      {
+        "path": "src/plots/__pycache__/q4_paper_verify.cpython-312.pyc",
+        "bytes": 12495
+      }
+    ]
+  }
+}

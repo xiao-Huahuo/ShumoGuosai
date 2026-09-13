@@ -1,0 +1,132 @@
+{
+  "created_at": "2026-09-13T18:21:20.580910+08:00",
+  "all_copies_sha256_match": true,
+  "excluded": [
+    {
+      "path": "src/q2/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "src/plots/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "docs/1/intermediate/code_review_work/pre_review_sources.tar.gz",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "docs/2/revision_work/pre_revision_sources.tar.gz",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "docs/2/revision_work/pre_full_run_sources.tar.gz",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "docs/4/rescue_lp/legacy_source/q4/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "docs/4/rescue_lp/frozen_source_v3/src/q4/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "docs/4/rescue_lp/frozen_source_v2/src/q4/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/checkpoint_previous",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/failed_attempts",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/run.lock",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/supervisor.lock",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/runtime/src/q3/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q3/raw/full_priority_rescue_7h_20260912/main/run.lock",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "outputs/q3/raw/validation_20260912/validation.lock",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "outputs/q3/raw/validation_20260912/runtime/src/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q3/raw/validation_20260912/runtime/src/plots/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q3/raw/validation_20260912/runtime/src/q3/__pycache__",
+      "reason": "旧检查点、失败尝试或可再生缓存；未作为正式成果"
+    },
+    {
+      "path": "outputs/q4/raw/rescue_lp_q42_20260913_v2/run.lock",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "outputs/q4/raw/rescue_lp_q43_20260913_v3/run.lock",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "outputs/processed/q1_paper/run-ie6fkatf-d9b1d24a.zip",
+      "reason": "已有压缩包、运行锁或系统缓存；本次不收压缩包"
+    },
+    {
+      "path": "历史文档清单间接提及的旧失败运行及本机虚拟环境",
+      "reason": "仅复制实际结果/绘图的直接依赖，不把历史文件清单当成必需材料；已剔除本次误带副本，原件未动",
+      "files": 1189,
+      "bytes": 110060125
+    }
+  ],
+  "pending": [
+    "AI原始问答和历史模型版本未找到",
+    "Q1四份/Q2十份旧运行源码精确版本未找到",
+    "第一问Excel导出Node库安装包/锁文件未在项目留存"
+  ],
+  "archive_created": false,
+  "user_clarifications": {
+    "paper": "论文及附录由用户负责，本次不整理论文",
+    "external_materials": "用户确认论文未查阅项目外资料，项目包含所需文档",
+    "ai_report": "根据CHANGE_HISTORY与实际../MetaWeave/写作规范.md撰写",
+    "model_authorship": "用户明确数学模型由人完成，要求移除AI使用报告中的模型审查相关内容",
+    "ai_report_scope": "按最新要求删去语言润色和文字整理相关描述，报告保留AI依照人工模型编程、计算调试、数据处理及绘图程序的工作"
+  },
+  "completed": [
+    "已确认范围内材料复制及SHA核验",
+    "README及文件清单",
+    "AI使用报告",
+    "真实目录/README界面冒烟"
+  ],
+  "exclusions_note": "既有压缩包的同源正式材料以展开原件收录；历史源码归档已只读检索，匹配记录另列。不含其他题资料、环境安装目录、无关失败运行和系统缓存。",
+  "initial_source_copies": 10675,
+  "initial_source_copy_bytes": 710915109,
+  "follow_up": {
+    "request": "删除缺失说明并说明必需材料现状",
+    "deleted_file": "缺失与核对说明.md",
+    "required_material_status": "源码、实际数据、正式结果和AI使用报告已收录；论文附录需列文件及实际使用源代码，论文需注明AI使用；完整复现和最终压缩体积未验收",
+    "not_explicitly_required_by_provided_excerpt": [
+      "全部历史源码快照",
+      "完整AI逐字对话",
+      "第三方依赖安装包"
+    ]
+  }
+}

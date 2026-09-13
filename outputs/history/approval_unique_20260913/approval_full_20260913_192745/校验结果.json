@@ -1,0 +1,144 @@
+{
+  "q3_frozen_sources": {
+    "checked": 26,
+    "mismatches": []
+  },
+  "q4_v2_snapshot_manifest": {
+    "entries": 20,
+    "mismatches": []
+  },
+  "q4_v3_snapshot_manifest": {
+    "entries": 20,
+    "mismatches": []
+  },
+  "formal_csv_rows": {
+    "outputs/.q1-runs/run-ie6fkatf/processed/result1.csv": 144,
+    "outputs/q2/dispatch_runs/20260912_tail_reserve_final/processed/main/dispatch.csv": 48096,
+    "outputs/q3/raw/full_priority_rescue_7h_20260912/main/dispatch.csv": 48096,
+    "outputs/q4/raw/rescue_lp_q42_20260913_v2/dispatch.csv": 48096,
+    "outputs/q4/raw/rescue_lp_q43_20260913_v3/dispatch.csv": 48096
+  },
+  "python_syntax": {
+    "files": 329,
+    "errors": [],
+    "method": "ast.parse；未运行模型"
+  },
+  "node_export_syntax_check": "bundled node --check passed",
+  "validation_scope": "冻结源码摘要和正式轨迹行数检查；未重新进行全年求解。本次整理对保留文件重新核对SHA。",
+  "literature": {
+    "requested": 3,
+    "full_text_downloaded": 2,
+    "missing_full_text": "Finding Groups in Data",
+    "pdf_checks": [
+      {
+        "file": "01_LightGBM_2017.pdf",
+        "pages": 9,
+        "sha256": "32ddfe0c7a8e1acb87c97cff904a16e0a556a8d79ebfecf772159843e736affc"
+      },
+      {
+        "file": "03_Scenario_Reduction_2003.pdf",
+        "pages": 19,
+        "sha256": "61c11563b130a5f2a75ed45c0e1bfc13ae1f043dbf0653feb8757e32d32a04d2"
+      }
+    ]
+  },
+  "retained_originals": {
+    "files": 10653,
+    "missing": 0,
+    "unexpected_hash_changes": 0
+  },
+  "current_instruction_data_files_exist": 6,
+  "entry_links": [
+    {
+      "document": "README.md",
+      "target": "文件清单.csv",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "运行说明.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "校验结果.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "outputs/final/result1.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "outputs/final/result2.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "outputs/final/result3.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "outputs/final/result4-2.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "outputs/final/result4-3.xlsx",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "运行说明.md",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "target": "docs/3/production_rescue/acceptance.json",
+      "exists": true
+    },
+    {
+      "document": "AI使用报告.md",
+      "target": "参考文献/README.md",
+      "exists": true
+    },
+    {
+      "document": "参考文献/README.md",
+      "target": "文献清单.csv",
+      "exists": true
+    },
+    {
+      "document": "参考文献/README.md",
+      "target": "01_LightGBM_2017.pdf",
+      "exists": true
+    },
+    {
+      "document": "参考文献/README.md",
+      "target": "03_Scenario_Reduction_2003.pdf",
+      "exists": true
+    }
+  ],
+  "manifest": {
+    "files": 10664,
+    "hashed_files": 10662,
+    "sha256": "f6e9a5dd9ab7b398c85fbb3dd5763ce9de6d7c460eeb9f9706fcf153db43b493",
+    "self_reference_exclusions": [
+      "文件清单.csv",
+      "校验结果.json"
+    ]
+  },
+  "archive_created": false,
+  "material_files": 10664,
+  "material_bytes": 713457939,
+  "material_MB": 713.458,
+  "ui_smoke": {
+    "application": "macOS Finder Quick Look",
+    "material_directory": "已显示12项根入口，内部ai目录与操作验收文件已移出",
+    "literature_directory": "已显示2份全文PDF、README、文献清单及BibTeX",
+    "pdf_first_pages": "LightGBM与Scenario reduction均实际打开，首页题名、作者/DOI和正文清晰可读",
+    "ai_report": "实际预览全文，人工建模、代码调试/运行辅助和文献检索辅助三部分完整可读",
+    "checked_at": "2026-09-13T19:10:33.803575+08:00"
+  }
+}

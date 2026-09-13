@@ -725,3 +725,16 @@ Q4敏感性结果ZIP已完成并通过182成员CRC/SHA校验：2061453 bytes，S
 待最后：运行q3_paper_package --archive生成/验证 outputs/processed/deliverables/问题三科研图_蓝色渐变完整版_20260913.zip，收据记录后结束QA服务器、关闭临时tab，最终仅ZIP Markdown链接。README项目树、plotsREADME、CHANGE_HISTORY已更新。
 
 Q3图ZIP已完成并验收：57成员、7PNG+7SVG，8,486,079 bytes；SHA aa5f8c9e37b14defcbe87b9ff09e4b22f680918551eeac84e83959e8a5b7da7c。CRC和逐成员SHA通过，7图manifest/data/README目录检查通过。临时QA页已关闭，最终仅交付ZIP链接。
+
+
+## 当前任务：Q4科研六图已完成，最后打包（2026-09-13）
+用户要求自拟问题四美观图（包含流程），ThemeDisplayer配色+渐变，LaTeX中文不要yahei。方案及原页docs/plots/q4_paper_final。已完成6图：7-1DRO两机制共享结算/物理分流；7-2电价时钟+密度；7-3分项费用变化桥+ECDF；7-4真实AC能量流bus+未调用额度独立条；7-5预选7月1风险日价/量/净动作/SOC；7-6rho0.75/1/1.25局部成本风险路径。
+字体真实TeX Live2026 FandolSong-Regular、Latin Modern Roman、Computer Modern，绘图蓝莲花#19309A/#4B69EF/#7E96FE/#B6D8F7/#FFB967+月白深蓝#FFFEF0/#CDBFE2/#002254，不是yahei。6PNG400dpi+6SVG，渐变栅格/矢量轮廓和转曲字体如实说明。src/plots/q4_paper_{data,final,verify,package}.py，输出outputs/processed/figures/q4_paper_final_20260913。实核682原件SHA、48096点×2、1670Optimal、最大平衡2.27e-13、SOC2.73e-12、样本密度48096通过。无新增求解，原结果只读。
+两策略成本15747788.863875和15427803.530198，差319985.333677元，230/334日4-3较低；末SOC9450和1270.573，非纯FIV/OUV。6图全部目视，修复时钟标签/瀑布零线/TeX上标，并检查机制两者共用核算。UI隐藏tab7 localhost8770，六图loaded且nooverflow，服务器session16910；临时QA应结束。
+package目录outputs/processed/deliverables/问题四科研图_蓝莲花渐变_LaTeX字体_20260913，含README方案图后分析配色原页data源码verification/ui_smoke，font文件未打包，SVG不依赖安装字体。README目录、plotsREADME、CHANGE_HISTORY已同步，catalog登记6图。下一步q4_paper_package --archive及CRC/SHA，最后只给ZIP链接或一句字体说明+ZIP，不扩大任务。
+
+Q4六图ZIP已完成：12,895,073 bytes、46成员、6PNG+6SVG；SHA2328e942224f1437f8572fa6eed81b0b63300f2f8130a3de8a482065041836f3，CRC和逐成员SHA通过。所有图目/数据路径及六SVG的Fandol转曲字形再次核验。临时QA页已关闭、服务已结束。任务完成，最终交付ZIP。
+
+
+## 全项目12补充图：用户要求立即交付
+用户已确认中文；12图已全部生成，PNG400dpi/SVG，src/plots/project_expansion.py与project_expansion_data.py。1020源哈希、1942校准计数数据准备已核对；render.log无错误。用户“等不及了，直接把图给我”，已直接打包完整12PNG/12SVG+CSV/方案/图注/源码。尚未逐张视觉终审，README和收据如实标明。ZIP outputs/processed/deliverables/全项目补充科研图_12张_20260913.zip；收据docs/plots/project_expansion/zip_acceptance.json。右侧8771图集status更新全部生成，服务器session9901保持以供用户查看；expansionTab id9应markDeliverable。不要继续后台改图或扩大任务。

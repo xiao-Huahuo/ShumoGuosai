@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Colors Displayer</title>
+    <style>
+        :root {
+            --page-bg: #f4f6f8;
+            --heading-color: #333;
+            --label-color: #333;
+            --color-name-text: #555;
+            --strip-bg: #fff;
+            --strip-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.1);
+            --strip-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.1);
+            --switch-bg: #d9dee7;
+            --switch-on-bg: #333;
+        }
+
+        body.dark-bg {
+            --page-bg: #15171c;
+            --heading-color: #f1f3f6;
+            --label-color: #e7e9ee;
+            --color-name-text: #c9ced8;
+            --strip-bg: #242832;
+            --strip-shadow: 0 10px 20px rgba(0, 0, 0, 0.35), 0 6px 6px rgba(0, 0, 0, 0.25);
+            --strip-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.42), 0 8px 8px rgba(0, 0, 0, 0.28);
+            --switch-bg: #404756;
+            --switch-on-bg: #f1f3f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--page-bg);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.25s ease;
+        }
+
+        h1 {
+            color: var(--heading-color);
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: color 0.25s ease;
+        }
+
+        /* 核心模板样式 */
+        .theme-row {
+            width: 100%;
+            max-width: 1060px;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .theme-name {
+            width: 100px;
+            padding-top: 45px;
+            color: var(--label-color);
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: right;
+            flex-shrink: 0;
+            transition: color 0.25s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .theme-name:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .theme-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        #theme-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .theme-strip {
+            width: 100%;
+            max-width: 900px; /* 拉长框框宽度 */
+            height: 120px;    /* 稍微增加高度以容纳文字 */
+            background-color: var(--strip-bg);
+            border-radius: 60px; /* 调整圆角以匹配新高度 */
+            padding: 6px;
+            box-shadow: var(--strip-shadow);
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.25s ease;
+        }
+
+        .theme-strip:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--strip-hover-shadow);
+        }
+
+        body.dark-bg .theme-strip {
+            box-shadow: var(--strip-shadow), 0 0 18px rgba(255, 255, 255, 0.08);
+        }
+
+        body.dark-bg .theme-strip:hover {
+            box-shadow: var(--strip-hover-shadow), 0 0 26px rgba(255, 255, 255, 0.14);
+        }
+
+        .gradient-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 54px; /* 内部圆角 = 外部圆角 - padding */
+            display: flex;
+            align-items: center;
+            justify-content: space-around; /* 均匀分布文字 */
+            overflow: hidden;
+        }
+
+        body.dark-bg .gradient-inner {
+            box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.12), 0 0 22px var(--theme-glow);
+        }
+
+        /* 颜色代码文字样式 */
+        .color-code {
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            user-select: none;
+            position: relative;
+        }
+
+        .color-code:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .color-code:active {
+            transform: scale(0.95);
+        }
+
+        .display-toggle {
+            position: fixed;
+            top: 50%;
+            right: 24px;
+            transform: translateY(-50%);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--label-color);
+            font-size: 0.86rem;
+            font-weight: 600;
+            user-select: none;
+            transition: color 0.25s ease;
+        }
+
+        .display-toggle.theme-toggle {
+            top: calc(50% + 130px);
+        }
+
+        .display-toggle input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .switch-track {
+            width: 42px;
+            height: 76px;
+            border-radius: 24px;
+            background-color: var(--switch-bg);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            padding: 5px;
+            box-sizing: border-box;
+            transition: background-color 0.25s ease;
+        }
+
+        .switch-thumb {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+            display: block;
+            transition: transform 0.25s ease;
+        }
+
+        .display-toggle input:checked + .switch-track {
+            background-color: var(--switch-on-bg);
+        }
+
+        .display-toggle input:checked + .switch-track .switch-thumb {
+            transform: translateY(34px);
+        }
+
+        .display-toggle input:focus-visible + .switch-track {
+            outline: 3px solid rgba(65, 160, 239, 0.45);
+            outline-offset: 3px;
+        }
+
+        body.cut-mode .gradient-inner {
+            background: none !important;
+            justify-content: stretch;
+        }
+
+        body.cut-mode .color-code {
+            height: 100%;
+            flex: 1 1 0;
+            min-width: 0;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background-color: var(--segment-color);
+        }
+
+        body.cut-mode .color-code:hover {
+            background-color: var(--segment-color);
+            transform: none;
+            box-shadow: inset 0 0 0 999px rgba(255, 255, 255, 0.12);
+        }
+
+        body.dark-bg.cut-mode .gradient-inner {
+            box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.08);
+        }
+
+        body.dark-bg.cut-mode .color-code {
+            box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.12), 0 0 18px var(--segment-color);
+        }
+
+        body.dark-bg.cut-mode .color-code:hover {
+            box-shadow: inset 0 0 0 999px rgba(255, 255, 255, 0.14), 0 0 26px var(--segment-color);
+        }
+
+        .color-name-row {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-around;
+            gap: 12px;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+
+        .color-name {
+            flex: 1;
+            color: var(--color-name-text);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            text-align: center;
+            transition: color 0.25s ease;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .theme-row {
+                gap: 12px;
+            }
+
+            .theme-name {
+                width: 64px;
+                font-size: 0.9rem;
+            }
+
+            .color-code {
+                font-size: 0.9rem;
+                padding: 6px 8px;
+            }
+
+            .color-name {
+                font-size: 0.78rem;
+            }
+
+            .display-toggle {
+                right: 12px;
+                font-size: 0.75rem;
+            }
+
+            .switch-track {
+                width: 36px;
+                height: 66px;
+            }
+
+            .switch-thumb {
+                width: 26px;
+                height: 26px;
+            }
+
+            .display-toggle input:checked + .switch-track .switch-thumb {
+                transform: translateY(30px);
+            }
+        }
+
+        /* 复制成功的提示样式 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Theme Colors Collection</h1>
+
+    <label class="display-toggle" title="切换展示模式">
+        <span>渐变</span>
+        <input type="checkbox" id="display-mode-toggle" aria-label="切换渐变展示和切割展示" checked>
+        <span class="switch-track">
+            <span class="switch-thumb"></span>
+        </span>
+        <span>切割</span>
+    </label>
+
+    <label class="display-toggle theme-toggle" title="切换背景明暗">
+        <span>明亮</span>
+        <input type="checkbox" id="background-mode-toggle" aria-label="切换明亮背景和暗色背景" checked>
+        <span class="switch-track">
+            <span class="switch-thumb"></span>
+        </span>
+        <span>暗色</span>
+    </label>
+
+    <div id="theme-list"></div>
+
+    <script type="text/plain" id="theme-source">
+[薄暮鸢尾]:[[中等深度的长石蓝 / 紫罗兰蓝]#6873E0,[淡紫色 / 浅薰衣草灰]#D9D6F2,[极淡的粉紫色 / 樱花粉白]#FCE3FA,[带有极轻微暖调的象牙白]#FBFFF3]
+[青柠深海]:[[荧光青柠绿]#D4FF80,[明亮青绿色]#00E2DC,[深海蓝色]#002059]
+[奶油落日]:[[淡奶黄色]#F0FF99,[活力橙色]#FF8E39,[极深靛蓝色]#070066]
+[冰川蓝夜]:[#80FFDB,#41A0EF,#001166]
+[晴空漂白]:[#395FFF,#61CFFF,#F9FFE3]
+[薰衣草晨光]:[#684CF2,#88ADFF,#FEFFE3]
+[象牙月雾]:[#FFFFFF,#FFF8D9,#D0C5FF]
+[月白深蓝]:[#FFFEF0,#CDBFE2,#002254]
+[薄荷星云]:[#E3FFD7,#9CFFF8,#C5A1FF]
+[麦当劳品牌配色]:[#DB0007,#FFBC0D,#292929]
+[VISA品牌配色]:[#1A1F71,#F7B600,#FAFAFA]
+[YouTube品牌配色]:[#FAFAFA,#FF0000,#282828]
+[BMW品牌配色]:[#FFFFFF,#6F6F6F,#0066B1]
+[IKEA品牌配色]:[#0058A3,#FFDB00,#FFFFFF]
+[高级感配色]:[[藕丝白]#FFFEEF,[暮云灰]#3B3C50,[雾海蓝]#023F98]
+[极简黑白]:[[纯黑]#0A0A0A,[中灰]#A3A3A3,[米白]#F5F5F5]
+[品牌红黑]:[[深红]#B91C1C,[深灰]#1F1F1F,[浅灰]#E5E5E5]
+[经典红黑]:[[包豪斯红]#D82E2F,[哑光黑]#222222,[冷调浅灰]#E8E8E8]
+[工业亮黄]:[[亮黄]#F5D000,[炭黑]#1A1A1A,[中性灰]#C9C9C9]
+[深海蓝调]:[[深蓝]#1A5276,[深灰]#333333,[白灰]#F0F0F0]
+[普鲁士蓝]:[[普鲁士蓝]#283E8C,[哑灰]#555555,[超浅灰]#E5E5E5]
+[工业冷灰]:[[工业灰]#3F3F46,[冷浅灰]#A1A1AA,[浅灰白]#F4F4F5]
+[复古高饱和]:[[复古红]#E63946,[浅青蓝]#A8DADC,[湖蓝]#457B9D,[奶油黄]#FFD166]
+[高级感渐变]:[[蓝]#2563EB,[青]#22D3EE]
+[绝美·高级感配色]:[[米汤骄]#FCF5E2,[帝释青]#0F325B,[红石榴]#F10C00]
+[绝美·高级感配色]:[[苍蓝]#134857,[漆黑]#161823,[蔚蓝]#70F2FF]
+[橙蓝撞色]:[[鲜橙]#FF6B35,[深海蓝]#004E89,[琥珀黄]#FFD166,[高级白]#F7F7F7]
+[玫红电蓝]:[[玫红]#FF2E63,[电光蓝]#08D9D6,[深夜黑蓝]#252A34,[粉雾白]#FFECEE]
+[未来紫绿]:[[高饱和紫]#7B2CBF,[薄荷绿]#80ED99,[深蓝紫]#3A0CA3,[冷白]#F8F9FA]
+[红黄波普]:[[波普红]#FF3C38,[明亮黄]#F4D35E,[深蓝灰]#1D3557,[米白]#F1FAEE]
+[未来青橙]:[[青蓝]#00BBF9,[亮玫粉]#F15BB5,[荧光黄]#FEE440,[哑光黑]#222222]
+[赛博蓝橙]:[[电光青]#00D1FF,[霓虹橙]#FF7A00,[赛博蓝]#0057FF,[深夜黑]#111827]
+[青柠霓虹]:[[荧光青柠]#C6FF00,[霓虹湖蓝]#00E5FF,[高亮玫粉]#FF4D8D,[深空蓝黑]#1A1A2E]
+[青柠冰块]:[[青柠绿]#C6FF00,[冰川蓝]#00E5FF,[深夜黑]#1A1A2E]
+[夏日泳池]:[[泳池蓝]#0077B6,[浅海蓝]#90E0EF,[阳光奶黄]#FFD166]
+[世界上最刺激的配色]:[[乌漆嘛黑]#000000,[绯红]#E41726]
+[世界上最刺激的配色]:[[普鲁士蓝]#0B3868,[浮光]#F9D46C]
+[街头潮酷感配色]:[#0A2463,#F77F00,#FCBF49]
+[街头潮酷感配色]:[#00F5D4,#7209B7,#1A1A2E]
+[海岛夏日冲浪]:[#0051FF,#00E0B6,#FFDD00,#F8F5E4]
+[复古美式甜心]:[#E63946,#FFB703,#1D3557,#F1FAEE]
+[超舒服·高级感配色]:[[米色]#F6E4C8,[卡布里蓝]#015697]
+[经典·高级感配色]:[[勃艮第红]#81021F,[普鲁士蓝]#003153,[月苍白]#F9F6E5]
+[经典·高级感配色]:[[天青石色]#3869F4,[幽谷灰]#2B313F,[象牙白]#FFFBF0]
+[克莱因蓝渐变·潮流配色]:[[克莱因蓝]#0B3289,[亮金]#FBDC92]
+[经典·高级感配色]:[[克莱因蓝]#0B3289,[那不勒斯黄]#F6CB1D,[香奈儿黑]#020100]
+[Blue Hyacinth]:[#0000AE,#1D1DEC,#4648FF,#9293FF,#C1C2FF]
+[Blue Lotus]:[#19309A,#4B69EF,#7E96FE,#B6D8F7,#FFB967]
+[Peacock]:[#0056B2,#0671E4,#00E9CF,#FFF390,#C1FFF8]
+[Blue Moonlight]:[#00017C,#0038A7,#0074D6,#FFB400,#FFDA00]
+[国潮多巴胺新中式]:[#E60026,#FFD700,#0071BC,#26A69A]
+[马卡龙甜梦乐园]:[#FFB6C1,#B0E0E6,#FFFACD,#E6E6FA]
+[INSPIRED BY COLORS]:[#ECA39D,#2653AF,#18288D,#FFC13D]
+[绝美·高级感配色]:[[米白]#FCF2D9,[邦迪蓝]#0095B6,[申布伦黄]#F9D36E]
+[美式复古配色]:[[天青石色]#3869F4,[火红]#FF2D51,[青灰]#2A313D]
+    </script>
+
+    <!-- 复制提示框 -->
+    <div id="toast" class="toast">已复制到剪切板</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderThemes();
+            bindDisplayModeToggle();
+            bindBackgroundModeToggle();
+            applyAutomaticTextColors();
+        });
+
+        function bindDisplayModeToggle() {
+            const toggle = document.getElementById('display-mode-toggle');
+
+            document.body.classList.toggle('cut-mode', toggle.checked);
+            toggle.addEventListener('change', function() {
+                document.body.classList.toggle('cut-mode', toggle.checked);
+            });
+        }
+
+        function bindBackgroundModeToggle() {
+            const toggle = document.getElementById('background-mode-toggle');
+
+            document.body.classList.toggle('dark-bg', toggle.checked);
+            toggle.addEventListener('change', function() {
+                document.body.classList.toggle('dark-bg', toggle.checked);
+            });
+        }
+
+        function renderThemes() {
+            const container = document.getElementById('theme-list');
+            const source = document.getElementById('theme-source').textContent;
+            const themes = parseThemeSource(source);
+
+            themes.forEach(function(theme) {
+                container.appendChild(createThemeRow(theme));
+            });
+        }
+
+        function parseThemeSource(source) {
+            return source.split('\n')
+                .map(function(line) {
+                    return line.trim();
+                })
+                .filter(Boolean)
+                .map(function(line) {
+                    const lineMatch = line.match(/^\[(.+?)\]:\[(.*)\]$/);
+                    if (!lineMatch) return null;
+
+                    const themeName = lineMatch[1];
+                    const colorSource = lineMatch[2];
+                    const colors = [];
+                    const colorRegex = /(?:\[(.*?)\])?(#[0-9A-Fa-f]{6})/g;
+                    let colorMatch;
+
+                    while ((colorMatch = colorRegex.exec(colorSource)) !== null) {
+                        colors.push({
+                            name: colorMatch[1] || '',
+                            hex: colorMatch[2].toUpperCase()
+                        });
+                    }
+
+                    return colors.length ? { name: themeName, colors: colors } : null;
+                })
+                .filter(Boolean);
+        }
+
+        function createThemeRow(theme) {
+            const row = document.createElement('div');
+            row.className = 'theme-row';
+
+            const themeName = document.createElement('div');
+            themeName.className = 'theme-name';
+            themeName.textContent = theme.name;
+            themeName.title = '复制全部颜色';
+            themeName.addEventListener('click', function() {
+                copyToClipboard(theme.colors.map(function(color) {
+                    return color.hex;
+                }).join(' '));
+            });
+
+            const content = document.createElement('div');
+            content.className = 'theme-content';
+
+            const strip = document.createElement('div');
+            strip.className = 'theme-strip';
+
+            const gradient = document.createElement('div');
+            gradient.className = 'gradient-inner';
+            gradient.style.background = 'linear-gradient(to right, ' + theme.colors.map(function(color) {
+                return color.hex;
+            }).join(', ') + ')';
+            gradient.style.setProperty('--theme-glow', getThemeGlowColor(theme.colors));
+
+            theme.colors.forEach(function(color) {
+                const code = document.createElement('span');
+                code.className = 'color-code';
+                code.textContent = color.hex;
+                code.style.setProperty('--segment-color', color.hex);
+                if (color.name) code.title = color.name;
+                code.addEventListener('click', function() {
+                    copyToClipboard(color.hex);
+                });
+                gradient.appendChild(code);
+            });
+
+            strip.appendChild(gradient);
+            content.appendChild(strip);
+
+            if (theme.colors.some(function(color) { return color.name; })) {
+                const colorNameRow = document.createElement('div');
+                colorNameRow.className = 'color-name-row';
+
+                theme.colors.forEach(function(color) {
+                    const colorName = document.createElement('span');
+                    colorName.className = 'color-name';
+                    colorName.textContent = color.name;
+                    colorNameRow.appendChild(colorName);
+                });
+
+                content.appendChild(colorNameRow);
+            }
+
+            row.appendChild(themeName);
+            row.appendChild(content);
+
+            return row;
+        }
+
+        function getThemeGlowColor(colors) {
+            const color = colors[Math.floor(colors.length / 2)];
+            return color ? color.hex : 'rgba(255, 255, 255, 0.18)';
+        }
+
+        function applyAutomaticTextColors() {
+            document.querySelectorAll('.color-code').forEach(function(element) {
+                const hex = element.textContent.trim();
+                const isDark = getRelativeLuminance(hex) < 0.48;
+
+                element.style.color = isDark ? '#fff' : '#444';
+                element.style.textShadow = isDark ? '0 1px 2px rgba(0,0,0,0.2)' : 'none';
+            });
+        }
+
+        function getRelativeLuminance(hex) {
+            const normalizedHex = hex.replace('#', '');
+            const red = parseInt(normalizedHex.slice(0, 2), 16);
+            const green = parseInt(normalizedHex.slice(2, 4), 16);
+            const blue = parseInt(normalizedHex.slice(4, 6), 16);
+
+            return (0.2126 * red + 0.7152 * green + 0.0722 * blue) / 255;
+        }
+
+        function copyToClipboard(text) {
+            // 尝试使用 navigator.clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showToast('已复制: ' + text);
+                }, function(err) {
+                    console.error('无法复制', err);
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // 避免滚动到底部
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast('已复制: ' + text);
+                } else {
+                    console.error('Fallback: Copying text command was unsuccessful');
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            // 2秒后消失
+            // 清除之前的定时器以防快速点击
+            if (toast.timeoutId) clearTimeout(toast.timeoutId);
+
+            toast.timeoutId = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>

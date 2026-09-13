@@ -1,0 +1,14 @@
+{
+  "archive": "/Users/slumpyfufu/Desktop/Projects/ShumoGuosai/approval.tar.xz",
+  "method": "tar.xz LZMA2 preset 9 extreme solid stream",
+  "files": 1837,
+  "bytes": 19909612,
+  "MB": 19.91,
+  "MiB": 18.987,
+  "below_20MB": true,
+  "below_20MiB": true,
+  "sha256": "f33bf4da7f720cc76f026cc2240636441c7b3e4cd5d8d027890ffcb19cecba3c",
+  "all_member_SHA256": "pass",
+  "seconds": 28.84,
+  "source_directory_changed": false
+}

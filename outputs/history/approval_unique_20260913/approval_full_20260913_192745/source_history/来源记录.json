@@ -1,0 +1,194 @@
+[
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/analysis.py",
+    "项目来源": "src/q1/analysis.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "b6c180ee61522f8b081fe367bb814e61bed8841b762f8ac14057861cd21f9142"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/export.py",
+    "项目来源": "src/q1/export.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "e8ab93e13ec66a8c49ce37def3b3a5cafc2dba34a0dd2bb3c1c021e8dd207134"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/model.py",
+    "项目来源": "src/q1/model.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "afadae782d45b18891d1bceedabe70206558fc15e5e8d5192bee4df4e53c52b0"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/review_compact_q1.py",
+    "项目来源": "src/q1/review_compact_q1.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "98b722fd3f17df1bb6efc6ba42b09b09eb7a9cc5a3a162aa8177b96e249b8234"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/test_analysis.py",
+    "项目来源": "src/q1/test_analysis.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "fad8fb81f42933b6a0f44205b12abdc65082d295bd3608be9dc6a71c62d8eca4"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/test_q1.py",
+    "项目来源": "src/q1/test_q1.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "2b8b288918fb764e609b8510c351ba53be3bb2f32947a46b94265eb932ce7486"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/test_review.py",
+    "项目来源": "src/q1/test_review.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "8915952248dbb2b6e529f7908ea7a690d45e12d9569c4ab8e2f960e26f2a6915"
+  },
+  {
+    "材料路径": "source_history/q1_recorded/src/q1/traceability.py",
+    "项目来源": "src/q1/traceability.py",
+    "转换": "CRLF还原LF并与原运行SHA精确匹配",
+    "SHA256": "8ce3749e292cfabca4b08d62854d53007fea150e7d3e5c1edf73e5c8906f17dc"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/checkpoint.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/checkpoint.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "2d014e2e2b251c7a3d55176af30b19f7f2498b114245763d2052810e986c64d3"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/comparators.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/comparators.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "fe2d71080339f5a855c79727f8fc6dd9831abeaec61741f51ae06d7a0b25f4dd"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/dispatch.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/dispatch.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "5d26b9c9819793b55a7fc7be61ca7cecfe22cc387c772feb57d31647a8047bb0"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/experiments.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/experiments.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "bce0b8492f36656730fa4c2d3ac3ccaa585b23c4323a1b8300505d66f27d79e4"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/export_dispatch.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/export_dispatch.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "2a445d95b67af04d62ee36f5996735e370f6de08d90f802c932b4246655e3818"
+  },
+  {
+    "材料路径": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/final_traceability.py",
+    "项目来源": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/final_traceability.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "651a4ff13241edefb26e8389c1ad1a17763809098f2e29beb669d089d0ec74eb"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/incumbent.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/incumbent.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "2dcfc9b28471e7819266180760552836da356b83058a3b55dce4b81b76bf7d46"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/policy.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/policy.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "327056e1465677c7e846ebe03dc40488ffc0a7e60a3503ec881fb0afe50e337d"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/scenarios.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/scenarios.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "0a258a87cc4f59ca7dbc8b6f54d9d72b299990a72b7412c870737ec6a8e7323e"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_dispatch.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_dispatch.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "bd0f7e967454c0a1c1290d730cd07a6155e6247a05f2af3e539a96564e3cb069"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_linear_policy.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_linear_policy.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "28f92b0e10dd1614bbaaa88a872dc4c0de1d47d142c6b11cf6dd0d36fb30e10f"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_q2.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_q2.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "ae1b4b7782ac30a810c90d0cf931a1db86d581837c2708827d11475103cfc53a"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/checkpoint.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/checkpoint.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "2d014e2e2b251c7a3d55176af30b19f7f2498b114245763d2052810e986c64d3"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/comparators.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/comparators.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "fe2d71080339f5a855c79727f8fc6dd9831abeaec61741f51ae06d7a0b25f4dd"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/dispatch.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/dispatch.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "5d26b9c9819793b55a7fc7be61ca7cecfe22cc387c772feb57d31647a8047bb0"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/experiments.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/experiments.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "bce0b8492f36656730fa4c2d3ac3ccaa585b23c4323a1b8300505d66f27d79e4"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/export_dispatch.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/export_dispatch.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "2a445d95b67af04d62ee36f5996735e370f6de08d90f802c932b4246655e3818"
+  },
+  {
+    "材料路径": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/final_traceability.py",
+    "项目来源": "outputs/history/q2_baselines/pre_tail_reserve_20260912/source/final_traceability.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "651a4ff13241edefb26e8389c1ad1a17763809098f2e29beb669d089d0ec74eb"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/incumbent.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/incumbent.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "2dcfc9b28471e7819266180760552836da356b83058a3b55dce4b81b76bf7d46"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/policy.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/policy.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "327056e1465677c7e846ebe03dc40488ffc0a7e60a3503ec881fb0afe50e337d"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/scenarios.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/scenarios.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "0a258a87cc4f59ca7dbc8b6f54d9d72b299990a72b7412c870737ec6a8e7323e"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_dispatch.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_dispatch.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "bd0f7e967454c0a1c1290d730cd07a6155e6247a05f2af3e539a96564e3cb069"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_linear_policy.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_linear_policy.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "28f92b0e10dd1614bbaaa88a872dc4c0de1d47d142c6b11cf6dd0d36fb30e10f"
+  },
+  {
+    "材料路径": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_q2.py",
+    "项目来源": "outputs/q2/dispatch_runs/20260912_tail_reserve_final/raw/pre_acceleration_source/test_q2.py",
+    "转换": "无，原始字节复制",
+    "SHA256": "ae1b4b7782ac30a810c90d0cf931a1db86d581837c2708827d11475103cfc53a"
+  }
+]
