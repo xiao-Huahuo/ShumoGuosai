@@ -451,7 +451,8 @@ def matrix_error(vector, bounds, integer, constraints) -> tuple[float,float]:
 def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Config, *, reference=None,
                today: int=144, terminal: float=0., seed: Policy | None=None, known_lower: float | None=None,
                fixed_policy: Policy | None=None, seconds: float | None=None, progress=None,
-               formulation: str | None=None, known_lower_provenance: dict | None=None) -> tuple:
+               formulation: str | None=None, known_lower_provenance: dict | None=None,
+               deadline: float | None=None) -> tuple:
     from .optimization import objective as policy_objective
     if config.feedback!='aggregate':
         raise ValueError('lag反馈不能使用单调充电简化')
@@ -472,11 +473,12 @@ def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Co
         feasibility,integrality=matrix_error(vector,bounds,integer,constraints)
         if feasibility>TOL or integrality>1e-8:raise ValueError(f'热启动向量不可行: {feasibility}/{integrality}')
     highs_core._Highs.resetGlobalScheduler(True);solver=HighsAPI()
+    requested_solver_seconds=seconds or config.seconds
     options={'threads':config.solver_threads,'parallel':'on' if config.solver_threads>1 else 'off',
         # 原 replay 目标可能小于内部松弛目标，停止条件只能由下方 assess 回调判定。
         # MIP logging callback is the periodic durability clock; suppress console/file text separately.
         'output_flag':True,'log_to_console':False,'mip_rel_gap':0.,
-        'time_limit':seconds or config.seconds,'mip_min_logging_interval':1.,
+        'mip_min_logging_interval':1.,
         'mip_feasibility_tolerance':1e-8,'primal_feasibility_tolerance':1e-8}
     if config.solver_focus=='bound':
         options.update(mip_heuristic_effort=0.,mip_heuristic_run_feasibility_jump=False,
@@ -494,6 +496,10 @@ def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Co
     lp.a_matrix_.start_,lp.a_matrix_.index_,lp.a_matrix_.value_=matrix.indptr,matrix.indices,matrix.data
     lp.integrality_=[highs_core.HighsVarType(int(v)) for v in integer]
     if solver.passModel(lp)==highs_core.HighsStatus.kError:raise ValueError('HiGHS模型加载失败')
+    solver_seconds=requested_solver_seconds
+    if deadline is not None:solver_seconds=max(.01,min(solver_seconds,deadline-time.perf_counter()))
+    if solver.setOptionValue('time_limit',solver_seconds)==highs_core.HighsStatus.kError:
+        raise ValueError('HiGHS不接受剩余hard wall')
     if vector is not None:
         hs=highs_core.HighsSolution();hs.col_value=vector;hs.value_valid=True
         if solver.setSolution(hs)==highs_core.HighsStatus.kError:raise ValueError('HiGHS拒绝已验收的初值')
@@ -511,6 +517,7 @@ def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Co
         'terminal':terminal,'solver_threads':config.solver_threads,'formulation_version':formulation,
         'matrix_digest':digest,'objective_offset':0.,'bound_sources':bound_sources,
         'solver_backend_requested':config.solver_backend,'solver_focus':config.solver_focus,
+        'solver_time_limit':solver_seconds,
         'callback_counts':callback_counts,'reliable':False}
     def assess(vector: np.ndarray, lower: float) -> tuple:
         policy=Policy(np.maximum(vector[indices['g']],0),
@@ -528,7 +535,7 @@ def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Co
         valid=(feasibility<=TOL and integrality<=1e-8 and value<=raw_value+TOL and lower<=value+TOL
                and (difference if fixed_policy is not None else projection)<=TOL)
         audit={**base_audit}
-        audit.update(objective=value,optimizer_objective=raw_value,gap=gap,linear_feasibility_error=feasibility,
+        audit.update(objective=value,upper_bound=value,optimizer_objective=raw_value,gap=gap,linear_feasibility_error=feasibility,
             integrality_error=integrality,monotone_projection_error=projection,raw_response_difference=difference,
             mapping_error=difference if fixed_policy is not None else None,
             mapped_cost_not_above_optimizer=bool(value<=raw_value+TOL),
@@ -538,9 +545,11 @@ def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Co
     cached_vector=vector.copy() if vector is not None else None
     current_lower=known_lower if known_lower is not None else -float('inf')
     last_save=0.;last_archive=0;cached_assessed_value=None;callback_error=[]
+    if cached_vector is not None and np.isfinite(current_lower):
+        _,_,initial_audit=assess(cached_vector,current_lower);cached_assessed_value=initial_audit['objective']
     def callback(event):
         nonlocal cached_vector,current_lower,last_save,last_archive,cached_assessed_value
-        kind=int(event.callback_type);output=event.data_out
+        kind=int(event.callback_type);output=event.data_out;improved=False
         callback_counts[str(kind)]=callback_counts.get(str(kind),0)+1
         if np.isfinite(output.mip_dual_bound):current_lower=max(current_lower,float(output.mip_dual_bound))
         if kind in (int(highs_core.cb.kCallbackMipImprovingSolution),int(highs_core.cb.kCallbackMipSolution)):
@@ -548,8 +557,19 @@ def solve_fast(scenes: Scenarios, prices: np.ndarray, initial: float, config: Co
             if len(candidate)==len(objective) and np.isfinite(candidate).all():
                 feasible,integral=matrix_error(candidate,bounds,integer,constraints)
                 if feasible<=TOL and integral<=1e-8 and (cached_vector is None or objective@candidate<objective@cached_vector):
-                    cached_vector=candidate.copy()
+                    cached_vector=candidate.copy();cached_assessed_value=None;improved=True
         elapsed=time.perf_counter()-started;archive=int(elapsed//120)
+        if improved and np.isfinite(current_lower):
+            try:
+                policy,responses,audit=assess(cached_vector,current_lower);cached_assessed_value=audit['objective']
+                if audit['reliable']:
+                    audit.update(seconds=elapsed,lower_bound=current_lower,solver_seconds=float(output.running_time),
+                        node_count=int(output.mip_node_count),simplex_iterations=int(output.simplex_iteration_count),
+                        barrier_iterations=int(output.ipm_iteration_count))
+                    if progress is not None:progress(policy,responses,audit)
+                    last_save=elapsed;last_archive=archive;event.interrupt();return
+            except Exception as error:
+                callback_error.append(error);event.interrupt();return
         certificate_due=(cached_assessed_value is not None and
             cached_assessed_value-current_lower<=max(TOL,config.gap*abs(cached_assessed_value)))
         durable_due=elapsed-last_save>=30 or archive>last_archive

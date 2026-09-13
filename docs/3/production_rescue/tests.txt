@@ -1,0 +1,19 @@
+test_actual_hard_wall_returns_valid_policy (src.q3.test_production_rescue.ProductionRescueTests.test_actual_hard_wall_returns_valid_policy) ... ok
+test_invalid_or_missing_incumbent_is_rejected (src.q3.test_production_rescue.ProductionRescueTests.test_invalid_or_missing_incumbent_is_rejected) ... ok
+test_only_real_timeout_can_accept_uncertified_policy (src.q3.test_production_rescue.ProductionRescueTests.test_only_real_timeout_can_accept_uncertified_policy) ... ok
+test_rescue_config_freezes_model_invariants (src.q3.test_production_rescue.ProductionRescueTests.test_rescue_config_freezes_model_invariants) ... ok
+test_restored_hard_limit_node_skips_optimizer (src.q3.test_production_rescue.ProductionRescueTests.test_restored_hard_limit_node_skips_optimizer) ... ok
+test_run_day_maps_35_and_8_second_limits (src.q3.test_production_rescue.ProductionRescueTests.test_run_day_maps_35_and_8_second_limits) ... ok
+test_valid_incumbent_accepted_without_faking_certificate (src.q3.test_production_rescue.ProductionRescueTests.test_valid_incumbent_accepted_without_faking_certificate) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.020s
+
+OK
+test_energy_balance_saturation (src.q3.test_q3.MathTests.test_energy_balance_saturation) ... ok
+test_real_day_rollout_and_template (src.q3.test_q3.RealDataTests.test_real_day_rollout_and_template) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.042s
+
+OK

@@ -1,6 +1,6 @@
 # README
 
-本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问新最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断；第三问主计算已从独立冻结runtime启动（3%间隙、切片与断点保存），[主运行说明](docs/3/full_run/execution_protocol.md)；[实时进度](http://127.0.0.1:8764/)；[主求解多核修复与验收](docs/3/compute_rescue/parallel_solver_report.md)；[最终检验方案与独立队列](docs/3/validation/report.md)；`python -m src.q3.run`保留小样本并行计时入口，[第三问运行与验收说明](docs/3/implementation_report.md)。常规结果表格使用CSV，result2/result3模板仅在完整真实回放验收后导出。
+本项目保存数学建模题目资料、模型文档、输入输出、求解代码和论文模板。第一问入口为 `src/q1/run.py`；第二问新最终方案入口为 `src/q2/dispatch.py`，旧 `src/q2/run.py` 保留数据诊断。第三问[七小时比赛生产救援](docs/3/production_rescue/report.md)已完成：全年主轨迹实际用3小时18分39秒，正式结果334日、48,096行，[`result3.xlsx`](outputs/q3/raw/full_priority_rescue_7h_20260912/main/result3.xlsx)四表回读及全年物理验收通过。其1,336个正式节点有847个取得3%证书，489个只是经原物理与完整矩阵验证的限时可行解，不得写成3%解。
 
 ### 项目目录树（持续维护）
 
@@ -169,6 +169,18 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   │   ├── tests_fast.txt  # 5项数学/编码核验
 │   │   │   ├── tests_integration.txt  # 快模型/恢复/检验19项测试
 │   │   │   └── verification.json  # 当前源码、冻结摘要与实际界面验收
+│   │   ├── production_rescue/  # 已完成的全年主轨迹救援、35/8秒硬墙与限时可行门禁
+│   │   │   ├── task_plan.md  # 用户授权、时间预算、迁移启动与错误修正
+│   │   │   ├── notes.md  # 旧现场、接受口径与后续补算边界
+│   │   │   ├── report.md  # 冻结参数、全年完成、UB/LB/gap真实精度与P0—P3
+│   │   │   ├── acceptance.json  # 365日收据、物理回放、四表回读与最终精度验收
+│   │   │   └── tests.txt  # 7项救援门禁及原物理/Excel回读检查
+│   │   ├── solver_acceleration/  # 用户随后叫停的Gurobi/v2/2-bit研究现场
+│   │   │   ├── Q3_第三问_3pct_不改模型加速执行指令_Codex.md  # 用户原指令原字节归档
+│   │   │   ├── source_manifest.json  # 原文件路径、SHA与解释边界
+│   │   │   ├── task_plan.md  # 已完成、失败与被用户终止的阶段
+│   │   │   ├── notes.md  # Gurobi许可证、v2和2-bit实测发现
+│   │   │   └── equivalence_proof.md  # v2精确消元的历史推导；未用于当前生产
 │   │   ├── parallel/  # 本轮4进程与SCIP线程改造、3.71倍实测及32测试
 │   │   │   ├── task_plan.md  # 并行实现、测量与验收计划
 │   │   │   ├── notes.md  # 资源/SCIP能力和默认配置依据
@@ -428,6 +440,16 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │       ├── parallel_20260912/  # 线程/进程计时CSV、策略JSON、吞吐与FD比较和HTML报告
 │   │       ├── compute_rescue_20260912/  # 同卡点原/快策略、原始证书及计时
 │   │       ├── solver_fix_20260912/  # 本次固定输入、逐方法短测、策略与迁移冒烟
+│   │       ├── full_priority_rescue_7h_20260912/  # 当前35/8秒比赛生产救援主运行
+│   │       │   ├── runtime/  # 冻结源码、HiGHS1.15.1依赖与main-only入口
+│   │       │   ├── runtime_sources.json  # 26份源码、依赖及配置签名
+│   │       │   ├── migration.json  # 25日、74节点、Jan26政策与FD迁移验收
+│   │       │   ├── resume.sh  # 当前正确的七小时救援恢复命令
+│   │       │   ├── launch.json  # 启动PID、35/8秒和25日续算记录
+│   │       │   ├── progress.json  # 当前日期、接受状态、gap及正式日数
+│   │       │   ├── supervisor.json  # 活动worker及重启历史
+│   │       │   └── main/  # 日收据、节点快照、执行块、FD与最终result3
+│   │       ├── full_priority_rescue_7h_20260912_prelaunch_superseded/  # 未启动的0.7秒容差旧冻结现场
 │   │       ├── full_priority_parallel_20260912/  # 用户已停止的主运行；25日预热及检查点完整保留
 │   │       │   ├── runtime/  # 24份冻结源码及完整requirements.txt
 │   │       │   ├── runtime_sources.json  # 源码与依赖摘要
@@ -548,7 +570,9 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   ├── optimization.py  # 原精确编码/快编码、LP下界与原反馈证书
 │   │   ├── fast_solver.py  # 单调等价矩阵、新版HiGHS原生多线程与快照
 │   │   ├── solver_probe.py  # 固定困难输入的独立求解器对比与未采用试验
+│   │   ├── gurobi_backend.py  # 同矩阵后端；当前尺寸受限许可证No-Go，不进入生产
 │   │   ├── migrate_solver.py  # 逐节点验旧签名、保留日期与FD的求解器迁移
+│   │   ├── migrate_rescue.py  # 25日前缀、Jan26政策与FD的七小时救援迁移
 │   │   ├── parallel.py  # 有界spawn池、CPU额度、跨进程异常和40条独立SOC链调度
 │   │   ├── parallel_benchmark.py  # 同输入串行/4进程/1—4线程的实测比较
 │   │   ├── incumbent.py  # 原反馈的分段梯度可行初值改进，不替代全局求解
@@ -563,6 +587,9 @@ ShumoGuosai/  # 数学建模项目根目录；两问计算与全项目科研绘�
 │   │   ├── test_parallel.py  # 并行数值、状态隔离、FIV/FD、异常与并发额度核验
 │   │   ├── test_full_run.py  # SIGKILL、节点恢复、原子保存和监督重启核验
 │   │   ├── test_fast_solver.py  # 正残值/调整费、原最优值、固定策略和有效约束
+│   │   ├── test_gurobi_backend.py  # 可选Gurobi同矩阵小模型回归；本轮未再运行
+│   │   ├── test_solver_acceleration.py  # v2/2-bit历史研究测试；本轮未再运行
+│   │   ├── test_production_rescue.py  # 35/8秒、可行门禁、恢复与冻结配置7测试
 │   │   ├── test_validation.py  # 检验模块/优先级、真实单日经济表和只读审计
 │   │   └── traceability.py  # 模型逐行映射和源码/模型摘要
 │   └── plots/  # 全部项目自写绘图代码的唯一维护目录；既有入口保持兼容

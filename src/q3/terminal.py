@@ -80,7 +80,7 @@ def marginal_job(request: tuple) -> dict:
         raise ValueError('辅助继续价值问题需要完整历史24h')
     scenarios = Scenarios(actual[None, :, 0], actual[None, :, 1], np.ones(1), {})
     # 辅助问题两侧必须同口径、同预算、零终端残值；以最优目标差而非真实回放成本差标定。
-    config = replace(config, gap=0., feedback='aggregate', solver_threads=1)
+    config = replace(config,gap=0.,feedback='aggregate',solver_threads=1,production_rescue=False)
     first = solve(scenarios, price, config.fd_base, config)
     second = solve(scenarios, price, config.fd_base+delta, config)
     value = (first.audit['objective']-second.audit['objective'])/delta
